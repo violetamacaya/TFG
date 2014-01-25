@@ -95,7 +95,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
                 <version>2.7.2</version>
                 <configuration>
                     <systemPropertyVariables>
-                        <tapestry.execution-mode>Qa</tapestry.execution-mode>
+                        <tapestry.execution-mode>DevelopmentMode</tapestry.execution-mode>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -115,7 +115,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
                     <systemProperties>
                         <systemProperty>
                             <name>tapestry.execution-mode</name>
-                            <value>development</value>
+                            <value>DevelopmentMode</value>
                         </systemProperty>
                     </systemProperties>
                 </configuration>
