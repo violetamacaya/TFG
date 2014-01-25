@@ -1,7 +1,14 @@
-<html t:type="layout" title="ballots Index"
-      t:sidebarTitle="Framework Version"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:p="tapestry:parameter">
+<html><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	
+		<h1>HOLA INDEX</h1>
+	
+	</t:border>
+	
+		
+			
+	
+
 
 </html>
