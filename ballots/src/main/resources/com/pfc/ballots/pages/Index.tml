@@ -2,7 +2,9 @@
    
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 	
-		<h1>HOLA INDEX</h1>
+		
+		Bienvenidos a mi pagina web
+	
 	
 	</t:border>
 	

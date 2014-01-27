@@ -1,14 +1,44 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <head>
+	<link rel="stylesheet" href="${asset:context:/styles/styles.css}" type="text/css"/>
 </head>
 <body>
+	<pagehead>
+			<img id="banner" src="${asset:context:/layout/images/bannerPrueba.png}"/>
+			<!-- <p align="right"> -->
+		
+		<lenguages>
+			<img src="${asset:context:/layout/flag.gif}" />
+			<t:actionlink t:id="switchlocale">${message:localeLabel}</t:actionlink>
+		</lenguages>
+			
+		<ul id="mainMenu">
+			<li><plain>${message:home}</plain></li>
+			<li><plain>${message:new-user}</plain></li>
+			<li><plain>${message:new-ballot}</plain></li>
+			<li><plain>${message:contact}</plain></li>
+			<li><plain>${message:about}</plain></li>
+			<li><plain>${message:existing-ballots}s</plain></li>
+			<li><plain>${message:methods}</plain></li>
+			<li><plain>${message:login}</plain></li>
+		</ul>
+	</pagehead>
+	
+	<br/><br/><br/>
+	<ul class="leftcolumn" id="myMenu">
+		<li><plain>${message:my-profile}</plain></li>
+		<li><plain>${message:ballots-by-me}</plain></li>
+		<li><plain>${message:users}</plain></li>
+		<li><plain>${message:new-user}</plain></li>
+		<li><plain>${message:ballots}</plain></li>
+		<li><plain>${message:log-out}</plain></li>
+	</ul>
+	
 
-	<h1>HOLA BORDER</h1>
-
-
+	<mainposition>
 		<t:body/>	
-
+	</mainposition>
 
 </body>
 </html>
