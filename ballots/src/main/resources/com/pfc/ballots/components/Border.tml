@@ -14,8 +14,8 @@
 		</lenguages>
 			
 		<ul id="mainMenu">
-			<li><plain>${message:home}</plain></li>
-			<li><plain>${message:new-user}</plain></li>
+			<li><t:pagelink page="index"><plain>${message:home}</plain></t:pagelink></li>
+			<li><t:pagelink page="profile/CreateProfile"><plain>${message:new-user}</plain></t:pagelink></li>
 			<li><plain>${message:new-ballot}</plain></li>
 			<li><plain>${message:contact}</plain></li>
 			<li><plain>${message:about}</plain></li>
@@ -29,7 +29,7 @@
 	<ul class="leftcolumn" id="myMenu">
 		<li><plain>${message:my-profile}</plain></li>
 		<li><plain>${message:ballots-by-me}</plain></li>
-		<li><plain>${message:users}</plain></li>
+		<li><t:pagelink page="profile/CreateProfile"><plain>${message:new-user}</plain></t:pagelink></li>
 		<li><plain>${message:new-user}</plain></li>
 		<li><plain>${message:ballots}</plain></li>
 		<li><plain>${message:log-out}</plain></li>

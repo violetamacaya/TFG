@@ -1,0 +1,31 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	
+		
+		<infouser>
+			<t:beaneditform t:id="form" submitlabel="Anadir" object="profile" add="repeat" reorder="email,password,repeat">
+			<p:password>
+				<t:label for="password"/>
+				<t:passwordfield t:id="password" value="password"/>
+				<t:if test="isPassOk">
+					contraseñas distintas	
+				</t:if>
+				
+			
+			</p:password>
+			<p:repeat>
+				<t:label for="repeat">Repeat Password</t:label>
+				<t:passwordfield t:id="repeat" value="repeat"/>
+			</p:repeat>
+			</t:beaneditform>
+		</infouser>
+	
+	</t:border>
+	
+		
+			
+	
+
+
+</html>
