@@ -23,6 +23,13 @@
             <version>${tapestry-release-version}</version>
         </dependency>
 
+	         <!-- This adds DB4O Database -->
+        <dependency>
+      		<groupId>com.db4o</groupId>
+      		<artifactId>db4o-full-java5</artifactId>
+      		<version>8.0-SNAPSHOT</version>
+    	</dependency>
+	
         <!-- Uncomment this to add support for file uploads:
 
          <dependency>
@@ -133,6 +140,13 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
             <id>apache-staging</id>
             <url>https://repository.apache.org/content/groups/staging/</url>
         </repository>
+
+   		<!-- This repository is for DB4O database -->
+	    <repository>
+      		<id>source.db4o</id>
+      		<url>http://source.db4o.com/maven</url>
+    	</repository>
+        
     </repositories>
 
     <properties>

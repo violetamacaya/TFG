@@ -21,7 +21,14 @@ import com.pfc.ballots.data.Sex;
 public class Profile {
 
 	
-	
+	public Profile()
+	{
+		
+	}
+	public Profile(String email)
+	{
+		this.email=email;
+	}
 	
 	/*********************************************** Profile fields **************************************************************/
 

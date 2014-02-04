@@ -9,6 +9,8 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.util.FactoryDao;
+import com.pfc.ballots.util.UserDao;
 
 public class CreateProfile {
 
@@ -16,7 +18,7 @@ public class CreateProfile {
     private ComponentResources componentResources;
 
 	@Property
-	@Persist(PersistenceConstants.FLASH)
+	@Persist
 	private Profile profile;
 	
 	@Validate("required")
@@ -28,21 +30,50 @@ public class CreateProfile {
 	
 	@Property
 	@Persist(PersistenceConstants.FLASH)
-	private boolean isPassOk;
-	
+	private boolean isnotPassOk;
 
-	void onSuccess(){
-		
-		if(password.equals(repeat))
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private boolean isnotAvalible;
+	
+	@Persist
+	private boolean isnotFirstTime;
+	//****************************************Initialize DAO****************************//
+	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	UserDao dao =DB4O.getUsuarioDao();
+	
+	
+	void setupRender() 
+	{
+		if(!isnotFirstTime)
 		{
-			isPassOk=false;
+			profile=new Profile();
+			isnotFirstTime=true;
+		}
+		else if(!isnotPassOk && !isnotAvalible)
+		{
 			componentResources.discardPersistentFieldChanges();
-			
-		}
-		else
-		{
-			isPassOk=true;
+			profile=new Profile();
 		}
 		
+		
+	}
+	void onSuccess()
+	{
+		if(!password.equals(repeat))
+		{
+			isnotPassOk=true;
+		}
+		if(dao.isProfileRegistred(profile.getEmail()))
+		{
+			isnotAvalible=true;
+		}
+		
+		if(!isnotPassOk && !isnotAvalible)
+		{
+			dao.store(profile);
+			componentResources.discardPersistentFieldChanges();
+		}
+			
 	}
 }
