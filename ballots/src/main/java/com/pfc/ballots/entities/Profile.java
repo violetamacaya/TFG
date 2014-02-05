@@ -3,9 +3,10 @@ package com.pfc.ballots.entities;
 
 
 
+import javax.validation.constraints.Pattern;
+
 import org.apache.tapestry5.beaneditor.NonVisual;
 import org.apache.tapestry5.beaneditor.Validate;
-
 
 import com.pfc.ballots.data.Sex;
 
@@ -49,7 +50,7 @@ public class Profile {
 	}
 	
 	//this will also be the username
-	@Validate("required")
+	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	private String email;
 	public String getEmail(){
 			
