@@ -1,8 +1,8 @@
-package com.pfc.ballots.util;
+package com.pfc.ballots.dao;
 
 
-import com.pfc.ballots.util.UserDao;
-import com.pfc.ballots.util.DB4OFactoryDao;
+import com.pfc.ballots.dao.DB4OFactoryDao;
+import com.pfc.ballots.dao.UserDao;
 
 public abstract class FactoryDao {
 

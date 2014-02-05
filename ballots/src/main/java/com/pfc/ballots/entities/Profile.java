@@ -6,6 +6,7 @@ package com.pfc.ballots.entities;
 import org.apache.tapestry5.beaneditor.NonVisual;
 import org.apache.tapestry5.beaneditor.Validate;
 
+
 import com.pfc.ballots.data.Sex;
 
 

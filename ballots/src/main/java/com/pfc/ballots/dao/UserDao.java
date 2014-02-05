@@ -1,4 +1,4 @@
-package com.pfc.ballots.util;
+package com.pfc.ballots.dao;
 
 import java.util.List;
 

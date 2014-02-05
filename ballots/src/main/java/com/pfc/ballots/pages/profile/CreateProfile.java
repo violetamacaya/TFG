@@ -8,9 +8,10 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 
+import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.entities.Profile;
-import com.pfc.ballots.util.FactoryDao;
-import com.pfc.ballots.util.UserDao;
+import com.pfc.ballots.util.Encryption;
 
 public class CreateProfile {
 
@@ -43,6 +44,13 @@ public class CreateProfile {
 	UserDao dao =DB4O.getUsuarioDao();
 	
 	
+	/**
+	 * 
+	 *  Pre-render page method for initialice and erase(in that case) 
+	 *  the variables with persistence. 
+	 * 
+	 */
+	
 	void setupRender() 
 	{
 		if(!isnotFirstTime)
@@ -71,6 +79,9 @@ public class CreateProfile {
 		
 		if(!isnotPassOk && !isnotAvalible)
 		{
+			//Encryption password and store in database
+			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);
+			profile.setPassword(encrypt);
 			dao.store(profile);
 			componentResources.discardPersistentFieldChanges();
 		}
