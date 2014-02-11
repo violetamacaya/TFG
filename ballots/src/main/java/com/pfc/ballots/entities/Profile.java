@@ -40,6 +40,34 @@ public class Profile {
 	//just comment the line "NonVisual". But don't forget to change it back!
 	@NonVisual
 	private boolean isAdmin;
+	@NonVisual
+	private String Id;
+	//this will also be the username
+	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+	private String email;
+	//Encrypted password of the user
+	@Validate("required")
+	private String password;
+
+	//Other stuff of the user
+	private Sex sex;
+	@Validate("required")
+	private String firstName;
+	@Validate("required")
+	private String lastName;
+	private String university;
+	private String city;
+	private String country;
+	
+	
+	public String getId()
+	{
+		return Id;
+	}
+	public void setId(String Id)
+	{
+		this.Id=Id;
+	}
 	public boolean getIsAdmin(){
 		
 		return isAdmin;
@@ -49,9 +77,6 @@ public class Profile {
 		this.isAdmin = isAdmin;
 	}
 	
-	//this will also be the username
-	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
-	private String email;
 	public String getEmail(){
 			
 		return email;
@@ -61,8 +86,6 @@ public class Profile {
 		this.email = email;
 	}
 	
-	@Validate("required")
-	private String password;
 	public String getPassword(){
 		
 		return password;
@@ -72,7 +95,7 @@ public class Profile {
 		this.password = password;
 	}
 		
-	private Sex sex;
+
 	public Sex getSex(){
 		
 		return sex;
@@ -82,8 +105,7 @@ public class Profile {
 		this.sex = sex;
 	}
 
-	@Validate("required")
-	private String firstName;
+	
 	public String getFirstName(){
 		
 		return firstName;
@@ -93,8 +115,7 @@ public class Profile {
 		this.firstName = firstName;
 	}
 
-	@Validate("required")
-	private String lastName;
+
 	public String getLastName(){
 		
 		return lastName;
@@ -105,7 +126,7 @@ public class Profile {
 	}
 
 	
-	private String university;
+	
 	public String getUniversity(){
 		
 		return university;
@@ -115,7 +136,7 @@ public class Profile {
 		this.university = university;
 	}
 
-	private String city;
+	
 	public String getCity(){
 		
 		return city;
@@ -125,7 +146,7 @@ public class Profile {
 		this.city = city;
 	}
 	
-	private String country;
+
 	public String getCountry(){
 		
 		return country;

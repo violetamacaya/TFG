@@ -12,6 +12,7 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.util.Encryption;
+import com.pfc.ballots.util.UUID;
 
 public class CreateProfile {
 
@@ -82,6 +83,7 @@ public class CreateProfile {
 			//Encryption password and store in database
 			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);
 			profile.setPassword(encrypt);
+			profile.setId(UUID.generate());
 			dao.store(profile);
 			componentResources.discardPersistentFieldChanges();
 		}
