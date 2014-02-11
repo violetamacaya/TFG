@@ -14,8 +14,8 @@
 		</lenguages>
 			
 		<ul id="mainMenu">
-			<li><t:pagelink page="index"><plain>${message:home}</plain></t:pagelink></li>
-			<li><t:pagelink page="profile/CreateProfile"><plain>${message:new-user}</plain></t:pagelink></li>
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:index" ><plain>${message:home}</plain></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:new-user1" ><plain>${message:new-user}</plain></t:eventlink></li>
 			<li><plain>${message:new-ballot}</plain></li>
 			<li><plain>${message:contact}</plain></li>
 			<li><plain>${message:about}</plain></li>
@@ -30,15 +30,15 @@
 		<li><plain>${message:my-profile}</plain></li>
 		<li><plain>${message:ballots-by-me}</plain></li>
 		
-		<t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user2" ><plain>User Admin</plain></t:eventlink>
+		<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:userz" ><plain>User Admin</plain></t:eventlink></li>
 		
 		<t:zone t:id="userZone" id="userZone">
-		
-			<li><plain2>Lista usuarios</plain2></li>
-			<li><t:pagelink page="profile/CreateProfile"><plain>${message:new-user}</plain></t:pagelink></li>
-		
+		<t:if test="visibilityUser">
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-list" ><plain2>Lista usuarios</plain2></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:new-user2" ><plain2>${message:new-user}</plain2></t:eventlink></li>
+		</t:if>
 		</t:zone>
-		<t:eventlink t:event="menu" t:context="literal:ballot" t:zone="ballotZone"><plain>User Admin</plain></t:eventlink>
+		<li><t:eventlink t:event="menu" t:context="literal:ballotz" t:zone="ballotZone"><plain>Ballot Admin</plain></t:eventlink></li>
 		<t:zone t:id="ballotZone" id="ballotZone">
 		<t:if test="visibilityBallot">
 			<li><plain2>${message:ballots}</plain2></li>

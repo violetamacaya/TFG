@@ -10,6 +10,11 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.PersistentLocale;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.admin.UserList;
+import com.pfc.ballots.pages.profile.CreateProfile;
 
 public class Border {
 
@@ -28,6 +33,19 @@ public class Border {
 	@Property
 	private Boolean visibilityBallot;
 	
+	@Inject
+	private AjaxResponseRenderer ajaxResponseRenderer;
+	 
+	/****************************************  Constructor **********************************************************************/
+	public Border()
+	{
+		if(visibilityUser==null || visibilityBallot==null)
+		{
+			visibilityUser=new Boolean("false");
+			visibilityBallot=new Boolean("false");
+			
+		}
+	}
 	/************************************* locale (languages stuff) **************************************************************/
 	
 	@Inject
@@ -74,8 +92,42 @@ public class Border {
 	
 	/***************************************** Ajax menu Event Handler **********************************************************/
 	
-	void onMenu(String section)
+	Object onMenu(String section)//Section is the context submitted by the eventlink to identify
 	{
+		Object page=null;
+		System.out.println(section);
 		
+		if(section.equals("userz"))		//This handle the lateral menu
+		{
+			visibilityBallot=false;
+			if(visibilityUser)
+				{visibilityUser=false;}
+			else
+				{visibilityUser=true;}
+		}
+		else if(section.equals("ballotz"))
+		{
+			visibilityUser=false;
+			if(visibilityBallot)
+				{visibilityBallot=false;}
+			else
+				{visibilityBallot=true;}
+		}
+		else if(section.equals("new-user2"))
+			{page=CreateProfile.class;}
+		else if(section.equals("user-list"))
+			{page=UserList.class;}
+		else							//This handle the upper menu
+		{
+			visibilityUser=false;
+			visibilityBallot=false;
+			if(section.equals("index"))
+				{page=Index.class;}
+			if(section.equals("new-user1"))
+				{page=CreateProfile.class;}
+		}
+		ajaxResponseRenderer.addRender("userZone", userZone).addRender("ballotZone", ballotZone);
+		
+		return page;
 	}
 }
