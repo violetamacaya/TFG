@@ -212,6 +212,7 @@ body .leftcolumn
 
 #mymenu li a plain
 {
+text-decoration: none;
 	font-family: Arial;
 	font-size:11px;
 	text-decoration: none;
@@ -227,6 +228,7 @@ body .leftcolumn
 
 #mymenu li a:hover plain
 {
+text-decoration: none;
 	background-color: #B91A1F;
 	padding-bottom:12px;
 	margin-top: none;
@@ -243,6 +245,7 @@ body .leftcolumn
 
 #mymenu plain
 {
+text-decoration: none;
 	font-family: Arial;
 	font-size:11px;
 	text-decoration: none;
@@ -253,6 +256,57 @@ body .leftcolumn
 	width: 100%;
 	border: solid #F5F5F5 1px;
 }
+
+/**********************************************/
+#mymenu ul li a plain2
+{
+	border: solid, navy;
+	display: block;
+	text-decoration: none;
+}
+#mymenu li a plain2
+{
+	text-decoration: none;
+	font-family: Arial;
+	font-size:11px;
+	text-decoration: none;
+	float:left;
+	padding: 10px;
+	background-color: #1675D4;
+	color: #fff;
+	margin-top: none;
+	margin-bottom: none;
+	width: 100%;
+	border: solid #D9DADB 1px;
+}
+#mymenu li a:hover plain2
+{
+	text-decoration: none;
+	background-color: #0B4885;
+	padding-bottom:12px;
+	margin-top: none;
+	margin-bottom: none;
+	width: 100%;
+	float: left;
+	border: solid #B91A1F 1px;
+}
+
+#mymenu plain2
+{
+	
+	font-family: Arial;
+	font-size:11px;
+	text-decoration: none;
+	float:left;
+	padding: 10px;
+	background-color: #1675D4;
+	color: #fff;
+	width: 100%;
+	border: solid #F5F5F5 1px;
+}
+
+
+/***************************************/
 
 mainposition
 {

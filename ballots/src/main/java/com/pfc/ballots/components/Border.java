@@ -4,14 +4,29 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionAttribute;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.PersistentLocale;
 
 public class Border {
 
-
+	/***************************************** Ajax menu stuff *******************************************************************/
 	
+	@InjectComponent
+	private Zone userZone;
+	@InjectComponent
+	private Zone ballotZone;
 	
+	@SessionAttribute
+	@Property
+	private Boolean visibilityUser;
+	
+	@SessionAttribute
+	@Property
+	private Boolean visibilityBallot;
 	
 	/************************************* locale (languages stuff) **************************************************************/
 	
@@ -55,5 +70,12 @@ public class Border {
 		{
 			persistentLocale.set(Locale.ENGLISH);
 		}
+	}
+	
+	/***************************************** Ajax menu Event Handler **********************************************************/
+	
+	void onMenu(String section)
+	{
+		
 	}
 }

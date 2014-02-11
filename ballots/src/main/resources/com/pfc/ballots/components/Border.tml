@@ -29,9 +29,22 @@
 	<ul class="leftcolumn" id="myMenu">
 		<li><plain>${message:my-profile}</plain></li>
 		<li><plain>${message:ballots-by-me}</plain></li>
-		<li><t:pagelink page="profile/CreateProfile"><plain>${message:new-user}</plain></t:pagelink></li>
-		<li><plain>${message:new-user}</plain></li>
-		<li><plain>${message:ballots}</plain></li>
+		
+		<t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user2" ><plain>User Admin</plain></t:eventlink>
+		
+		<t:zone t:id="userZone" id="userZone">
+		
+			<li><plain2>Lista usuarios</plain2></li>
+			<li><t:pagelink page="profile/CreateProfile"><plain>${message:new-user}</plain></t:pagelink></li>
+		
+		</t:zone>
+		<t:eventlink t:event="menu" t:context="literal:ballot" t:zone="ballotZone"><plain>User Admin</plain></t:eventlink>
+		<t:zone t:id="ballotZone" id="ballotZone">
+		<t:if test="visibilityBallot">
+			<li><plain2>${message:ballots}</plain2></li>
+			<li><plain2>Mensaje censo</plain2></li>
+		</t:if>
+		</t:zone>
 		<li><plain>${message:log-out}</plain></li>
 	</ul>
 	

@@ -254,6 +254,57 @@ body .leftcolumn
 	border: solid #F5F5F5 1px;
 }
 
+/**********************************************/
+#mymenu ul li a plain2
+{
+	border: solid, navy;
+	display: block;
+	text-decoration: none;
+}
+#mymenu li a plain2
+{
+	text-decoration: none;
+	font-family: Arial;
+	font-size:11px;
+	text-decoration: none;
+	float:left;
+	padding: 10px;
+	background-color: #1675D4;
+	color: #fff;
+	margin-top: none;
+	margin-bottom: none;
+	width: 100%;
+	border: solid #D9DADB 1px;
+}
+#mymenu li a:hover plain2
+{
+	text-decoration: none;
+	background-color: #0B4885;
+	padding-bottom:12px;
+	margin-top: none;
+	margin-bottom: none;
+	width: 100%;
+	float: left;
+	border: solid #B91A1F 1px;
+}
+
+#mymenu plain2
+{
+	text-decoration: underline;
+	font-family: Arial;
+	font-size:11px;
+	text-decoration: none;
+	float:left;
+	padding: 10px;
+	background-color: #1675D4;
+	color: #fff;
+	width: 100%;
+	border: solid #F5F5F5 1px;
+}
+
+
+/***************************************/
+
 mainposition
 {
 	display: block;
@@ -261,7 +312,7 @@ mainposition
 	float: right;
 	margin-left: 10px;
 	margin-right: 10px;
-	margin-top: 40px;
+	margin-top: 50px;
 	padding-top: 10px;
 	/*padding-bottom: 3px;*/
 	padding-left: 19px;
