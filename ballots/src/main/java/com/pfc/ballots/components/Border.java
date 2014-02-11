@@ -94,9 +94,7 @@ public class Border {
 	
 	Object onMenu(String section)//Section is the context submitted by the eventlink to identify
 	{
-		Object page=null;
-		System.out.println(section);
-		
+		Object page=null;		
 		if(section.equals("userz"))		//This handle the lateral menu
 		{
 			visibilityBallot=false;
