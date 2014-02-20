@@ -13,8 +13,11 @@ import org.apache.tapestry5.services.PersistentLocale;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.MethodsInfo;
+import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.pages.profile.CreateProfile;
+import com.pfc.ballots.pages.users.LogIn;
 
 public class Border {
 
@@ -115,6 +118,8 @@ public class Border {
 			{page=CreateProfile.class;}
 		else if(section.equals("user-list"))
 			{page=UserList.class;}
+		else if(section.equals("log-list"))
+			{page=LogList.class;}
 		else							//This handle the upper menu
 		{
 			visibilityUser=false;
@@ -123,6 +128,10 @@ public class Border {
 				{page=Index.class;}
 			if(section.equals("new-user1"))
 				{page=CreateProfile.class;}
+			if(section.equals("LogIn"))
+				{page=LogIn.class;}
+			if(section.equals("methods"))
+				{page=MethodsInfo.class;}
 		}
 		ajaxResponseRenderer.addRender("userZone", userZone).addRender("ballotZone", ballotZone);
 		

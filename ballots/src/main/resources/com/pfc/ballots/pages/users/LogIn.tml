@@ -1,0 +1,37 @@
+<html><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		<head></head>
+		<body>
+		
+			<h1>LogIn Page</h1>
+			<infouser>
+			<t:zone t:id="logForm" id="logForm">
+			<t:form t:zone="^">
+			
+				<span class="error">
+					<t:if test="authenticationFailure">
+							Nombre de usuario o contraseña incorrectos
+					</t:if>
+				</span>
+			
+				<label>Usuario</label><div><input type="text" t:type="textfield" t:value="email"/></div>
+				<label>Pass</label><div><input type="password" t:type="textfield" t:value="password"/></div><br/><br/>
+				
+				<input type="submit" value="acceder"/>
+			</t:form>
+			</t:zone>
+			</infouser>
+		
+		</body>
+		
+		
+	
+	</t:border>
+	
+		
+			
+	
+
+
+</html>

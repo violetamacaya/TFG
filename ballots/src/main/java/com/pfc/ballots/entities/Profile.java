@@ -3,7 +3,8 @@ package com.pfc.ballots.entities;
 
 
 
-import javax.validation.constraints.Pattern;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.tapestry5.beaneditor.NonVisual;
 import org.apache.tapestry5.beaneditor.Validate;
@@ -30,6 +31,20 @@ public class Profile {
 	public Profile(String email)
 	{
 		this.email=email;
+	}
+	public Profile(Profile old)
+	{
+		this.isAdmin=old.getIsAdmin();
+		this.Id=old.getId();
+		this.email=old.email;
+		this.password=old.getPassword();
+		this.sex=old.getSex();
+		this.firstName=old.getFirstName();
+		this.lastName=old.getLastName();
+		this.university=old.getUniversity();
+		this.city=old.getCity();
+		this.country=old.getCountry();
+		this.RegDate=old.getRegDate();
 	}
 	
 	/*********************************************** Profile fields **************************************************************/
@@ -59,7 +74,8 @@ public class Profile {
 	private String city;
 	private String country;
 	
-	
+	private String RegDate;
+	private Date LastLog;
 	public String getId()
 	{
 		return Id;
@@ -83,7 +99,7 @@ public class Profile {
 	}
 	public void setEmail(String email){
 			
-		this.email = email;
+		this.email = email.toLowerCase();
 	}
 	
 	public String getPassword(){
@@ -154,5 +170,20 @@ public class Profile {
 	public void setCountry(String country){
 		
 		this.country = country;
+	}
+	public String getRegDate()
+	{
+		return RegDate;
+	}
+	public void setRegDatetoActual()
+	{
+		SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
+		RegDate=format.format(new Date());
+	}
+	public Date getLastLog() {
+		return LastLog;
+	}
+	public void setLogtoactual() {
+		LastLog =new Date();
 	}
 }

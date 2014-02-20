@@ -9,6 +9,7 @@ public abstract class FactoryDao {
 	
 	public static final int DB4O_FACTORY = 1;
 	public abstract UserDao getUsuarioDao();
+	public abstract LogDao getLogDao();
 	
 	
 	

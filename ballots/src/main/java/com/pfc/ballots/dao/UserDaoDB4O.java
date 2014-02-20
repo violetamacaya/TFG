@@ -8,6 +8,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
+import com.pfc.ballots.entities.DataLog;
 import com.pfc.ballots.entities.Profile;
 
 
@@ -142,6 +143,38 @@ public class UserDaoDB4O implements UserDao{
 		
 		return profiles;
 	}
+	public List<Profile> RetrieveAllProfilesSortLastLog() {
+		List<Profile> profiles=new ArrayList<Profile>();
+		open();
+		try
+		{
+				Query query=DB.query();
+				query.constrain(Profile.class);
+				query.descend("LastLog").orderDescending();
+				ObjectSet resultado = query.execute();
+				
+				while(resultado.hasNext())
+				{
+					profiles.add((Profile)resultado.next());
+				}
+				System.out.println("[DB4O]All profiles was retrieved");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All profiles could not be retrieved");
+			profiles.clear();
+			return profiles;
+		}
+		finally
+		{
+			close();
+		}
+		
+		return profiles;
+	}
+	
+
 	
 	//********************************************Open and Close DB************************************//
 	
@@ -190,6 +223,55 @@ public class UserDaoDB4O implements UserDao{
 		return temp;
 	}
 	
+	/*********************************************** Updates ************************************************************/
+	
+	public void UpdateByEmail(String Email, Profile updatedProfile) {
+		
+		Profile temp=null;
+		
+		open();
+		try
+		{
+			temp=getByEmail(Email);
+			DB.delete(temp);
+			store(updatedProfile);
+			System.out.println("[DB4O]Profile was updated");
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:Profile could not be updated");
+		}finally
+		{
+			close();
+		}
+	}
+	public void UpdateByEmail(Profile updatedProfile) {
+		
+		Profile temp=null;
+		
+		open();
+		try
+		{
+			temp=getByEmail(updatedProfile.getEmail());
+			DB.delete(temp);
+			store(updatedProfile);
+			System.out.println("[DB4O]Profile was updated");
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:Profile could not be updated");
+		}finally
+		{
+			close();
+		}
+	}
+	
+	
+	
+	
+	
 	//************************************************Util(without open or close)***********************************//
 	
 	@SuppressWarnings("rawtypes")
@@ -204,7 +286,16 @@ public class UserDaoDB4O implements UserDao{
 		return false;
 		
 	}
+	@SuppressWarnings("rawtypes")
+	private Profile getByEmail(String Email)
+	{
+		ObjectSet result = DB.queryByExample(new Profile(Email));
+		if(result.hasNext())
+		{
+			return (Profile)result.next();
+		}
+		return null;
+	}
 	
-
 	
 }
