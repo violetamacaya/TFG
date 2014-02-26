@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
@@ -13,6 +14,7 @@ import org.apache.tapestry5.services.Request;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.LogDao;
 import com.pfc.ballots.dao.UserDao;
+import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.DataLog;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.pages.Index;
@@ -24,7 +26,9 @@ import com.pfc.ballots.util.Encryption;
 
 public class LogIn {
 
-
+	@SessionState
+	private DataSession datasession;
+	
 	@Property
 	private String email;
 	
@@ -42,7 +46,7 @@ public class LogIn {
 	
 	/******************************************* Initialize DAO *******************************************************/
 	FactoryDao DB4ODao = FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-    UserDao userDao = DB4ODao.getUsuarioDao();
+    UserDao userDao = DB4ODao.getUsuarioDao(datasession.getDBName());
     LogDao logDao=DB4ODao.getLogDao();
 	
 	Object onSuccess()

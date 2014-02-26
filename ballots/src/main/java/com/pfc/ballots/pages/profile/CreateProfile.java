@@ -6,16 +6,21 @@ import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.Validate;
 
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserDao;
+import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
 
 public class CreateProfile {
 
+	@SessionState
+	private DataSession datasession;
+	
 	@Inject
     private ComponentResources componentResources;
 
@@ -42,7 +47,7 @@ public class CreateProfile {
 	private boolean isnotFirstTime;
 	//****************************************Initialize DAO****************************//
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	UserDao dao =DB4O.getUsuarioDao();
+	UserDao dao =DB4O.getUsuarioDao(datasession.getDBName());
 	
 	
 	/**

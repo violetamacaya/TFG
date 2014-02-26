@@ -31,7 +31,6 @@
 		<li><plain>${message:ballots-by-me}</plain></li>
 		
 		<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:userz" ><plain>User Admin</plain></t:eventlink></li>
-		
 		<t:zone t:id="userZone" id="userZone">
 		<t:if test="visibilityUser">
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-list" ><plain2>Lista usuarios</plain2></t:eventlink></li>
@@ -39,12 +38,21 @@
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:log-list" ><plain2>Logs</plain2></t:eventlink></li>
 		</t:if>
 		</t:zone>
+		
 		<li><t:eventlink t:event="menu" t:context="literal:ballotz" t:zone="ballotZone"><plain>Ballot Admin</plain></t:eventlink></li>
 		<t:zone t:id="ballotZone" id="ballotZone">
 		<t:if test="visibilityBallot">
 			<li><plain2>${message:ballots}</plain2></li>
 			<li><plain2>Mensaje censo</plain2></li>
 		</t:if>
+		</t:zone>
+		
+		<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:companyz" ><plain>Company Admin</plain></t:eventlink></li>
+		<t:zone t:id="companyZone" id="companyZone">
+			<t:if test="visibilityCompany">
+				<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:list-company"><plain2>Company List</plain2></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:new-company"><plain2>Create Company</plain2></t:eventlink></li>
+			</t:if>
 		</t:zone>
 		<li><plain>${message:log-out}</plain></li>
 	</ul>

@@ -3,6 +3,8 @@ package com.pfc.ballots.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tapestry5.annotations.SessionAttribute;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -15,12 +17,25 @@ import com.pfc.ballots.entities.Profile;
 public class UserDaoDB4O implements UserDao{
 
 	String sep=System.getProperty("file.separator");
-	String PATH=System.getProperty("user.home")+sep+"BallotsFiles"+sep+"DB4Obbdd.dat";;
+	String PATH;
+	String ruta=System.getProperty("user.home")+sep+"BallotsFiles"+sep;
 	EmbeddedConfiguration config = null;
 	ObjectContainer DB=null;
 	
 	
-	
+	public UserDaoDB4O(String DBName)
+	{
+		if(DBName==null)
+		{
+			PATH=ruta+"DB4Obbdd.dat";
+		}
+		else
+		{
+			PATH=ruta+DBName;
+		}
+		System.out.println(ruta);
+	}
+				   
 	
 	//*************************************************Store******************************************************
 	public void store(Profile profile)
@@ -176,29 +191,6 @@ public class UserDaoDB4O implements UserDao{
 	
 
 	
-	//********************************************Open and Close DB************************************//
-	
-	private void open()
-	{
-		
-		config=Db4oEmbedded.newConfiguration();
-		config.common().objectClass(Profile.class).cascadeOnUpdate(true);
-		try
-		{
-			DB=Db4oEmbedded.openFile(config, PATH);
-			System.out.println("[DB4O]Database was opened");
-		}
-		catch(Exception e)
-		{
-			System.out.println("[DB4O]ERROR:Database could not be open");
-			e.printStackTrace();
-		}
-	}
-	private void close()
-	{
-		DB.close();
-		System.out.println("[DB4O]Database was closed");
-	}
 	
 	//***************************************************IsRegistred************************************************//
 	
@@ -295,6 +287,32 @@ public class UserDaoDB4O implements UserDao{
 			return (Profile)result.next();
 		}
 		return null;
+	}
+	
+
+	//********************************************Open and Close DB************************************//
+	
+	private void open()
+	{
+		config=Db4oEmbedded.newConfiguration();
+		config.common().objectClass(Profile.class).cascadeOnUpdate(true);
+		try
+		{
+			
+			DB=Db4oEmbedded.openFile(config, PATH);
+			System.out.println("[DB4O]Database was open");
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("[DB4O]ERROR:Database could not be open");
+			e.printStackTrace();
+		}
+	}
+	private void close()
+	{
+		DB.close();
+		System.out.println("[DB4O]Database was closed");
 	}
 	
 	
