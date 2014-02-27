@@ -20,6 +20,15 @@ public class Company {
 	private String AdminEmail;
 	private String RegDate;
 	
+	
+	public Company(){
+		
+	}
+	public Company(String CompanyName)
+	{
+		this.CompanyName=CompanyName;
+	}
+	
 	public void setId(String Id)
 	{
 		this.Id=Id;

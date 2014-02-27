@@ -3,14 +3,12 @@ package com.pfc.ballots.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tapestry5.annotations.SessionAttribute;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
-import com.pfc.ballots.entities.DataLog;
 import com.pfc.ballots.entities.Profile;
 
 
@@ -158,6 +156,7 @@ public class UserDaoDB4O implements UserDao{
 		
 		return profiles;
 	}
+	@SuppressWarnings("rawtypes")
 	public List<Profile> RetrieveAllProfilesSortLastLog() {
 		List<Profile> profiles=new ArrayList<Profile>();
 		open();
@@ -215,7 +214,7 @@ public class UserDaoDB4O implements UserDao{
 		return temp;
 	}
 	
-	/*********************************************** Updates ************************************************************/
+	//*********************************************** Updates ************************************************************//
 	
 	public void UpdateByEmail(String Email, Profile updatedProfile) {
 		

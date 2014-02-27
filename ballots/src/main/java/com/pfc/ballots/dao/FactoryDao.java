@@ -11,6 +11,8 @@ public abstract class FactoryDao {
 	public abstract UserDao getUsuarioDao();
 	public abstract UserDao getUsuarioDao(String DBName);
 	public abstract LogDao getLogDao();
+	public abstract CompanyDao getCompanyDao();
+	
 	
 
 	
