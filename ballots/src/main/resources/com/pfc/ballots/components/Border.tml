@@ -22,6 +22,7 @@
 			<li><plain>${message:existing-ballots}s</plain></li>
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:methods" ><plain>${message:methods}</plain></t:eventlink></li>			
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:LogIn" ><plain>${message:login}</plain></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>Company Access</plain></t:eventlink></li>
 		</ul>
 	</pagehead>
 	

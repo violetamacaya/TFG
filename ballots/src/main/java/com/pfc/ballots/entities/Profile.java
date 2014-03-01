@@ -63,6 +63,8 @@ public class Profile {
 	//Encrypted password of the user
 	@Validate("required")
 	private String password;
+	
+	private String plainPass;
 
 	//Other stuff of the user
 	private Sex sex;
@@ -74,7 +76,7 @@ public class Profile {
 	private String city;
 	private String country;
 	
-	private String RegDate;
+	private Date RegDate;
 	private Date LastLog;
 	public String getId()
 	{
@@ -171,19 +173,26 @@ public class Profile {
 		
 		this.country = country;
 	}
-	public String getRegDate()
+	public Date getRegDate()
 	{
 		return RegDate;
 	}
 	public void setRegDatetoActual()
 	{
-		SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
-		RegDate=format.format(new Date());
+		//SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
+		//RegDate=format.format(new Date());
+		RegDate=new Date();
 	}
 	public Date getLastLog() {
 		return LastLog;
 	}
 	public void setLogtoactual() {
 		LastLog =new Date();
+	}
+	public String getPlainPass() {
+		return plainPass;
+	}
+	public void setPlain(String plainPass) {
+		this.plainPass = plainPass;
 	}
 }

@@ -45,24 +45,29 @@ public class LogIn {
 	private Zone logForm;
 	
 	/******************************************* Initialize DAO *******************************************************/
-	FactoryDao DB4ODao = FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-    UserDao userDao = DB4ODao.getUsuarioDao(datasession.getDBName());
-    LogDao logDao=DB4ODao.getLogDao();
+	FactoryDao DB4O = FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+    UserDao userDao = DB4O.getUsuarioDao(datasession.getDBName());
+    LogDao logDao=DB4O.getLogDao();
 	
 	Object onSuccess()
 	{
 		
 		//Check if the text fields are empties
 		if(email==null || password==null)
-			{authenticationFailure=true;
+		{
+			authenticationFailure=true;
 			//Record login attempt
 			logDao.store(new DataLog(request.getRemoteHost()));
-			return request.isXHR() ? logForm.getBody() : null;}
+			return request.isXHR() ? logForm.getBody() : null;
+		}
 		if(email.trim().length()==0 || password.trim().length()==0)
-			{authenticationFailure=true;
+		{
+			authenticationFailure=true;
 			//Record login attempt
 			logDao.store(new DataLog(request.getRemoteHost()));
-			return request.isXHR() ? logForm.getBody() : null;}
+			return request.isXHR() ? logForm.getBody() : null;
+		}
+		
 		email=email.toLowerCase();
 		//Check if Email is in DB and if the password is correct
 		

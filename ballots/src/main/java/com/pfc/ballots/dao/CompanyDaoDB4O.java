@@ -51,6 +51,35 @@ public class CompanyDaoDB4O implements CompanyDao {
 	}
 	
 	//**************************************  Retrieve *******************************************//
+	
+	public Company getCompanyByName(String companyName)
+	{
+		Company temp=null;
+		open();
+		try
+		{
+			@SuppressWarnings("rawtypes")
+			ObjectSet result=DB.queryByExample(new Company(companyName));
+			if(result.hasNext())
+			{
+				temp=(Company)result.next();
+				System.out.println("[DB4O]Company was retrieved");
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]Company could not be retrieved");
+		}
+		finally
+		{
+			close();
+		}
+		return temp;
+	}
+	
+	
 	@SuppressWarnings("rawtypes")
 	public List<Company> RetrieveAllCompanies()
 	{
@@ -81,13 +110,43 @@ public class CompanyDaoDB4O implements CompanyDao {
 		return list;
 		
 	}
+	//*************************************** Delete  ******************************************//
+	
+	public void deleteCompanyByEmail(String email)
+	{
+		open();
+		try
+		{
+			ObjectSet result=DB.queryByExample(new Company(email));
+			if(result.hasNext())
+			{
+				DB.delete((Company)result.next());
+				System.out.println("[DB4O]Company was erased from database");
+			}
+			else
+			{
+				System.out.println("[DB4O]ERROR:Profile doesn't exist in database");
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:Company could not be erased");
+		}
+		finally
+		{
+			close();
+		}
+	}
+	
 	//************************************ isRegistred  ****************************************//
-	public boolean isCompanyRegistred(String CompanyName) {
+	public boolean isCompanyRegistred(String companyName) {
 		open();
 		boolean temp=true;
 		try
 		{
-			temp=testCompany(CompanyName);
+			temp=testCompany(companyName);
 		}
 		catch(Exception e)
 		{
@@ -123,10 +182,10 @@ public class CompanyDaoDB4O implements CompanyDao {
 	
 	//*************************************Util (without open or close DB*************************//
 	@SuppressWarnings("rawtypes")
-	private boolean testCompany(String CompanyName)
+	private boolean testCompany(String companyName)
 	{
 		
-		ObjectSet result=DB.queryByExample(new Company(CompanyName));
+		ObjectSet result=DB.queryByExample(new Company(companyName));
 		
 		if(result.hasNext())
 		{

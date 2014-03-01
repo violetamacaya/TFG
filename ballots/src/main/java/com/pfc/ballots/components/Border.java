@@ -21,6 +21,7 @@ import com.pfc.ballots.pages.Company.ListCompany;
 import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.pages.profile.CreateProfile;
+import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
 
 public class Border {
@@ -173,6 +174,8 @@ public class Border {
 				{page=LogIn.class;}
 			if(section.equals("methods"))
 				{page=MethodsInfo.class;}
+			if(section.equals("company-login"))
+				{page=CompanyLogIn.class;}
 		}
 		ajaxResponseRenderer.addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
 		

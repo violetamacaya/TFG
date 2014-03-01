@@ -78,6 +78,7 @@ public class CreateCompany {
 	
 	void onSuccess()
 	{
+		company.setCompanyName(company.getCompanyName().toLowerCase());
 		if(companyDao.isCompanyRegistred(company.getCompanyName()))
 		{
 			isnotCompanyNameAvalible=true;
@@ -100,7 +101,9 @@ public class CreateCompany {
 			company.setRegDatetoActual();
 			profile.setRegDatetoActual();
 			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);
+			profile.setEmail(company.getAdminEmail());
 			profile.setPassword(encrypt);
+			profile.setPlain(password);
 			
 			userDao.store(profile);
 			companyDao.store(company);

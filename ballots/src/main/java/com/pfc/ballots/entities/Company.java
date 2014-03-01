@@ -18,7 +18,7 @@ public class Company {
 	private String DBName;
 	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	private String AdminEmail;
-	private String RegDate;
+	private Date RegDate;
 	
 	
 	public Company(){
@@ -61,13 +61,12 @@ public class Company {
 	{
 		return AdminEmail;
 	}
-	public String getRegDate()
+	public Date getRegDate()
 	{
 		return RegDate;
 	}
 	public void setRegDatetoActual()
 	{
-		SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
-		RegDate=format.format(new Date());
+		RegDate=new Date();
 	}
 }

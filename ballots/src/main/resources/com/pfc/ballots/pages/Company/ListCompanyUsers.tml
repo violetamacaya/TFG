@@ -1,0 +1,12 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	DBNAME->${DBName }<br/>
+	CNAME-->${companyName }
+	<t:grid source="users" row="user"/>
+	
+	</t:border>
+	
+		
+			
+</html>

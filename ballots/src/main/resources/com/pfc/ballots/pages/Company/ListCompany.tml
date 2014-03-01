@@ -2,7 +2,14 @@
    
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 	
-				COMPANY LISTS
+		<t:grid source="companies" row="company" add="See Users,Delete Company">
+		<p:seeusersCell>
+				<t:actionlink t:id="ver" context="[company.CompanyName,company.DBName]">VER</t:actionlink>
+		</p:seeusersCell>
+		<p:deletecompanyCell>
+				<t:actionlink t:id="delete" context="company.CompanyName">DELETE</t:actionlink>
+		</p:deletecompanyCell>
+		</t:grid>
 	
 	</t:border>
 	
