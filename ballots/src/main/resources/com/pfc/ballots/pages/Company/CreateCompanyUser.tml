@@ -1,0 +1,34 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+			
+			<infouser>
+			<t:beaneditform t:id="form" submitlabel="Anadir" object="profile" add="repeat" reorder="email,password,repeat">
+			<p:email>
+				<t:label for="email"/>
+				<t:textfield t:id="email" value="profile.email" />
+				<t:if test="isnotAvalible">
+					Ya hay una cuenta registrada con este email
+				</t:if>
+			</p:email>
+			<p:password>
+				<t:label for="password"/>
+				<t:passwordfield t:id="password" value="password" validate="required,minLength=6"/>
+				<t:if test="isnotPassOk">
+					contraseñas distintas	
+				</t:if>
+			</p:password>
+			<p:repeat>
+				<t:label for="repeat">Repeat Password</t:label>
+				<t:passwordfield t:id="repeat" value="repeat" validate="required,minLength=6"/>
+			</p:repeat>
+			</t:beaneditform>
+		</infouser>
+	</t:border>
+	
+		
+			
+	
+
+
+</html>

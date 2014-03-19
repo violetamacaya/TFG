@@ -1,5 +1,7 @@
 package com.pfc.ballots.pages.Company;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.tapestry5.annotations.InjectPage;
@@ -19,6 +21,10 @@ public class ListCompany {
 	
 	@InjectPage
 	private ListCompanyUsers listCompanyUsers;
+	
+	@InjectPage
+	private CreateCompanyUser createCompanyUser;
+	
 	
 	
 	//****************************************Initialize DAO****************************//
@@ -43,5 +49,19 @@ public class ListCompany {
 	{
 		System.out.println(CompanyName);
 		companyDao.deleteCompanyByEmail(CompanyName);
+		
 	}
+	public Object onActionFromAddusers(String CompanyName,String DBName)
+	{
+		createCompanyUser.setup(CompanyName, DBName);
+		return createCompanyUser;
+	}
+	/*
+	public Path onActionFromDownload(String DBName)
+	{
+		String sep=System.getProperty("file.separator");
+		String PATH=System.getProperty("user.home")+sep+"BallotsFiles"+sep+DBName;
+		Path ruta=Paths.get(PATH);
+		return ruta;
+	}*/
 }

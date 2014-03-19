@@ -1,0 +1,54 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		
+		<div class="outtst">
+		     <t:loop t:source="persons" t:value="person">
+					
+					<t:zone t:id="rowZone" id="prop:currentRowId">
+						
+						<t:form t:id="personform" t:context="prop:person.id"  t:zone="^">
+								<table class="tst">
+									<tr>
+										<td class="tstmail">				
+											<t:if test="!editing">
+											${person.email }
+											</t:if>
+											<t:if test="editing">
+													<intput t:type="TextField" t:id="email" value="profile.email" />
+											</t:if>
+										</td>
+										<td class="tstbuttons">
+											<t:if test="!editing">
+												<!-- <t:eventLink t:id="rowevent" context="prop:person.id" zone="^">edit</t:eventLink> -->
+												<input t:type="submit" t:id="edit" value="Edit" t:mode="cancel"/>
+											</t:if>
+											
+											
+											<t:if test="editing">
+												<input t:type="submit" t:id="cancel" value="Cancel" t:mode="cancel"/>
+												<input t:type="submit" t:id="save" value="Save"/>
+						
+											</t:if>
+										</td>
+									</tr>
+								</table>
+							
+						</t:form>
+						
+					</t:zone>
+				
+				</t:loop>
+			</div>
+		
+		
+		
+	</t:border>
+	
+		
+			
+	
+
+
+</html>
+	

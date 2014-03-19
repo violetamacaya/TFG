@@ -526,3 +526,50 @@ div .row span
 	width: 18%;
 	padding: 15px;
 }
+
+#personsTable
+{
+	width: 100%;
+	margin-right:30px;
+	text-align:center;
+}
+
+/*.thtop
+{
+	border: 1px solid;
+}
+
+.tdbot
+{
+	border: 1px solid;
+	border-color: #FF0000;
+}*/
+
+
+.tst
+{
+	width: 100%;
+	height	: 100%;
+	border-collapse:collapse;
+}
+
+.tstmail
+{
+	width: 8%;	
+}
+
+.tstbuttons
+{
+	width: 92%;	
+}
+
+.tst tr td
+{
+	border: 1px solid #00FF00;
+}
+
+div.outtst div.t-zone
+{
+	
+	height: 30px;
+}

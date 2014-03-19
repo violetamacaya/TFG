@@ -2,10 +2,13 @@
    
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 	
-		<t:grid source="companies" row="company" add="See Users,Delete Company">
+		<t:grid source="companies" row="company" add="See Users,Add users,Delete Company">
 		<p:seeusersCell>
 				<t:actionlink t:id="ver" context="[company.CompanyName,company.DBName]">VER</t:actionlink>
 		</p:seeusersCell>
+		<p:addusersCell>
+				<t:actionlink t:id="addusers" context="[company.CompanyName,company.DBName]">ADD</t:actionlink>
+		</p:addusersCell>
 		<p:deletecompanyCell>
 				<t:actionlink t:id="delete" context="company.CompanyName">DELETE</t:actionlink>
 		</p:deletecompanyCell>

@@ -1,5 +1,8 @@
 package com.pfc.ballots.dao;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,10 +121,24 @@ public class CompanyDaoDB4O implements CompanyDao {
 		try
 		{
 			ObjectSet result=DB.queryByExample(new Company(email));
+			Company comp=null;
 			if(result.hasNext())
 			{
-				DB.delete((Company)result.next());
+				comp=(Company)result.next();
+				DB.delete(comp);
 				System.out.println("[DB4O]Company was erased from database");
+				//Delete DataBase
+				try
+				{
+					String temp=System.getProperty("user.home")+sep+"BallotsFiles"+sep+comp.getDBName();
+					Path ruta=Paths.get(temp);
+					Files.deleteIfExists(ruta);
+				}catch(Exception e2)
+				{
+					e2.printStackTrace();
+					System.out.println("DATABASE COULD NOT BE ERASED");
+				}
+				//
 			}
 			else
 			{
@@ -138,6 +155,7 @@ public class CompanyDaoDB4O implements CompanyDao {
 		{
 			close();
 		}
+		
 	}
 	
 	//************************************ isRegistred  ****************************************//

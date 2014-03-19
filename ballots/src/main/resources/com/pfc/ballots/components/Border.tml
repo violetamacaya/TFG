@@ -36,7 +36,10 @@
 		<t:if test="visibilityUser">
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-list" ><plain2>Lista usuarios</plain2></t:eventlink></li>
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:new-user2" ><plain2>${message:new-user}</plain2></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-file" ><plain2>Upload user file</plain2></t:eventlink></li>
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:log-list" ><plain2>Logs</plain2></t:eventlink></li>
+			
+			
 		</t:if>
 		</t:zone>
 		

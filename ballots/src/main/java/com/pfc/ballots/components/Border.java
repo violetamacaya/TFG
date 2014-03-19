@@ -21,6 +21,8 @@ import com.pfc.ballots.pages.Company.ListCompany;
 import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.pages.profile.CreateProfile;
+import com.pfc.ballots.pages.profile.ProfileByFile;
+import com.pfc.ballots.pages.profile.filesrow;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
 
@@ -38,6 +40,8 @@ public class Border {
 	@InjectComponent
 	private Zone companyZone;
 	
+	
+
 	
 	@SessionAttribute
 	@Property
@@ -155,6 +159,8 @@ public class Border {
 			{page=CreateProfile.class;}
 		else if(section.equals("user-list"))
 			{page=UserList.class;}
+		else if(section.equals("user-file"))
+			{page=filesrow.class;}
 		else if(section.equals("log-list"))
 			{page=LogList.class;}
 		else if(section.equals("new-company"))

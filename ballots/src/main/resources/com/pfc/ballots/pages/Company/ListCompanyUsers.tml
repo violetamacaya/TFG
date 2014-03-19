@@ -1,10 +1,13 @@
 <html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
-	DBNAME->${DBName }<br/>
-	CNAME-->${companyName }
-	<t:grid source="users" row="user"/>
-	
+		<t:zone t:id="usergrid" id="usergrid">	
+			<t:grid source="users" row="user" add="Delete">
+				<p:deleteCell>
+						<t:actionlink t:id="deleteuser" context="user.email" zone="^">Delete</t:actionlink>
+				</p:deleteCell>
+			</t:grid>
+		</t:zone>
 	</t:border>
 	
 		

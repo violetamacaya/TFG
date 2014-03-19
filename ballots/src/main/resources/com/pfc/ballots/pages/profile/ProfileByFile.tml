@@ -1,0 +1,78 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	
+
+
+
+	<h1>Añadir usuarios por fichero </h1>
+			<t:form t:id="uploadForm">
+			    <t:errors/>
+			    <input t:type="upload" t:id="file" t:value="file" validate="required"/>
+			    <br/>
+			    <input type="submit" value="Upload"/>
+			</t:form>
+			
+			<t:if test="showGrid">
+				<table id="personsTable" class="outer">
+		            <thead>
+		                <tr>
+                            <th class="thtop">Id</th>
+                            <th class="thtop">Email</th>
+                            <th class="thtop">First Name</th>
+                            <th class="thtop">Last Name</th>
+                 			<th class="thtop">Password</th>
+                            <th class="thtop">Action</th>
+                        </tr>
+		            </thead>
+		            <tbody>
+		           		<t:Loop t:source="persons" t:value="person">
+		           			<tr t:type="Zone" t:id="rowZone" id="prop=currentRowZoneId">
+		           				<form t:id="personForm" t:type="form" t:zone="^" t:clientValidation="false">
+									
+									<td class="tdbot">
+										${person.id}
+									</td>
+									<td class="tdbot">
+										<t:if test="!editing">${person.email }</t:if>
+										<t:if test="editing">EDITION MODE</t:if>
+										
+									</td>
+									<td class="tdbot">
+										<t:if test="!editing">${person.firstName }</t:if>
+										<t:if test="editing">EDITION MODE</t:if>
+											
+									</td>
+									<td class="tdbot">
+										<t:if test="!editing">${person.lastName }</t:if>
+										<t:if test="editing">EDITION MODE</t:if>
+										
+									</td>
+									<td class="tdbot">
+										<t:if test="!editing">${person.password }</t:if>
+										<t:if test="editing">EDITION MODE</t:if>
+										
+									</td>
+									<td>
+										<t:if test="!editing"><t:actionLink t:id="editmode" t:zone="^">EDIT</t:actionLink></t:if>
+										<t:if test="editing"></t:if>
+									</td>
+									
+															           				
+		           				</form>
+		           			</tr>
+		           		</t:Loop>
+		            </tbody>
+				</table>
+				
+			</t:if>
+			
+			
+	</t:border>
+	
+		
+			
+	
+
+
+</html>

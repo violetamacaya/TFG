@@ -195,4 +195,18 @@ public class Profile {
 	public void setPlain(String plainPass) {
 		this.plainPass = plainPass;
 	}
+	public void copy(Profile old)
+	{
+		this.isAdmin=old.getIsAdmin();
+		this.Id=old.getId();
+		this.email=old.email;
+		this.password=old.getPassword();
+		this.sex=old.getSex();
+		this.firstName=old.getFirstName();
+		this.lastName=old.getLastName();
+		this.university=old.getUniversity();
+		this.city=old.getCity();
+		this.country=old.getCountry();
+		this.RegDate=old.getRegDate();
+	}
 }

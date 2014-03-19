@@ -259,7 +259,28 @@ public class UserDaoDB4O implements UserDao{
 		}
 	}
 	
-	
+	//**********************************************   Delete    **************************************************//
+	public void deleteByEmail(String Email)
+	{
+		Profile temp=null;
+		open();
+		try
+		{
+			temp=getByEmail(Email);
+			DB.delete(temp);
+			System.out.println("[DB4O]Profile was erased");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]Profile could not be erased");
+		}
+		finally
+		{
+			close();
+		}
+		
+	}
 	
 	
 	

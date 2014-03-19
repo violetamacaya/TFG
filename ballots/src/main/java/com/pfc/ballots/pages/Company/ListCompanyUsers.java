@@ -2,8 +2,13 @@ package com.pfc.ballots.pages.Company;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.services.Request;
 
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserDao;
@@ -13,6 +18,12 @@ public class ListCompanyUsers {
 
 	@Property
 	private Profile user;
+	
+	@InjectComponent
+	private Zone usergrid;
+	
+	@Inject
+	private Request request;
 	
 	
 	@Property
@@ -40,6 +51,11 @@ public class ListCompanyUsers {
 		userDao=DB4O.getUsuarioDao(DBName);
 		return userDao.RetrieveAllProfiles();
 	}
-	
+	public Object onActionFromDeleteuser(String email)
+	{
+		userDao=DB4O.getUsuarioDao(DBName);
+		userDao.deleteByEmail(email);
+		return request.isXHR() ? usergrid.getBody() : null;
+	}
 	
 }
