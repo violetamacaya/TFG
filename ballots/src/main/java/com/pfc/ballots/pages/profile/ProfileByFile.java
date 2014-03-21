@@ -23,4 +23,13 @@ import com.pfc.ballots.util.ManipulateFiles;
 
 public class ProfileByFile {
 	 	
+	String sep=System.getProperty("file.separator");
+	
+	@Property
+	private UploadedFile file;
+	
+	public void onSuccess()
+	{
+		System.out.println("SUCCESSS");
+	}
 }

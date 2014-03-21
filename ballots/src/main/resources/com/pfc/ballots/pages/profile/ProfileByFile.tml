@@ -7,7 +7,11 @@
 
 	<h1>Añadir usuarios por fichero </h1>
 		
-		
+		<t:form t:id="uploadForm">
+			<t:errors/>
+			<input t:type="upload" t:id="file" t:value="file" validate="required"/><br/>
+			<input type="submit" value="Upload"/>		
+		</t:form>
 			
 			
 	</t:border>
