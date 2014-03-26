@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
@@ -22,7 +23,6 @@ import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.pages.profile.CreateProfile;
 import com.pfc.ballots.pages.profile.ProfileByFile;
-
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
 
@@ -41,7 +41,8 @@ public class Border {
 	private Zone companyZone;
 	
 	
-
+	@InjectPage
+	private ProfileByFile profileByFile;
 	
 	@SessionAttribute
 	@Property
@@ -160,7 +161,10 @@ public class Border {
 		else if(section.equals("user-list"))
 			{page=UserList.class;}
 		else if(section.equals("user-file"))
-			{page=ProfileByFile.class;}
+			{
+				profileByFile.setup(null);
+				page=profileByFile;
+			}
 		else if(section.equals("log-list"))
 			{page=LogList.class;}
 		else if(section.equals("new-company"))

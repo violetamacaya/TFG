@@ -12,6 +12,7 @@ import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Company;
+import com.pfc.ballots.pages.profile.ProfileByFile;
 
 public class ListCompany {
 
@@ -25,6 +26,8 @@ public class ListCompany {
 	@InjectPage
 	private CreateCompanyUser createCompanyUser;
 	
+	@InjectPage
+	private ProfileByFile profileByFile;
 	
 	
 	//****************************************Initialize DAO****************************//
@@ -44,6 +47,13 @@ public class ListCompany {
 		System.out.println(CompanyName+" "+DBName);
 		listCompanyUsers.setup(CompanyName,DBName);
 		return listCompanyUsers;
+	}
+	
+	public Object onActionFromAddbyfile(String DBName)
+	{
+		System.out.println(DBName);
+		profileByFile.setup(DBName);
+		return profileByFile;
 	}
 	public void onActionFromDelete(String CompanyName)
 	{

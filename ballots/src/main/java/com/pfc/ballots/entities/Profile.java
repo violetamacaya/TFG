@@ -44,7 +44,7 @@ public class Profile {
 		this.university=old.getUniversity();
 		this.city=old.getCity();
 		this.country=old.getCountry();
-		this.RegDate=old.getRegDate();
+		this.regDate=old.getRegDate();
 	}
 	
 	/*********************************************** Profile fields **************************************************************/
@@ -76,8 +76,10 @@ public class Profile {
 	private String city;
 	private String country;
 	
-	private Date RegDate;
-	private Date LastLog;
+	private Date regDate;
+	
+	private Date lastLog;
+	
 	public String getId()
 	{
 		return Id;
@@ -175,19 +177,21 @@ public class Profile {
 	}
 	public Date getRegDate()
 	{
-		return RegDate;
+		return regDate;
 	}
 	public void setRegDatetoActual()
 	{
 		//SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
 		//RegDate=format.format(new Date());
-		RegDate=new Date();
+		
+		regDate=new Date();
+		System.out.println(regDate);
 	}
 	public Date getLastLog() {
-		return LastLog;
+		return lastLog;
 	}
 	public void setLogtoactual() {
-		LastLog =new Date();
+		lastLog =new Date();
 	}
 	public String getPlainPass() {
 		return plainPass;
@@ -207,6 +211,6 @@ public class Profile {
 		this.university=old.getUniversity();
 		this.city=old.getCity();
 		this.country=old.getCountry();
-		this.RegDate=old.getRegDate();
+		this.regDate=old.getRegDate();
 	}
 }

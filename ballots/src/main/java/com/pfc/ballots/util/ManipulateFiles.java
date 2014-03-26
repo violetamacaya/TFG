@@ -142,4 +142,19 @@ public class ManipulateFiles {
 		}
 		return list;
 	}
+	
+	public static void deletefile(String path)
+	{
+		try
+		{
+			File file=new File(path);
+			file.delete();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+			
+		
+	}
 }
