@@ -10,7 +10,10 @@ public abstract class FactoryDao {
 	public static final int DB4O_FACTORY = 1;
 	public abstract UserDao getUsuarioDao();
 	public abstract UserDao getUsuarioDao(String DBName);
+	public abstract UserLogedDao getUserLogedDao();
+	public abstract UserLogedDao getUserLogedDao(String DBName);
 	public abstract LogDao getLogDao();
+	
 	public abstract CompanyDao getCompanyDao();
 	
 	

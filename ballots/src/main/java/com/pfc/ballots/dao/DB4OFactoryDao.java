@@ -29,6 +29,19 @@ public class DB4OFactoryDao extends FactoryDao{
 		return new CompanyDaoDB4O();
 	}
 
+	@Override
+	public UserLogedDao getUserLogedDao() {
+		// TODO Auto-generated method stub
+		return new UserLogedDaoDB4O(null);
+	}
+
+	@Override
+	public UserLogedDao getUserLogedDao(String DBName) {
+		// TODO Auto-generated method stub
+		return new UserLogedDaoDB4O(DBName);
+	}
+	
+
 
 	 
 	
