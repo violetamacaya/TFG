@@ -12,8 +12,13 @@ import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.PersistentLocale;
+import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.LogDao;
+import com.pfc.ballots.dao.UserDao;
+import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.MethodsInfo;
@@ -29,6 +34,8 @@ import com.pfc.ballots.pages.users.LogIn;
 public class Border {
 
 	/***************************************** Ajax menu stuff *******************************************************************/
+	@Inject
+	private Request request;
 	
 	@SessionState
 	private DataSession datasession;
@@ -57,6 +64,10 @@ public class Border {
 	
 	@Inject
 	private AjaxResponseRenderer ajaxResponseRenderer;
+	
+	FactoryDao DB4O = FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+    UserLogedDao logedDao=null;
+	
 	 
 	/****************************************  Constructor **********************************************************************/
 	public Border()
@@ -118,6 +129,29 @@ public class Border {
 		}
 	}
 	
+	public boolean isLoged()
+	{
+		if(datasession==null)
+		{
+			return false;
+		}
+		else
+		{
+			return datasession.isLoged();
+		}
+
+		
+	}
+	public Object onActionFromLogout()
+	{
+		logedDao=DB4O.getUserLogedDao(datasession.getDBName());
+		logedDao.delete(datasession.getEmail());
+		datasession.logout();
+		visibilityCompany=false;
+		visibilityUser=false;
+		visibilityBallot=false;
+		return Index.class;
+	}
 	/***************************************** Ajax menu Event Handler **********************************************************/
 	
 	/*
@@ -137,6 +171,7 @@ public class Border {
 				{visibilityUser=false;}
 			else
 				{visibilityUser=true;}
+			
 		}
 		else if(section.equals("ballotz"))
 		{
@@ -146,6 +181,7 @@ public class Border {
 				{visibilityBallot=false;}
 			else
 				{visibilityBallot=true;}
+			
 		}
 		else if(section.equals("companyz"))
 		{
@@ -157,20 +193,27 @@ public class Border {
 				{visibilityCompany=true;}
 		}
 		else if(section.equals("new-user2"))
-			{page=CreateProfile.class;}
+			{
+			page=CreateProfile.class;}
 		else if(section.equals("user-list"))
-			{page=UserList.class;}
+			{
+			
+			page=UserList.class;}
 		else if(section.equals("user-file"))
 			{
 				profileByFile.setup(null);
 				page=profileByFile;
+				
 			}
 		else if(section.equals("log-list"))
-			{page=LogList.class;}
+			{
+			page=LogList.class;}
 		else if(section.equals("new-company"))
-			{page=CreateCompany.class;}
+			{
+			page=CreateCompany.class;}
 		else if(section.equals("list-company"))
-			{page=ListCompany.class;}
+			{
+			page=ListCompany.class;}
 		else							//This handle the upper menu
 		{
 			visibilityCompany=false;
@@ -187,8 +230,10 @@ public class Border {
 			if(section.equals("company-login"))
 				{page=CompanyLogIn.class;}
 		}
-		ajaxResponseRenderer.addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
-		
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
+		}
 		return page;
 	}
 }

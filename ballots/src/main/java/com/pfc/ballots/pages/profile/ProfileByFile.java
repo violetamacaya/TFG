@@ -15,6 +15,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
@@ -83,7 +84,8 @@ public class ProfileByFile {
 	
 	@SessionState
 	private DataSession datasession;
-	
+	@Inject
+	private Request request;
 	
 	@Inject
 	private AjaxResponseRenderer ajaxResponseRenderer;
@@ -163,12 +165,16 @@ public class ProfileByFile {
 	
 	public void onActionFromEditBut(String id)
 	{
+		
 		System.out.println("EDIT->"+id);
 		currentId=id;
 		person=lookforid(id);
 		profile=new Profile(person);
 		editing=true;
-		ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		}
 	}
 	public Object onActionFromEndBut()
 	{
@@ -187,7 +193,10 @@ public class ProfileByFile {
 		profile.setId(nextId());
 		newuser=true;
 		editing=true;
-		ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		}
 		
 	}
 	
@@ -216,7 +225,10 @@ public class ProfileByFile {
 			}
 		}
 		editing=false;
-		ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		}
 	}
 	
 	public boolean isAvalible()
@@ -316,8 +328,10 @@ public class ProfileByFile {
 			persons.remove(added.get(i));
 		}
 		added.clear();
-		
-		ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		}
 	}
 	public void onActionFromAddbut(String id)
 	{
@@ -334,8 +348,10 @@ public class ProfileByFile {
 		temp.setPassword(Encryption.getStringMessageDigest(person.getPassword(), Encryption.SHA1));
 		temp.setPlain(person.getPassword());
 		userDao.store(temp);
-		
-		ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+		}
 	}
 
 	public void onFailureFromEditForm()
@@ -344,7 +360,10 @@ public class ProfileByFile {
 		{
 			editing=false;
 			newuser=false;
-			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);	
+			if(request.isXHR())
+			{
+				ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+			}
 		}
 		editForm.clearErrors();
 	}

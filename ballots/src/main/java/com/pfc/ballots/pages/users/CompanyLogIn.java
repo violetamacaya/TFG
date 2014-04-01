@@ -11,10 +11,12 @@ import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.LogDao;
 import com.pfc.ballots.dao.UserDao;
+import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.DataLog;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.entities.UserLoged;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.util.Encryption;
 
@@ -50,6 +52,7 @@ public class CompanyLogIn {
 	CompanyDao companyDao=DB4O.getCompanyDao();
     LogDao logDao=DB4O.getLogDao();
 	UserDao userDao=null;
+	UserLogedDao logedDao=null;
 	
 	private void setBoolFalse()
 	{
@@ -118,7 +121,15 @@ public class CompanyLogIn {
 		{
 			//Login Successful
 			setBoolFalse();
-			//datasession.setDBName(company.getDBName());
+			
+			logedDao=DB4O.getUserLogedDao(company.getDBName());
+			
+			logedDao.store(new UserLoged(email,request.getRemoteHost()));
+			if(datasession==null)
+			{
+				datasession=new DataSession();
+			}
+			datasession.login(company.getDBName(), email);
 			
 			//Update Profile last Successful login
 			Profile updatedProfile=new Profile(userDao.getProfileByEmail(email));

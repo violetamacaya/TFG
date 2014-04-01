@@ -14,9 +14,11 @@ import org.apache.tapestry5.services.Request;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.LogDao;
 import com.pfc.ballots.dao.UserDao;
+import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.DataLog;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.entities.UserLoged;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.util.Encryption;
 
@@ -48,6 +50,7 @@ public class LogIn {
 	FactoryDao DB4O = FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
     UserDao userDao = DB4O.getUsuarioDao(datasession.getDBName());
     LogDao logDao=DB4O.getLogDao();
+    UserLogedDao logedDao=DB4O.getUserLogedDao();
 	
 	Object onSuccess()
 	{
@@ -88,6 +91,12 @@ public class LogIn {
 			userDao.UpdateByEmail(updatedProfile);
 			//Record successful login in users log
 			logDao.store(new DataLog(email,request.getRemoteHost(),true));
+			logedDao.store(new UserLoged(email,request.getRemoteHost()));
+			if(datasession==null)
+			{
+				datasession=new DataSession();
+			}
+			datasession.login(null, email);
 			System.out.println("LOGIN CORRECTO");
 			return Index.class;
 		}

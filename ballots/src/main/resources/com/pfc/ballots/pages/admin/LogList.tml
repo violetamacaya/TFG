@@ -1,7 +1,23 @@
-<html><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
-			<t:grid source="logs" row="log"/>
+			
+		<t:zone t:id="logedZone" id="logedZone">
+			<h1>Usuarios Logeados</h1>
+			<t:grid source="usersLoged" row="userLoged" add="kick" rowsperpage="15" inplace="true">
+				<p:kickcell>
+					<t:actionlink t:id="kickbut" context="userLoged.email" zone="^"><button>kick</button></t:actionlink>
+				</p:kickcell>
+			</t:grid>
+		</t:zone>
+		<t:zone t:id="logZone" id="logZone">
+			<h1>Log de usuarios</h1>
+			<t:grid source="logs" row="log" rowsperpage="15" inplace="true" />
+		</t:zone>
+			
+			
+			
+			
 	</t:border>
 	
 		

@@ -8,7 +8,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
-
+import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.UserLoged;
 
 public class UserLogedDaoDB4O implements UserLogedDao{
@@ -85,6 +85,36 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		return users;
 	}
 	
+	//******************************************************Delete*************************************************************************//
+	@SuppressWarnings("rawtypes")
+	public void delete(String email)
+	{
+		open();
+		UserLoged temp=null;
+		try
+		{
+			ObjectSet result = DB.queryByExample(new UserLoged(email));
+			if(result.hasNext())
+			{
+				temp=(UserLoged)result.next();
+				DB.delete(temp);
+				System.out.println("[DB4O]UserLoged was erased");
+			}
+			else
+			{
+				System.out.println("[DB4O]UserLoged doesn't exist");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR: UserLoged could not be delete");
+		}
+		finally
+		{
+			close();
+		}
+	}
 	//**********************************************isLogedIn******************************************//
 	@SuppressWarnings("rawtypes")
 	public boolean isLogedIn(String email)

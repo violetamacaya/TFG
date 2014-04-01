@@ -20,9 +20,11 @@
 			<li><plain>${message:contact}</plain></li>
 			<li><plain>${message:about}</plain></li>
 			<li><plain>${message:existing-ballots}s</plain></li>
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:methods" ><plain>${message:methods}</plain></t:eventlink></li>			
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:LogIn" ><plain>${message:login}</plain></t:eventlink></li>
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>Company Access</plain></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:methods" ><plain>${message:methods}</plain></t:eventlink></li>	
+			<t:if test="!loged">		
+				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:LogIn" ><plain>${message:login}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>Company Access</plain></t:eventlink></li>
+			</t:if>
 		</ul>
 	</pagehead>
 	
@@ -58,7 +60,9 @@
 				<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:new-company"><plain2>Create Company</plain2></t:eventlink></li>
 			</t:if>
 		</t:zone>
-		<li><plain>${message:log-out}</plain></li>
+		<t:if test="loged">
+			<li><t:actionlink t:id="logout"><plain>${message:log-out}</plain></t:actionlink></li>
+		</t:if>
 	</ul>
 	
 
