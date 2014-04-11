@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
@@ -13,6 +14,7 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.PersistentLocale;
 import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.Session;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.FactoryDao;
@@ -62,6 +64,10 @@ public class Border {
 	@Property
 	private Boolean visibilityCompany;
 	
+    @Inject
+    private ComponentResources componentResources;
+
+	
 	@Inject
 	private AjaxResponseRenderer ajaxResponseRenderer;
 	
@@ -71,6 +77,21 @@ public class Border {
 	 
 	/****************************************  Constructor **********************************************************************/
 	public Border()
+	{
+		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null)
+		{
+			visibilityUser=new Boolean("false");
+			visibilityBallot=new Boolean("false");
+			visibilityCompany=new Boolean("false");
+		}
+		if(datasession==null)
+		{
+			datasession=new DataSession();
+		}
+
+
+	}
+	public void restoreBorder()
 	{
 		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null)
 		{
@@ -131,14 +152,9 @@ public class Border {
 	
 	public boolean isLoged()
 	{
-		if(datasession==null)
-		{
-			return false;
-		}
-		else
-		{
+		
 			return datasession.isLoged();
-		}
+		
 
 		
 	}
@@ -150,6 +166,9 @@ public class Border {
 		visibilityCompany=false;
 		visibilityUser=false;
 		visibilityBallot=false;
+		componentResources.discardPersistentFieldChanges();
+		request.getSession(true).invalidate();
+		restoreBorder();
 		return Index.class;
 	}
 	/***************************************** Ajax menu Event Handler **********************************************************/
@@ -159,10 +178,9 @@ public class Border {
 	 * in the menu of the border component for close or open drop menus. 
 	 */
 	Object onMenu(String section)
-	{							
+	{									
+		Object page=null;
 		
-		
-		Object page=null;		
 		if(section.equals("userz"))		//This handle the lateral menu
 		{
 			visibilityBallot=false;
@@ -201,7 +219,7 @@ public class Border {
 			page=UserList.class;}
 		else if(section.equals("user-file"))
 			{
-				profileByFile.setup(null);
+				profileByFile.setup(datasession.getDBName());
 				page=profileByFile;
 				
 			}

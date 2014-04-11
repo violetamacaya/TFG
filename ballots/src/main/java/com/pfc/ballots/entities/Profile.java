@@ -34,7 +34,7 @@ public class Profile {
 	}
 	public Profile(Profile old)
 	{
-		this.isAdmin=old.getIsAdmin();
+		this.admin=old.isAdmin();
 		this.Id=old.getId();
 		this.email=old.email;
 		this.password=old.getPassword();
@@ -53,8 +53,11 @@ public class Profile {
 	//It may be interesting to change the name of this field to any random word, for security reasons. I leave it like this
 	//by now so the next developer don't go crazy and try to kill me. Whenever you need to create a new administrator from scratch,
 	//just comment the line "NonVisual". But don't forget to change it back!
-	@NonVisual
-	private boolean isAdmin;
+	
+	private boolean admin;
+	
+	private boolean maker;
+	
 	@NonVisual
 	private String Id;
 	//this will also be the username
@@ -88,15 +91,21 @@ public class Profile {
 	{
 		this.Id=Id;
 	}
-	public boolean getIsAdmin(){
+	public boolean isAdmin(){
 		
-		return isAdmin;
+		return admin;
 	}
-	public void setIsAdmin(boolean isAdmin){
+	public void setAdmin(boolean admin){
 		
-		this.isAdmin = isAdmin;
+		this.admin = admin;
 	}
-	
+	public boolean isMaker() {
+		return maker;
+	}
+	public void setMaker(boolean maker) {
+		System.out.println("SETMAKER");
+		this.maker = maker;
+	}
 	public String getEmail(){
 			
 		return email;
@@ -201,7 +210,8 @@ public class Profile {
 	}
 	public void copy(Profile old)
 	{
-		this.isAdmin=old.getIsAdmin();
+		this.admin=old.isAdmin();
+		this.maker=old.isMaker();
 		this.Id=old.getId();
 		this.email=old.email;
 		this.password=old.getPassword();
@@ -213,4 +223,5 @@ public class Profile {
 		this.country=old.getCountry();
 		this.regDate=old.getRegDate();
 	}
+
 }

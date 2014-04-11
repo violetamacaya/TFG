@@ -164,7 +164,7 @@ public class UserDaoDB4O implements UserDao{
 		{
 				Query query=DB.query();
 				query.constrain(Profile.class);
-				query.descend("LastLog").orderDescending();
+				query.descend("lastLog").orderDescending();
 				ObjectSet resultado = query.execute();
 				
 				while(resultado.hasNext())
@@ -225,7 +225,7 @@ public class UserDaoDB4O implements UserDao{
 		{
 			temp=getByEmail(Email);
 			DB.delete(temp);
-			store(updatedProfile);
+			DB.store(updatedProfile);
 			System.out.println("[DB4O]Profile was updated");
 
 		}catch(Exception e)
@@ -237,6 +237,7 @@ public class UserDaoDB4O implements UserDao{
 			close();
 		}
 	}
+
 	public void UpdateByEmail(Profile updatedProfile) {
 		
 		Profile temp=null;
@@ -246,7 +247,7 @@ public class UserDaoDB4O implements UserDao{
 		{
 			temp=getByEmail(updatedProfile.getEmail());
 			DB.delete(temp);
-			store(updatedProfile);
+			DB.store(updatedProfile);
 			System.out.println("[DB4O]Profile was updated");
 
 		}catch(Exception e)
@@ -257,6 +258,26 @@ public class UserDaoDB4O implements UserDao{
 		{
 			close();
 		}
+	}
+	public void UpdateById(Profile updatedProfile)
+	{
+		Profile temp=null;
+		open();
+		try
+		{
+			temp=getById(updatedProfile.getId());
+			DB.delete(temp);
+			DB.store(updatedProfile);
+			
+					
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally{
+			close();
+		}
+		
 	}
 	
 	//**********************************************   Delete    **************************************************//
@@ -297,6 +318,19 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return false;
 		
+	}
+	@SuppressWarnings("rawtypes")
+	private Profile getById(String id)
+	{
+		Profile temp=new Profile();
+		temp.setId(id);
+		ObjectSet result = DB.queryByExample(temp);
+		if(result.hasNext())
+		{
+			return (Profile)result.next();
+		}
+		
+		return null;
 	}
 	@SuppressWarnings("rawtypes")
 	private Profile getByEmail(String Email)

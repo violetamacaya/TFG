@@ -29,6 +29,7 @@
 	</pagehead>
 	
 	<br/><br/><br/>
+	<t:zone t:id="lateral" id="lateral" visible="loged">
 	<ul class="leftcolumn" id="myMenu">
 		<li><plain>${message:my-profile}</plain></li>
 		<li><plain>${message:ballots-by-me}</plain></li>
@@ -54,6 +55,7 @@
 		</t:zone>
 		
 		<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:companyz" ><plain>Company Admin</plain></t:eventlink></li>
+		
 		<t:zone t:id="companyZone" id="companyZone">
 			<t:if test="visibilityCompany">
 				<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:list-company"><plain2>Company List</plain2></t:eventlink></li>
@@ -64,7 +66,7 @@
 			<li><t:actionlink t:id="logout"><plain>${message:log-out}</plain></t:actionlink></li>
 		</t:if>
 	</ul>
-	
+	</t:zone>
 
 	<mainposition>
 		<t:body/>	

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -230,7 +231,19 @@ public class ProfileByFile {
 			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
 		}
 	}
-	
+	public void onFailureFromEditForm()
+	{
+		if(action==Actions.CANCEL)
+		{
+			editing=false;
+			newuser=false;
+			if(request.isXHR())
+			{
+				ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
+			}
+		}
+		editForm.clearErrors();
+	}
 	public boolean isAvalible()
 	{
 		userDao=DB4O.getUsuarioDao(access);
@@ -354,19 +367,7 @@ public class ProfileByFile {
 		}
 	}
 
-	public void onFailureFromEditForm()
-	{
-		if(action==Actions.CANCEL)
-		{
-			editing=false;
-			newuser=false;
-			if(request.isXHR())
-			{
-				ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
-			}
-		}
-		editForm.clearErrors();
-	}
+	
 	
 	private Profile lookforid(String id)
 	{

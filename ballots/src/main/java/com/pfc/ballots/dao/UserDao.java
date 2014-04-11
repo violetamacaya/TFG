@@ -13,6 +13,7 @@ public interface UserDao {
 	public Profile getProfileByEmail(String Email);
 	public void UpdateByEmail(String Email,Profile updatedProfile);
 	public void UpdateByEmail(Profile updatedProfile);
+	public void UpdateById(Profile updatedProfile);
 	public void deleteByEmail(String Email);
 	public boolean isProfileRegistred(String Email);
 }

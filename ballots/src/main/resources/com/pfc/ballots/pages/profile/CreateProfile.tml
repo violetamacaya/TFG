@@ -4,7 +4,7 @@
 	
 		
 		<infouser>
-			<t:beaneditform t:id="form" submitlabel="Anadir" object="profile" add="repeat" reorder="email,password,repeat">
+			<t:beaneditform t:id="form" submitlabel="Anadir" object="profile" add="repeat" reorder="email,password,repeat" exclude="admin,maker">
 			<p:email>
 				<t:label for="email"/>
 				<t:textfield t:id="email" value="profile.email" />

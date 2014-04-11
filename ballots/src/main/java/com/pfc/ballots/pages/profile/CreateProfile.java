@@ -47,7 +47,11 @@ public class CreateProfile {
 	private boolean isnotFirstTime;
 	//****************************************Initialize DAO****************************//
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	UserDao dao =DB4O.getUsuarioDao(datasession.getDBName());
+	@Persist
+	UserDao dao;
+	
+	
+	
 	
 	
 	/**
@@ -59,6 +63,7 @@ public class CreateProfile {
 	
 	void setupRender() 
 	{
+		dao=DB4O.getUsuarioDao(datasession.getDBName());
 		if(!isnotFirstTime)
 		{
 			profile=new Profile();
