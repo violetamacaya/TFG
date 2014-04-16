@@ -12,7 +12,16 @@
 		</t:zone>
 		<t:zone t:id="logZone" id="logZone">
 			<h1>Log de usuarios</h1>
-			<t:grid source="logs" row="log" rowsperpage="15" inplace="true" />
+			<t:if test="main">
+				<t:form>
+					<label>ShowAll</label><input t:type="checkbox" t:id="showAll" value="showAll" onclick="this.form.submit()"/>
+				</t:form>
+				<t:grid source="logs" row="log" rowsperpage="15" inplace="true" />
+				
+				<p:else>
+					<t:grid source="logs" row="log" rowsperpage="15" inplace="true" exclude="accessTo" />
+				</p:else>
+			</t:if>
 		</t:zone>
 			
 			

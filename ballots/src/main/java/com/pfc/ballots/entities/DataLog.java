@@ -7,6 +7,7 @@ public class DataLog {
 	private String email;
 	private String IP;
 	private Date date;
+	private String accessTo;
 	private boolean success;
 	
 	public DataLog(String email,String IP,Date date,boolean success)
@@ -15,6 +16,15 @@ public class DataLog {
 		this.setDate(date);
 		this.email=email;
 		this.success=success;
+		accessTo="main";
+	}
+	public DataLog(String email,String IP,Date date,boolean success,String company)
+	{
+		this.IP=IP;
+		this.setDate(date);
+		this.email=email;
+		this.success=success;
+		accessTo=company;
 	}
 	public DataLog(String email,String IP,boolean success)
 	{
@@ -22,6 +32,15 @@ public class DataLog {
 		setCurrentTime();
 		this.email=email;
 		this.success=success;
+		accessTo="main";
+	}
+	public DataLog(String email,String IP,boolean success,String company)
+	{
+		this.IP=IP;
+		setCurrentTime();
+		this.email=email;
+		this.success=success;
+		accessTo=company;
 	}
 	public DataLog(String IP)
 	{
@@ -29,6 +48,15 @@ public class DataLog {
 		setCurrentTime();
 		this.email="Annon";
 		this.success=false;
+		accessTo="main";
+	}
+	public DataLog(String IP,String company)
+	{
+		this.IP=IP;
+		setCurrentTime();
+		this.email="Annon";
+		this.success=false;
+		accessTo=company;
 	}
 	
 	public String getIP() {
@@ -60,6 +88,12 @@ public class DataLog {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public String getAccessTo() {
+		return accessTo;
+	}
+	public void setAccessTo(String accessTo) {
+		this.accessTo = accessTo;
 	}
 
 }

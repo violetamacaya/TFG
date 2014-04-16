@@ -14,12 +14,13 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.LogDao;
-import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.DataLog;
-import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.UserLoged;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
 
 public class LogList {
 
@@ -37,6 +38,10 @@ public class LogList {
 	private UserLoged userLoged;
 	
 	@Property
+	@Persist
+	private boolean showAll;
+	
+	@Property
 	private DataLog log;
 	
 	@Inject
@@ -47,12 +52,41 @@ public class LogList {
 	
 	void setupRender()
 	{
-		userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());		
+		
+		userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());
+		userLogedDao.clearSessions(DataSession.SESSION_TIME);
 	}
-	
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				System.out.println("LOGEADO");
+				if(datasession.isAdmin())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
+			case 1:
+				System.out.println("NO LOGEADO");
+				return Index.class;
+			case 2:
+				System.out.println("SESION EXPIRADA");
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
+	}
 	public List<DataLog> getLogs()
 	{
-		return logDao.retrieve();
+		if(showAll)
+		{
+			return logDao.retrieve();
+		}
+		else
+		{
+			return logDao.retrieve(datasession.getCompany());
+		}
 	}
 	
 	public List<UserLoged> getUsersLoged()
@@ -68,5 +102,11 @@ public class LogList {
 			ajaxResponseRenderer.addRender(logedZone);
 		}
 		
+	}
+	public boolean isMain()
+	{
+		if(datasession.isMainUser())
+			return true;
+		return false;
 	}
 }

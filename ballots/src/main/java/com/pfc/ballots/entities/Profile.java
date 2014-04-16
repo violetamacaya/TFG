@@ -35,6 +35,7 @@ public class Profile {
 	public Profile(Profile old)
 	{
 		this.admin=old.isAdmin();
+		this.maker=old.isMaker();
 		this.Id=old.getId();
 		this.email=old.email;
 		this.password=old.getPassword();

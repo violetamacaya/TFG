@@ -150,6 +150,32 @@ public class Border {
 		}
 	}
 	
+	public boolean isMaker()
+	{
+		if(datasession.isMaker())
+		{
+			return true;
+		}
+		else if(datasession.isAdmin())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public boolean isAdmin()
+	{
+		return datasession.isAdmin();
+	}
+	public boolean isMainAdmin()
+	{
+		if(datasession.isMainUser()&& datasession.isAdmin())
+			return true;
+		else 
+			return false;
+	}
 	public boolean isLoged()
 	{
 		

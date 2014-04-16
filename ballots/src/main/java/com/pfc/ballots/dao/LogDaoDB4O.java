@@ -72,6 +72,34 @@ public class LogDaoDB4O implements LogDao {
 		return list;
 	}
 
+	public List<DataLog> retrieve(String company )
+	{
+		
+		
+		open();
+		List<DataLog> list=new LinkedList<DataLog>();
+		try
+		{
+			 Query query = DB.query();
+		     query.constrain(DataLog.class);
+		     query.descend("accessTo").constrain(company);
+		     query.descend("date").orderDescending();
+		     ObjectSet result=query.execute();
+		     while(result.hasNext())
+		     {
+		    	list.add((DataLog) result.next());
+		     }
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	}
 
 
 

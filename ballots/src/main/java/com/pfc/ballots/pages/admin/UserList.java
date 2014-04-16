@@ -17,6 +17,9 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
 
 public class UserList {
 
@@ -69,6 +72,27 @@ public class UserList {
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
 		users=userDao.RetrieveAllProfilesSortLastLog();
 		editprof=null;
+	}
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				System.out.println("LOGEADO");
+				if(datasession.isAdmin())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
+			case 1:
+				System.out.println("NO LOGEADO");
+				return Index.class;
+			case 2:
+				System.out.println("SESION EXPIRADA");
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
 	}
 	public void onSelectedFromSave()
 	{
@@ -156,10 +180,23 @@ public class UserList {
 		if(request.isXHR())
 		{
 			userDao.deleteByEmail(email);
+			user=lookforemail(email);
+			users.remove(user);
 			ajaxResponseRenderer.addRender(usergrid);
 		}
 	}
-	
+	private Profile lookforemail(String email)
+	{
+		for(int i=0;i<users.size();i++)
+		{
+			if(users.get(i).getEmail().equals(email))
+			{
+				return users.get(i);
+			}
+		}
+		return null;
+		
+	}
 	private Profile lookforid(String id)
 	{
 		for(int i=0;i<users.size();i++)

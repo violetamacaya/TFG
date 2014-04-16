@@ -51,6 +51,25 @@ public class LogIn {
     UserDao userDao = DB4O.getUsuarioDao(datasession.getDBName());
     LogDao logDao=DB4O.getLogDao();
     UserLogedDao logedDao=DB4O.getUserLogedDao();
+    
+    
+    public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				System.out.println("LOGEADO");
+				return Index.class;
+			case 1:
+				System.out.println("NO LOGEADO");
+				return null;
+			case 2:
+				System.out.println("SESION EXPIRADA");
+				return null;
+			default:
+				return Index.class;
+		}
+	}
 	
 	Object onSuccess()
 	{

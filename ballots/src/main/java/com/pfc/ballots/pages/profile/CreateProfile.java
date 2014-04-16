@@ -13,6 +13,9 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
 
@@ -76,6 +79,27 @@ public class CreateProfile {
 		}
 		
 		
+	}
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				System.out.println("LOGEADO");
+				if(datasession.isAdmin())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
+			case 1:
+				System.out.println("NO LOGEADO");
+				return null;
+			case 2:
+				System.out.println("SESION EXPIRADA");
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
 	}
 	void onSuccess()
 	{

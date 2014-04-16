@@ -25,6 +25,8 @@ import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.ManipulateFiles;
 import com.pfc.ballots.util.UUID;
@@ -35,6 +37,9 @@ public class ProfileByFile {
 	 	
 	String sep=System.getProperty("file.separator");
 	String path=System.getProperty("user.home")+sep+"BallotsFiles"+sep+"uploadfiles"+sep;
+	
+	@SessionState
+	private DataSession datasession;
 	
 	@Persist
 	String access;
@@ -83,8 +88,7 @@ public class ProfileByFile {
 	@InjectComponent
 	private Form editForm;
 	
-	@SessionState
-	private DataSession datasession;
+	
 	@Inject
 	private Request request;
 	
@@ -148,6 +152,30 @@ public class ProfileByFile {
 		}
 		
 	}
+	
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				System.out.println("LOGEADO");
+				if(datasession.isAdmin())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
+			case 1:
+				System.out.println("NO LOGEADO");
+				return Index.class;
+			case 2:
+				System.out.println("SESION EXPIRADA");
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
+	}
+	
+	
 	public void setup(String dname){
 		System.out.println("NAME->"+dname);
 		access=dname;

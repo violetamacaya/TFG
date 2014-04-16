@@ -18,6 +18,8 @@ import com.pfc.ballots.entities.DataLog;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.UserLoged;
 import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.util.Encryption;
 
 public class CompanyLogIn {
@@ -54,6 +56,24 @@ public class CompanyLogIn {
 	UserDao userDao=null;
 	UserLogedDao logedDao=null;
 	
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				System.out.println("LOGEADO");
+				return Index.class;
+			case 1:
+				System.out.println("NO LOGEADO");
+				return null;
+			case 2:
+				System.out.println("SESION EXPIRADA");
+				return null;
+			default:
+				return Index.class;
+		}
+	}
+	
 	private void setBoolFalse()
 	{
 		fillFields=false;
@@ -68,14 +88,14 @@ public class CompanyLogIn {
 		{
 			setBoolFalse();
 			fillFields=true;
-			logDao.store(new DataLog(request.getRemoteHost()));
+			logDao.store(new DataLog(request.getRemoteHost(),"none"));
 			return request.isXHR() ? logForm.getBody() : null;
 		}
 		if(companyName.trim().length()==0 || email.trim().length()==0 || password.trim().length()==0)
 		{
 			setBoolFalse();
 			fillFields=true;
-			logDao.store(new DataLog(request.getRemoteHost()));
+			logDao.store(new DataLog(request.getRemoteHost(),"none"));
 			return request.isXHR() ? logForm.getBody() : null;
 		}
 		email=email.toLowerCase();
@@ -90,7 +110,7 @@ public class CompanyLogIn {
 			setBoolFalse();
 			companyFailure=true;
 			System.out.println("compañia incorrecto");
-			logDao.store(new DataLog(request.getRemoteHost()));
+			logDao.store(new DataLog(request.getRemoteHost(),"none"));
 			return request.isXHR() ? logForm.getBody() : null;
 		}
 		//Verify if user is registred
@@ -101,7 +121,7 @@ public class CompanyLogIn {
 			setBoolFalse();
 			authenticationFailure=true;
 			System.out.println("password incorrecto");
-			logDao.store(new DataLog(request.getRemoteHost()));
+			logDao.store(new DataLog(request.getRemoteHost(),company.getCompanyName()));
 			return request.isXHR() ? logForm.getBody() : null;
 		}
 		
@@ -114,7 +134,7 @@ public class CompanyLogIn {
 			System.out.println(profile.getPassword());
 			System.out.println(encryptedPass);
 			
-			logDao.store(new DataLog(email,request.getRemoteHost(),false));
+			logDao.store(new DataLog(email,request.getRemoteHost(),false,company.getCompanyName()));
 			return request.isXHR() ? logForm.getBody() : null;
 		}
 		else
@@ -135,9 +155,9 @@ public class CompanyLogIn {
 			Profile updatedProfile=new Profile(userDao.getProfileByEmail(email));
 			updatedProfile.setLogtoactual();
 			userDao.UpdateByEmail(updatedProfile);
-			datasession.login(company.getDBName(), updatedProfile);
+			datasession.login(company.getDBName(), updatedProfile,company.getCompanyName());
 			//Record successful login in users log
-			logDao.store(new DataLog(email,request.getRemoteHost(),true));
+			logDao.store(new DataLog(email,request.getRemoteHost(),true,company.getCompanyName()));
 			System.out.println("LOGIN CORRECTO");
 			return Index.class;
 		}

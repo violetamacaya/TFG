@@ -1,6 +1,8 @@
 package com.pfc.ballots.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.db4o.Db4oEmbedded;
@@ -141,6 +143,67 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		}
 		
 	}
+	/**
+	 * 				Compare Dates to close expired users Sesions
+	 */
+	public void clearSessions(long timeOfSession) {
+	
+		open();
+		System.out.println("CLEAR SESSIONS");
+
+		List<UserLoged> users=new ArrayList<UserLoged>();
+		Date actualDate=new Date();
+		Date logDate=null;
+		
+		Calendar calActualDate=Calendar.getInstance();
+		Calendar calLogDate=Calendar.getInstance();
+		
+		calActualDate.setTime(actualDate);
+		long milis1=calActualDate.getTimeInMillis();
+		long milis2;
+		long diff;
+		long diffMin;
+		try
+		{
+			System.out.println("CLEAR SESSIONS");
+			Query query=DB.query();
+			query.constrain(UserLoged.class);
+			query.descend("date").orderAscending();
+			ObjectSet resultado = query.execute();
+			
+			while (resultado.hasNext())
+			{
+				users.add((UserLoged)resultado.next());
+			}
+			
+		
+			for(int i=0;i<users.size();i++)
+			{
+				calLogDate.setTime(users.get(i).getDate());
+				milis2=calLogDate.getTimeInMillis();
+				diff=milis1-milis2;
+				diffMin=diff/(60*1000);
+				
+				if(diffMin>timeOfSession)
+				{
+					System.out.println("SI");
+					DB.delete(users.get(i));
+				}
+				else
+					System.out.println("NO");
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		
+	}
 	
 	//********************************************Open and Close DB************************************//
 	
@@ -166,6 +229,7 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		DB.close();
 		System.out.println("[DB4O]Database was closed");
 	}
+	
 
 
 
