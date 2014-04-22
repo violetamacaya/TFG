@@ -121,7 +121,38 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;
 	}
-	
+	public Profile getProfileById(String Id){
+
+		Profile temp=new Profile();
+		temp.setId(Id);
+		open();
+		try
+		{
+			
+			ObjectSet result=DB.queryByExample(temp);
+			
+			if(result.hasNext())
+			{
+				System.out.println("[DB4O]Profile was retrieved");
+				return (Profile) result.next();
+			}
+			else
+			{
+				System.out.println("[DB4O]Profile does't exist in Database");
+				return null;
+			}
+			
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return null;	}
 	
 	//*******************************************Retrieves all****************************************//
 	

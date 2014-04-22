@@ -12,6 +12,7 @@ public class Company {
 	
 	@NonVisual
 	private String Id;
+	
 	@Validate("required")
 	private String CompanyName;
 	@Validate("required,minLength=6")
@@ -33,6 +34,7 @@ public class Company {
 	{
 		this.Id=Id;
 	}
+	
 	public String getId()
 	{
 		return this.Id;
