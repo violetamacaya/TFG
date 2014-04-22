@@ -113,6 +113,53 @@ public class CompanyDaoDB4O implements CompanyDao {
 		return list;
 		
 	}
+	//*************************************** Update  ******************************************//
+	public void updateCompany(Company company)
+	{
+		
+		open();
+		try
+		{
+			Company temp=new Company();
+			temp.setId(company.getId());
+			@SuppressWarnings("rawtypes")
+			ObjectSet result=DB.queryByExample(temp);
+			if(result.hasNext())
+			{
+				DB.delete(result.next());
+				DB.store(company);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR: Company could not be updated");
+		}
+		finally
+		{
+			close();
+		}
+		
+	}
+	
+	public void updateAdminData()
+	{
+		List<Company> list=RetrieveAllCompanies();
+		FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+		UserDao userDao =null;
+		for(int i=0;i<list.size();i++)
+		{
+			userDao=DB4O.getUsuarioDao(list.get(i).getDBName());
+			String email=userDao.getEmailById(list.get(i).getId());
+			if(!email.equals(list.get(i).getAdminEmail()))
+			{
+				list.get(i).setAdminEmail(email);
+				updateCompany(list.get(i));
+			}
+		}
+	}
+	
+	
 	//*************************************** Delete  ******************************************//
 	
 	public void deleteCompanyByEmail(String email)

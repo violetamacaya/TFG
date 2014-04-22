@@ -12,6 +12,7 @@ public interface UserDao {
 	public List<Profile> RetrieveAllProfilesSortLastLog();
 	public Profile getProfileByEmail(String Email);
 	public Profile getProfileById(String Id);
+	public String  getEmailById(String Id);
 	public void UpdateByEmail(String Email,Profile updatedProfile);
 	public void UpdateByEmail(Profile updatedProfile);
 	public void UpdateById(Profile updatedProfile);

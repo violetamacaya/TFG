@@ -62,6 +62,8 @@ public class ListCompany {
 	
 	public List<Company> getCompanies()
 	{
+		//check owner email and update them in the Main Database
+		companyDao.updateAdminData();
 		return companyDao.RetrieveAllCompanies();
 	}
 	

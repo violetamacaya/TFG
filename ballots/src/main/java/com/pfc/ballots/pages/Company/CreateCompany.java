@@ -121,6 +121,7 @@ public class CreateCompany {
 			userDao=DB4O.getUsuarioDao(company.getDBName());
 			company.setId(UUID.generate());
 			profile.setId(UUID.generate());
+			company.setIdAdmin(profile.getId());
 			company.setRegDatetoActual();
 			profile.setRegDatetoActual();
 			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);

@@ -3,7 +3,6 @@ package com.pfc.ballots.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -121,6 +120,8 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("rawtypes")
 	public Profile getProfileById(String Id){
 
 		Profile temp=new Profile();
@@ -152,7 +153,44 @@ public class UserDaoDB4O implements UserDao{
 		{
 			close();
 		}
-		return null;	}
+		return null;	
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public String getEmailById(String Id)
+	{
+		
+		Profile temp=new Profile();
+		temp.setId(Id);
+		open();
+		try
+		{
+			
+			ObjectSet result=DB.queryByExample(temp);
+			
+			if(result.hasNext())
+			{
+				System.out.println("[DB4O]Profile was retrieved");
+				return ((Profile) result.next()).getEmail();
+			}
+			else
+			{
+				System.out.println("[DB4O]Profile does't exist in Database");
+				return null;
+			}
+			
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return null;	
+	}
 	
 	//*******************************************Retrieves all****************************************//
 	

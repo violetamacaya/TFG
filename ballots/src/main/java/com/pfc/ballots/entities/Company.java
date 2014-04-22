@@ -11,8 +11,9 @@ public class Company {
 	
 	
 	@NonVisual
-	private String Id;
-	
+	private String id;
+	@NonVisual
+	private String idAdmin;
 	@Validate("required")
 	private String CompanyName;
 	@Validate("required,minLength=6")
@@ -30,14 +31,21 @@ public class Company {
 		this.CompanyName=CompanyName;
 	}
 	
-	public void setId(String Id)
+	public void setId(String id)
 	{
-		this.Id=Id;
+		this.id=id;
 	}
 	
 	public String getId()
 	{
-		return this.Id;
+		return this.id;
+	}
+	public String getIdAdmin(){
+		return this.idAdmin;
+	}
+	public void setIdAdmin(String idAdmin)
+	{
+		this.idAdmin=idAdmin;
 	}
 	public void setCompanyName(String CompanyName)
 	{
