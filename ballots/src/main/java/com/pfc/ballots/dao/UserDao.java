@@ -10,9 +10,11 @@ public interface UserDao {
 	public void store(List<Profile> profiles);
 	public List<Profile> RetrieveAllProfiles();
 	public List<Profile> RetrieveAllProfilesSortLastLog();
+	public List<Profile> getByExample(Profile example);
 	public Profile getProfileByEmail(String Email);
 	public Profile getProfileById(String Id);
 	public String  getEmailById(String Id);
+	
 	public void UpdateByEmail(String Email,Profile updatedProfile);
 	public void UpdateByEmail(Profile updatedProfile);
 	public void UpdateById(Profile updatedProfile);

@@ -24,6 +24,7 @@ import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.MethodsInfo;
+import com.pfc.ballots.pages.Census.CreateCensus;
 import com.pfc.ballots.pages.Company.CreateCompany;
 import com.pfc.ballots.pages.Company.ListCompany;
 import com.pfc.ballots.pages.admin.LogList;
@@ -42,10 +43,11 @@ public class Border {
 	@SessionState
 	private DataSession datasession;
 	@InjectComponent
+	private Zone censusZone;
+	@InjectComponent
 	private Zone userZone;
 	@InjectComponent
 	private Zone ballotZone;
-	
 	@InjectComponent
 	private Zone companyZone;
 	
@@ -63,7 +65,9 @@ public class Border {
 	@SessionAttribute
 	@Property
 	private Boolean visibilityCompany;
-	
+	@SessionAttribute
+	@Property
+	private Boolean visibilityCensus;
     @Inject
     private ComponentResources componentResources;
 
@@ -78,11 +82,12 @@ public class Border {
 	/****************************************  Constructor **********************************************************************/
 	public Border()
 	{
-		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null)
+		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null || visibilityCensus==null)
 		{
 			visibilityUser=new Boolean("false");
 			visibilityBallot=new Boolean("false");
 			visibilityCompany=new Boolean("false");
+			visibilityCensus=new Boolean("false");
 		}
 		if(datasession==null)
 		{
@@ -93,11 +98,12 @@ public class Border {
 	}
 	public void restoreBorder()
 	{
-		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null)
+		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null || visibilityCensus==null)
 		{
 			visibilityUser=new Boolean("false");
 			visibilityBallot=new Boolean("false");
 			visibilityCompany=new Boolean("false");
+			visibilityCensus=new Boolean("false");
 		}
 		if(datasession==null)
 		{
@@ -206,11 +212,21 @@ public class Border {
 	Object onMenu(String section)
 	{									
 		Object page=null;
-		
-		if(section.equals("userz"))		//This handle the lateral menu
+		if(section.equals("censusz"))		//This handle the lateral menu
+		{
+			visibilityUser=false;
+			visibilityBallot=false;
+			visibilityCompany=false;
+			if(visibilityCensus)
+				{visibilityCensus=false;}
+			else
+				{visibilityCensus=true;}
+		}
+		else if(section.equals("userz"))		
 		{
 			visibilityBallot=false;
 			visibilityCompany=false;
+			visibilityCensus=false;
 			if(visibilityUser)
 				{visibilityUser=false;}
 			else
@@ -219,6 +235,7 @@ public class Border {
 		}
 		else if(section.equals("ballotz"))
 		{
+			visibilityCensus=false;
 			visibilityCompany=false;
 			visibilityUser=false;
 			if(visibilityBallot)
@@ -231,11 +248,16 @@ public class Border {
 		{
 			visibilityUser=false;
 			visibilityBallot=false;
+			visibilityCensus=false;
 			if(visibilityCompany)
 				{visibilityCompany=false;}
 			else
 				{visibilityCompany=true;}
 		}
+		else if(section.equals("new-census"))
+			{
+				page=CreateCensus.class;
+			}
 		else if(section.equals("new-user2"))
 			{
 			page=CreateProfile.class;}
@@ -263,6 +285,7 @@ public class Border {
 			visibilityCompany=false;
 			visibilityUser=false;
 			visibilityBallot=false;
+			visibilityCensus=false;
 			if(section.equals("index"))
 				{page=Index.class;}
 			if(section.equals("new-user1"))
@@ -276,7 +299,7 @@ public class Border {
 		}
 		if(request.isXHR())
 		{
-			ajaxResponseRenderer.addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
+			ajaxResponseRenderer.addRender("censusZone",censusZone).addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
 		}
 		return page;
 	}

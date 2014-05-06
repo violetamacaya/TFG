@@ -1,0 +1,90 @@
+
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	
+		<t:zone t:id="searchTypeZone" t:update="show">
+			<t:if test="advancedSearch">
+				<t:eventlink t:event="typeSearch" zone="^">Basica</t:eventlink>
+				<p:else>
+					<t:eventlink t:event="typeSearch" zone="^">Avanzada</t:eventlink>
+				</p:else>
+			</t:if>
+		</t:zone>
+		
+		<t:zone t:id="basicSearchZone" id="basicSearchZone" visible="!advancedSearch" t:update="show">
+			
+				<t:form t:id="basicSearchForm" zone="searchListZone">
+					<table>
+						<tr>
+							<td><label>Email</label></td>
+							<td><t:textfield t:id="email"/></td>
+						</tr>
+						
+						<tr>
+							
+							<td></td>
+							<td><p style="text-align:center;"><input t:type="submit" value="submit"/> 
+								<t:eventlink t:event="reset" zone="^"><button>Reset</button></t:eventlink></p></td>
+						</tr>
+					</table>
+				</t:form>
+			
+		</t:zone>
+		
+	
+		
+		
+		
+		
+		<t:zone t:id="advancedSearchZone" id="advancedSearchZone" visible="advancedSearch" t:update="show">
+			 <t:form t:id="advancedSearchForm" zone="searchListZone">
+			 	<table>
+			 		<tr>
+							<td><label>Admin</label></td>
+							<td><t:checkbox t:id="admin" value="profile.admin"/></td>
+					</tr>
+					<tr>
+							<td><label>Maker</label></td>
+							<td><t:checkbox t:id="maker" value="profile.maker"/></td>
+					</tr>
+			 		<tr>
+			 			<td><label>First Name</label></td>
+			 			<td><t:textfield t:id="firstName"></t:textfield></td>
+			 		</tr>
+			 		<tr>
+			 			<td><label>Last Name</label></td>
+			 			<td><t:textfield t:id="lastName"></t:textfield></td>
+			 		</tr>
+			 		<tr>
+			 			<td><label>University</label></td>
+			 			<td><t:textfield t:id="university" value="profile.university"/></td>
+			 		</tr>
+			 		<tr>
+			 			<td><label>City</label></td>
+			 			<td><t:textfield t:id="city" value="profile.city"/></td>
+			 		</tr>
+			 		<tr>
+			 			<td><label>Country</label></td>
+			 			<td><t:textfield t:id="country" value="profile.country"/></td>
+			 		</tr>
+			 		<tr>
+							
+						<td></td>
+						<td><p style="text-align:center;"><input t:type="submit" value="submit"/> 
+							<t:eventlink t:event="reset" zone="^"><button>Reset</button></t:eventlink></p></td>
+					</tr>
+			 		
+			 	</table>
+			 </t:form>
+		</t:zone>
+		
+		<t:zone t:id="searchListZone" id="searchListZone">
+			<table>
+				<tr><td><t:grid source="users"/></td></tr>
+				<tr><td><t:actionLink t:id="showAll" zone="^">showAllUsers</t:actionLink></td></tr>
+			</table>
+		</t:zone>
+		
+	</t:border>
+</html>

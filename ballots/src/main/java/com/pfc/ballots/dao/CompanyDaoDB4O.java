@@ -162,6 +162,7 @@ public class CompanyDaoDB4O implements CompanyDao {
 	
 	//*************************************** Delete  ******************************************//
 	
+	@SuppressWarnings("rawtypes")
 	public void deleteCompanyByEmail(String email)
 	{
 		open();

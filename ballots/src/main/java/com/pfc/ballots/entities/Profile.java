@@ -104,7 +104,6 @@ public class Profile {
 		return maker;
 	}
 	public void setMaker(boolean maker) {
-		System.out.println("SETMAKER");
 		this.maker = maker;
 	}
 	public String getEmail(){

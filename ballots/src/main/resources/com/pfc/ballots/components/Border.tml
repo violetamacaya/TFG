@@ -40,7 +40,18 @@
 		
 		<t:if test="maker">
 			<li><plain>${message:ballots-by-me}</plain></li>
+			<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:censusz"><plain>Censos</plain></t:eventlink></li>
 		</t:if>
+		
+			<t:zone t:id="censusZone" id="censusZone">
+				<t:if test="visibilityCensus">
+							
+					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:new-census"><plain2>Crear Censo</plain2></t:eventlink></li>
+					<li><plain2>Mis Censos</plain2></li>
+				</t:if>
+			</t:zone>
+		
+		
 		
 		<t:if test="admin">
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:userz" ><plain>User Admin</plain></t:eventlink></li>
@@ -54,6 +65,7 @@
 					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:log-list" ><plain2>Logs</plain2></t:eventlink></li>
 				</t:if>
 			</t:zone>
+			
 		<t:if test="admin">
 			<li><t:eventlink t:event="menu" t:context="literal:ballotz" t:zone="ballotZone"><plain>Ballot Admin</plain></t:eventlink></li>
 		</t:if>

@@ -90,6 +90,31 @@ public class UserDaoDB4O implements UserDao{
 	//******************************************************Retrievers*********************************//
 	
 	@SuppressWarnings("rawtypes")
+	public List<Profile> getByExample(Profile example)
+	{
+		List<Profile> list=new ArrayList<Profile>();
+		open();
+		try
+		{
+			ObjectSet result=DB.queryByExample(example);
+			while(result.hasNext())
+			{
+				list.add((Profile)result.next());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			list.clear();
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	}
+	
+	@SuppressWarnings("rawtypes")
 	public Profile getProfileByEmail(String Email)
 	{
 		open();
