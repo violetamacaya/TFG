@@ -12,6 +12,7 @@
 			</t:if>
 		</t:zone>
 		
+		
 		<t:zone t:id="basicSearchZone" id="basicSearchZone" visible="!advancedSearch" t:update="show">
 			
 				<t:form t:id="basicSearchForm" zone="searchListZone">
@@ -31,10 +32,6 @@
 				</t:form>
 			
 		</t:zone>
-		
-	
-		
-		
 		
 		
 		<t:zone t:id="advancedSearchZone" id="advancedSearchZone" visible="advancedSearch" t:update="show">
@@ -81,7 +78,7 @@
 		
 		<t:zone t:id="searchListZone" id="searchListZone">
 			<table>
-				<tr><td><t:grid source="users"/></td></tr>
+				<tr><td><t:grid source="users" exclude="lastLog,regDate,password,plainPass"/></td></tr>
 				<tr><td><t:actionLink t:id="showAll" zone="^">showAllUsers</t:actionLink></td></tr>
 			</table>
 		</t:zone>

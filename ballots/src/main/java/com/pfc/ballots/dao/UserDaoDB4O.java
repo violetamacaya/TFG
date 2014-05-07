@@ -88,7 +88,7 @@ public class UserDaoDB4O implements UserDao{
 	
 	
 	//******************************************************Retrievers*********************************//
-	
+	/*
 	@SuppressWarnings("rawtypes")
 	public List<Profile> getByExample(Profile example)
 	{
@@ -113,6 +113,57 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return list;
 	}
+	*/
+	@SuppressWarnings("rawtypes")
+	public List<Profile> getByExample(Profile example)
+	{
+		List<Profile> list=new ArrayList<Profile>();
+		open();
+		try
+		{
+			Query query =DB.query();
+			query.constrain(Profile.class);
+			
+			if(example.getId()!=null)
+				{query.descend("id").constrain(example.getId()).endsWith(false);}
+			if(example.isAdmin())
+				{query.descend("admin").constrain(example.isAdmin());}
+			if(example.isMaker())
+				{query.descend("maker").constrain(example.isMaker());}
+			if(example.getEmail()!=null)
+				{query.descend("maker").constrain(example.getEmail()).endsWith(false);}
+			
+			if(example.getFirstName()!=null)
+				{query.descend("firstName").constrain(example.getFirstName()).endsWith(false);}
+			
+			if(example.getLastName()!=null)
+				{query.descend("lastName").constrain(example.getLastName()).endsWith(false);}
+			if(example.getUniversity()!=null)
+				{query.descend("university").constrain(example.getUniversity()).endsWith(false);}
+			if(example.getCity()!=null)
+				{query.descend("city").constrain(example.getCity()).endsWith(false);}
+			if(example.getCountry()!=null)
+				{query.descend("country").constrain(example.getCountry()).endsWith(false);}
+			
+			
+			ObjectSet result=query.execute();
+			while(result.hasNext())
+			{
+				list.add((Profile)result.next());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			list.clear();
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	}
+	
 	
 	@SuppressWarnings("rawtypes")
 	public Profile getProfileByEmail(String Email)

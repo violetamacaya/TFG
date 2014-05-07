@@ -3,7 +3,6 @@ package com.pfc.ballots.entities;
 
 
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.tapestry5.beaneditor.NonVisual;
