@@ -1,6 +1,9 @@
 package com.pfc.ballots.pages.Census;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -40,6 +43,21 @@ public class CreateCensus {
 	@Property
 	private boolean advancedSearch;
 	
+	@Property
+	private Profile user;
+	@Property
+	private Profile prof;
+		
+	@Persist
+	private List<Profile> searchList;
+	
+	@Persist
+	private List<Profile> censusList;
+	
+	@Persist
+	private Map<String,Boolean> map;
+	
+	
 	@Inject
 	ComponentResources componentResources;
 	
@@ -52,7 +70,8 @@ public class CreateCensus {
 	private Zone advancedSearchZone;
 	@InjectComponent
 	private Zone basicSearchZone;
-	
+	@InjectComponent
+	private Zone censusListZone;
 	             
 	@Inject
 	private AjaxResponseRenderer ajaxResponseRenderer;
@@ -67,18 +86,31 @@ public class CreateCensus {
 	
 	}
 	
+	public List<Profile> getCensusList()
+	{
+		if(censusList!=null)
+		{
+			for(Profile temp:censusList)
+			{
+				System.out.println("Nombre->"+temp.getFirstName());
+			}
+		}
+		return censusList;
+	}
 	public List<Profile> getUsers()
 	{
 		if(example==null)
 		{
 			System.out.println("return null");
-			return null;
+			searchList=null;
+			
 		}
 		else
 		{
 			System.out.println("BY Example");
-			return userDao.getByExample(example);
+			searchList= userDao.getByExample(example);
 		}
+		return searchList;
 	}
 
 	public void onTypeSearch()
@@ -88,7 +120,7 @@ public class CreateCensus {
 			advancedSearch=false;
 		else
 			advancedSearch=true;
-
+		
 		ajaxResponseRenderer.addRender("searchTypeZone",searchTypeZone).addRender("basicSearchZone",basicSearchZone).addRender("advancedSearchZone", advancedSearchZone);
 	}
 	
@@ -96,6 +128,15 @@ public class CreateCensus {
 	{
 		example=new Profile();
 		ajaxResponseRenderer.addRender("searchListZone",searchListZone);
+	}
+	
+	public boolean isShowGrid()
+	{
+		return (example!=null) ? true:false; 
+	}
+	public boolean isShowCensus()
+	{
+		return (censusList!=null)? true:false;
 	}
 	
 	public void onReset()
@@ -165,6 +206,18 @@ public class CreateCensus {
 		example=new Profile(profile);
 		ajaxResponseRenderer.addRender("searchListZone",searchListZone);
 	}
+	
+	public void onSuccessFromAddForm()
+	{
+		ajaxResponseRenderer.addRender("searchListZone",searchListZone).addRender("censusListZone",censusListZone);
+	}
+	public void onSuccessFromRemoveForm()
+	{
+		ajaxResponseRenderer.addRender("searchListZone",searchListZone).addRender("censusListZone",censusListZone);
+	}
+	
+	
+	
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
@@ -176,6 +229,85 @@ public class CreateCensus {
 		componentResources.discardPersistentFieldChanges();
 		reset();
 	}
+	
+	public void setAdd(boolean add)
+	{
+		if(add)
+		{
+			if(map==null || censusList==null)
+			{
+				map=new HashMap<String,Boolean>();
+				censusList=new LinkedList<Profile>();
+				
+			}
+			if(map.get(user.getId())==null)
+			{
+				map.put(user.getId(), new Boolean(true));
+				censusList.add(user);
+			}
+		
+		}
+		else
+		{
+			if(map!=null)
+			{
+				if(map.get(user.getId())!=null)
+				{
+					for(Profile temp:censusList)
+					{
+						if(temp.getId().equals(user.getId()))
+						{
+							censusList.remove(temp);
+							map.remove(user.getId());
+							
+						}
+					}
+					if(censusList.size()==0)
+					{
+						map=null;
+						censusList=null;
+					}
+				}
+			}
+				
+		}
+		
+	}
+	
+	public boolean isAdd()
+	{		
+		if(map==null)
+		 return false;
+		if(map.get(user.getId())==null)
+			return false;
+		else
+			return true;
+	}
 
-
+	public void setRemove(boolean remove)
+	{
+		if(remove)
+		{
+			map.remove(user.getId());
+			if(censusList!=null)
+			{
+				for(int i=0;i<censusList.size();i++)
+				{
+					if(censusList.get(i).getId().equals(user.getId()))
+						{censusList.remove(i);}
+				}
+			}
+			
+			
+			if(map.size()==0)
+			{
+				map=null;
+				censusList=null;
+			}			
+		}
+	}
+	public boolean isRemove()
+	{
+		return false;
+	}
 }

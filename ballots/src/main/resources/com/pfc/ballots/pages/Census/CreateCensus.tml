@@ -77,10 +77,40 @@
 		</t:zone>
 		
 		<t:zone t:id="searchListZone" id="searchListZone">
-			<table>
-				<tr><td><t:grid source="users" exclude="lastLog,regDate,password,plainPass"/></td></tr>
+			<t:form t:id="addForm" zone="^">
+				<table>
 				<tr><td><t:actionLink t:id="showAll" zone="^">showAllUsers</t:actionLink></td></tr>
-			</table>
+					<tr><td>
+						<t:if test="showGrid">				
+							<t:grid source="users" row="user" exclude="lastLog,regDate,password,plainPass" add="add" reorder="add">
+								<p:addCell>
+									<t:checkbox t:id="add"/>
+								</p:addCell>
+							</t:grid>
+						</t:if>
+					</td></tr>
+					<tr><td><t:if test="showGrid"><input t:type="submit" value="add"/></t:if></td></tr>
+					
+				</table>
+			</t:form>
+		</t:zone>
+		<t:zone	t:id="censusListZone" id="censusListZone">
+			<t:if test="showCensus">
+				<t:form t:id="removeForm" zone="^">
+					<table>
+						<tr><td>
+							<t:grid source="censusList" row="user" exclude="lastLog,regDate,password,plainPass" add="remove" reorder="remove">
+								<p:removeCell>
+									<t:checkbox t:id="remove"/>
+								</p:removeCell>
+							</t:grid>
+						</td></tr>
+						<tr><td>
+							<input t:type="submit" value="remove"/>
+						</td></tr>
+					</table>
+				</t:form>
+			</t:if>
 		</t:zone>
 		
 	</t:border>
