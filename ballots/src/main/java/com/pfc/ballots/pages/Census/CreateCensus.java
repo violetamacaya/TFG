@@ -129,6 +129,33 @@ public class CreateCensus {
 		example=new Profile();
 		ajaxResponseRenderer.addRender("searchListZone",searchListZone);
 	}
+
+	public void onActionFromAddAll()
+	{
+		if(map==null || censusList==null)
+		{
+			map=new HashMap<String,Boolean>();
+			censusList=new LinkedList<Profile>();
+			
+		}
+		for(Profile temp:searchList)
+		{
+			if(map.get(temp.getId())==null)
+			{
+				map.put(temp.getId(), new Boolean(true));
+				censusList.add(temp);
+			}
+		}
+		
+		ajaxResponseRenderer.addRender("searchListZone",searchListZone).addRender("censusListZone",censusListZone);
+	}
+	public void onActionFromRemoveAll()
+	{
+		map=null;
+		censusList=null;
+		ajaxResponseRenderer.addRender("searchListZone",searchListZone).addRender("censusListZone",censusListZone);
+	}
+	
 	
 	public boolean isShowGrid()
 	{

@@ -2,7 +2,9 @@
 <html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		
 	
+		
 		<t:zone t:id="searchTypeZone" t:update="show">
 			<t:if test="advancedSearch">
 				<t:eventlink t:event="typeSearch" zone="^">Basica</t:eventlink>
@@ -82,14 +84,17 @@
 				<tr><td><t:actionLink t:id="showAll" zone="^">showAllUsers</t:actionLink></td></tr>
 					<tr><td>
 						<t:if test="showGrid">				
-							<t:grid source="users" row="user" exclude="lastLog,regDate,password,plainPass" add="add" reorder="add">
+							<t:grid source="users" row="user" exclude="lastLog,regDate,password,plainPass" add="add" reorder="add" inplace="true">
 								<p:addCell>
 									<t:checkbox t:id="add"/>
 								</p:addCell>
 							</t:grid>
 						</t:if>
 					</td></tr>
-					<tr><td><t:if test="showGrid"><input t:type="submit" value="add"/></t:if></td></tr>
+					<tr><td><t:if test="showGrid">
+								<input t:type="submit" value="add"/>
+								 <t:actionlink t:id="addAll" zone="^"><button>addAll</button></t:actionlink>
+							</t:if></td></tr>
 					
 				</table>
 			</t:form>
@@ -99,7 +104,7 @@
 				<t:form t:id="removeForm" zone="^">
 					<table>
 						<tr><td>
-							<t:grid source="censusList" row="user" exclude="lastLog,regDate,password,plainPass" add="remove" reorder="remove">
+							<t:grid source="censusList" row="user" exclude="lastLog,regDate,password,plainPass" add="remove" reorder="remove" inplace="true">
 								<p:removeCell>
 									<t:checkbox t:id="remove"/>
 								</p:removeCell>
@@ -107,6 +112,7 @@
 						</td></tr>
 						<tr><td>
 							<input t:type="submit" value="remove"/>
+							<t:actionlink t:id="removeAll" zone="^"><button>RemoveAll</button></t:actionlink>
 						</td></tr>
 					</table>
 				</t:form>
