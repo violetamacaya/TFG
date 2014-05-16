@@ -123,16 +123,14 @@ public class UserDaoDB4O implements UserDao{
 		{
 			Query query =DB.query();
 			query.constrain(Profile.class);
-			
+			if(example.getEmail()!=null)
+				{query.descend("email").constrain(example.getEmail()).endsWith(false);}
 			if(example.getId()!=null)
 				{query.descend("id").constrain(example.getId()).endsWith(false);}
 			if(example.isAdmin())
 				{query.descend("admin").constrain(example.isAdmin());}
 			if(example.isMaker())
 				{query.descend("maker").constrain(example.isMaker());}
-			if(example.getEmail()!=null)
-				{query.descend("maker").constrain(example.getEmail()).endsWith(false);}
-			
 			if(example.getFirstName()!=null)
 				{query.descend("firstName").constrain(example.getFirstName()).endsWith(false);}
 			

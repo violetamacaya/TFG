@@ -155,7 +155,7 @@ public class CompanyLogIn {
 			Profile updatedProfile=new Profile(userDao.getProfileByEmail(email));
 			updatedProfile.setLogtoactual();
 			userDao.UpdateByEmail(updatedProfile);
-			datasession.login(company.getDBName(), updatedProfile,company.getCompanyName());
+			datasession.login(updatedProfile,company);
 			//Record successful login in users log
 			logDao.store(new DataLog(email,request.getRemoteHost(),true,company.getCompanyName()));
 			System.out.println("LOGIN CORRECTO");

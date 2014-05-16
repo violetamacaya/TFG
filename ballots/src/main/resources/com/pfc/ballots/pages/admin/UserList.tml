@@ -2,7 +2,7 @@
    
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 		<t:zone t:id="usergrid" id="usergrid">	
-			<t:grid source="users" reorder="email,admin,maker" row="user" add="Edit,Delete" exclude="password">
+			<t:grid source="users" reorder="email,admin,maker" row="user" add="id,Edit,Delete" exclude="password">
 				<p:editcell>
 					<t:if test="!editing">
 						<t:actionlink t:id="editbut" zone="^" context="user.id"><button>edit</button></t:actionlink>
@@ -13,6 +13,9 @@
 						<t:actionlink t:id="deleteuser" context="user.email" zone="^"><button>Delete</button></t:actionlink>
 					</t:if>
 				</p:deleteCell>
+				<p:idcell>
+					${user.id }
+				</p:idcell>
 				
 			</t:grid>
 		</t:zone>

@@ -35,7 +35,7 @@ public class Profile {
 	{
 		this.admin=old.isAdmin();
 		this.maker=old.isMaker();
-		this.Id=old.getId();
+		this.id=old.getId();
 		this.email=old.email;
 		this.password=old.getPassword();
 		this.sex=old.getSex();
@@ -59,7 +59,7 @@ public class Profile {
 	private boolean maker;
 	
 	@NonVisual
-	private String Id;
+	private String id;
 	//this will also be the username
 	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	private String email;
@@ -85,11 +85,11 @@ public class Profile {
 	
 	public String getId()
 	{
-		return Id;
+		return id;
 	}
-	public void setId(String Id)
+	public void setId(String id)
 	{
-		this.Id=Id;
+		this.id=id;
 	}
 	public boolean isAdmin(){
 		
@@ -211,7 +211,7 @@ public class Profile {
 	{
 		this.admin=old.isAdmin();
 		this.maker=old.isMaker();
-		this.Id=old.getId();
+		this.id=old.getId();
 		this.email=old.email;
 		this.password=old.getPassword();
 		this.sex=old.getSex();

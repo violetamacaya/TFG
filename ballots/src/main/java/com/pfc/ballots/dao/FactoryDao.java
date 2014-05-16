@@ -10,11 +10,16 @@ public abstract class FactoryDao {
 	public static final int DB4O_FACTORY = 1;
 	public abstract UserDao getUsuarioDao();
 	public abstract UserDao getUsuarioDao(String DBName);
+	
 	public abstract UserLogedDao getUserLogedDao();
 	public abstract UserLogedDao getUserLogedDao(String DBName);
-	public abstract LogDao getLogDao();
 	
-	public abstract CompanyDao getCompanyDao();
+	public abstract LogDao getLogDao();//in DB4O has its own DB
+	
+	public abstract CensusDao getCensusDao();
+	public abstract CensusDao getCensusDao(String DBName);
+	
+	public abstract CompanyDao getCompanyDao();//only an be in main DB in DB4O
 	
 	
 

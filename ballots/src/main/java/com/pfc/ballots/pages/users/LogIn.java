@@ -115,7 +115,7 @@ public class LogIn {
 			{
 				datasession=new DataSession();
 			}
-			datasession.login(null, updatedProfile);
+			datasession.login( updatedProfile);
 			System.out.println("LOGIN CORRECTO");
 			return Index.class;
 		}

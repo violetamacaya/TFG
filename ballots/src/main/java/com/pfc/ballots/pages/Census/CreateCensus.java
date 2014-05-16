@@ -11,192 +11,209 @@ import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserDao;
+import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
+import com.pfc.ballots.util.UUID;
 
 public class CreateCensus {
-
-	@Persist
-	@Property
-	private String email; 
+	  ////////////////////////////////////////////////////////////////////////////////////////////////
+	 ///////////////////////////////////////// GENERAL STUFF/////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@Persist
-	@Property
-	private String firstName;
-	@Persist
-	@Property
-	private String lastName;
-
+	//DAO
+	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	UserDao userDao=null;
+	CensusDao censusDao=null;
 	
-	@Property
-	@Persist
-	private Profile profile;
-	
-	@Persist
-	private Profile example;
-	
-	@Persist
-	@Property
-	private boolean advancedSearch;
-	
-	@Property
-	private Profile user;
-	@Property
-	private Profile prof;
-		
-	@Persist
-	private List<Profile> searchList;
-	
-	@Persist
-	private List<Profile> censusList;
-	
-	@Persist
-	private Map<String,Boolean> map;
-	
-	
+	//Variables
 	@Inject
 	ComponentResources componentResources;
-	
-	
-	@InjectComponent
-	private Zone searchListZone;
-	@InjectComponent
-	private Zone searchTypeZone;
-	@InjectComponent
-	private Zone advancedSearchZone;
-	@InjectComponent
-	private Zone basicSearchZone;
-	@InjectComponent
-	private Zone censusListZone;
-	             
+	@Inject
+	private Request request;
 	@Inject
 	private AjaxResponseRenderer ajaxResponseRenderer;
 	
-
+	@SessionState
+	private DataSession datasession;
 	
-	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	UserDao userDao=DB4O.getUsuarioDao();
 	
+	//Methods
 	public CreateCensus()
 	{
-	
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		censusDao=DB4O.getCensusDao(datasession.getDBName());
+	}
+	public void setupRender()
+	{
+		componentResources.discardPersistentFieldChanges();
+		
+	}
+	public void cleanupRender()
+	{
+		componentResources.discardPersistentFieldChanges();
+		
 	}
 	
-	public List<Profile> getCensusList()
-	{
-		if(censusList!=null)
+	      ////////////////////////////////////////////////////////////////////////////////////////////////
+		 ///////////////////////////////// CENSUS NAME FORM AND ZONE ////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		
+	
+	//Variables
+	@Property
+	@Persist
+	private boolean censusNameVisible;
+	
+	@InjectComponent
+	private Zone censusNameZone;
+	@Property
+	@Persist
+	private String censusName;
+	@Property
+	@Persist
+	private boolean nameNotAvalible;
+	
+	//Methods
+	public void onSuccessFromCensusNameForm()
+	{		
+		if(censusDao.isNameInUse(censusName, datasession.getId()))
 		{
-			for(Profile temp:censusList)
-			{
-				System.out.println("Nombre->"+temp.getFirstName());
-			}
-		}
-		return censusList;
-	}
-	public List<Profile> getUsers()
-	{
-		if(example==null)
-		{
-			System.out.println("return null");
-			searchList=null;
-			
+			nameNotAvalible=true;
+			if(request.isXHR())
+				ajaxResponseRenderer.addRender("censusNameZone", censusNameZone);
 		}
 		else
 		{
-			System.out.println("BY Example");
-			searchList= userDao.getByExample(example);
-		}
-		return searchList;
-	}
-
-	public void onTypeSearch()
-	{	
-		reset();
-		if(advancedSearch)
-			advancedSearch=false;
-		else
-			advancedSearch=true;
-		
-		ajaxResponseRenderer.addRender("searchTypeZone",searchTypeZone).addRender("basicSearchZone",basicSearchZone).addRender("advancedSearchZone", advancedSearchZone);
-	}
-	
-	public void onActionFromShowAll()
-	{
-		example=new Profile();
-		ajaxResponseRenderer.addRender("searchListZone",searchListZone);
-	}
-
-	public void onActionFromAddAll()
-	{
-		if(map==null || censusList==null)
-		{
-			map=new HashMap<String,Boolean>();
-			censusList=new LinkedList<Profile>();
+			censusNameVisible=true;
+			secondVisible=true;
+			if(profile==null)
+				profile=new Profile();
 			
-		}
-		for(Profile temp:searchList)
-		{
-			if(map.get(temp.getId())==null)
+			if(request.isXHR())
 			{
-				map.put(temp.getId(), new Boolean(true));
-				censusList.add(temp);
+				ajaxResponseRenderer.addRender("censusNameZone",censusNameZone).addRender("searchTypeZone", searchTypeZone)
+					.addRender("basicSearchZone", basicSearchZone).addRender("advancedSearchZone", advancedSearchZone)
+					.addRender("searchListZone", searchListZone).addRender("censusListZone", censusListZone)
+					.addRender("buttonsZone",buttonsZone);
 			}
 		}
+	}
+	
+	      ////////////////////////////////////////////////////////////////////////////////////////////////
+		 ////////////////////// SECOND PART OF WIZARD AND SWITCH SAERCH TYPES  //////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		ajaxResponseRenderer.addRender("searchListZone",searchListZone).addRender("censusListZone",censusListZone);
-	}
-	public void onActionFromRemoveAll()
-	{
-		map=null;
-		censusList=null;
-		ajaxResponseRenderer.addRender("searchListZone",searchListZone).addRender("censusListZone",censusListZone);
-	}
 	
 	
-	public boolean isShowGrid()
-	{
-		return (example!=null) ? true:false; 
-	}
-	public boolean isShowCensus()
-	{
-		return (censusList!=null)? true:false;
-	}
+	@InjectComponent
+	private Zone searchTypeZone;
 	
+	@Property
+	@Persist
+	private boolean advancedSearch;
+	
+	@Property
+	@Persist 
+	private boolean secondVisible;
+	
+	@Property
+	@Persist
+	private Profile example;
+	
+	
+	public void onSwitchSearch()
+	{
+		advancedSearch= (advancedSearch) ? false:true;
+		
+		
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("searchTypeZone", searchTypeZone).addRender("basicSearchZone", basicSearchZone)
+				.addRender("advancedSearchZone", advancedSearchZone);
+		}
+	}
 	public void onReset()
 	{
-		reset();
-		ajaxResponseRenderer.addRender("basicSearchZone",basicSearchZone).addRender("advancedSearchZone", advancedSearchZone);
-		
-		System.out.println("Reset");
-	}
-	private void reset()
-	{
+		email=null;
 		profile=new Profile();
-		example=null;
-		email=new String();
-		firstName=new String();
-		lastName=new String();
+		firstName=null;
+		lastName=null;
+		
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("searchTypeZone", searchTypeZone).addRender("basicSearchZone", basicSearchZone)
+				.addRender("advancedSearchZone", advancedSearchZone);
+		}
 	}
-	public void onSuccessFromBasicSearchForm()
+	    
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////// BASIC SEARCH /////////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone basicSearchZone;
+	
+	@Property
+	@Persist
+	private String email;
+	
+	public void onValidateFromBasicForm()
 	{
+		example=null;
 		if(email!=null)
 		{
-			if(!(email.trim().length()==0))
+			if(email.trim().length()==0)
+			{
+				email=null;
+				
+			}
+			else
 			{
 				example=new Profile();
 				example.setEmail(email);
 			}
-			else 
-				example=null;
 		}
-		else
-			example=null;
-		ajaxResponseRenderer.addRender("searchListZone",searchListZone);
 	}
+	public void onSuccessFromBasicForm()
+	{
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("searchListZone", searchListZone);
+		}
+	}
+	
+	
+	
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////// ADVANCED SEARCH //////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone advancedSearchZone;
+	
+	@Persist
+	@Property
+	private String firstName;
+	
+	@Persist
+	@Property
+	private String lastName;
+	
+	@Property
+	@Persist
+	private Profile profile;
 	
 	public void onValidateFromAdvancedSearchForm()
 	{
@@ -227,114 +244,273 @@ public class CreateCensus {
 			if(profile.getCountry().trim().length()==0)
 				profile.setCountry(null);
 		}
+		
 	}
 	public void onSuccessFromAdvancedSearchForm()
-	{		
+	{
 		example=new Profile(profile);
-		ajaxResponseRenderer.addRender("searchListZone",searchListZone);
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("searchListZone", searchListZone);
+		}
 	}
+	
+	
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////// SEARCH LIST GRID /////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone searchListZone;
+	
+	@Property
+	@Persist
+	private Profile user;
+	
+
+	@Persist
+	private List<Profile> searchList;
+	
+	public boolean isShowSearchList()
+	{
+		return (example==null)? false:true;
+	}
+	
+	public void onActionFromShowAll()
+	{
+		example=new Profile();
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("searchListZone",searchListZone);
+		}
+	}
+	
+	public List<Profile> getUsers()
+	{
+		if(example==null)
+		{
+			System.out.println("return null");
+			searchList=null;
+			
+		}
+		else
+		{
+			System.out.println("BY Example");
+			
+			searchList= userDao.getByExample(example);
+		}
+		return searchList;
+	}
+	   
+	
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////// ADD FORM STUFF //////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	@Persist
+	private Map<String,Profile> map;
 	
 	public void onSuccessFromAddForm()
 	{
-		ajaxResponseRenderer.addRender("searchListZone",searchListZone).addRender("censusListZone",censusListZone);
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("censusListZone", censusListZone).addRender("buttonsZone",buttonsZone);
+		}
 	}
-	public void onSuccessFromRemoveForm()
-	{
-		ajaxResponseRenderer.addRender("searchListZone",searchListZone).addRender("censusListZone",censusListZone);
-	}
-	
-	
-	
-	public void setupRender()
-	{
-		componentResources.discardPersistentFieldChanges();
-		reset();
-		
-	}
-	public void cleanupRender()
-	{
-		componentResources.discardPersistentFieldChanges();
-		reset();
-	}
-	
 	public void setAdd(boolean add)
 	{
+				
 		if(add)
 		{
-			if(map==null || censusList==null)
+			if(map==null)
 			{
-				map=new HashMap<String,Boolean>();
+				map=new HashMap<String,Profile>();
 				censusList=new LinkedList<Profile>();
-				
 			}
+			
 			if(map.get(user.getId())==null)
 			{
-				map.put(user.getId(), new Boolean(true));
+				map.put(user.getId(),user);
 				censusList.add(user);
+				System.out.println("ADED");
 			}
-		
 		}
 		else
 		{
 			if(map!=null)
 			{
-				if(map.get(user.getId())!=null)
+				Profile temp=map.get(user.getId());
+				if(temp!=null)
 				{
-					for(Profile temp:censusList)
-					{
-						if(temp.getId().equals(user.getId()))
-						{
-							censusList.remove(temp);
-							map.remove(user.getId());
-							
-						}
-					}
-					if(censusList.size()==0)
+					map.remove(user.getId());
+					censusList.remove(temp);
+					if(map.size()==0)
 					{
 						map=null;
 						censusList=null;
 					}
 				}
-			}
 				
+				
+			}
+		}
+	}
+	
+	public boolean isAdd()
+	{
+		if(map!=null)
+		{
+			if(map.get(user.getId())==null)
+				return false;
+			else
+				return true;
+		}
+		return false;
+	}
+	
+	public void onActionFromAddAll()
+	{
+		if(request.isXHR())
+		{
+			if(map==null)
+			{
+				map=new HashMap<String,Profile>();
+				censusList=new LinkedList<Profile>();
+			}
+			for(Profile temp:searchList)
+			{
+				if(map.get(temp.getId())==null)
+				{
+					map.put(temp.getId(), temp);
+					censusList.add(temp);
+				}
+			}
+			
+			ajaxResponseRenderer.addRender("searchListZone", searchListZone).addRender("censusListZone", censusListZone)
+				.addRender("buttonsZone",buttonsZone);
 		}
 		
 	}
 	
-	public boolean isAdd()
-	{		
-		if(map==null)
-		 return false;
-		if(map.get(user.getId())==null)
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////// CENSUS LIST GRID ////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone censusListZone;
+	
+	@Persist
+	@Property
+	private List<Profile> censusList;
+	
+	
+	public boolean isShowCensusList()
+	{
+		if(censusList==null)
 			return false;
 		else
 			return true;
 	}
-
-	public void setRemove(boolean remove)
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////// REMOVE FORM STUFF ///////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	public void onSuccessFromRemoveForm()
+	{
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("searchListZone", searchListZone).addRender("censusListZone", censusListZone)
+				.addRender("buttonsZone",buttonsZone);
+		}
+	}
+	
+	
+	public void setRemove(boolean remove) 
 	{
 		if(remove)
 		{
+			Profile temp=map.get(user.getId());
 			map.remove(user.getId());
-			if(censusList!=null)
-			{
-				for(int i=0;i<censusList.size();i++)
-				{
-					if(censusList.get(i).getId().equals(user.getId()))
-						{censusList.remove(i);}
-				}
-			}
-			
-			
+			censusList.remove(temp);
 			if(map.size()==0)
 			{
 				map=null;
 				censusList=null;
-			}			
+			}
 		}
 	}
 	public boolean isRemove()
 	{
 		return false;
+	}
+	public void onActionFromRemoveAll()
+	{
+		if(request.isXHR())
+		{
+			map=null;
+			censusList=null;
+			ajaxResponseRenderer.addRender("searchListZone", searchListZone).addRender("censusListZone", censusListZone)
+				.addRender("buttonsZone",buttonsZone);
+		}		
+	}
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////// BACK AND NEXT BUTTONS ///////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone buttonsZone;
+	
+	
+	public void onActionFromBackbut()
+	{
+		censusNameVisible=false;
+		secondVisible=false;
+		if(request.isXHR())
+		{
+			ajaxResponseRenderer.addRender("censusNameZone",censusNameZone).addRender("searchTypeZone", searchTypeZone)
+				.addRender("basicSearchZone", basicSearchZone).addRender("advancedSearchZone", advancedSearchZone)
+				.addRender("searchListZone", searchListZone).addRender("censusListZone", censusListZone)
+				.addRender("buttonsZone",buttonsZone);
+		}
+	}
+	public void onActionFromEndbut()
+	{
+		Census census=new Census();
+		
+		census.setCensusName(censusName);
+		census.setId(UUID.generate());
+		census.setIdOwner("IDOWNER");
+		for(Profile temp:censusList)
+		{
+			census.addIdToUsersCounted(temp.getId());
+		}
+		
+	}
+	
+	
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////// ON AVTIVATE //////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				System.out.println("LOGEADO");
+				if(datasession.isAdmin() || datasession.isMaker())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
+			case 1:
+				System.out.println("NO LOGEADO");
+				return Index.class;
+			case 2:
+				System.out.println("SESION EXPIRADA");
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
 	}
 }

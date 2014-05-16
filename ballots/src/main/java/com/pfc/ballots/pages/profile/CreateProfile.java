@@ -114,6 +114,7 @@ public class CreateProfile {
 		
 		if(!isnotPassOk && !isnotAvalible)
 		{
+			
 			//Encryption password,and store in database
 			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);
 			profile.setPassword(encrypt);

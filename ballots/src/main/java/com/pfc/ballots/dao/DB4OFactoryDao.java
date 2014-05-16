@@ -7,38 +7,54 @@ public class DB4OFactoryDao extends FactoryDao{
 	
 
 	@Override
-	public UserDao getUsuarioDao() {
-		
+	public UserDao getUsuarioDao() 
+	{
 		return new UserDaoDB4O(null);
 	}
 	
 	@Override
-	public LogDao getLogDao() {
+	public UserDao getUsuarioDao(String DBName)
+	{
+		return new UserDaoDB4O(DBName);
+	}
+	
+	
+	@Override
+	public LogDao getLogDao() 
+	{
 		return new LogDaoDB4O();
 	}
 
-	@Override
-	public UserDao getUsuarioDao(String DBName) {
-		
-		return new UserDaoDB4O(DBName);
-	}
+	
 
 	@Override
-	public CompanyDao getCompanyDao() {
-		// TODO Auto-generated method stub
+	public CompanyDao getCompanyDao() 
+	{
 		return new CompanyDaoDB4O();
 	}
 
 	@Override
-	public UserLogedDao getUserLogedDao() {
-		// TODO Auto-generated method stub
+	public UserLogedDao getUserLogedDao() 
+	{
 		return new UserLogedDaoDB4O(null);
 	}
 
 	@Override
-	public UserLogedDao getUserLogedDao(String DBName) {
-		// TODO Auto-generated method stub
+	public UserLogedDao getUserLogedDao(String DBName) 
+	{
 		return new UserLogedDaoDB4O(DBName);
+	}
+
+	@Override
+	public CensusDao getCensusDao() 
+	{
+		return new CensusDaoDB4O(null);
+	}
+
+	@Override
+	public CensusDao getCensusDao(String DBName) 
+	{
+		return new CensusDaoDB4O(DBName);
 	}
 	
 
