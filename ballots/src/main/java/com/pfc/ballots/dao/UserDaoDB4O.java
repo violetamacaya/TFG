@@ -88,32 +88,7 @@ public class UserDaoDB4O implements UserDao{
 	
 	
 	//******************************************************Retrievers*********************************//
-	/*
-	@SuppressWarnings("rawtypes")
-	public List<Profile> getByExample(Profile example)
-	{
-		List<Profile> list=new ArrayList<Profile>();
-		open();
-		try
-		{
-			ObjectSet result=DB.queryByExample(example);
-			while(result.hasNext())
-			{
-				list.add((Profile)result.next());
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			list.clear();
-		}
-		finally
-		{
-			close();
-		}
-		return list;
-	}
-	*/
+
 	@SuppressWarnings("rawtypes")
 	public List<Profile> getByExample(Profile example)
 	{
@@ -229,7 +204,29 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;	
 	}
-	
+	public List<Profile> getProfileById(List<String> id)
+	{
+		open();
+		List<Profile> list=new ArrayList<Profile>();
+		try
+		{
+			for(String current:id)
+			{
+				list.add(getById(current));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			
+			return list;
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	}
 	@SuppressWarnings("rawtypes")
 	public String getEmailById(String Id)
 	{

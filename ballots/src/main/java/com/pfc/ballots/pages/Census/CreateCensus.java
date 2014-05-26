@@ -96,6 +96,7 @@ public class CreateCensus {
 		}
 		else
 		{
+			nameNotAvalible=false;
 			censusNameVisible=true;
 			secondVisible=true;
 			if(profile==null)
@@ -473,23 +474,26 @@ public class CreateCensus {
 				.addRender("buttonsZone",buttonsZone);
 		}
 	}
-	public void onActionFromEndbut()
+	public Object onActionFromEndbut()
 	{
 		Census census=new Census();
 		
 		census.setCensusName(censusName);
 		census.setId(UUID.generate());
-		census.setIdOwner("IDOWNER");
+		census.setIdOwner(datasession.getId());
+		//census.setEmailOwner(datasession.getEmail());
 		for(Profile temp:censusList)
 		{
 			census.addIdToUsersCounted(temp.getId());
 		}
+		censusDao.store(census);
 		
+		return CensusList.class;
 	}
 	
 	
 	  ////////////////////////////////////////////////////////////////////////////////////
-	 /////////////////////////////////// ON AVTIVATE //////////////////////////////////// 
+	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////
 	
 	public Object onActivate()
@@ -512,5 +516,6 @@ public class CreateCensus {
 			default:
 				return Index.class;
 		}
+		
 	}
 }

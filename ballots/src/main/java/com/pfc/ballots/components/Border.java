@@ -24,6 +24,7 @@ import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.MethodsInfo;
+import com.pfc.ballots.pages.Census.CensusList;
 import com.pfc.ballots.pages.Census.CreateCensus;
 import com.pfc.ballots.pages.Company.CreateCompany;
 import com.pfc.ballots.pages.Company.ListCompany;
@@ -257,6 +258,10 @@ public class Border {
 		else if(section.equals("new-census"))
 			{
 				page=CreateCensus.class;
+			}
+		else if(section.equals("show-census"))
+			{
+				page=CensusList.class;
 			}
 		else if(section.equals("new-user2"))
 			{

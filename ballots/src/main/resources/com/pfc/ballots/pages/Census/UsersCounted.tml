@@ -1,0 +1,207 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+
+	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //////////////////////////////////////// USERS COUNTED ZONE ///////////////////////////////////////////////
+	   /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		<t:zone t:id="usersCountedZone" id="usersCountedZone">
+			<t:if test="!showUsersCountedZone">
+				<h1>${censusName}</h1>
+				<t:grid source="users" row="user" exclude="regdate,password,id,plainpass,lastlog"/>
+				<t:actionlink t:id="editbut" t:zone="^"><button>EDIT</button></t:actionlink>
+			</t:if>
+		</t:zone>
+		<t:zone t:id="upperBackZone" id="upperBackZone">
+			<t:if test="showUsersCountedZone">
+				<t:eventLink t:event="back" zone="^"><button>Finish</button></t:eventLink>
+			</t:if>
+		</t:zone>
+		
+		
+	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //////////////////////////////////////// EDIT CENSUS NAME /////////////////////////////////////////////////
+	   /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		
+		<t:zone t:id="nameZone" id="nameZone">
+			<t:if test="showNameZone">
+				<t:form t:id="nameForm" zone="^">
+					<table>
+						<tr>
+							<td><label>Census Name:</label></td>
+							<td>
+								<t:textfield t:id="censusName"/>
+								<t:if test="nameNotAvalible">
+									Nombre no disponible
+								</t:if>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input t:type="submit" value="update"/><t:actionLink t:id="cancelNameBut" zone="^"><button>restore</button></t:actionLink></td>
+						</tr>
+					</table>
+				</t:form>
+			</t:if>
+		</t:zone>
+		
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //////////////////////////////////////// BASIC SEARCH ////////////////////////////////////////////////////
+	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+	   
+	   <t:zone t:id="searchTypeZone" id="searchTypeZone">
+	   		<t:if test="showSearchType">
+	   			<t:if test="showBasicSearch">
+	   				<t:eventlink t:event="switchSearch" zone="^">Avanzada</t:eventlink>
+	   				<p:else>
+	   					<t:eventlink t:event="switchSearch" zone="^">Basica</t:eventlink>
+	   				</p:else>
+	   			</t:if>
+	   		</t:if>
+	   </t:zone>
+	   
+	   
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //////////////////////////////////////// BASIC SEARCH ////////////////////////////////////////////////////
+	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+	   
+	   <t:zone t:id="basicSearchZone" id="basicSearchZone">
+	   		<t:if test="showBasicSearch">
+	   			<t:form t:id="basicSearchForm" zone="^">
+	   				<table>
+	   					<tr>
+	   						<td><label>Email</label></td>
+	   						<td><t:textfield t:id="email"/></td>
+	   					</tr>
+	   					<tr>
+	   						<td></td>
+	   						<td><p style="text-align:center;"><input t:type="submit" value="submit"/></p></td>
+	   					</tr>
+	   					
+	   				</table>
+	   			</t:form>
+	   		</t:if>
+	   </t:zone>
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    ////////////////////////////////////// ADVANCED SEARCH ///////////////////////////////////////////////////
+	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+	   
+		<t:zone t:id="advancedSearchZone" id="advancedSearchZone">
+	   		<t:if test="showAdvancedSearch">
+	   			<t:form t:id="advancedSearchForm" zone="^">
+	   				<table>
+   						<tr>
+								<td><label>Admin</label></td>
+								<td><t:checkbox t:id="admin" value="profile.admin"/></td>
+						</tr>
+						<tr>
+								<td><label>Maker</label></td>
+								<td><t:checkbox t:id="maker" value="profile.maker"/></td>
+						</tr>
+						<tr>
+					 		<td><label>First Name</label></td>
+					 		<td><t:textfield t:id="firstName"></t:textfield></td>
+					 	</tr>
+						<tr>
+			 					<td><label>Last Name</label></td>
+			 					<td><t:textfield t:id="lastName"></t:textfield></td>
+			 			</tr>
+			 			<tr>
+			 					<td><label>University</label></td>
+			 					<td><t:textfield t:id="university" value="profile.university"/></td>
+			 			</tr>
+				 		<tr>
+					 			<td><label>City</label></td>
+					 			<td><t:textfield t:id="city" value="profile.city"/></td>
+				 		</tr>
+				 		<tr>
+					 			<td><label>Country</label></td>
+					 			<td><t:textfield t:id="country" value="profile.country"/></td>
+				 		</tr>					 	
+					 	<tr>
+					 		<td></td>
+							<td><p style="text-align:center;"><input t:type="submit" value="Submit"/>
+								<t:actionlink t:id="reset" t:zone="^"><button>Reset</button></t:actionlink>
+							</p></td>
+									
+					 	</tr>	   				
+	   				</table>
+	   			</t:form>
+	   			
+	   		</t:if>
+	   </t:zone>
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    /////////////////////////////////////// SEARCH  LIST /////////////////////////////////////////////////////
+	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+		
+		<t:zone t:id="searchListZone" id="searchListZone">
+			<t:if test="showSearchType">
+				<t:form t:id="addForm" zone="^">
+					<table>
+						<tr><td><t:actionlink t:id="showAll" t:zone="^">showAll</t:actionlink></td></tr>
+						<tr><td>
+							<t:if test="showSearchList">
+								<t:grid source="searchList" row="user" add="add" reorder="add" exclude="regdate,password,id,plainpass,lastlog">
+									<p:addCell>
+										<t:checkbox t:id="add"/>
+									</p:addCell>
+								</t:grid>
+							</t:if>
+						</td></tr>
+						<tr><td>
+							<t:if test="showSearchList">
+								<input t:type="submit" value="add"/><t:actionlink t:id="addAll" t:zone="^"><button>addAll</button></t:actionlink>
+							</t:if>
+						</td></tr>
+					</table>
+				</t:form>
+			</t:if>
+		</t:zone>
+		
+		
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    ////////////////////////////////// USERS COUNTED EDIT GRID ///////////////////////////////////////////////
+	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+		<t:zone t:id="usersCountedEditZone" id="usersCountedEditZone">
+			<t:if test="showCountedEdit">
+				<br/>
+				<br/>
+				<br/>
+				<t:form t:id="removeForm" t:zone="^">
+					<table>
+						<tr><td>
+							<t:grid source="editUsers" row="user" add="remove" reorder="remove" exclude="regdate,password,id,plainpass,lastlog">
+								<p:removeCell>
+									<t:checkbox t:id="remove"/>	
+								</p:removeCell>							
+							</t:grid>
+						</td></tr>
+						<tr><td>
+							<input t:type="submit" value="remove"/><t:actionlink t:id="removeAll" t:zone="^"><button>removeAll</button></t:actionlink>
+						</td></tr>
+					</table>
+				</t:form>
+			</t:if>
+		</t:zone>
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    /////////////////////////////////// SAVE OR CANCEL CENSUS  ///////////////////////////////////////////////
+	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+	   
+		<t:zone t:id="saveCancelZone" id="saveCancelZone">
+	   		<t:if test="showSave">
+	   			<t:actionlink t:id="savebut" t:zone="^"><button>SAVE</button></t:actionlink>
+	   		</t:if>
+	   		<t:if test="showCancel">
+	   			<t:actionlink t:id="cancelbut" t:zone="^"><button>CANCEL</button></t:actionlink>
+	   		</t:if>
+		</t:zone>
+		
+		<t:zone t:id="lowerBackZone" id="lowerBackZone">
+			<t:if test="showUsersCountedZone">
+				<t:eventLink t:event="back" zone="^"><button>Finish</button></t:eventLink>
+			</t:if>
+		</t:zone>
+		
+	</t:border>
+</html>

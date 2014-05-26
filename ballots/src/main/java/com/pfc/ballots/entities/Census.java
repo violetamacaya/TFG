@@ -8,6 +8,7 @@ public class Census {
 
 	private String id;
 	private String idOwner;
+	
 	private String censusName;
 	private List<String> usersCounted;
 
@@ -60,6 +61,12 @@ public class Census {
 				}
 			}
 		}
+	}
+	
+	
+	public int getNumberOfCensed()
+	{
+		return usersCounted.size();
 	}
 	
 }

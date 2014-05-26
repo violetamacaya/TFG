@@ -1,5 +1,16 @@
 <html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		<t:grid source="censuses" row="census" add="remove,email,details" exclude="id,idowner" reorder="email">
+			<p:removecell>
+				<t:actionlink t:id="removebut" context="census.id"><button>remove</button></t:actionlink>
+			</p:removecell>
+			<p:emailcell>
+				${email }
+			</p:emailcell>
+			<p:detailscell>
+				<t:actionlink t:id="detailsbut" context="census.id"><button>Show</button></t:actionlink>
+			</p:detailscell>
+		</t:grid>
 	</t:border>
 </html>

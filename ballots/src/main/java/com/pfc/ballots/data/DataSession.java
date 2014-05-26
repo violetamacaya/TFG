@@ -11,6 +11,7 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.util.UUID;
 
 public class DataSession {
 	
@@ -18,7 +19,8 @@ public class DataSession {
 	
 	private String DBName;
 	private String company;
-	private String id;
+	//private String idSession;
+	private String id;//registred user id
 	private String email;
 	private Date logDate;
 	private boolean admin;
@@ -113,6 +115,7 @@ public class DataSession {
 	public void login(Profile profile)	
 	{
 		company="main";
+		//idSession=UUID.generate();
 		id=profile.getId();
 		email=profile.getEmail();
 		maker=profile.isMaker();

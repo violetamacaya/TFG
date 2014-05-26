@@ -236,10 +236,13 @@ public class CensusDaoDB4O implements CensusDao{
 		open();
 		try
 		{
+			System.out.println(name);
 			Query query=DB.query();
 			query.constrain(Census.class);
-			query.descend("censusName").constrain(name).endsWith(true);
 			query.descend("idOwner").constrain(idOwner);
+			query.descend("censusName").constrain(name).endsWith(false);
+			
+	
 			
 			ObjectSet result=query.execute();
 			
