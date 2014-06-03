@@ -19,7 +19,7 @@ public class DataSession {
 	
 	private String DBName;
 	private String company;
-	//private String idSession;
+	private String idSession;
 	private String id;//registred user id
 	private String email;
 	private Date logDate;
@@ -105,6 +105,14 @@ public class DataSession {
 	public void setMaker(boolean maker) {
 		this.maker = maker;
 	}
+	public String getIdSession() {
+		return idSession;
+	}
+	public void setIdSession(String idSession) {
+		this.idSession = idSession;
+	}
+
+	
 
 	 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////// LOGIN UTILITY /////////////////////////////////////////////
@@ -115,7 +123,7 @@ public class DataSession {
 	public void login(Profile profile)	
 	{
 		company="main";
-		//idSession=UUID.generate();
+		setIdSession(UUID.generate());
 		id=profile.getId();
 		email=profile.getEmail();
 		maker=profile.isMaker();
@@ -129,6 +137,7 @@ public class DataSession {
 	//Login for companies
 	public void login(Profile profile,Company company)
 	{
+		setIdSession(UUID.generate());
 		this.company=company.getCompanyName();
 		id=profile.getId();
 		email=profile.getEmail();
@@ -155,6 +164,7 @@ public class DataSession {
 		email=null;
 		loged=false;
 		lgdDao=null;
+		setIdSession(null);
 		
 	}
 	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -187,14 +197,14 @@ public class DataSession {
 			long diffMin=diff/(60*1000);
 			if(diffMin>SESSION_TIME)
 			{
-				lgdDao.delete(email);
+				lgdDao.delete(idSession);
 				logout();
 				request.getSession(true).invalidate();
 				return 2;
 			}
 			else
 			{
-				if(lgdDao.isLogedIn(email))
+				if(lgdDao.isLogedIn(idSession))
 				{
 					return 0;
 				}
@@ -243,5 +253,4 @@ public class DataSession {
 		return false;
 	}
 
-	
 }

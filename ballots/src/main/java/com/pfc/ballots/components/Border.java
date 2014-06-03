@@ -24,6 +24,7 @@ import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.MethodsInfo;
+import com.pfc.ballots.pages.Census.AdminCensus;
 import com.pfc.ballots.pages.Census.CensusList;
 import com.pfc.ballots.pages.Census.CreateCensus;
 import com.pfc.ballots.pages.Company.CreateCompany;
@@ -194,7 +195,7 @@ public class Border {
 	public Object onActionFromLogout()
 	{
 		logedDao=DB4O.getUserLogedDao(datasession.getDBName());
-		logedDao.delete(datasession.getEmail());
+		logedDao.delete(datasession.getIdSession());
 		datasession.logout();
 		visibilityCompany=false;
 		visibilityUser=false;
@@ -262,6 +263,10 @@ public class Border {
 		else if(section.equals("show-census"))
 			{
 				page=CensusList.class;
+			}
+		else if(section.equals("show-admincensus"))
+			{
+				page=AdminCensus.class;
 			}
 		else if(section.equals("new-user2"))
 			{

@@ -110,12 +110,15 @@ public class LogIn {
 			userDao.UpdateByEmail(updatedProfile);
 			//Record successful login in users log
 			logDao.store(new DataLog(email,request.getRemoteHost(),true));
-			logedDao.store(new UserLoged(email,request.getRemoteHost()));
+			
 			if(datasession==null)
 			{
 				datasession=new DataSession();
 			}
 			datasession.login( updatedProfile);
+			
+			logedDao.store(new UserLoged(email,request.getRemoteHost(),datasession.getIdSession()));
+			
 			System.out.println("LOGIN CORRECTO");
 			return Index.class;
 		}

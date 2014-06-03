@@ -48,6 +48,9 @@
 							
 					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:new-census"><plain2>Crear Censo</plain2></t:eventlink></li>
 					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-census"><plain2>Mis Censos</plain2></t:eventlink></li>
+					<t:if test="admin">
+						<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-admincensus"><plain2>Admin census</plain2></t:eventlink></li>
+					</t:if>
 				</t:if>
 			</t:zone>
 		

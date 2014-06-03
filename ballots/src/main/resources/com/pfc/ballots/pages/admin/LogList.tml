@@ -6,7 +6,7 @@
 			<h1>Usuarios Logeados</h1>
 			<t:grid source="usersLoged" row="userLoged" add="kick" rowsperpage="15" inplace="true">
 				<p:kickcell>
-					<t:actionlink t:id="kickbut" context="userLoged.email" zone="^"><button>kick</button></t:actionlink>
+					<t:actionlink t:id="kickbut" context="userLoged.idSession" zone="^"><button>kick</button></t:actionlink>
 				</p:kickcell>
 			</t:grid>
 		</t:zone>

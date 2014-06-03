@@ -89,13 +89,13 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 	
 	//******************************************************Delete*************************************************************************//
 	@SuppressWarnings("rawtypes")
-	public void delete(String email)
+	public void delete(String idSession)
 	{
 		open();
 		UserLoged temp=null;
 		try
 		{
-			ObjectSet result = DB.queryByExample(new UserLoged(email));
+			ObjectSet result = DB.queryByExample(new UserLoged(idSession));
 			if(result.hasNext())
 			{
 				temp=(UserLoged)result.next();
@@ -119,12 +119,12 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 	}
 	//**********************************************isLogedIn******************************************//
 	@SuppressWarnings("rawtypes")
-	public boolean isLogedIn(String email)
+	public boolean isLogedIn(String idSession)
 	{
 		open();
 		try
 		{
-			ObjectSet result = DB.queryByExample(new UserLoged(email));
+			ObjectSet result = DB.queryByExample(new UserLoged(idSession));
 			if(result.hasNext())
 			{
 				return true;

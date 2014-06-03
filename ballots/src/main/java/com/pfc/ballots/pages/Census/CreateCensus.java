@@ -481,7 +481,7 @@ public class CreateCensus {
 		census.setCensusName(censusName);
 		census.setId(UUID.generate());
 		census.setIdOwner(datasession.getId());
-		//census.setEmailOwner(datasession.getEmail());
+		census.setEmail(datasession.getEmail());
 		for(Profile temp:censusList)
 		{
 			census.addIdToUsersCounted(temp.getId());

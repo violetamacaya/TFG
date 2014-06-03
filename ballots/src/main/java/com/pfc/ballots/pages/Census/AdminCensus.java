@@ -1,0 +1,177 @@
+package com.pfc.ballots.pages.Census;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+
+import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+
+import com.pfc.ballots.dao.CensusDao;
+import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.UserDao;
+import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.entities.Census;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
+
+public class AdminCensus {
+
+	
+	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	UserDao userDao=null;
+	CensusDao censusDao=null;
+	
+	@SessionState
+	private DataSession datasession;
+	
+	@Inject
+	ComponentResources componentResources;
+	
+	@InjectPage
+	private UsersCounted usersCounted;
+	
+	@InjectComponent
+	private Zone censusGridZone;
+	
+	@Inject
+	private Request request;
+	
+	@Inject
+	private AjaxResponseRenderer ajaxResponseRenderer;
+		
+	@Property
+	private Census census;
+	
+	@Persist
+	private List<Census> censuses;
+	
+	public AdminCensus()
+	{
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		censusDao= DB4O.getCensusDao(datasession.getDBName());
+		System.out.println("create");
+	}
+	
+	public void setupRender()
+	{
+		componentResources.discardPersistentFieldChanges();
+		searched=false;
+	}
+	
+	public List<Census> getCensuses()
+	{
+		if(censuses==null)
+		{
+			censuses=censusDao.retrieveAll();
+		}
+		if(searched)
+		{
+			String id=userDao.getIdByEmail(email);
+			if(id==null)
+			{
+				censuses=null;
+			}
+			else
+			{
+				censuses=censusDao.getByOwnerId(id);
+			}
+		}
+		return censuses;
+	}
+	public Object onActionFromDetailsbut(String idCensus)
+	{
+		usersCounted.setup(idCensus);
+		return usersCounted;
+	}
+	public void onActionFromRemovebut(String idCensus)
+	{
+		if(request.isXHR())
+		{
+			for(Census temp:censuses)
+			{
+				if(temp.getId().equals(idCensus))
+				{
+					censuses.remove(temp);
+				}
+			}
+			censusDao.deleteById(idCensus);
+			ajaxResponseRenderer.addRender("censusGridZone", censusGridZone);
+		}
+	}
+	
+	
+
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////// SEARCH ZONE //////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	@Property
+	@Persist
+	private String email;
+
+	@Persist
+	private boolean searched;
+	
+	public void onValidateFromSearchForm()
+	{
+		email=email.toLowerCase();
+	}
+
+	public void onSuccessFromSearchForm()
+	{
+		System.out.println("Email->"+email);
+		if(request.isXHR())
+		{
+			searched=true;
+			ajaxResponseRenderer.addRender("censusGridZone", censusGridZone);
+			
+		}
+	}
+	
+	public void onActionFromShowAll()
+	{
+		if(request.isXHR())
+		{
+			censuses=null;
+			searched=false;
+			ajaxResponseRenderer.addRender("censusGridZone", censusGridZone);
+		}
+	}
+	
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				System.out.println("LOGEADO");
+				if(datasession.isAdmin())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
+			case 1:
+				System.out.println("NO LOGEADO");
+				return Index.class;
+			case 2:
+				System.out.println("SESION EXPIRADA");
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
+		
+	}
+}

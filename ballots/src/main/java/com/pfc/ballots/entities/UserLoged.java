@@ -6,18 +6,21 @@ public class UserLoged {
 
 	private String email;
 	private String IP;
+	private String idSession;
 	private Date date;
 	
 	public UserLoged()
 	{
 		
 	}
-	public UserLoged(String email)
+	public UserLoged(String idSession)
 	{
-		this.email=email;
+		this.idSession=idSession;
 	}
-	public UserLoged(String email,String IP)
+
+	public UserLoged(String email,String IP,String idSession)
 	{
+		this.idSession=idSession;
 		this.email=email;
 		this.IP=IP;
 		date= new Date();
@@ -42,5 +45,11 @@ public class UserLoged {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public String getIdSession() {
+		return idSession;
+	}
+	public void setIdSession(String idSession) {
+		this.idSession = idSession;
 	}
 }

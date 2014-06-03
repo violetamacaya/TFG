@@ -1,0 +1,40 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		
+		<t:zone t:id="searchZone" id="searchZone">
+			<t:form t:id="searchForm" t:zone="censusGridZone">
+				<table>
+					<tr>
+						<td><label>Email</label></td>
+						<td><t:textfield t:id="email"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input t:type="submit" value="search"/></td>
+					</tr>
+				</table>
+			</t:form>		
+		</t:zone>
+		
+		<t:zone t:id="censusGridZone" id="censusGridZone" >
+			<table>
+				<tr><td><t:actionlink t:id="showAll" t:zone="^"><button>showAll</button></t:actionlink></td></tr>
+				<tr><td>
+					<t:grid source="censuses" row="census" exclude="id,idowner" reorder="email" add="details,remove">
+						<p:detailscell>
+							<t:actionlink t:id="detailsbut" context="census.id"><button>details</button></t:actionlink>
+						</p:detailscell>
+						
+						<p:removecell>
+							<t:actionlink t:id="removebut" context="census.id" zone="^"><button>remove</button></t:actionlink>
+						</p:removecell>
+						
+					</t:grid>
+				</td></tr>
+			</table>
+		</t:zone>
+		
+		
+	</t:border>
+</html>

@@ -262,6 +262,39 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;	
 	}
+	@SuppressWarnings("rawtypes")
+	public String getIdByEmail(String email)
+	{
+		
+		open();
+		try
+		{
+			
+			ObjectSet result=DB.queryByExample(new Profile(email));
+			
+			if(result.hasNext())
+			{
+				System.out.println("[DB4O]Id Profile was retrieved");
+				return ((Profile)result.next()).getId();
+			}
+			else
+			{
+				System.out.println("[DB4O]Id Profile does't exist in Database");
+				return null;
+			}
+			
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return null;
+	}
 	
 	//*******************************************Retrieves all****************************************//
 	

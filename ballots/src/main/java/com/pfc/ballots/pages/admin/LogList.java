@@ -94,11 +94,11 @@ public class LogList {
 		return userLogedDao.retrieveAll();
 	}
 	
-	public void onActionFromKickbut(String email)
+	public void onActionFromKickbut(String idSession)
 	{
 		if(request.isXHR())
 		{
-			userLogedDao.delete(email);
+			userLogedDao.delete(idSession);
 			ajaxResponseRenderer.addRender(logedZone);
 		}
 		

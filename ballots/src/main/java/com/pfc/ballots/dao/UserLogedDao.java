@@ -9,7 +9,7 @@ public interface UserLogedDao {
 	public void store(UserLoged userLoged);
 	public List<UserLoged> retrieveAll();
 	public void clearSessions(long timeOfSession);
-	public void delete(String email);
-	public boolean isLogedIn(String email);
+	public void delete(String idSession);
+	public boolean isLogedIn(String idSession);
 
 }

@@ -142,15 +142,6 @@ public class CompanyLogIn {
 			//Login Successful
 			setBoolFalse();
 			
-			logedDao=DB4O.getUserLogedDao(company.getDBName());
-			
-			logedDao.store(new UserLoged(email,request.getRemoteHost()));
-			if(datasession==null)
-			{
-				datasession=new DataSession();
-			}
-			
-			
 			//Update Profile last Successful login
 			Profile updatedProfile=new Profile(userDao.getProfileByEmail(email));
 			updatedProfile.setLogtoactual();
@@ -158,6 +149,14 @@ public class CompanyLogIn {
 			datasession.login(updatedProfile,company);
 			//Record successful login in users log
 			logDao.store(new DataLog(email,request.getRemoteHost(),true,company.getCompanyName()));
+			logedDao=DB4O.getUserLogedDao(company.getDBName());			
+			
+			if(datasession==null)
+			{
+				datasession=new DataSession();
+			}
+			logedDao.store(new UserLoged(email,request.getRemoteHost(),datasession.getIdSession()));
+			
 			System.out.println("LOGIN CORRECTO");
 			return Index.class;
 		}

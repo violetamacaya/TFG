@@ -8,7 +8,7 @@ public class Census {
 
 	private String id;
 	private String idOwner;
-	
+	private String email;
 	private String censusName;
 	private List<String> usersCounted;
 
@@ -37,6 +37,7 @@ public class Census {
 	public void setUsersCounted(List<String> usersCounted) {
 		this.usersCounted = usersCounted;
 	}
+
 	public void addIdToUsersCounted(String id)
 	{
 		if(usersCounted==null)
@@ -68,5 +69,12 @@ public class Census {
 	{
 		return usersCounted.size();
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	
 }

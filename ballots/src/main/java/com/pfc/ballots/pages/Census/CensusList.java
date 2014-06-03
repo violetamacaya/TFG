@@ -42,16 +42,13 @@ public class CensusList {
 	public List<Census> getCensuses()
 	{
 		//SUSTITUIR POR CENSUS  DE EL USUARIO
-		return censusDao.retrieveAll();
+		return censusDao.getByOwnerId(datasession.getId());
 	}
 	public void onActionFromRemoveBut(String idCensus)
 	{
 		censusDao.deleteById(idCensus);
 	}
-	public String getEmail()
-	{
-		return userDao.getEmailById(census.getIdOwner());
-	}
+	
 	public Object onActionFromDetailsBut(String idCensus)
 	{
 		usersCounted.setup(idCensus);

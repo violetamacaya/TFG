@@ -14,7 +14,8 @@ public interface UserDao {
 	public Profile getProfileByEmail(String Email);
 	public Profile getProfileById(String id);
 	public List<Profile> getProfileById(List<String> id);
-	public String  getEmailById(String Id);
+	public String getEmailById(String Id);
+	public String getIdByEmail(String email);
 	
 	
 	public void UpdateByEmail(String Email,Profile updatedProfile);
