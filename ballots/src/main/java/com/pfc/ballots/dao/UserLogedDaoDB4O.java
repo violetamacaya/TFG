@@ -10,7 +10,6 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
-import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.UserLoged;
 
 public class UserLogedDaoDB4O implements UserLogedDao{
@@ -146,6 +145,7 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 	/**
 	 * 				Compare Dates to close expired users Sesions
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clearSessions(long timeOfSession) {
 	
 		open();
@@ -153,7 +153,7 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 
 		List<UserLoged> users=new ArrayList<UserLoged>();
 		Date actualDate=new Date();
-		Date logDate=null;
+		//Date logDate=null;
 		
 		Calendar calActualDate=Calendar.getInstance();
 		Calendar calLogDate=Calendar.getInstance();

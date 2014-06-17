@@ -29,10 +29,12 @@ import com.pfc.ballots.pages.Census.CensusList;
 import com.pfc.ballots.pages.Census.CreateCensus;
 import com.pfc.ballots.pages.Company.CreateCompany;
 import com.pfc.ballots.pages.Company.ListCompany;
+import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.pages.profile.CreateProfile;
 import com.pfc.ballots.pages.profile.ProfileByFile;
+import com.pfc.ballots.pages.profile.UpdateProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
 
@@ -214,6 +216,22 @@ public class Border {
 	Object onMenu(String section)
 	{									
 		Object page=null;
+		if(section.equals("my-profile"))
+		{
+			visibilityUser=false;
+			visibilityBallot=false;
+			visibilityCompany=false;
+			visibilityCensus=false;
+			page=UpdateProfile.class;
+		}
+		if(section.equals("admin-mail"))
+		{
+			visibilityUser=false;
+			visibilityBallot=false;
+			visibilityCompany=false;
+			visibilityCensus=false;
+			page=AdminMail.class;
+		}
 		if(section.equals("censusz"))		//This handle the lateral menu
 		{
 			visibilityUser=false;

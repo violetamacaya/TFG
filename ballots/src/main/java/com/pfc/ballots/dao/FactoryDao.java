@@ -19,7 +19,10 @@ public abstract class FactoryDao {
 	public abstract CensusDao getCensusDao();
 	public abstract CensusDao getCensusDao(String DBName);
 	
-	public abstract CompanyDao getCompanyDao();//only an be in main DB in DB4O
+	public abstract CompanyDao getCompanyDao();//only can be in main DB in DB4O
+	
+	public abstract EmailAccountDao getEmailAccountDao();
+	public abstract EmailAccountDao getEmailAccountDao(String DBName);
 	
 	
 

@@ -52,6 +52,7 @@ public class CensusDaoDB4O implements CensusDao{
 	}
 	//***************************************** Retrievers **********************************************//
 	
+	@SuppressWarnings("rawtypes")
 	public List<Census> retrieveAll()
 	{
 		
@@ -83,6 +84,7 @@ public class CensusDaoDB4O implements CensusDao{
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	public Census getById(String id) {
 		
 		open();
@@ -118,6 +120,7 @@ public class CensusDaoDB4O implements CensusDao{
 		
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<Census> getByOwnerId(String idOwner) {
 
 		open();
@@ -148,6 +151,7 @@ public class CensusDaoDB4O implements CensusDao{
 	
 	//*********************************************** DELETE ******************************************//
 	
+	@SuppressWarnings("rawtypes")
 	public void deleteById(String id)
 	{
 		open();
@@ -176,6 +180,7 @@ public class CensusDaoDB4O implements CensusDao{
 		}
 		
 	}
+	@SuppressWarnings("rawtypes")
 	public void deleteAllCensusOfOwner(String idOwner)
 	{
 		open();
@@ -201,6 +206,7 @@ public class CensusDaoDB4O implements CensusDao{
 	}
 	//************************************************ UPDATE *****************************************//
 	
+	@SuppressWarnings("rawtypes")
 	public void update(Census census)
 	{
 		open();
@@ -231,6 +237,7 @@ public class CensusDaoDB4O implements CensusDao{
 	
 	//**************************************************UTIL*******************************************//
 	
+	@SuppressWarnings("rawtypes")
 	public boolean isNameInUse(String name,String idOwner)
 	{
 		open();

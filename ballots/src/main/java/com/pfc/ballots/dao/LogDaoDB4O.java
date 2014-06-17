@@ -47,6 +47,7 @@ public class LogDaoDB4O implements LogDao {
 	
 	/***********************************   Retrieves    ***************************************************/
 	
+	@SuppressWarnings("rawtypes")
 	public List<DataLog> retrieve() {
 		open();
 		List<DataLog> list=new LinkedList<DataLog>();
@@ -72,6 +73,7 @@ public class LogDaoDB4O implements LogDao {
 		return list;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List<DataLog> retrieve(String company )
 	{
 		
@@ -103,6 +105,7 @@ public class LogDaoDB4O implements LogDao {
 
 
 
+	@SuppressWarnings("rawtypes")
 	public List<DataLog> retrieve(int last) {
 		open();
 		int retrieved=0;
@@ -136,9 +139,9 @@ public class LogDaoDB4O implements LogDao {
 	
 	/***************************     Delete    **************************************************************/
 	
+	@SuppressWarnings("rawtypes")
 	public void DeleteAll() {
 		open();
-		List<DataLog> list=new LinkedList<DataLog>();
 		try
 		{
 			 Query query = DB.query();

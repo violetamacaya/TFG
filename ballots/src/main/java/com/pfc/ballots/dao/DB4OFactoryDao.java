@@ -57,6 +57,18 @@ public class DB4OFactoryDao extends FactoryDao{
 		return new CensusDaoDB4O(DBName);
 	}
 	
+	@Override 
+	public EmailAccountDao getEmailAccountDao()
+	{
+		return new EmailAccountDaoDB4O(null);
+	}
+	@Override 
+	public EmailAccountDao getEmailAccountDao(String DBName)
+	{
+		return new EmailAccountDaoDB4O(DBName);
+	}
+	
+	
 
 
 	 
