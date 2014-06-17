@@ -1,7 +1,7 @@
 <html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
-		
+		<infouser>
 		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////// NO EMAIL ZONE /////////////////////////////////////////////////////////////////////
 		   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -10,15 +10,17 @@
 		<t:zone t:id="newEmailZone" id="newEmailZone">
 			<t:if test="showNewZone">
 				<t:form t:id="newForm" zone="^">
+					<t:if test="badCombination">La contraseña introducida no es valida para el email</t:if>
 					<table>
 						<tr>
 							<td>emailAddress</td>
 							<td><t:textfield t:id="emailAddress" t:value="emailform.email"/></td>
+							<td><t:if test="badServer">La cuenta debe ser de gmail</t:if></td>
 						</tr>
 						<tr>
 							<td>password</td>
 							<td><t:passwordfield t:id="pass1"/></td>
-							<td><t:if test="showBadPassNew"> Password no conincide</t:if></td>
+							<td><t:if test="badMatch"> Password no conincide</t:if></td>
 						</tr>
 						<tr>
 							<td>repeat password</td>
@@ -49,10 +51,14 @@
 						<td>${emailAccount.password}</td>
 					</tr>
 					<tr>
-						<td><t:actionlink t:id="changeAccount" t:zone="^"><button>ChangeAccount</button></t:actionlink>
-						<t:actionlink t:id="changePass" t:zone="^"><button>ChangePass</button></t:actionlink></td>
+						<td>valid Combination : </td>
+						<td>${validCombination}</td>
 					</tr>
+					
 				</table>
+				<t:actionlink t:id="changeAccount" t:zone="^"><button>ChangeAccount</button></t:actionlink>
+				<t:actionlink t:id="changePass" t:zone="^"><button>ChangePass</button></t:actionlink>
+				<t:actionlink t:id="deleteAccount" t:zone="^"><button>deleteAccount</button></t:actionlink>
 			</t:if>
 		</t:zone>
 		
@@ -63,6 +69,7 @@
 		<t:zone t:id="changePassZone" id="changePassZone">
 			<t:if test="showChange">
 				<t:form t:id="changePassForm" zone="^">
+					<t:if test="badCombination">La contraseña introducida no es valida para el email</t:if>
 					<table>
 						<tr>
 							<td>AdminPassword</td>
@@ -97,6 +104,7 @@
 	   <t:zone t:id="changeAccountZone" id="changeAccountZone">
 	   		<t:if test="showChangeAccount">
 	   			<t:form t:id="changeAccountForm" zone="^">
+					<t:if test="badCombination">La contraseña introducida no es valida para el email</t:if>	   				
 	   				<table>
 	   					<tr>
 	   						<td>AdminPassword</td>
@@ -106,6 +114,7 @@
 	   					<tr>
 	   						<td>EmailAccount</td>
 	   						<td><t:textfield t:id="emailChange" t:value="emailform.email"/></td>
+	   						<td><t:if test="badServer">La cuenta debe ser de gmail</t:if></td>
 	   					</tr>
 	   					<tr>
 	   						<td>Password</td>
@@ -126,6 +135,6 @@
 	   			</t:form>
 	   		</t:if>
 	   </t:zone>
-		
+	  </infouser>
 	</t:border>
 </html>

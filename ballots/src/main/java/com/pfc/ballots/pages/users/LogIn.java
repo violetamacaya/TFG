@@ -20,6 +20,8 @@ import com.pfc.ballots.entities.DataLog;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.UserLoged;
 import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 
 
@@ -52,24 +54,7 @@ public class LogIn {
     LogDao logDao=DB4O.getLogDao();
     UserLogedDao logedDao=DB4O.getUserLogedDao();
     
-    
-    public Object onActivate()
-	{
-		switch(datasession.sessionState())
-		{
-			case 0:
-				System.out.println("LOGEADO");
-				return Index.class;
-			case 1:
-				System.out.println("NO LOGEADO");
-				return null;
-			case 2:
-				System.out.println("SESION EXPIRADA");
-				return null;
-			default:
-				return Index.class;
-		}
-	}
+
 	
 	Object onSuccess()
 	{
@@ -128,6 +113,36 @@ public class LogIn {
 			logDao.store(new DataLog(email,request.getRemoteHost(),false));
 			System.out.println("Login Incorrecto");
 			return request.isXHR() ? logForm.getBody() : null;
+		}
+	}
+	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/*
+		 *  * return an int with the state of the session
+		 * 		0->UserLogedIn;
+		 * 		1->AdminLoged
+		 * 		2->MainAdminLoged no email of the apliction configured
+		 * 		3->not loged
+		 * 		4->Session expired or kicked from server
+		 */
+    
+    public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				return Index.class;
+			case 1:
+				return Index.class;
+			case 2:
+				return AdminMail.class; 
+			case 3:
+				return null;
+			case 4:
+				return SessionExpired.class;
+			default:
+				return Index.class;
 		}
 	}
 	

@@ -14,6 +14,7 @@ import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
+import com.pfc.ballots.pages.admin.AdminMail;
 
 public class CensusList {
 
@@ -58,23 +59,31 @@ public class CensusList {
 	  ////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////
-	
+	/*
+	 *  * return an int with the state of the session
+	 * 		0->UserLogedIn;
+	 * 		1->AdminLoged
+	 * 		2->MainAdminLoged no email of the apliction configured
+	 * 		3->not loged
+	 * 		4->Session expired or kicked from server
+	 */
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				System.out.println("LOGEADO");
-				if(datasession.isAdmin() || datasession.isMaker())
+				if(datasession.isMaker())
 				{
 					return null;
 				}
 				return UnauthorizedAttempt.class;
 			case 1:
-				System.out.println("NO LOGEADO");
-				return Index.class;
+				return null;
 			case 2:
-				System.out.println("SESION EXPIRADA");
+				return AdminMail.class;
+			case 3:
+				return Index.class;
+			case 4:
 				return SessionExpired.class;
 			default:
 				return Index.class;

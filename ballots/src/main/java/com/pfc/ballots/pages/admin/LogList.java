@@ -56,27 +56,7 @@ public class LogList {
 		userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());
 		userLogedDao.clearSessions(DataSession.SESSION_TIME);
 	}
-	public Object onActivate()
-	{
-		switch(datasession.sessionState())
-		{
-			case 0:
-				System.out.println("LOGEADO");
-				if(datasession.isAdmin())
-				{
-					return null;
-				}
-				return UnauthorizedAttempt.class;
-			case 1:
-				System.out.println("NO LOGEADO");
-				return Index.class;
-			case 2:
-				System.out.println("SESION EXPIRADA");
-				return SessionExpired.class;
-			default:
-				return Index.class;
-		}
-	}
+
 	public List<DataLog> getLogs()
 	{
 		if(showAll)
@@ -108,5 +88,35 @@ public class LogList {
 		if(datasession.isMainUser())
 			return true;
 		return false;
+	}
+	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////////////// ON ACTIVATE /////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*
+	 *  * return an int with the state of the session
+	 * 		0->UserLogedIn;
+	 * 		1->AdminLoged
+	 * 		2->MainAdminLoged no email of the apliction configured
+	 * 		3->not loged
+	 * 		4->Session expired or kicked from server
+	 */
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				return UnauthorizedAttempt.class;
+			case 1:
+				return null;
+			case 2:
+				return AdminMail.class;
+			case 3:
+				return Index.class;
+			case 4:
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
+		
 	}
 }

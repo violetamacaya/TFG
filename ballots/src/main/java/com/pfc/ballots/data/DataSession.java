@@ -7,10 +7,12 @@ import javax.inject.Inject;
 
 import org.apache.tapestry5.services.Request;
 
+import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.UUID;
 
 public class DataSession {
@@ -27,6 +29,7 @@ public class DataSession {
 	private boolean maker;
 	private boolean loged;
 	private FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	private EmailAccountDao emailDao=null;
 	private UserLogedDao lgdDao=null;
 	
 	@Inject
@@ -36,6 +39,7 @@ public class DataSession {
 	public DataSession()
 	{
 		logout();
+		emailDao=DB4O.getEmailAccountDao();
 	}
 	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////// GETTER AND SETTER //////////////////////////////////////////
@@ -173,16 +177,18 @@ public class DataSession {
 	/**
 	 * 
 	 * return an int with the state of the session
-	 * 		0->LogedIn;
-	 * 		1->not loged
-	 * 		2->Session expired or kicked from server
-	 * if you are loged this method check if your session time had expired
+	 * 		0->UserLogedIn;
+	 * 		1->AdminLoged
+	 * 		2->MainAdminLoged no email of the apliction configured
+	 * 		3->not loged
+	 * 		4->Session expired or kicked from server
 	 */
+	
 	
 	public int sessionState()
 	{	
 		if(!isLoged())
-			return 1;
+			return 3;
 		else
 		{
 			Date actualDate=new Date();
@@ -200,19 +206,32 @@ public class DataSession {
 				lgdDao.delete(idSession);
 				logout();
 				request.getSession(true).invalidate();
-				return 2;
+				return 5;
 			}
 			else
 			{
 				if(lgdDao.isLogedIn(idSession))
 				{
-					return 0;
+					if(isAdmin())
+					{
+			
+						if(isMainAdmin() && !Mail.checkAccount(emailDao.getAccount()))
+						{
+							return 2;
+						}
+						return 1;
+					}
+					else
+					{
+						return 0;
+					}
+				
 				}
 				else
 				{
 					logout();
 					request.getSession(true).invalidate();
-					return 2;
+					return 4;
 				}
 			}
 		}

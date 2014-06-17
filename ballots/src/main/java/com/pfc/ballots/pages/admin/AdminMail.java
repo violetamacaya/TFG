@@ -17,10 +17,19 @@ import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.util.Encryption;
+import com.pfc.ballots.util.Mail;
 
 public class AdminMail {
 
+	
+  	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////////////////////////// GENERAL STUFF //////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	@Persist
 	UserDao userDao;
@@ -43,6 +52,18 @@ public class AdminMail {
 	@Property
 	private EmailAccount emailAccount;
 	
+	@Property
+	@Persist
+	private boolean badPass;
+	@Property
+	@Persist
+	private boolean badMatch;
+	@Property
+	@Persist
+	private boolean badServer;
+	@Property
+	@Persist
+	private boolean badCombination;
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
@@ -54,7 +75,9 @@ public class AdminMail {
 		change=false;
 		badPass=false;
 		badMatch=false;
+		badServer=false;
 		changeAccount=false;
+		badCombination=false;
 	}
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,9 +101,6 @@ public class AdminMail {
 	@Validate("required,minLength=5")
 	private String pass2;
 	
-	@Property
-	@Persist
-	private boolean showBadPassNew;
 	
 	public boolean isShowNewZone()
 	{
@@ -93,21 +113,60 @@ public class AdminMail {
 			return false;
 		}
 	}
+
 	public void onSuccessFromNewForm()
 	{
+		boolean success=true;
 		if(request.isXHR())
 		{
-			if(!pass1.equals(pass2))
+			if(Mail.isValidEmail(emailform.getEmail()))
 			{
-				showBadPassNew=true;
-				ajaxResponseRenderer.addRender("newEmailZone", newEmailZone);
+				badServer=false;
 			}
 			else
 			{
-				showBadPassNew=false;
+				badServer=true;
+				success=false;
+			}
+			if(pass1.equals(pass2))
+			{
+				badMatch=false;
+			}
+			else
+			{
+				badMatch=true;
+				success=false;
+			}
+			/*  
+			 * 	Dos ifs que verifiquen la misma variable
+			 *	en este si todo el formulario esta correcto comprueba la valided del password
+			 *	y en caso de ser incorreco notifica
+			 */
+			if(success)
+			{
 				emailform.setPassword(pass1);
+				if(Mail.checkAccount(emailform))
+				{
+					badCombination=false;
+				}
+				else
+				{
+					badCombination=true;
+					success=false;
+				}
+			}
+			/*
+			 * En caso de ser correcto entrara aqui simplemente guardara los datos y
+			 * volvera a la pantalla principal de la pagina
+			 */
+			if(success)
+			{
 				emailAccount=emailform;
 				emailAccountDao.setEmailAccount(emailform);
+				ajaxResponseRenderer.addRender("newEmailZone", newEmailZone).addRender("emailSettingsZone", emailSettingsZone);
+			}
+			else
+			{
 				ajaxResponseRenderer.addRender("newEmailZone", newEmailZone);
 			}
 		}
@@ -140,7 +199,17 @@ public class AdminMail {
 			}
 		}
 	}
-	
+	public boolean isValidCombination()
+	{
+		if(Mail.checkAccount(emailAccount))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	public void onActionFromChangeAccount()
 	{
 		System.out.println("CHANGE ACCOUNT");
@@ -150,9 +219,21 @@ public class AdminMail {
 			settings=true;
 			badPass=false;
 			badMatch=false;
+			badServer=false;
+			badCombination=false;
 			emailform=new EmailAccount();
 			ajaxResponseRenderer.addRender("emailSettingsZone", emailSettingsZone).addRender("changeAccountZone", changeAccountZone);
 			
+		}
+	}
+	public void onActionFromDeleteAccount()
+	{
+		if(request.isXHR())
+		{
+			emailAccountDao.deleteEmailAccount();
+			emailAccount=null;
+			ajaxResponseRenderer.addRender("newEmailZone", newEmailZone).addRender("emailSettingsZone", emailSettingsZone);
+
 		}
 	}
 	
@@ -165,6 +246,8 @@ public class AdminMail {
 			change=true;
 			badPass=false;
 			badMatch=false;
+			badCombination=false;
+			badServer=false;
 			ajaxResponseRenderer.addRender("emailSettingsZone", emailSettingsZone).addRender("changePassZone", changePassZone);
 		}
 	}
@@ -181,13 +264,6 @@ public class AdminMail {
 	@Property
 	@Validate("required,minLength=5")
 	private String adminPass;
-	
-	@Property
-	@Persist
-	private boolean badPass;
-	@Property
-	@Persist
-	private boolean badMatch;
 	
 	@Persist
 	@Property
@@ -216,42 +292,64 @@ public class AdminMail {
 		}
 	}
 	
+	
 	public void onSuccessFromChangePassForm()
 	{
+		boolean success=true;
 		if(request.isXHR())
 		{
 			String pass=userDao.getProfileById(datasession.getId()).getPassword();
 			String pass2=Encryption.getStringMessageDigest(adminPass, Encryption.SHA1);
 			if(pass.equals(pass2))
 			{
-				System.out.println("CORRECTO");
 				badPass=false;
-				if(newPass1.equals(newPass2))
-				{
-					badMatch=false;
-					change=false;
-					settings=false;
-					emailAccount.setPassword(newPass1);
-					emailAccountDao.updateEmailAccount(emailAccount);
-					ajaxResponseRenderer.addRender("changePassZone", changePassZone).addRender("emailSettingsZone", emailSettingsZone);
-				}
-				else
-				{
-					badMatch=true;
-					ajaxResponseRenderer.addRender("changePassZone", changePassZone);
-				}
-				
 			}
 			else
 			{
 				badPass=true;
+				success=false;
+			}
+			if(newPass1.equals(newPass2))
+			{
 				badMatch=false;
+			}
+			else
+			{
+				badMatch=true;
+				success=false;
+			}
+			
+			/*
+			 * Funciona igual que el doble if success anterior
+			 */
+			if(success)
+			{
+				emailform.setPassword(newPass1);
+				if(Mail.checkAccount(emailform))
+				{
+					badCombination=false;
+				}
+				else
+				{
+					badCombination=true;
+					success=false;
+				}
+			}
+			if(success)
+			{
+				change=false;
+				settings=false;
+				emailAccount.setPassword(newPass1);
+				emailAccountDao.updateEmailAccount(emailAccount);
+				ajaxResponseRenderer.addRender("changePassZone", changePassZone).addRender("emailSettingsZone", emailSettingsZone);
+			}
+			else
+			{
 				ajaxResponseRenderer.addRender("changePassZone", changePassZone);
 			}
-		}
 			
+		}
 	}
-	
 	public void onActionFromCancelChangePass()
 	{
 		if(request.isXHR())
@@ -305,40 +403,74 @@ public class AdminMail {
 	
 	public void onSuccessFromChangeAccountForm()
 	{
+		boolean success=true;
 		if(request.isXHR())
 		{
+			//Checks the admin password
 			String pass=userDao.getProfileById(datasession.getId()).getPassword();
 			String pass2=Encryption.getStringMessageDigest(adminPassword, Encryption.SHA1);
 			if(pass.equals(pass2))
 			{
-				System.out.println("CORRECTO");
 				badPass=false;
-				if(password1.equals(password2))
-				{
-					badMatch=false;
-					emailform.setPassword(password1);
-					changeAccount=false;
-					settings=false;
-					emailAccountDao.updateEmailAccount(emailform);
-					emailAccount=emailform;
-					ajaxResponseRenderer.addRender("changeAccountZone", changeAccountZone).addRender("emailSettingsZone", emailSettingsZone);
-				}
-				else
-				{
-					badMatch=true;
-					ajaxResponseRenderer.addRender("changeAccountZone", changeAccountZone);
-				}
-				
 			}
 			else
 			{
 				badPass=true;
+				success=false;
+			}
+			//Checks if the email is valid
+			if(Mail.isValidEmail(emailform.getEmail()))
+			{
+				badServer=false;
+			}
+			else
+			{
+				badServer=true;
+				success=false;
+			}
+			//Checks if the passwords fields are equals
+			if(password1.equals(password2))
+			{
 				badMatch=false;
+			}
+			else
+			{
+				badMatch=true;
+				success=false;
+			}
+			
+			
+			if(success)
+			{
+				emailform.setPassword(password1);
+				if(Mail.checkAccount(emailform))
+				{
+					badCombination=false;
+				}
+				else
+				{
+					badCombination=true;
+					success=false;
+				}
+			}
+			
+			if(success)
+			{
+				emailform.setPassword(password1);
+				changeAccount=false;
+				settings=false;
+				emailAccountDao.updateEmailAccount(emailform);
+				emailAccount=emailform;
+				ajaxResponseRenderer.addRender("changeAccountZone", changeAccountZone).addRender("emailSettingsZone", emailSettingsZone);
+			}
+			else
+			{
 				ajaxResponseRenderer.addRender("changeAccountZone", changeAccountZone);
 			}
+			
 		}
+		
 	}
-	
 	public void onActionFromCancelChangeAccount()
 	{
 		if(request.isXHR())
@@ -350,4 +482,38 @@ public class AdminMail {
 			
 		}
 	}
+	
+	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////////////// ON ACTIVATE /////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*
+	 *  * return an int with the state of the session
+	 * 		0->UserLogedIn;
+	 * 		1->AdminLoged
+	 * 		2->MainAdminLoged no email of the apliction configured
+	 * 		3->not loged
+	 * 		4->Session expired or kicked from server
+	 */
+	 public Object onActivate()
+	 {
+		 switch(datasession.sessionState())
+			{
+				case 0:
+					return UnauthorizedAttempt.class;
+				case 1:
+					if(datasession.isMainAdmin())
+					{
+						return null;
+					}
+					return UnauthorizedAttempt.class;
+				case 2:
+					return null;
+				case 3:
+					return Index.class;
+				case 4:
+					return SessionExpired.class;
+				default:
+					return Index.class;
+			}
+		}
 }

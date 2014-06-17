@@ -10,13 +10,14 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.pfc.ballots.util.Mail;
+
 public class UpdateProfile {
 
-	
-	
+
 	public void onActionFromSendEmail() 
 	{
-		Properties props= new Properties();
+		/*Properties props= new Properties();
 	
 		props.setProperty("mail.smtp.host", "smtp.gmail.com");
 
@@ -52,6 +53,26 @@ public class UpdateProfile {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+		}*/
+		
+		Mail mail=new Mail("testsendballots@gmail.com","629281711","dianagomez91@gmail.com");
+		
+		mail.sendMail("PRUEBA", "ESTO ES UNA PRUEBA SIN HTML");
+	}
+	
+	public void onActionFromCheckEmail()
+	{
+		String email="testsendballots@gmail.com";
+	
+		/*
+		if(Mail.checkAccount("testsendballots@gmail.com","6292817"))
+		{
+			System.out.println("EMAIL-PASS CORRECTOS");
 		}
+		else
+		{
+			System.out.println("EMAIL-PASS ERRONEOS");
+
+		}*/
 	}
 }
