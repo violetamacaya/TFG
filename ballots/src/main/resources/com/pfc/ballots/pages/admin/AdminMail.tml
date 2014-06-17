@@ -1,0 +1,131 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		
+		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////// NO EMAIL ZONE /////////////////////////////////////////////////////////////////////
+		   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		   
+		   
+		<t:zone t:id="newEmailZone" id="newEmailZone">
+			<t:if test="showNewZone">
+				<t:form t:id="newForm" zone="^">
+					<table>
+						<tr>
+							<td>emailAddress</td>
+							<td><t:textfield t:id="emailAddress" t:value="emailform.email"/></td>
+						</tr>
+						<tr>
+							<td>password</td>
+							<td><t:passwordfield t:id="pass1"/></td>
+							<td><t:if test="showBadPassNew"> Password no conincide</t:if></td>
+						</tr>
+						<tr>
+							<td>repeat password</td>
+							<td><t:passwordfield t:id="pass2"/></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input t:type="submit" value="submit"/></td>
+						</tr>	
+					</table>
+				</t:form>
+			</t:if>
+		</t:zone>
+		
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    ////////////////////////////////////////////////////// EMAIL SETTINGS ZONE ///////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		
+		<t:zone t:id="emailSettingsZone" id="emailSettingsZone">
+			<t:if test="showSettings">
+				<table>
+					<tr>
+						<td>Email account : </td>
+						<td>${emailAccount.email}</td>
+					</tr>
+					<tr>
+						<td>Password : </td>
+						<td>${emailAccount.password}</td>
+					</tr>
+					<tr>
+						<td><t:actionlink t:id="changeAccount" t:zone="^"><button>ChangeAccount</button></t:actionlink>
+						<t:actionlink t:id="changePass" t:zone="^"><button>ChangePass</button></t:actionlink></td>
+					</tr>
+				</table>
+			</t:if>
+		</t:zone>
+		
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //////////////////////////////////////////////////////// CHANGE PASS ZONE ////////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	
+		<t:zone t:id="changePassZone" id="changePassZone">
+			<t:if test="showChange">
+				<t:form t:id="changePassForm" zone="^">
+					<table>
+						<tr>
+							<td>AdminPassword</td>
+							<td><t:passwordfield t:id="adminPass"/></td>
+							<td><t:if test="badPass">PASS INCORRECTO</t:if></td>
+						</tr>
+						<tr>
+							<td>NewEmailPassword</td>
+							<td><t:passwordfield t:id="newPass1"/></td>
+							<td><t:if test="badMatch">PASS NO COINCIDE</t:if></td>
+						</tr>
+						<tr>
+							<td>repeatPassword</td>
+							<td><t:passwordfield t:id="newPass2"/></td>
+						</tr>
+						<tr>
+							<td>
+								<input t:type="submit" t:value="submit"/>
+								<t:actionlink t:id="cancelChangePass" zone="^"><button>Cancel</button></t:actionlink>
+							</td>
+						</tr>
+					</table>
+				</t:form>
+			</t:if>
+		</t:zone>	
+		
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    ////////////////////////////////////////////////////// CHANGE ACCOUNT ZONE ///////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	   
+	   
+	   <t:zone t:id="changeAccountZone" id="changeAccountZone">
+	   		<t:if test="showChangeAccount">
+	   			<t:form t:id="changeAccountForm" zone="^">
+	   				<table>
+	   					<tr>
+	   						<td>AdminPassword</td>
+	   						<td><t:passwordfield t:id="adminPassword"/></td>
+	   						<td><t:if test="badPass">PASS INCORRECTO</t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td>EmailAccount</td>
+	   						<td><t:textfield t:id="emailChange" t:value="emailform.email"/></td>
+	   					</tr>
+	   					<tr>
+	   						<td>Password</td>
+	   						<td><t:textfield t:id="password1"/></td>
+	   						<td><t:if test="badMatch">PASS NO COINCIDE</t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td>Password</td>
+	   						<td><t:textfield t:id="password2"/></td>
+	   					</tr>
+	   					<tr>
+							<td>
+								<input t:type="submit" t:value="submit"/>
+								<t:actionlink t:id="cancelChangeAccount" zone="^"><button>Cancel</button></t:actionlink>
+							</td>
+						</tr>
+	   				</table>
+	   			</t:form>
+	   		</t:if>
+	   </t:zone>
+		
+	</t:border>
+</html>
