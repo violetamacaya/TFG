@@ -1,0 +1,139 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	<infouser>
+	
+	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////// USER DATA ZONE /////////////////////////////////////////////////
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  -->
+		<t:zone t:id="userDataZone" id="userDataZone">
+			<t:if test="showData">
+				<table>
+					<tr>
+						<td>Admin:</td>
+						<td><t:if test="profile.admin">Yes<p:else>No</p:else></t:if></td>
+					</tr>
+					<tr>
+						<td>Maker:</td>
+						<td><t:if test="profile.maker">Yes<p:else>No</p:else></t:if></td>
+					</tr>
+					<t:if test="companyUser">
+						<tr>
+							<td>Company:</td>
+							<td>${company.companyname }</td>
+						</tr>
+					</t:if>
+					<tr>
+						<td>Email:</td>
+						<td>${profile.email }</td>
+					</tr>
+					<tr>
+						<td>Name:</td>
+						<td>${profile.firstname }</td>
+					</tr>
+					<tr>
+						<td>Last Name:</td>
+						<td>${profile.lastname }</td>
+					</tr>
+					<tr>
+						<td>University:</td>
+						<td>${profile.university }</td>
+					</tr>
+					<tr>
+						<td>City:</td>
+						<td>${profile.city }</td>
+					</tr>
+					<tr>
+						<td>Country:</td>
+						<td>${profile.country }</td>
+					</tr>
+					<tr>
+						<td>Cambiar Contraseña</td>
+						<td><t:actionlink t:id="changePass" zone="^"><button>Cambiar</button></t:actionlink></td>
+					</tr>
+					<tr>
+						<td>Actualizar Perfil</td>
+						<td><t:actionlink t:id="updateProfile" zone="^"><button>Actualizar</button></t:actionlink></td>
+					</tr>
+				</table>
+			</t:if>
+		</t:zone>
+	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   /////////////////////////////////////////////CHANGE PASS ZONE /////////////////////////////////////////////////
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  -->		
+	   <t:zone t:id="changePassZone" id="changePassZone">
+	   		<t:if test="showChange">
+	   			<t:form t:id="changePassForm" zone="^">
+	   				<table>
+	   					<tr>
+	   						<td>Password:</td>
+	   						<td><t:passwordfield t:id="pass"/></td>
+	   						<td><t:if test="badPass">Contraseña incorrecta</t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td>New Password</td>
+	   						<td><t:passwordfield t:id="newPass1"/></td>
+	   						<td><t:if test="badMatch">Contraseñas no coinciden</t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td>repeat password</td>
+	   						<td><t:passwordfield t:id="newPass2"/></td>
+	   					</tr>
+	   					<tr>
+	   						<td></td>
+	   						<td><input t:type="submit" value="submit"/><t:actionlink t:id="cancelChangePass" t:zone="^"><button>Cancel</button></t:actionlink></td>
+	   					</tr>
+	   				</table>
+	   			</t:form>
+	   		</t:if>
+	   </t:zone>
+	
+	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   ///////////////////////////////////////// UPDATE PROFILE ZONE /////////////////////////////////////////////////
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 -->
+	 	<t:zone t:id="updateProfileZone" id="updateProfileZone">
+	 		<t:if test="showUpdate">
+	 			<t:form t:id="updateForm" zone="^">
+	 				<table>
+	 					<tr>
+	 						<td>Email</td>
+	 						<td><t:textfield t:id="emailField" value="update.email"/></td>
+	 						<td><t:if test="badMail">Email en uso</t:if></td>
+	 					</tr>
+	 					<tr>
+	 						<td>First Name</td>
+	 						<td><t:textfield t:id="nameField" value="update.firstname"/></td>
+	 					</tr>
+	 					<tr>
+	 						<td>LastName</td>
+	 						<td><t:textfield t:id="lastField" value="update.lastname"/></td>
+	 					</tr>
+	 					<tr>
+	 						<td>University</td>
+	 						<td><t:textfield t:id="universityField" value="update.university"/></td>
+	 					</tr>
+	 					<tr>
+	 						<td>City</td>
+	 						<td><t:textfield t:id="cityField" value="update.city"/></td>
+	 					</tr>
+	 					<tr>
+	 						<td>Country</td>
+	 						<td><t:textfield t:id="countryField" value="update.country"/></td>
+	 					</tr>
+	 					<tr>
+	 						<td></td>
+	 						<td>
+	 							<input t:type="submit" value="submit"/>
+	 							<t:actionlink t:id="cancelUpdate" zone="^"><button>Cancel</button></t:actionlink>
+	 						</td>
+	 					</tr>
+	 				</table>
+	 			</t:form>
+	 		</t:if>
+	 	</t:zone>
+	</infouser>
+	</t:border>
+</html>

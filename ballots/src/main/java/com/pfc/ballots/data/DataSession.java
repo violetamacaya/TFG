@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.apache.tapestry5.services.Request;
 
+import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserLogedDao;
@@ -29,6 +30,7 @@ public class DataSession {
 	private boolean maker;
 	private boolean loged;
 	private FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	private CompanyDao companyDao=DB4O.getCompanyDao();
 	private EmailAccountDao emailDao=null;
 	private UserLogedDao lgdDao=null;
 	
@@ -241,7 +243,32 @@ public class DataSession {
 	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////// SESSION UTILS //////////////////////////////////////////////
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	public boolean isCompanyOwner()
+	{
+		Company temp=companyDao.getCompanyByName(company);
+		if(temp==null)
+		{
+			return false;
+		}
+		if(temp.getIdAdmin().equals(id))
+		{
+			return true;
+		}
+		return false;
+	}
+	public Company isCompanyOwner(String leftNull)
+	{
+		Company temp=companyDao.getCompanyByName(company);
+		if(temp==null)
+		{
+			return null;
+		}
+		if(temp.getIdAdmin().equals(id))
+		{
+			return temp;
+		}
+		return null;
+	}
 	public boolean isCompanyUser()
 	{
 		if(DBName==null)
@@ -270,6 +297,20 @@ public class DataSession {
 		if(isAdmin() && isMainUser())
 			return true;
 		return false;
+	}
+	public boolean isCompanyAdmin()
+	{
+		if(isAdmin() && !isMainUser())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+
+	public boolean isMailWorking()
+	{
+		return Mail.checkAccount(emailDao.getAccount());
 	}
 
 }

@@ -142,22 +142,7 @@ public class CompanyDaoDB4O implements CompanyDao {
 		
 	}
 	
-	public void updateAdminData()
-	{
-		List<Company> list=RetrieveAllCompanies();
-		FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-		UserDao userDao =null;
-		for(int i=0;i<list.size();i++)
-		{
-			userDao=DB4O.getUsuarioDao(list.get(i).getDBName());
-			String email=userDao.getEmailById(list.get(i).getId());
-			if(!email.equals(list.get(i).getAdminEmail()))
-			{
-				list.get(i).setAdminEmail(email);
-				updateCompany(list.get(i));
-			}
-		}
-	}
+
 	
 	
 	//*************************************** Delete  ******************************************//

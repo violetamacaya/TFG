@@ -51,7 +51,31 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		}
 		
 	}
+	//*********************************************** Getter ******************************************//
 	
+	public UserLoged getUserLoged(String idSession)
+	{
+		open();
+		try
+		{
+			ObjectSet result = DB.queryByExample(new UserLoged(idSession));
+			if(result.hasNext())
+			{
+				return (UserLoged)result.next();
+			}
+			return null;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR: Could not verify if user is loged in");
+			return null;
+		}
+		finally
+		{
+			close();
+		}
+	}
 	//**********************************************Retrieve all***************************************//
 	@SuppressWarnings("rawtypes")
 	public List<UserLoged> retrieveAll()
@@ -204,6 +228,38 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		}
 		
 	}
+	//*********************************************** Update ******************************************//
+	
+	public void updateUserLoged(UserLoged userLoged)
+	{
+		open();
+		UserLoged temp=null;
+		try
+		{
+			ObjectSet result = DB.queryByExample(new UserLoged(userLoged.getIdSession()));
+			if(result.hasNext())
+			{
+				temp=(UserLoged)result.next();
+				DB.delete(temp);
+				DB.store(userLoged);
+				System.out.println("[DB4O]UserLoged Updated ");
+			}
+			else
+			{
+				System.out.println("[DB4O]UserLoged doesn't exist");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR: UserLoged could not be delete");
+		}
+		finally
+		{
+			close();
+		}
+	}
+	
 	
 	//********************************************Open and Close DB************************************//
 	

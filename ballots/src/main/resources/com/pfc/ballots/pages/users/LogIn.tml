@@ -17,8 +17,8 @@
 			
 				<label>Usuario</label><div><input type="text" t:type="textfield" t:value="email"/></div>
 				<label>Pass</label><div><input type="password" t:type="textfield" t:value="password"/></div><br/><br/>
-				
-				<input type="submit" value="acceder"/>
+				<input type="submit" value="acceder"/><br/>
+				<t:actionlink t:id="forgottenPass">Olvido su contraseña</t:actionlink>
 			</t:form>
 			</t:zone>
 			</infouser>

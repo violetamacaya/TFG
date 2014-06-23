@@ -14,7 +14,7 @@ public class Company {
 	private String id;
 	@NonVisual
 	private String idAdmin;
-	@Validate("required")
+	@Validate("required,minLength=5")
 	private String CompanyName;
 	@Validate("required,minLength=6")
 	private String DBName;

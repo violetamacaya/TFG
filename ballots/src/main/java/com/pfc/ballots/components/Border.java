@@ -34,6 +34,7 @@ import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.pages.profile.CreateProfile;
 import com.pfc.ballots.pages.profile.ProfileByFile;
+import com.pfc.ballots.pages.profile.ShowProfile;
 import com.pfc.ballots.pages.profile.UpdateProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
@@ -222,7 +223,7 @@ public class Border {
 			visibilityBallot=false;
 			visibilityCompany=false;
 			visibilityCensus=false;
-			page=UpdateProfile.class;
+			page=ShowProfile.class;
 		}
 		if(section.equals("admin-mail"))
 		{

@@ -106,6 +106,7 @@ public class CreateCompany {
 			company.setRegDatetoActual();
 			profile.setRegDatetoActual();
 			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);
+			profile.setAdmin(true);
 			profile.setEmail(company.getAdminEmail());
 			profile.setPassword(encrypt);
 			profile.setPlain(password);

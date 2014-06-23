@@ -222,5 +222,6 @@ public class Profile {
 		this.country=old.getCountry();
 		this.regDate=old.getRegDate();
 	}
+	
 
 }

@@ -64,6 +64,7 @@ public class AdminMail {
 	@Property
 	@Persist
 	private boolean badCombination;
+	
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
