@@ -12,6 +12,8 @@ public class Company {
 	
 	@NonVisual
 	private String id;
+	
+	private boolean active;
 	@NonVisual
 	private String idAdmin;
 	@Validate("required,minLength=5")
@@ -21,6 +23,7 @@ public class Company {
 	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	private String AdminEmail;
 	private Date RegDate;
+	
 	
 	
 	public Company(){
@@ -78,5 +81,11 @@ public class Company {
 	public void setRegDatetoActual()
 	{
 		RegDate=new Date();
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 }

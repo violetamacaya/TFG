@@ -48,6 +48,11 @@ public class CompanyLogIn {
 	private boolean authenticationFailure;
 	@Property
 	private boolean fillFields;
+	@Property
+	private boolean notActive;
+	
+	
+	
 	
 	//*****************************************    DAO ************************************************//
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
@@ -63,6 +68,7 @@ public class CompanyLogIn {
 		fillFields=false;
 		companyFailure=false;
 		authenticationFailure=false;
+		notActive=false;
 	}
 	
 	Object onSuccess()
@@ -96,6 +102,13 @@ public class CompanyLogIn {
 			System.out.println("compañia incorrecto");
 			logDao.store(new DataLog(request.getRemoteHost(),"none"));
 			return request.isXHR() ? logForm.getBody() : null;
+		}
+		if(!company.isActive())
+		{
+			setBoolFalse();
+			notActive=true;
+			return request.isXHR() ? logForm.getBody() : null;
+			
 		}
 		//Verify if user is registred
 		userDao=DB4O.getUsuarioDao(company.getDBName());

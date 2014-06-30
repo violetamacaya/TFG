@@ -18,6 +18,9 @@
 					<t:if test="authenticationFailure">
 							Nombre de usuario o contraseÃ±a incorrectos
 					</t:if>
+					<t:if test="notactive">
+							Compañia no activa
+					</t:if>
 				</span>
 			
 				<label>Company</label><div><input type="text" t:type="textfield" t:value="companyName"/></div>

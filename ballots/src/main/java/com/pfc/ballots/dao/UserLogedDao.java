@@ -14,6 +14,8 @@ public interface UserLogedDao {
 	
 	public void delete(String idSession);
 	public void deleteByEmail(String email);
+	public void deleteAll();
 	public boolean isLogedIn(String idSession);
 
+	
 }

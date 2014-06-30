@@ -74,17 +74,17 @@
 	   			<t:form t:id="changePassForm" zone="^">
 	   				<table>
 	   					<tr>
-	   						<td>Password:</td>
+	   						<td><label>Password:</label></td>
 	   						<td><t:passwordfield t:id="pass"/></td>
 	   						<td><t:if test="badPass">Contraseña incorrecta</t:if></td>
 	   					</tr>
 	   					<tr>
-	   						<td>New Password</td>
+	   						<td><label>New Password</label></td>
 	   						<td><t:passwordfield t:id="newPass1"/></td>
 	   						<td><t:if test="badMatch">Contraseñas no coinciden</t:if></td>
 	   					</tr>
 	   					<tr>
-	   						<td>repeat password</td>
+	   						<td><label>Repeat password</label></td>
 	   						<td><t:passwordfield t:id="newPass2"/></td>
 	   					</tr>
 	   					<tr>
@@ -105,28 +105,28 @@
 	 			<t:form t:id="updateForm" zone="^">
 	 				<table>
 	 					<tr>
-	 						<td>Email</td>
+	 						<td><label>Email</label></td>
 	 						<td><t:textfield t:id="emailField" value="update.email"/></td>
 	 						<td><t:if test="badMail">Email en uso</t:if></td>
 	 					</tr>
 	 					<tr>
-	 						<td>First Name</td>
+	 						<td><label>First Name</label></td>
 	 						<td><t:textfield t:id="nameField" value="update.firstname"/></td>
 	 					</tr>
 	 					<tr>
-	 						<td>LastName</td>
+	 						<td><label>LastName</label></td>
 	 						<td><t:textfield t:id="lastField" value="update.lastname"/></td>
 	 					</tr>
 	 					<tr>
-	 						<td>University</td>
+	 						<td><label>University</label></td>
 	 						<td><t:textfield t:id="universityField" value="update.university"/></td>
 	 					</tr>
 	 					<tr>
-	 						<td>City</td>
+	 						<td><label>City</label></td>
 	 						<td><t:textfield t:id="cityField" value="update.city"/></td>
 	 					</tr>
 	 					<tr>
-	 						<td>Country</td>
+	 						<td><label>Country</label></td>
 	 						<td><t:textfield t:id="countryField" value="update.country"/></td>
 	 					</tr>
 	 					<tr>

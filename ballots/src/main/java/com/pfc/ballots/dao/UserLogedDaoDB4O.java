@@ -111,6 +111,32 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 	}
 	
 	//******************************************************Delete*************************************************************************//
+	
+	public void deleteAll()
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(UserLoged.class);
+			ObjectSet resultado = query.execute();
+			while (resultado.hasNext())
+			{
+				DB.delete((UserLoged)resultado.next());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+	}
+	
+	
+	
 	@SuppressWarnings("rawtypes")
 	public void delete(String idSession)
 	{
@@ -140,6 +166,7 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 			close();
 		}
 	}
+	
 	@SuppressWarnings("rawtypes")
 	public void deleteByEmail(String email)
 	{

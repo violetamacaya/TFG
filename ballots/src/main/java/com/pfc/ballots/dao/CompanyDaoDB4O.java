@@ -148,12 +148,12 @@ public class CompanyDaoDB4O implements CompanyDao {
 	//*************************************** Delete  ******************************************//
 	
 	@SuppressWarnings("rawtypes")
-	public void deleteCompanyByEmail(String email)
+	public void deleteCompanyByName(String companyName)
 	{
 		open();
 		try
 		{
-			ObjectSet result=DB.queryByExample(new Company(email));
+			ObjectSet result=DB.queryByExample(new Company(companyName));
 			Company comp=null;
 			if(result.hasNext())
 			{
@@ -231,6 +231,35 @@ public class CompanyDaoDB4O implements CompanyDao {
 		
 	}
 	
+	public boolean isActive(String companyName)
+	{
+		open();
+		try
+		{
+			ObjectSet result=DB.queryByExample(new Company(companyName));
+			if(result.hasNext())
+			{
+				if(((Company)result.next()).isActive())
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			return false;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return false;
+	}
 	//*************************************Util (without open or close DB*************************//
 	@SuppressWarnings("rawtypes")
 	private boolean testCompany(String companyName)
