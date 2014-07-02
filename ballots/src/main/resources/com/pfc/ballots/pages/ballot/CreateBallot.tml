@@ -1,0 +1,46 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		<t:zone t:id="mainZone" id="mainZone">
+			<t:if test="showPage">
+				<p:else>
+					Usted no tiene creado ningun censo de votantes. Para poder crear votacion, cree uno <t:pagelink page="census/createcensus"><strong>aqui</strong></t:pagelink>
+				</p:else>
+				<t:form t:id="selectForm" t:zone="^">
+					<t:label for="ballotName"/>*
+					<t:textfield t:id="ballotName"/><br/>
+					<t:label for="method"/>*
+					<t:select t:type="select" t:id="method" value="method" t:blankLabel="Choose..." t:zone="^"/>
+					<br/>
+					<t:label for="censusSelect"/>*
+					<t:select t:type="select" t:id="censusSelect" t:model="censusModel" t:value="census" t:encoder="censusEncoder" t:blankLabel="Choose..." t:zone="^"></t:select>
+					<br/>
+					<t:label for="startDate"/>
+					<t:datefield t:id="startDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})<br/>
+					<t:label for="startHour"/>
+					<t:textfield t:id="startHour"/>(hh:mm:ss)<br/>
+					<t:label for="endDate"/>*
+					<t:datefield t:id="endDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})<br/>
+					<t:label for="endHour"/>
+					<t:textfield t:id="endHour"/>(hh:mm:ss)
+					<br/><br/>
+					<t:if test="showMayoriaRel">
+						<strong>MAYORIA</strong><br/>
+						<t:label for="mayRelNumSelect">Numero Opciones</t:label>
+						<t:select t:type="select" t:id="mayRelNumSelect" t:model="mayRelOpModel" t:value="mayRelOpNum" t:zone="^"/>
+						<t:loop source="mayRelOps" value="mayRelOp">
+							<br/>${mayRelOp }
+						</t:loop> 
+						
+					</t:if>
+					<t:if test="showKemeny">
+						KEMENY
+					</t:if>
+				
+				</t:form>
+			</t:if>
+		</t:zone>
+		
+		
+	</t:border>
+</html>

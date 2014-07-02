@@ -32,6 +32,7 @@ import com.pfc.ballots.pages.Company.ListCompany;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
+import com.pfc.ballots.pages.ballot.CreateBallot;
 import com.pfc.ballots.pages.profile.CreateProfile;
 import com.pfc.ballots.pages.profile.ProfileByFile;
 import com.pfc.ballots.pages.profile.ShowProfile;
@@ -302,13 +303,20 @@ public class Border {
 			}
 		else if(section.equals("log-list"))
 			{
-			page=LogList.class;}
+			page=LogList.class;
+			}
 		else if(section.equals("new-company"))
 			{
-			page=CreateCompany.class;}
+			page=CreateCompany.class;
+			}
 		else if(section.equals("list-company"))
 			{
-			page=ListCompany.class;}
+			page=ListCompany.class;
+			}
+		else if(section.equals("create-ballot"))
+		{
+			page=CreateBallot.class;
+		}
 		else							//This handle the upper menu
 		{
 			visibilityCompany=false;

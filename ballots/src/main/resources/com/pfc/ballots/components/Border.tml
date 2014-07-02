@@ -69,7 +69,7 @@
 				</t:if>
 			</t:zone>
 			
-		<t:if test="admin">
+		<t:if test="maker">
 			<li><t:eventlink t:event="menu" t:context="literal:ballotz" t:zone="ballotZone"><plain>Ballot Admin</plain></t:eventlink></li>
 		</t:if>
 		
