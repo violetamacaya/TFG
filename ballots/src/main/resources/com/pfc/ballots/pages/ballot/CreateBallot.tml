@@ -1,44 +1,78 @@
-<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta http-equiv="Cache-control" content="no-cache"/>
+  <meta http-equiv="Expires" content="-1"/>
+   
+   <head>
+
+ 
+
+  </head>
    
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 		<t:zone t:id="mainZone" id="mainZone">
-			<t:if test="showPage">
-				<p:else>
-					Usted no tiene creado ningun censo de votantes. Para poder crear votacion, cree uno <t:pagelink page="census/createcensus"><strong>aqui</strong></t:pagelink>
-				</p:else>
-				<t:form t:id="selectForm" t:zone="^">
+			
+				
+				<t:form t:id="totalForm" t:zone="^">
+					<t:if test="showError">
+						Los campos con * con obligatorios, por favor, rellenelos para poder continuar<br/>
+					</t:if>
+					<t:if test="showBadDate">
+						La fecha u hora introducida no son validas<br/>
+					</t:if>
 					<t:label for="ballotName"/>*
 					<t:textfield t:id="ballotName"/><br/>
 					<t:label for="method"/>*
 					<t:select t:type="select" t:id="method" value="method" t:blankLabel="Choose..." t:zone="^"/>
 					<br/>
-					<t:label for="censusSelect"/>*
-					<t:select t:type="select" t:id="censusSelect" t:model="censusModel" t:value="census" t:encoder="censusEncoder" t:blankLabel="Choose..." t:zone="^"></t:select>
+					<t:label for="kind"/>*
+					<t:select t:type="select" t:id="kind" value="ballotKind" t:blankLabel="Choose..." t:zone="^"/>
 					<br/>
-					<t:label for="startDate"/>
-					<t:datefield t:id="startDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})<br/>
-					<t:label for="startHour"/>
-					<t:textfield t:id="startHour"/>(hh:mm:ss)<br/>
-					<t:label for="endDate"/>*
-					<t:datefield t:id="endDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})<br/>
-					<t:label for="endHour"/>
-					<t:textfield t:id="endHour"/>(hh:mm:ss)
+					
+					<t:if test="showCensus">
+						<t:if test="existCensus">	
+							<t:label for="censusSelect"/>*
+							<t:select t:type="select" t:id="censusSelect" t:model="censusModel" t:value="census" t:encoder="censusEncoder" t:blankLabel="Choose..." t:zone="^"></t:select>
+							<br/>
+							<t:label for="startDate"/>
+							<t:datefield t:id="startDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})<br/>
+							<t:label for="startHour"/>
+							<t:textfield t:id="startHour"/>(hh:mm:ss)<br/>
+							<t:label for="endDate"/>*
+							<t:datefield t:id="endDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})<br/>
+							<t:label for="endHour"/>
+							<t:textfield t:id="endHour"/>(hh:mm:ss)
+							<p:else>
+								No se puede crear votacion con censo, ya que usted no posee ninguno. Para crear uno pulse <t:pagelink page="census/createCensus"><strong>aqui</strong></t:pagelink>
+							</p:else>
+						</t:if>					
+					</t:if>
+					
+			
 					<br/><br/>
+				
 					<t:if test="showMayoriaRel">
 						<strong>MAYORIA</strong><br/>
 						<t:label for="mayRelNumSelect">Numero Opciones</t:label>
 						<t:select t:type="select" t:id="mayRelNumSelect" t:model="mayRelOpModel" t:value="mayRelOpNum" t:zone="^"/>
-						<t:loop source="mayRelOps" value="mayRelOp">
-							<br/>${mayRelOp }
-						</t:loop> 
-						
+						<t:if test="showLoopMayRel">
+							<t:loop source="mayRelOps" value="mayRelOp">
+								<br/>Opcion*<t:textfield t:id="textfield" value="mayRelOp"/>
+							</t:loop> 
+							<t:if test="selectedKind">
+								<br/>
+								<input t:type="submit" t:id="saveMayRel" value="Save"/>
+								<input t:type="submit" t:id="cancelMayRel" value="Cancel" t:mode="cancel"/>
+								
+							</t:if>
+						</t:if>
 					</t:if>
+					
+				
 					<t:if test="showKemeny">
 						KEMENY
 					</t:if>
 				
 				</t:form>
-			</t:if>
+			
 		</t:zone>
 		
 		
