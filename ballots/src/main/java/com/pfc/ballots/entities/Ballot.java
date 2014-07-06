@@ -9,6 +9,7 @@ public class Ballot {
 
 	private String id;
 	private String name;
+	private String description;
 	private String idOwner;
 	private String idCensus;
 	private Method method;
@@ -78,6 +79,12 @@ public class Ballot {
 		}
 		public void setCounted(boolean counted) {
 			this.counted = counted;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public void setDescription(String description) {
+			this.description = description;
 		}
 	
 }

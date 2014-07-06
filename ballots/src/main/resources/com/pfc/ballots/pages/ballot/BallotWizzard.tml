@@ -1,0 +1,166 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta http-equiv="Cache-control" content="no-cache"/> <meta http-equiv="Expires" content="-1"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		
+		<t:zone t:id="generalZone" id="generalZone">
+			<t:if test="showGeneral">
+				GENERAL
+				<t:form t:id="generalForm" zone="^">
+					<t:if test="showErrorGeneral">
+						Ambos campos han de estar rellenos<br/>
+					</t:if>
+					<t:if test="showBadName" zone="^">
+						El nombre introducido esta en uso<br/>
+					</t:if>
+					<t:label for="ballotName">Nombre*</t:label>
+					<t:textfield t:id="ballotName"/><br/>
+					<t:label for="description">description</t:label>
+					<t:textarea t:id="description"></t:textarea>
+					
+					
+					<br/><input t:type="submit" t:value="next"/>
+				</t:form>
+			</t:if>
+		</t:zone>
+		
+		<t:zone t:id="typeZone" id="typeZone">
+			<t:if test="showtype">
+				<t:form t:id="typeForm" zone="^">
+					<t:if test="showErrorType">
+						Todos los campos con * han de estar rellenos<br/>
+					</t:if>
+					<t:if test="showBadDate">
+						Las fechas introducidas son erroneas<br/>
+					</t:if>
+					<t:label for="methodSelect">Metodo*</t:label>
+					<t:select t:type="select" t:id="methodSelect" value="method" t:blankLabel="Choose..." t:zone="^"/><br/>
+					<t:label for="ballotKindSelect">Tipo*</t:label>
+					<t:select t:type="select" t:id="ballotKindSelect" value="ballotKind" t:blankLabel="Choose..." t:zone="^"/><br/>
+					<t:if test="showNormalCensus">
+						<t:if test="existCensus">
+							<t:label for="censusNormalSelect">Census*</t:label>
+							<t:select t:type="select" t:id="censusNormalSelect" t:model="censusNormalModel" t:value="censusNormal" t:encoder="censusNormalEncoder" t:blankLabel="Choose..." t:zone="^"/><br/>
+							<t:label for="startDate"/>
+							<t:datefield t:id="startDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})<br/>
+							<t:label for="startHour"/>
+							<t:textfield t:id="startHour"/>(hh:mm:ss)<br/>
+							<t:label for="endDate"/>*
+							<t:datefield t:id="endDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})<br/>
+							<t:label for="endHour"/>
+							<t:textfield t:id="endHour"/>(hh:mm:ss)
+							<br/><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>back</button></t:eventlink><input t:type="submit" value="next"/>
+							<p:else>
+								No se puede crear votacion normal ya que usted no tiene nungun censo.Cree uno <t:pagelink page="census/createCensus"><strong>aqui</strong></t:pagelink>
+								<br/><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>back</button></t:eventlink>
+							</p:else>
+						</t:if>
+						<p:else>
+							<t:label for="censusModel">Censo*</t:label>
+							<t:select t:type="select" t:id="censusModel" t:value="census" t:model="censusModel" t:blankOption="ALWAYS" t:blankLabel="Choose..."/>
+							<br/><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>back</button></t:eventlink><input t:type="submit" value="next"/>
+						</p:else>
+					</t:if>
+					
+				</t:form>
+			</t:if>
+			
+			
+			
+			
+		</t:zone>
+		<t:zone t:id="mayRelZone" id="mayRelZone">
+			<t:if test="showMayRel">
+				MAYORIA RELATIVA
+				<t:form t:id="mayRelForm" t:zone="^">
+					<t:if test="showErrorMayRel">
+						Rellene todos los campos<br/>
+					</t:if>
+				
+					<table>
+						<tr>
+							<td><label>Numero de Opciones</label><t:select t:id="mayRelSel" value="mayRelNumOp" t:model="mayRelModel" t:zone="^"/></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><label>Opcion1</label></td>
+							<td><t:textfield t:id="mayRelOp1"/></td>
+						</tr>
+						<tr>
+							<td><label>Opcion2</label></td>
+							<td><t:textfield t:id="mayRelOp2"/></td>
+						</tr>
+						<t:if test="showMay3">
+							<tr>
+								<td><label>Opcion3</label></td>
+								<td><t:textfield t:id="mayRelOp3"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay4">
+							<tr>
+								<td><label>Opcion4</label></td>
+								<td><t:textfield t:id="mayRelOp4"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay5">
+							<tr>
+								<td><label>Opcion5</label></td>
+								<td><t:textfield t:id="mayRelOp5"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay6">
+							<tr>
+								<td><label>Opcion6</label></td>
+								<td><t:textfield t:id="mayRelOp6"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay7">
+							<tr>
+								<td><label>Opcion7</label></td>
+								<td><t:textfield t:id="mayRelOp7"/></td>
+							</tr>
+						</t:if>
+					</table>
+					
+          			<input t:type="submit" t:value="ok"/>
+				</t:form>
+				<br/><t:eventlink t:event="back" t:context="prop:['fromMayRel','toType']" t:zone="^"><button>back</button></t:eventlink>
+			</t:if>
+		</t:zone>
+		
+		
+		
+		
+		
+		
+		<t:zone t:id="kemenyZone" id="kemenyZone">
+			<t:if test="showKemeny">
+				KEMENY
+				<t:form t:id="kemenyForm" t:zone="^">
+					<t:if test="showErrorKemeny">
+						Se tienen que rellenar todos los campos		
+					</t:if>
+					<table>
+						<tr>
+							<td><label>Categoria1</label><t:textfield t:id="cat1"/></td>
+							<td><label>Categoria2</label><t:textfield t:id="cat2"/></td>
+						</tr>
+						<tr>
+							<td><label>Opcion1</label><t:textfield t:id="cat1_op1"/></td>
+							<td><label>Opcion1</label><t:textfield t:id="cat2_op1"/></td>
+						</tr>
+						<tr>
+							<td><label>Opcion2</label><t:textfield t:id="cat1_op2"/></td>
+							<td><label>Opcion2</label><t:textfield t:id="cat2_op2"/></td>
+						</tr>
+						
+						
+					</table>
+					<br/><t:eventlink t:event="back" t:context="prop:['fromKemeny','toType']" t:zone="^"><button>back</button></t:eventlink>
+					<input t:type="submit" t:value="Create"/>
+					</t:form>
+				<br/><t:eventlink t:event="back" t:context="prop:['fromKemeny','toType']" t:zone="^"><button>back</button></t:eventlink>
+			</t:if>
+		</t:zone>
+		
+	</t:border>
+</html>

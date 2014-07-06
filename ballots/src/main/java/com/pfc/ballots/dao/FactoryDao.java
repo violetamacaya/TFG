@@ -24,6 +24,8 @@ public abstract class FactoryDao {
 	public abstract EmailAccountDao getEmailAccountDao();
 	public abstract EmailAccountDao getEmailAccountDao(String DBName);
 	
+	public abstract BallotDao getBallotDao();
+	public abstract BallotDao getBallotDao(String DBName);
 	
 
 	

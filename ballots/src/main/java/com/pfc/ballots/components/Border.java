@@ -32,7 +32,9 @@ import com.pfc.ballots.pages.Company.ListCompany;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
+import com.pfc.ballots.pages.ballot.BallotWizzard;
 import com.pfc.ballots.pages.ballot.CreateBallot;
+import com.pfc.ballots.pages.ballot.ShowBallotAdmin;
 import com.pfc.ballots.pages.profile.CreateProfile;
 import com.pfc.ballots.pages.profile.ProfileByFile;
 import com.pfc.ballots.pages.profile.ShowProfile;
@@ -218,7 +220,7 @@ public class Border {
 	Object onMenu(String section)
 	{									
 		Object page=null;
-		if(section.equals("my-profile"))
+		if(section.equals("my-profile"))//This handle the lateral menu
 		{
 			visibilityUser=false;
 			visibilityBallot=false;
@@ -234,7 +236,7 @@ public class Border {
 			visibilityCensus=false;
 			page=AdminMail.class;
 		}
-		if(section.equals("censusz"))		//This handle the lateral menu
+		if(section.equals("censusz"))		
 		{
 			visibilityUser=false;
 			visibilityBallot=false;
@@ -315,7 +317,11 @@ public class Border {
 			}
 		else if(section.equals("create-ballot"))
 		{
-			page=CreateBallot.class;
+			page=BallotWizzard.class;
+		}
+		else if(section.equals("show-adminBallot"))
+		{
+			page=ShowBallotAdmin.class;
 		}
 		else							//This handle the upper menu
 		{

@@ -75,7 +75,8 @@
 		
 			<t:zone t:id="ballotZone" id="ballotZone">
 			<t:if test="visibilityBallot">
-				<li><plain2>${message:ballots}</plain2></li>
+
+				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:show-adminBallot" ><plain2>${message:ballots}</plain2></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:create-ballot" ><plain2>Crear Votacion</plain2></t:eventlink></li>
 				<li><plain2>Mensaje censo</plain2></li>
 			</t:if>
