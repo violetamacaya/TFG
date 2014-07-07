@@ -17,6 +17,7 @@ public class Ballot {
 	private boolean teaching;
 	private Date startDate;
 	private Date endDate;
+	private boolean ended;
 	private boolean counted;
 	
 	
@@ -79,6 +80,12 @@ public class Ballot {
 		}
 		public void setCounted(boolean counted) {
 			this.counted = counted;
+		}
+		public boolean isEnded() {
+			return ended;
+		}
+		public void setEnded(boolean ended) {
+			this.ended = ended;
 		}
 		public String getDescription() {
 			return description;

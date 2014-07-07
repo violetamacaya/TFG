@@ -25,13 +25,18 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.BallotKind;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.encoder.CensusEncoder;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
+import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
+import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.UUID;
 
 
@@ -64,6 +69,8 @@ public class BallotWizzard {
 	CensusDao censusDao;
 	@Persist
 	BallotDao ballotDao;
+	@Persist
+	VoteDao voteDao;
 	 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,6 +91,7 @@ public class BallotWizzard {
 		cal3.setTime(new Date());
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		censusDao=DB4O.getCensusDao(datasession.getDBName());
+		voteDao=DB4O.getVoteDao(datasession.getDBName());
 		censuses=censusDao.getByOwnerId(datasession.getId());
 		if(censuses.size()==0)
 		{
@@ -265,8 +273,8 @@ public class BallotWizzard {
 	private Calendar cal3;
 	public void onValidateFromTypeForm()
 	{
-		cal1=new GregorianCalendar();;
-		cal2=new GregorianCalendar();;
+		cal1=new GregorianCalendar();
+		cal2=new GregorianCalendar();
 		
 		
 		showErrorType=false;
@@ -548,9 +556,30 @@ public class BallotWizzard {
 			 {
 				 ajaxResponseRenderer.addRender("mayRelZone", mayRelZone);
 			 }
-			 else
+			 else //No hay errores
 			 {
 				 ballot=setBallotData();
+				 
+				 if(ballot.isTeaching())//Votacion Docente
+				 {
+					 Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+					 voteDao.store(vote);
+				 }
+				 else//Votacion Normal
+				 {
+					 boolean creatorInCensus=false;
+					 for(String idUser:censusNormal.getUsersCounted())
+					 {
+						 	if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+						 
+						 voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+					 }
+					 if(!creatorInCensus)
+					 {
+						 voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+					 }
+					 
+				 }
 				 
 				 ballotDao.store(ballot);
 				 return Index.class;
@@ -659,12 +688,7 @@ public class BallotWizzard {
 		newBallot.setIdOwner(datasession.getId());
 		if(ballotKind==BallotKind.NORMAL)
 		{
-			
-			for(Census temp:censuses)
-			{
-				if(temp.getCensusName().equals(census))
-					newBallot.setIdCensus(temp.getId());
-			}
+			newBallot.setIdCensus(censusNormal.getId());
 		}
 		else
 		{
@@ -675,4 +699,40 @@ public class BallotWizzard {
 		newBallot.setEndDate(cal2.getTime());
 		return newBallot;
 	}
+	
+	  ////////////////////////////////////////////////////////////////////////////////////
+		 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
+		////////////////////////////////////////////////////////////////////////////////////
+		/*
+		 *  * return an int with the state of the session
+		 * 		0->UserLogedIn;
+		 * 		1->AdminLoged
+		 * 		2->MainAdminLoged no email of the apliction configured
+		 * 		3->not loged
+		 * 		4->Session expired or kicked from server
+		 */
+		public Object onActivate()
+		{
+			switch(datasession.sessionState())
+			{
+				case 0:
+					if(datasession.isMaker())
+					{
+						return null;
+					}
+					return UnauthorizedAttempt.class;
+				case 1:
+					return null;
+				case 2:
+					return AdminMail.class;
+				case 3:
+					return Index.class;
+				case 4:
+					return SessionExpired.class;
+				default:
+					return Index.class;
+			}
+			
+		}
+	
 }

@@ -1,6 +1,8 @@
 package com.pfc.ballots.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,10 +23,16 @@ public class BallotDaoDB4O implements BallotDao{
 	EmbeddedConfiguration config = null;
 	ObjectContainer DB=null;
 	
+	Calendar calAct;
+	Calendar calEnd;
+	
 	
 	
 	public BallotDaoDB4O(String DBName)
 	{
+		calAct=new GregorianCalendar();
+		calEnd=new GregorianCalendar();
+		
 		if(DBName==null)
 		{
 			PATH=ruta+"DB4Obbdd.dat";
@@ -73,9 +81,12 @@ public class BallotDaoDB4O implements BallotDao{
 			Ballot temp=new Ballot();
 			temp.setId(id);
 			ObjectSet result=DB.queryByExample(temp);
+			Ballot x;
 			if(result.hasNext())
 			{
-				return (Ballot)result.next();
+				x=(Ballot)result.next();
+				updateEndBallot(x);
+				return x;
 			}
 			return null;
 		}
@@ -96,11 +107,13 @@ public class BallotDaoDB4O implements BallotDao{
 		{
 				Query query=DB.query();
 				query.constrain(Ballot.class);
-				ObjectSet resultado = query.execute();
-				
-				while(resultado.hasNext())
+				ObjectSet result = query.execute();
+				Ballot x;
+				while(result.hasNext())
 				{
-					ballots.add((Ballot)resultado.next());
+					x=(Ballot)result.next();
+					updateEndBallot(x);
+					ballots.add(x);
 				}
 				System.out.println("[DB4O]All ballots was retrieved");
 		}
@@ -125,13 +138,16 @@ public class BallotDaoDB4O implements BallotDao{
 		try
 		{
 			Ballot temp=new Ballot();
+			Ballot x;
 			for(int i=0;i<ids.size();i++)
 			{
 				temp.setId(ids.get(i));
 				ObjectSet result=DB.queryByExample(temp);
 				if(result.hasNext())
 				{
-					list.add((Ballot)result.next());
+					x=(Ballot)result.next();
+					updateEndBallot(x);
+					list.add(x);
 				}
 			}
 			return list;
@@ -147,6 +163,41 @@ public class BallotDaoDB4O implements BallotDao{
 			close();
 		}
 	}
+	public List<Ballot> getEndedNotCountedById(List<String> ids)
+	{
+		open();
+		List<Ballot> list=new LinkedList<Ballot>();
+		try
+		{
+			Ballot temp=new Ballot();
+			temp.setEnded(true);
+			Ballot x;
+			for(int i=0;i<ids.size();i++)
+			{
+				temp.setId(ids.get(i));
+				ObjectSet result=DB.queryByExample(temp);
+				if(result.hasNext())
+				{
+					x=(Ballot)result.next();
+					updateEndBallot(x);
+					if(!x.isCounted())
+						{list.add(x);}
+				}
+			}
+			return list;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			list.clear();
+			return list;
+		}
+		finally
+		{
+			close();
+		}
+	}
+	
 	public List<Ballot> getByOwnerId(String idOwner)
 	{
 		open();
@@ -156,9 +207,12 @@ public class BallotDaoDB4O implements BallotDao{
 			Ballot temp=new Ballot();
 			temp.setIdOwner(idOwner);
 			ObjectSet result=DB.queryByExample(temp);
+			Ballot x;
 			while(result.hasNext())
 			{
-				list.add((Ballot)result.next());
+				x=(Ballot)result.next();
+				updateEndBallot(x);
+				list.add(x);
 			}
 			return list;
 		}
@@ -183,9 +237,12 @@ public class BallotDaoDB4O implements BallotDao{
 			Ballot temp=new Ballot();
 			temp.setIdCensus(idCensus);
 			ObjectSet result=DB.queryByExample(temp);
+			Ballot x;
 			while(result.hasNext())
 			{
-				list.add((Ballot)result.next());
+				x=(Ballot)result.next();
+				updateEndBallot(x);
+				list.add(x);
 			}
 			return list;
 		}
@@ -201,6 +258,62 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		
 	}
+	//************************************************* Delete ****************************************************//
+	public void deleteBallotById(String id) {
+		open();
+		try
+		{
+			Ballot temp=new Ballot();
+			temp.setId(id);
+			ObjectSet result=DB.queryByExample(temp);
+			if(result.hasNext())
+			{
+				DB.delete((Ballot)result.next());
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		
+	}
+
+	public void updateBallot(Ballot updatedBallot)
+	{
+		open();
+		try
+		{
+			Ballot temp=new Ballot();
+			temp.setId(updatedBallot.getId());
+			ObjectSet result=DB.queryByExample(temp);
+			if(result.hasNext())
+			{
+				DB.delete((Ballot)result.next());
+				DB.store(updatedBallot);
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
+	}
+	
+	
+	
+	
+	
+	
 	//******************************************** tools **********************************************//
 	
 	//public
@@ -222,7 +335,21 @@ public class BallotDaoDB4O implements BallotDao{
 		return true;
 	}
 	
-	
+	private boolean updateEndBallot(Ballot ballot)//Marca como terminada la votacion y la actualiza
+	{
+		if(!ballot.isEnded())
+		{
+			calEnd.setTime(ballot.getEndDate());
+			if(calEnd.before(calAct))
+			{
+				DB.delete(ballot);
+				ballot.setEnded(true);
+				DB.store(ballot);
+				return true;
+			}
+		}
+		return false;
+	}
 	//internal
 	private boolean testBallot(String ballotName)
 	{
@@ -264,6 +391,8 @@ public class BallotDaoDB4O implements BallotDao{
 				System.out.println("[DB4O]Database was closed");
 			}
 
+
+	
 
 
 

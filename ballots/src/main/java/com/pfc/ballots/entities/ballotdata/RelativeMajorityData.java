@@ -10,22 +10,19 @@ public class RelativeMajorityData {
 	private String id;
 	private String ballotId;
 	private List<String> options;
+	private List<String> votes;
 	private Map<String,Integer> results;
 	
 	///////////////////////////////////////////// Constructors//////////////////////////////
 	public RelativeMajorityData()
 	{
 		setOptions(new LinkedList<String>());
-		results=new HashMap<String,Integer>();
+		setVotes(new LinkedList<String>());
+	
 	}
 	public RelativeMajorityData(List<String> options)
 	{
 		this.setOptions(options);
-		results=new HashMap<String,Integer>();
-		for(String temp:options)
-		{
-	    	results.put(temp, new Integer(0));
-		}
 	}
 	
 	///////////////////////////////////////////////// getter setter ////////////////////////////////////////////
@@ -47,30 +44,33 @@ public class RelativeMajorityData {
 	public void setOptions(List<String> options) {
 		this.options = options;
 	}
+	public List<String> getVotes() {
+		return votes;
+	}
+	public void setVotes(List<String> votes) {
+		this.votes = votes;
+	}
 	public Map<String,Integer> getResults() {
 		return results;
 	}
 	public void setResults(Map<String,Integer> results) {
 		this.results = results;
 	}
-	
+
 	///////////////////////////////////////////////////////// tools ///////////////////////////////////////
 	
-	public int addVote(String option)
+	public void addVote(String option)
 	{
-		Integer votes=results.get(option);
-		results.put(option,votes+1);
-		return votes+1;
+		votes.add(option);
 	}
-	public int addVote(String option,int numVotes)
+	public int getResultOption(String option)
 	{
-		Integer votes=results.get(option);
-		results.put(option,votes+numVotes);
-		return votes+numVotes;
+		if(results!=null)
+		{
+			return results.get(option);
+		}
+		return -1;
 	}
-	public int getVotes(String option)
-	{
-		return results.get(option);
-	}
+	
 
 }

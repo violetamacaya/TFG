@@ -11,10 +11,17 @@ public interface BallotDao {
 	public List<Ballot> retrieveAll();
 	public Ballot getById(String id);
 	
+
+	
 	public List<Ballot> getById(List<String> ids);
 	public List<Ballot> getByOwnerId(String idOwner);
 	
+	//Cuando se pasen las votaciones que tiene un usuario devolvera las que not has sido contavilizadas
+	public List<Ballot> getEndedNotCountedById(List<String> ids);
 	public boolean isNameInUse(String name);
+	
+	public void deleteBallotById(String id);
+	public void updateBallot(Ballot UpdatedBallot);
 	
 	public List<Ballot> getByIdCensus(String idCensus);
 }

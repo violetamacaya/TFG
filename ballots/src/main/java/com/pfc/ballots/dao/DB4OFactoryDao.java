@@ -79,6 +79,18 @@ public class DB4OFactoryDao extends FactoryDao{
 		
 		return new BallotDaoDB4O(DBName);
 	}
+
+	@Override
+	public VoteDao getVoteDao()
+	{
+		return new VoteDaoDB4O(null);
+	}
+
+	@Override
+	public VoteDao getVoteDao(String DBName) 
+	{
+		return new VoteDaoDB4O(DBName);
+	}
 	
 	
 

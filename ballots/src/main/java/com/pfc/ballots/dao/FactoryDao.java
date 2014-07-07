@@ -27,7 +27,8 @@ public abstract class FactoryDao {
 	public abstract BallotDao getBallotDao();
 	public abstract BallotDao getBallotDao(String DBName);
 	
-
+	public abstract VoteDao getVoteDao();
+	public abstract VoteDao getVoteDao(String DBName);
 	
 	
 	public static FactoryDao getFactory(int claveFactory) {

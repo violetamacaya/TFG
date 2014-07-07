@@ -13,6 +13,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Ballot;
 
@@ -39,6 +40,8 @@ public class ShowBallotAdmin {
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	@Persist
 	BallotDao ballotDao;
+	@Persist
+	VoteDao voteDao;
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,6 +49,7 @@ public class ShowBallotAdmin {
 	public void setupRender()
 	{
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
+		voteDao=DB4O.getVoteDao(datasession.getDBName());
 		ballots=ballotDao.retrieveAll();
 				
 	}
@@ -59,7 +63,15 @@ public class ShowBallotAdmin {
 	@Persist
 	@Property
 	private List<Ballot> ballots;
-
+	
+	@Property
+	private Ballot ballot;
+	
+	public void onActionFromDeleteBallot(String idBallot)
+	{
+		ballotDao.deleteBallotById(idBallot);
+		voteDao.deleteVoteOfBallot(idBallot);
+	}
 
 
 }
