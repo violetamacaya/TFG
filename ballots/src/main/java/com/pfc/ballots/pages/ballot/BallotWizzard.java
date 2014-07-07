@@ -25,6 +25,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.BallotKind;
 import com.pfc.ballots.data.DataSession;
@@ -33,10 +34,12 @@ import com.pfc.ballots.encoder.CensusEncoder;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.Vote;
+import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
+import com.pfc.ballots.util.GenerateDocentVotes;
 import com.pfc.ballots.util.UUID;
 
 
@@ -69,8 +72,8 @@ public class BallotWizzard {
 	CensusDao censusDao;
 	@Persist
 	BallotDao ballotDao;
-	@Persist
 	VoteDao voteDao;
+	RelativeMajorityDao relativeMajorityDao;
 	 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -441,6 +444,10 @@ public class BallotWizzard {
 	@Property
 	@Persist
 	private boolean showErrorMayRel;
+	
+	@Persist
+	private RelativeMajority relativeMajority;
+	
 	@Property
 	@Persist 
 	@Validate("required")
@@ -547,6 +554,31 @@ public class BallotWizzard {
 		 	default:
 		 		showErrorMayRel=false;
 		 }
+		 if(!showErrorMayRel)//añadir las opciones
+		 {
+			 List<String> listOptions=new LinkedList<String>();
+			 listOptions.add(mayRelOp1);
+			 listOptions.add(mayRelOp2);
+			 switch(numOpt)
+			 {
+			 	case 7:
+			 		listOptions.add(mayRelOp7);
+			 	case 6:
+			 		listOptions.add(mayRelOp6);
+			 	case 5:
+			 		listOptions.add(mayRelOp5);
+			 	case 4:
+			 		listOptions.add(mayRelOp4);
+			 	case 3:
+			 		listOptions.add(mayRelOp6);
+			 	case 2:
+			 		listOptions.add(mayRelOp1);
+					listOptions.add(mayRelOp2);
+			 	default:
+			 		showErrorMayRel=false;
+			 }
+			 relativeMajority=new RelativeMajority(listOptions);
+		 }
 	 }
 	 public Object onSuccessFromMayRelForm()
 	 {
@@ -559,10 +591,20 @@ public class BallotWizzard {
 			 else //No hay errores
 			 {
 				 ballot=setBallotData();
+				 ballot.setIdBallotData(relativeMajority.getId());
+				 relativeMajority.setBallotId(ballot.getId());
+				 
+				 voteDao=DB4O.getVoteDao(datasession.getDBName());
+				 relativeMajorityDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 				 
 				 if(ballot.isTeaching())//Votacion Docente
 				 {
+					 //Genera votos aleatoriamente para la votacion docente
+					 relativeMajority.setVotes(GenerateDocentVotes.generateRelativeMajority(relativeMajority.getOptions(), Integer.parseInt(census)));
+					 //HACER RECUENTO VOTOS AQUI PARA DOCENTES
+					 
 					 Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+					 ballot.setEnded(true);
 					 voteDao.store(vote);
 				 }
 				 else//Votacion Normal
@@ -581,6 +623,7 @@ public class BallotWizzard {
 					 
 				 }
 				 
+				 relativeMajorityDao.store(relativeMajority);
 				 ballotDao.store(ballot);
 				 return Index.class;
 			 }

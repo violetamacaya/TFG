@@ -91,6 +91,18 @@ public class DB4OFactoryDao extends FactoryDao{
 	{
 		return new VoteDaoDB4O(DBName);
 	}
+
+	@Override
+	public RelativeMajorityDao getRelativeMajorityDao() 
+	{	
+		return new RelativeMajorityDaoDB4O(null);
+	}
+
+	@Override
+	public RelativeMajorityDao getRelativeMajorityDao(String DBName) 
+	{	
+		return new RelativeMajorityDaoDB4O(DBName);
+	}
 	
 	
 

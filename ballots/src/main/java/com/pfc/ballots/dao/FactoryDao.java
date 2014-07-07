@@ -30,6 +30,9 @@ public abstract class FactoryDao {
 	public abstract VoteDao getVoteDao();
 	public abstract VoteDao getVoteDao(String DBName);
 	
+	////BALLOT DATA
+	public abstract RelativeMajorityDao getRelativeMajorityDao();
+	public abstract RelativeMajorityDao getRelativeMajorityDao(String DBName);
 	
 	public static FactoryDao getFactory(int claveFactory) {
 		

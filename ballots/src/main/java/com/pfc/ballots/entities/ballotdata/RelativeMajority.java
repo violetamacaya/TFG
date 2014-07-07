@@ -1,11 +1,11 @@
 package com.pfc.ballots.entities.ballotdata;
 
-import java.util.HashMap;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class RelativeMajorityData {
+public class RelativeMajority {
 
 	private String id;
 	private String ballotId;
@@ -14,13 +14,17 @@ public class RelativeMajorityData {
 	private Map<String,Integer> results;
 	
 	///////////////////////////////////////////// Constructors//////////////////////////////
-	public RelativeMajorityData()
+	public RelativeMajority()
+	{
+		
+	}
+	public RelativeMajority(String nulltoinitialize)
 	{
 		setOptions(new LinkedList<String>());
 		setVotes(new LinkedList<String>());
 	
 	}
-	public RelativeMajorityData(List<String> options)
+	public RelativeMajority(List<String> options)
 	{
 		this.setOptions(options);
 	}
@@ -61,7 +65,19 @@ public class RelativeMajorityData {
 	
 	public void addVote(String option)
 	{
+		if(votes==null)
+		{
+			setVotes(new LinkedList<String>());
+		}
 		votes.add(option);
+	}
+	public void addOption(String option)
+	{
+		if(options==null)
+		{
+			setOptions(new LinkedList<String>());
+		}
+		options.add(option);
 	}
 	public int getResultOption(String option)
 	{
