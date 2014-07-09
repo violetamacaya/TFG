@@ -12,7 +12,9 @@ public interface VoteDao {
 	public Vote getVoteByIds(String idBallot,String idUser);
 	public boolean isVoted(String idBallot,String idUser);
 	public List<Vote> getVotesUser(String idUser);
+	
 	public List<String> getBallotsWithParticipation(String idUser);
+	
 	public void updateVote(Vote vote);
 	public void deleteVoteOfBallot(String idBallot);
 	

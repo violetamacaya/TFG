@@ -559,30 +559,33 @@ public class BallotWizzard {
 			 List<String> listOptions=new LinkedList<String>();
 			 listOptions.add(mayRelOp1);
 			 listOptions.add(mayRelOp2);
-			 switch(numOpt)
+			 if(numOpt>=3)
 			 {
-			 	case 7:
-			 		listOptions.add(mayRelOp7);
-			 	case 6:
-			 		listOptions.add(mayRelOp6);
-			 	case 5:
-			 		listOptions.add(mayRelOp5);
-			 	case 4:
-			 		listOptions.add(mayRelOp4);
-			 	case 3:
-			 		listOptions.add(mayRelOp6);
-			 	case 2:
-			 		listOptions.add(mayRelOp1);
-					listOptions.add(mayRelOp2);
-			 	default:
-			 		showErrorMayRel=false;
+				 listOptions.add(mayRelOp3);
 			 }
+			 if(numOpt>=4)
+			 {
+				 listOptions.add(mayRelOp4);
+			 }
+			 if(numOpt>=5)
+			 {
+				 listOptions.add(mayRelOp5);
+			 }
+			 if(numOpt>=6)
+			 {
+				 listOptions.add(mayRelOp6);
+			 }
+			 if(numOpt>=7)
+			 {
+				 listOptions.add(mayRelOp7);
+			 }
+		
 			 relativeMajority=new RelativeMajority(listOptions);
 		 }
 	 }
 	 public Object onSuccessFromMayRelForm()
 	 {
-		 if(request.isXHR())
+		if(request.isXHR())
 		 {
 			 if(showErrorMayRel)
 			 {

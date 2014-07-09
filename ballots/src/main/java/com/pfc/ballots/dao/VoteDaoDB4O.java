@@ -157,7 +157,7 @@ public class VoteDaoDB4O implements VoteDao {
 			ObjectSet result=DB.queryByExample(temp);
 			while(result.hasNext())
 			{
-				list.add((String)result.next());
+				list.add(((Vote)result.next()).getIdBallot());
 			}
 			return list;
 		}

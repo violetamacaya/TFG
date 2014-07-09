@@ -50,7 +50,7 @@ public class LogIn {
 	
 	/******************************************* Initialize DAO *******************************************************/
 	FactoryDao DB4O = FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-    UserDao userDao = DB4O.getUsuarioDao(datasession.getDBName());
+    UserDao userDao = DB4O.getUsuarioDao();
     LogDao logDao=DB4O.getLogDao();
     UserLogedDao logedDao=DB4O.getUserLogedDao();
     

@@ -1,0 +1,33 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	
+		<t:if test="!vote.counted">			
+			
+				 <table>
+					 
+					 <t:form t:id="relativeMajorityForm">
+					 	<tr>
+							<th><h1>${ballot.name}</h1></th>
+						</tr>
+						<tr>
+							<td>${ballot.description }</td>
+						</tr>
+					 	<t:radiogroup t:value="relMayVote" t:id="radioGroup" >
+					 	<table>
+							<tr t:type="Loop" t:source="relMay.options" t:value="relMayOption">
+								<td><input type="radio" t:type="radio" t:value="${ relMayOption}" />${relMayoption}</td>
+							</tr>
+						</table>
+					 	</t:radiogroup>
+					 	<input t:type="submit" value="vote"/>
+					 </t:form>
+					 
+				 </table>
+			
+			 <p:else>
+			 	Usted ya ha votado, espere a que se publiquen los resultados cuando termine la votacion
+			 </p:else>
+		</t:if>
+	</t:border>
+</html>

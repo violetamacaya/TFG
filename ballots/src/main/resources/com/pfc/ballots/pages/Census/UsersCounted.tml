@@ -193,7 +193,7 @@
 	   			<t:actionlink t:id="savebut" t:zone="^"><button>SAVE</button></t:actionlink>
 	   		</t:if>
 	   		<t:if test="showCancel">
-	   			<t:actionlink t:id="cancelbut" t:zone="^"><button>CANCEL</button></t:actionlink>
+	   			<t:actionlink t:id="cancelbut" t:zone="^"><button>RESTORE</button></t:actionlink>
 	   		</t:if>
 		</t:zone>
 		
