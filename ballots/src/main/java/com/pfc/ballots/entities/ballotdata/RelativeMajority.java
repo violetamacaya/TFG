@@ -5,12 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.Calculo.CalcMayoriaRelativa;
+
 public class RelativeMajority {
 
 	private String id;
 	private String ballotId;
 	private List<String> options;
 	private List<String> votes;
+	private List<String> winners;
 	private Map<String,Integer> results;
 	
 	///////////////////////////////////////////// Constructors//////////////////////////////
@@ -88,5 +91,28 @@ public class RelativeMajority {
 		return -1;
 	}
 	
+	public void calcularMayoriaRelativa()
+	{
+		if(votes==null ||options==null)
+		{
+			System.out.println("No se puede Calcular");
+		}
+		
+		this.winners=new LinkedList<String>();
+		this.results=CalcMayoriaRelativa.CalculateMayoriaRelativa(options, votes, winners);
+		
+	}
+	
+	public Map<String,Integer> calcularMayoriaRelativa(List<String> options,List<String> votes,List<String> winners)
+	{
+		
+		if(votes==null ||options==null || winners==null)
+		{
+			System.out.println("No se puede Calcular");
+			return null;
+		}
+		return CalcMayoriaRelativa.CalculateMayoriaRelativa(options, votes, winners);
+		
+	}
 
 }

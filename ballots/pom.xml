@@ -95,7 +95,15 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
             <version>${tapestry-release-version}</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!--  Añade la biblioteca de calculo que he creado, si se realiza algun cambio en esta primero hay que añadirla al repositorio local de maven
+        	  con distinta version y luego cambiar aqui tambien la version -->
 
+		<dependency>
+			<groupId>Calculo-lib</groupId>
+			<artifactId>CalculoVotaciones</artifactId>
+			<version>1.0</version>
+		</dependency>
     </dependencies>
     <build>
         <finalName>ballots</finalName>
