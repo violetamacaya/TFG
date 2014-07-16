@@ -594,6 +594,7 @@ public class BallotWizzard {
 			 else //No hay errores
 			 {
 				 ballot=setBallotData();
+				 relativeMajority.setId(UUID.generate());
 				 ballot.setIdBallotData(relativeMajority.getId());
 				 relativeMajority.setBallotId(ballot.getId());
 				 
@@ -603,11 +604,13 @@ public class BallotWizzard {
 				 if(ballot.isTeaching())//Votacion Docente
 				 {
 					 //Genera votos aleatoriamente para la votacion docente
+					 ballot.setIdCensus("none");
 					 relativeMajority.setVotes(GenerateDocentVotes.generateRelativeMajority(relativeMajority.getOptions(), Integer.parseInt(census)));
 					 //HACER RECUENTO VOTOS AQUI PARA DOCENTES
-					 
+					 relativeMajority.calcularMayoriaRelativa();
 					 Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
 					 ballot.setEnded(true);
+					 ballot.setCounted(true);
 					 voteDao.store(vote);
 				 }
 				 else//Votacion Normal

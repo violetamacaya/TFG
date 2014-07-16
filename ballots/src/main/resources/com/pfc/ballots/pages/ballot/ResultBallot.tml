@@ -1,0 +1,19 @@
+<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+		<t:if test="showRelMay">
+			Nombre->${ballot.name}<br/>
+			IdData->${relMay.id}
+			
+			<table>
+				<tr><th>Opcion</th><th>Votos</th></tr>
+				<t:loop t:source="relMay.options" t:value="option">
+					<tr>
+						<td>${option}</td><td>${relMayVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+	
+	</t:border>
+</html>

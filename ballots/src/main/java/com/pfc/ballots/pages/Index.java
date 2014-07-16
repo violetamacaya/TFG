@@ -18,6 +18,7 @@ import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Vote;
+import com.pfc.ballots.pages.ballot.ResultBallot;
 import com.pfc.ballots.pages.ballot.VoteBallot;
 
 /**
@@ -90,6 +91,13 @@ public class Index
 			return VoteBallot.class;
 		}
 		
+		@SessionAttribute
+		private String contextResultBallotId;
+		public Object onActionFromResultBallot(String id)
+		{
+			contextResultBallotId=id;
+			return ResultBallot.class;
+		}
 		
 		
 		

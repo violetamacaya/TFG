@@ -1,14 +1,28 @@
 <html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   
-	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	
 		<t:if test="!showRegistred">
 			Bienvenidos a mi pagina web
 			<p:else>
 				<div class="ballotsList">
-					 <t:loop t:source="currentBallots" t:value="ballot">
-						<br/><t:actionlink t:id="voteBallot" context="ballot.id">Nombre-><button>${ballot.name}</button></t:actionlink>
-					</t:loop> 	
+					 <table>
+					 <tr><th>En Curso</th></tr>
+					 	<t:loop t:source="currentBallots" t:value="ballot">
+					 		<t:if test="!ballot.ended">
+								<tr><td>Nombre-><t:actionlink t:id="voteBallot" context="ballot.id"><button>${ballot.name}</button></t:actionlink></td></tr>
+							</t:if>
+						</t:loop>
+					 </table>
+					 
+					 <table>
+						 <tr><th>Terminadas</th></tr>
+						 <t:loop t:source="currentBallots" t:value="ballot">
+						 	<t:if test="ballot.ended">
+								<tr><td>Nombre-><t:actionlink t:id="resultBallot" context="ballot.id"><button>${ballot.name}</button></t:actionlink></td></tr>
+							</t:if>
+						</t:loop>
+					</table>
 				</div>
 			</p:else>
 		</t:if>

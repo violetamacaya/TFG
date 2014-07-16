@@ -25,13 +25,18 @@ public class RelativeMajority {
 	{
 		setOptions(new LinkedList<String>());
 		setVotes(new LinkedList<String>());
+		setWinners(new LinkedList<String>());
+
 	
 	}
 	public RelativeMajority(List<String> options)
 	{
 		this.setOptions(options);
+		setVotes(new LinkedList<String>());
+		setWinners(new LinkedList<String>());
 	}
 	
+
 	///////////////////////////////////////////////// getter setter ////////////////////////////////////////////
 	public String getId() {
 		return id;
@@ -63,6 +68,13 @@ public class RelativeMajority {
 	public void setResults(Map<String,Integer> results) {
 		this.results = results;
 	}
+	public void setWinners(LinkedList<String> winners) {
+		this.winners=winners;		
+	}
+	public List<String> getWinners()
+	{
+		return this.winners;
+	}
 
 	///////////////////////////////////////////////////////// tools ///////////////////////////////////////
 	
@@ -86,7 +98,7 @@ public class RelativeMajority {
 	{
 		if(results!=null)
 		{
-			return results.get(option);
+			return results.get(option.toLowerCase());
 		}
 		return -1;
 	}

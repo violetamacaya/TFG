@@ -34,6 +34,9 @@ public abstract class FactoryDao {
 	public abstract RelativeMajorityDao getRelativeMajorityDao();
 	public abstract RelativeMajorityDao getRelativeMajorityDao(String DBName);
 	
+	public abstract KemenyDao getKemenyDao();
+	public abstract KemenyDao getKemenyDao(String DBName);
+	
 	public static FactoryDao getFactory(int claveFactory) {
 		
 		switch (claveFactory) {

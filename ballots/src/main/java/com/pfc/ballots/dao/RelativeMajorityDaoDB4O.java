@@ -1,9 +1,14 @@
 package com.pfc.ballots.dao;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.query.Query;
+import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 
 public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
@@ -48,6 +53,36 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 	}
 	
 	//********************************************** GETTRS *******************************************//
+	public List<RelativeMajority> retrieveAll()
+	{
+		List<RelativeMajority> relMays=new LinkedList<RelativeMajority>();
+		open();
+		try
+		{
+				Query query=DB.query();
+				query.constrain(RelativeMajority.class);
+				ObjectSet result = query.execute();
+			
+				while(result.hasNext())
+				{
+					relMays.add((RelativeMajority)result.next());
+				}
+				System.out.println("[DB4O]All RelMay was retrieved");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All ballots could not be retrieved");
+			relMays.clear();
+			return relMays;
+		}
+		finally
+		{
+			close();
+		}
+		
+		return relMays;
+	}
 	public RelativeMajority getByBallotId(String idBallot)
 	{
 		open();
@@ -98,6 +133,32 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		}
 	}
 	//********************************************** DELETE *******************************************//
+	public void deleteAll()
+	{
+		open();
+		try
+		{
+				Query query=DB.query();
+				query.constrain(RelativeMajority.class);
+				ObjectSet result = query.execute();
+			
+				while(result.hasNext())
+				{
+					DB.delete(result.next());
+				}
+				System.out.println("[DB4O]All RelMay was retrieved");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All relMays could not be deleted");
+		
+		}
+		finally
+		{
+			close();
+		}
+	}
 	public void deleteByBallotId(String ballotId)
 	{
 		open();
@@ -153,11 +214,12 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		{
 			RelativeMajority relativeMajority=new RelativeMajority();
 			relativeMajority.setId(updated.getId());
+			
 			ObjectSet result=DB.queryByExample(relativeMajority);
 			if(result.hasNext())
 			{
-				DB.delete((RelativeMajority)result.next());
-				DB.store(relativeMajority);
+				DB.delete(result.next());
+				DB.store(updated);
 			}
 		
 		}

@@ -16,7 +16,7 @@
 					 	<t:radiogroup t:value="relMayVote" t:id="radioGroup" >
 					 	<table>
 							<tr t:type="Loop" t:source="relMay.options" t:value="relMayOption">
-								<td><input type="radio" t:type="radio" t:value="${ relMayOption}" />${relMayoption}</td>
+								<td><input type="radio" t:type="radio" t:value="${relMayOption}" />${relMayoption}</td>
 							</tr>
 						</table>
 					 	</t:radiogroup>

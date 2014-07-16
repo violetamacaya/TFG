@@ -103,6 +103,18 @@ public class DB4OFactoryDao extends FactoryDao{
 	{	
 		return new RelativeMajorityDaoDB4O(DBName);
 	}
+
+	@Override
+	public KemenyDao getKemenyDao() {
+		// TODO Auto-generated method stub
+		return new KemenyDaoDB4O(null);
+	}
+
+	@Override
+	public KemenyDao getKemenyDao(String DBName) {
+		// TODO Auto-generated method stub
+		return new KemenyDaoDB4O(DBName);
+	}
 	
 	
 
