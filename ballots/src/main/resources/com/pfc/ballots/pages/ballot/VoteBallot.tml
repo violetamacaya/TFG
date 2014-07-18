@@ -3,9 +3,8 @@
 	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 	
 		<t:if test="!vote.counted">			
-			
-				 <table>
-					 
+			<t:if test="showRelativeMajority">
+				 <table>		 
 					 <t:form t:id="relativeMajorityForm">
 					 	<tr>
 							<th><h1>${ballot.name}</h1></th>
@@ -24,6 +23,18 @@
 					 </t:form>
 					 
 				 </table>
+			</t:if>
+			<t:if test="showKemeny">
+				<t:zone t:id="kemenyZone">
+					<t:if test="showErrorKemeny">
+						Debe seleccionar todas las opciones en el orden que usted crea oportuno
+					</t:if>
+					<t:form t:id="kemenyForm" t:zone="^">
+				 		<input t:type="Palette" t:id="palette" t:reorder="true" t:model="kemeny.optionPairs" t:selected="kemenyVote" t:encoder="stringValueEncoder"/>
+				 		<input t:type="submit" value="vote"/>
+				 	</t:form>
+				 </t:zone>
+			</t:if>
 			
 			 <p:else>
 			 	Usted ya ha votado, espere a que se publiquen los resultados cuando termine la votacion

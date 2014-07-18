@@ -15,6 +15,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.KemenyDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
@@ -22,6 +23,7 @@ import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
+import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
 
@@ -56,6 +58,8 @@ public class ShowBallotAdmin {
 	VoteDao voteDao;
 	@Persist
 	RelativeMajorityDao relMayDao;
+	@Persist
+	KemenyDao kemenyDao;
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,6 +73,7 @@ public class ShowBallotAdmin {
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
 		censusDao=DB4O.getCensusDao(datasession.getDBName());
 		ballots=ballotDao.retrieveAll();
+		kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 		relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 		
 		
@@ -85,10 +90,14 @@ public class ShowBallotAdmin {
 				  	ballot_temp.setCounted(true);
 				  	ballotDao.updateBallot(ballot);
 				}
+				if(ballot_temp.getMethod()==Method.KEMENY)
+				{
+					//CALCULAR KEMENY AQUI
+				}
 			}
 			
 		}
-		
+		kemenys=kemenyDao.retrieveAll();
 		relMays=relMayDao.retrieveAll();
 		
 	}
@@ -102,7 +111,9 @@ public class ShowBallotAdmin {
 	@Property
 	@Persist
 	private List<RelativeMajority> relMays;
-	
+	@Property
+	@Persist
+	private List<Kemeny> kemenys;
 	
 	
 	
@@ -145,9 +156,6 @@ public class ShowBallotAdmin {
 	{
 		if(request.isXHR())
 		{
-			/*ballotDao.deleteBallotById(idBallot);
-			voteDao.deleteVoteOfBallot(idBallot);
-			ballots=ballotDao.retrieveAll();*/
 			showGrid=false;
 			showAreuSure=true;
 			optionDelete=true;
@@ -179,12 +187,21 @@ public class ShowBallotAdmin {
 			return Index.class;
 		}
 	}
-	public void onActionFromDeleteAll()
+	public void onActionFromDeleteAllMaj()
 	{
 		if(request.isXHR())
 		{
 			relMayDao.deleteAll();
 			relMays=null;
+			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone);
+		}
+	}
+	public void onActionFromDeleteAllKem()
+	{
+		if(request.isXHR())
+		{
+			kemenyDao.deleteAll();
+			kemenys=null;
 			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone);
 		}
 	}
@@ -216,9 +233,13 @@ public class ShowBallotAdmin {
 			{
 				ballotDao.deleteBallotById(ballotSure.getId());
 				voteDao.deleteVoteOfBallot(ballotSure.getId());
-				relMayDao.deleteByBallotId(ballotSure.getId());
+				if(ballotSure.getMethod()==Method.MAYORIA_RELATIVA)
+					{relMayDao.deleteByBallotId(ballotSure.getId());
+					relMays=relMayDao.retrieveAll();}
+				if(ballotSure.getMethod()==Method.KEMENY)
+					{kemenyDao.deleteByBallotId(ballotSure.getId());
+					 kemenys=kemenyDao.retrieveAll();}
 				ballots=ballotDao.retrieveAll();
-				relMays=relMayDao.retrieveAll();
 			}
 			else
 			{
@@ -229,7 +250,7 @@ public class ShowBallotAdmin {
 				
 				if(ballotSure.getMethod()==Method.MAYORIA_RELATIVA)
 				{
-					relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
+					//relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 					RelativeMajority relMay=relMayDao.getByBallotId(ballotSure.getId());
 					if(relMay==null)
 					{
@@ -240,10 +261,27 @@ public class ShowBallotAdmin {
 						System.out.println("NOT NULL");
 						relMay.calcularMayoriaRelativa();
 					}
-					System.out.println("BALLOTID"+relMay.getBallotId());
+					//System.out.println("BALLOTID"+relMay.getBallotId());
 					relMayDao.update(relMay);
+					relMays=relMayDao.retrieveAll();
 				}
-				relMays=relMayDao.retrieveAll();
+				if(ballotSure.getMethod()==Method.KEMENY)
+				{
+					Kemeny kemeny=kemenyDao.getByBallotId(ballotSure.getId());
+					if(kemeny==null)
+					{
+						System.out.println("NULL");
+					}
+					else
+					{
+						System.out.println("NOT NULL");
+						//kemeny.calcularKemeny();
+						kemenyDao.update(kemeny);
+						kemenys=kemenyDao.retrieveAll();
+					}
+		
+				}
+				
 			}
 				
 			

@@ -25,6 +25,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.KemenyDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.BallotKind;
@@ -34,6 +35,7 @@ import com.pfc.ballots.encoder.CensusEncoder;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.Vote;
+import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
@@ -74,6 +76,7 @@ public class BallotWizzard {
 	BallotDao ballotDao;
 	VoteDao voteDao;
 	RelativeMajorityDao relativeMajorityDao;
+	KemenyDao kemenyDao;
 	 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -650,6 +653,13 @@ public class BallotWizzard {
 	@Persist
 	private boolean showErrorKemeny;
 	
+	@Property
+	@Persist
+	private boolean showRepeatKemeny;
+	
+	@Persist
+	private Kemeny kemeny;
+	
 	@Persist
 	@Property
 	@Validate("minLength=3")
@@ -680,18 +690,97 @@ public class BallotWizzard {
 	public void onValidateFromKemenyForm()
 	{
 		showErrorKemeny=false;
+		showRepeatKemeny=false;
+
 		if(cat1==null || cat2==null || cat1_op1==null || cat1_op2==null || cat2_op1==null || cat2_op2==null )
 		{
 			showErrorKemeny=true;
 		}
-	}
-	public void onSuccessFromKemenyForm()
-	{
-		if(showErrorKemeny)
+		if(cat1.toLowerCase().equals(cat2))
 		{
-			ballot=setBallotData();
+			showRepeatKemeny=true;
+		}
+		if(cat1_op1.toLowerCase().equals(cat1_op2) || cat1_op1.toLowerCase().equals(cat2_op1) || cat1_op1.toLowerCase().equals(cat2_op2))
+		{
+			showRepeatKemeny=true;
+		}
+		if(cat1_op2.toLowerCase().equals(cat2_op1.toLowerCase()) || cat1_op2.toLowerCase().equals(cat2_op1.toLowerCase()) ||cat1_op2.toLowerCase().equals(cat2_op2.toLowerCase()))
+		{
+			showRepeatKemeny=true;
+
+		}
+		if(cat2_op1.toLowerCase().equals(cat2_op2.toLowerCase()))
+		{
+			showRepeatKemeny=true;
+		}
+		if(showErrorKemeny==false && showRepeatKemeny==false)
+		{
+			List<String> categories=new LinkedList<String>();
+			categories.add(cat1);
+			categories.add(cat2);
+			List<String> option1=new LinkedList<String>();
+			option1.add(cat1_op1);
+			option1.add(cat1_op2);
+			List<String> option2=new LinkedList<String>();
+			option2.add(cat2_op1);
+			option2.add(cat2_op2);
+			List<List<String>>options=new LinkedList<List<String>>();
+			options.add(option1);
+			options.add(option2);
+			
+			kemeny=new Kemeny(options,categories);
+		}
+	} 
+	public Object onSuccessFromKemenyForm()
+	{
+		if(showErrorKemeny && showRepeatKemeny)
+		{
 			ajaxResponseRenderer.addRender("kemenyZone",kemenyZone);
 		}
+		else
+		{
+			ballot=setBallotData();
+			kemeny.setId(UUID.generate());
+			ballot.setIdBallotData(kemeny.getId());
+			kemeny.setBallotId(ballot.getId());
+			 
+			voteDao=DB4O.getVoteDao(datasession.getDBName());
+			kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
+			
+			if(ballot.isTeaching())
+			{
+				ballot.setIdCensus("none");
+				kemeny.setVotes(GenerateDocentVotes.generateKemeny(kemeny.getOptionPairs(), Integer.parseInt(census)));
+				//kemeny.calcularKemeny()
+				ballot.setEnded(true);
+				Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+				ballot.setEnded(true);
+				ballot.setCounted(true);
+				voteDao.store(vote);
+				
+			}
+			else//Votacion Normal
+			{
+				 boolean creatorInCensus=false;
+				 for(String idUser:censusNormal.getUsersCounted())
+				 {
+					 	if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+					 
+					 	voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+				 }
+				 if(!creatorInCensus)
+				 {
+					 voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+				 }
+				 
+			 }
+			 
+			 kemenyDao.store(kemeny);
+			 ballotDao.store(ballot);
+			 return Index.class;
+			
+		}
+		return null;
 	}
 	  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ///////////////////////////////////////////////////// BACK EVENT /////////////////////////////////////////////////////////////////////

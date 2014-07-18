@@ -139,6 +139,9 @@
 					<t:if test="showErrorKemeny">
 						Se tienen que rellenar todos los campos		
 					</t:if>
+					<t:if test="showRepeatKemeny">
+						Los campos no pueden tener valores repetidos
+					</t:if>
 					<table>
 						<tr>
 							<td><label>Categoria1</label><t:textfield t:id="cat1"/></td>

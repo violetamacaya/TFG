@@ -23,7 +23,12 @@
 				RELATIVE MAJORITY
 				<table>
 					<tr><td><t:grid t:id="relGrid" source="relMays" reorder="ballotId,id"/></td></tr>
-					<tr><td><t:actionlink t:id="deleteAll" t:zone="^">deleteAll</t:actionlink></td></tr>
+					<tr><td><t:actionlink t:id="deleteAllMaj" t:zone="^">deleteAll</t:actionlink></td></tr>
+				</table>
+				KEMENY
+				<table>
+					<tr><td><t:grid t:id="kemGrid" source="kemenys" reorder="ballotId,id"/></td></tr>
+					<tr><td><t:actionlink t:id="deleteAllKem" t:zone="^">deleteAll</t:actionlink></td></tr>
 				</table>
 				
 			</t:if>

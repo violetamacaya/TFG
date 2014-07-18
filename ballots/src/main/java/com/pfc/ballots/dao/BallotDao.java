@@ -19,6 +19,7 @@ public interface BallotDao {
 	//Cuando se pasen las votaciones que tiene un usuario devolvera las que not has sido contavilizadas
 	public List<Ballot> getEndedNotCountedById(List<String> ids);
 	public boolean isNameInUse(String name);
+	public boolean isEnded(String idBallot);
 	
 	public void deleteBallotById(String id);
 	public void updateBallot(Ballot UpdatedBallot);

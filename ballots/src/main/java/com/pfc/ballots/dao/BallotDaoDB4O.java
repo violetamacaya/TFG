@@ -334,7 +334,22 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return true;
 	}
-	
+	public boolean isEnded(String idBallot)
+	{
+		Ballot ballot=getById(idBallot);
+		if(ballot==null)
+		{
+			return false;
+		}
+		else
+		{
+			if(ballot.isEnded())
+			{
+				return true;
+			}
+			return false;
+		}
+	}
 	private boolean updateEndBallot(Ballot ballot)//Marca como terminada la votacion y la actualiza
 	{
 		if(!ballot.isEnded())

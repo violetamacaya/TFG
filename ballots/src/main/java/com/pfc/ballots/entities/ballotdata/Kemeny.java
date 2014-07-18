@@ -9,6 +9,7 @@ public class Kemeny {
 
 	private String ballotId;
 	private String id;
+	private List<String> categories;
 	private List<List<String>>options;
 	private List<String> optionPairs;
 	private List<String> permutations;
@@ -22,6 +23,7 @@ public class Kemeny {
 	public Kemeny(String nulltoinitalize)
 	{
 		setOptions(new LinkedList<List<String>>());
+		setCategories(new LinkedList<String>());
 		setOptionPairs(new LinkedList<String>());
 		setVotes(new LinkedList<List<String>>());
 		setWinner(new LinkedList<String>());
@@ -29,13 +31,21 @@ public class Kemeny {
 	}
 	public Kemeny(List<List<String>>options)
 	{
+		setCategories(new LinkedList<String>());
 		setOptions(options);
 		setOptionPairs(CalcKemeny.CalcularOpcionesKemeny(1, options));
 		setVotes(new LinkedList<List<String>>());
 		setWinner(new LinkedList<String>());
 		setPermutations(new LinkedList<String>());
-		
-		
+	}
+	public Kemeny(List<List<String>>options,List<String> categories)
+	{
+		setOptions(options);
+		setOptionPairs(CalcKemeny.CalcularOpcionesKemeny(1, options));
+		setVotes(new LinkedList<List<String>>());
+		setWinner(new LinkedList<String>());
+		setPermutations(new LinkedList<String>());
+		setCategories(categories);
 	}
 	public String getBallotId() {
 		return ballotId;
@@ -48,6 +58,13 @@ public class Kemeny {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public List<String> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
 	}
 	public List<String> getOptionPairs() {
 		return optionPairs;
@@ -85,6 +102,17 @@ public class Kemeny {
 	public void setResults(Map<String,Integer> results) {
 		this.results = results;
 	}
+	public void addCategory(String category)
+	{
+		if(categories==null)
+		{
+			setCategories(new LinkedList<String>());
+		}
+		if(category!=null)
+		{
+			categories.add(category);
+		}
+	}
 	public void addVote(List<String> vote)
 	{
 		if(votes==null)
@@ -105,4 +133,15 @@ public class Kemeny {
 			return results.get(permutation);
 		}
 	}
+	/*public void CalcularKemeny()
+	{
+		if(votes==null ||options==null || winner==null)
+		{
+			System.out.println("No se puede Calcular");
+		}
+		else
+		{
+			results=CalcKemeny.CalculateKemeny(options, votes, permutations, winner);
+		}
+	}*/
 }

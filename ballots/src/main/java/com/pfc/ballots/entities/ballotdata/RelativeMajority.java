@@ -109,10 +109,11 @@ public class RelativeMajority {
 		{
 			System.out.println("No se puede Calcular");
 		}
-		
-		this.winners=new LinkedList<String>();
-		this.results=CalcMayoriaRelativa.CalculateMayoriaRelativa(options, votes, winners);
-		
+		else
+		{
+			this.winners=new LinkedList<String>();
+			this.results=CalcMayoriaRelativa.CalculateMayoriaRelativa(options, votes, winners);
+		}
 	}
 	
 	public Map<String,Integer> calcularMayoriaRelativa(List<String> options,List<String> votes,List<String> winners)
