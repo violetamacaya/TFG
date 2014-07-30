@@ -16,6 +16,9 @@ public abstract class FactoryDao {
 	
 	public abstract LogDao getLogDao();//in DB4O has its own DB
 	
+	public abstract ProfileCensedInDao getProfileCensedInDao();
+	public abstract ProfileCensedInDao getProfileCensedInDao(String DBName);
+	
 	public abstract CensusDao getCensusDao();
 	public abstract CensusDao getCensusDao(String DBName);
 	
@@ -36,6 +39,7 @@ public abstract class FactoryDao {
 	
 	public abstract KemenyDao getKemenyDao();
 	public abstract KemenyDao getKemenyDao(String DBName);
+	
 	
 	public static FactoryDao getFactory(int claveFactory) {
 		
