@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ProfileCensedIn {
 
-	private String idCensedIn;
+	
 	private String idProfile;
 	private List<String> inCensus;
 	
@@ -42,13 +42,7 @@ public class ProfileCensedIn {
 		}
 	}
 	
-	
-	public String getIdCensedIn() {
-		return idCensedIn;
-	}
-	public void setIdCensedIn(String idCensedIn) {
-		this.idCensedIn = idCensedIn;
-	}
+
 	
 	public void setIdProfile(String idProfile)
 	{

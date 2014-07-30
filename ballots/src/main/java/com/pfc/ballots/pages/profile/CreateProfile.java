@@ -10,9 +10,11 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.Validate;
 
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
@@ -53,6 +55,7 @@ public class CreateProfile {
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	@Persist
 	UserDao dao;
+	ProfileCensedInDao censedInDao;
 	
 	
 	
@@ -68,6 +71,7 @@ public class CreateProfile {
 	void setupRender() 
 	{
 		dao=DB4O.getUsuarioDao(datasession.getDBName());
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
 		if(!isnotFirstTime)
 		{
 			profile=new Profile();
@@ -97,11 +101,14 @@ public class CreateProfile {
 		{
 			
 			//Encryption password,and store in database
+			censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
+		
 			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);
 			profile.setPassword(encrypt);
-			profile.setPlain(password);
 			profile.setId(UUID.generate());
 			profile.setRegDatetoActual();
+			ProfileCensedIn censedIn=new ProfileCensedIn(profile.getId());
+			censedInDao.store(censedIn);
 			dao.store(profile);
 			componentResources.discardPersistentFieldChanges();
 		}
