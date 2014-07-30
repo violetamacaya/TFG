@@ -24,9 +24,11 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.CensusDao;
+import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
+import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.BallotKind;
 import com.pfc.ballots.data.DataSession;
@@ -34,6 +36,7 @@ import com.pfc.ballots.data.Method;
 import com.pfc.ballots.encoder.CensusEncoder;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
+import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
@@ -42,6 +45,7 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.GenerateDocentVotes;
+import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.UUID;
 
 
@@ -77,6 +81,8 @@ public class BallotWizzard {
 	VoteDao voteDao;
 	RelativeMajorityDao relativeMajorityDao;
 	KemenyDao kemenyDao;
+	UserDao userDao;
+	EmailAccountDao emailAccountDao;
 	 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -837,6 +843,46 @@ public class BallotWizzard {
 		newBallot.setEndDate(cal2.getTime());
 		return newBallot;
 	}
+	
+	
+	
+	private void sendMail (String idUser,Ballot ballotMail)
+	{
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		emailAccountDao=DB4O.getEmailAccountDao();
+		String emailDestino=userDao.getEmailById(idUser);
+		EmailAccount account=emailAccountDao.getAccount();
+		
+		
+		String metodo=null;
+		String subject;
+		String txt;
+		
+		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
+		{
+			metodo="Mayoria Relativa";
+		}
+		else if(ballot.getMethod()==Method.KEMENY)
+		{
+			metodo="Kemeny";
+		}
+		
+		if(ballotMail.isTeaching())
+		{
+			subject="Votacion docente "+metodo+": "+ballotMail.getName();
+			txt="La votacion docente "+ballotMail.getName()+" ha sido realizada con el metodo "+metodo+"<br/><br/>Su descripcion es:<br/>"+ballotMail.getDescription();
+		}
+		else
+		{
+			subject="Ya puedes Votar en: "+ballotMail.getName();
+			txt="Ya tiene acceso a la votacion ("+metodo+"): "+ballotMail.getName()+"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
+		}
+
+		
+		Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino, subject, txt);
+	}
+	
+	
 	
 	  ////////////////////////////////////////////////////////////////////////////////////
 		 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
