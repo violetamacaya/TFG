@@ -53,9 +53,9 @@ public class Contact
 	{
 		String asunto="Contact: "+remitente;
 		String asuntoRemit="NoReply-copia: "+emailAccount.getEmail();
-		if(Mail.sentMail(emailAccount.getEmail(), emailAccount.getPassword(), emailAccount.getEmail(), asunto, text))
+		if(Mail.sendMail(emailAccount.getEmail(), emailAccount.getPassword(), emailAccount.getEmail(), asunto, text))
 		{
-			Mail.sentMail(emailAccount.getEmail(), emailAccount.getPassword(), remitente, asuntoRemit, text);
+			Mail.sendMail(emailAccount.getEmail(), emailAccount.getPassword(), remitente, asuntoRemit, text);
 			System.out.println("ENVIADO");
 		}
 		else
