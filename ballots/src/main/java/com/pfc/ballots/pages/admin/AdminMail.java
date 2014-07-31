@@ -4,6 +4,7 @@ import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Zone;
@@ -23,6 +24,7 @@ import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.Mail;
 
+@Secure
 public class AdminMail {
 
 	
