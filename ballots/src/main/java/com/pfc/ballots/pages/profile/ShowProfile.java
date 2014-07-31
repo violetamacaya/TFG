@@ -1,5 +1,7 @@
 package com.pfc.ballots.pages.profile;
 
+import java.util.List;
+
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
@@ -11,11 +13,13 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.UserLoged;
@@ -32,6 +36,7 @@ public class ShowProfile {
 	@Persist
 	private CompanyDao companyDao;
 	private UserLogedDao userLogedDao;
+	private CensusDao censusDao;
 	
 	
 	@Persist
@@ -263,6 +268,9 @@ public class ShowProfile {
 						}
 						userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());
 						UserLoged userLoged=userLogedDao.getUserLoged(datasession.getIdSession());
+						censusDao=DB4O.getCensusDao(datasession.getDBName());
+						List<Census> censusOwner=censusDao.getByOwnerId(update.getId());
+						censusDao.changeEmailOfCensus(censusOwner, update.getEmail());
 						userLoged.setEmail(update.getEmail());
 						userLogedDao.updateUserLoged(userLoged);
 						datasession.setEmail(update.getEmail());

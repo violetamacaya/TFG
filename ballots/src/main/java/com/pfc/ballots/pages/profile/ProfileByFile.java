@@ -21,9 +21,11 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
@@ -41,6 +43,18 @@ public class ProfileByFile {
 	
 	@SessionState
 	private DataSession datasession;
+	@Inject
+	private Request request;
+	
+	@Inject
+	private AjaxResponseRenderer ajaxResponseRenderer;
+	@Inject
+    private ComponentResources componentResources;
+	
+	
+	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	UserDao userDao=null;
+	ProfileCensedInDao censedInDao=null;
 	
 	@Persist
 	String access;
@@ -61,6 +75,61 @@ public class ProfileByFile {
 	@Persist
 	private boolean newuser;
 	
+	
+	
+		
+	private enum Actions{
+		SAVE,CANCEL
+	};
+	private Actions action;
+	
+	
+	
+	public void setup(String dname){
+		access=dname;
+	}
+	
+	void setupRender()
+	{
+		
+		if(!(lastaccess==null && access==null))
+		{
+			if(lastaccess==null && access!=null)
+			{
+				fileupload=false;
+				fileLoaded=false;
+				lastaccess=access;
+			}
+			else if(lastaccess!=null && access==null)
+			{
+				fileupload=false;
+				fileLoaded=false;
+				lastaccess=access;
+			}
+			else if(!lastaccess.equals(access))
+			{
+				fileupload=false;
+				fileLoaded=false;
+				lastaccess=access;
+			}
+		}
+			
+		if(fileupload)
+		{
+			newuser=false;
+			editing=false;
+			if(!fileLoaded)
+			{
+				fileLoaded=true;
+				persons=ManipulateFiles.getProfilesFromFile(finalpath);
+			}
+		}
+		else
+		{
+			currentId=null;
+		}
+		
+	}
 	@Property
 	@Persist
 	private List<Profile> persons;
@@ -69,6 +138,10 @@ public class ProfileByFile {
 	
 	
 	private Profile person;
+	
+	
+	
+	
 	public Profile getPerson()
 	{
 		userDao=DB4O.getUsuarioDao(access);
@@ -115,75 +188,9 @@ public class ProfileByFile {
 	private Form editForm;
 	
 	
-	@Inject
-	private Request request;
-	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	@Inject
-    private ComponentResources componentResources;
-	
-	private enum Actions{
-		SAVE,CANCEL
-	};
 	
 	
 	
-	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	UserDao userDao =null;
-	
-	
-	
-	private Actions action;
-	
-	
-	void setupRender()
-	{
-		
-		if(!(lastaccess==null && access==null))
-		{
-			if(lastaccess==null && access!=null)
-			{
-				fileupload=false;
-				fileLoaded=false;
-				lastaccess=access;
-			}
-			else if(lastaccess!=null && access==null)
-			{
-				fileupload=false;
-				fileLoaded=false;
-				lastaccess=access;
-			}
-			else if(!lastaccess.equals(access))
-			{
-				fileupload=false;
-				fileLoaded=false;
-				lastaccess=access;
-			}
-		}
-			
-		if(fileupload)
-		{
-			newuser=false;
-			editing=false;
-			if(!fileLoaded)
-			{
-				fileLoaded=true;
-				persons=ManipulateFiles.getProfilesFromFile(finalpath);
-			}
-		}
-		else
-		{
-			currentId=null;
-		}
-		
-	}
-	
-	
-	public void setup(String dname){
-		System.out.println("NAME->"+dname);
-		access=dname;
-	}
 	
 	public void onSuccessFromUploadForm()
 	{
@@ -347,6 +354,9 @@ public class ProfileByFile {
 	public void onActionFromAddavaliblesbut()
 	{
 		userDao=DB4O.getUsuarioDao(access);
+		censedInDao=DB4O.getProfileCensedInDao(access);
+		
+		
 		added=new LinkedList<Profile>();
 		for(int i=0;i<persons.size();i++)
 		{
@@ -358,9 +368,11 @@ public class ProfileByFile {
 				added.add(person);
 				temp.setId(UUID.generate());
 				temp.setRegDatetoActual();
-				
 				temp.setPassword(Encryption.getStringMessageDigest(person.getPassword(), Encryption.SHA1));
 				temp.setPlain(person.getPassword());
+				ProfileCensedIn censedIn=new ProfileCensedIn(temp.getId());
+				
+				censedInDao.store(censedIn);
 				userDao.store(temp);
 			}
 			else
@@ -381,7 +393,8 @@ public class ProfileByFile {
 	public void onActionFromAddbut(String id)
 	{
 		userDao=DB4O.getUsuarioDao(access);
-		System.out.println("ADD ID->"+id);
+		censedInDao=DB4O.getProfileCensedInDao(access);
+		
 		person=lookforid(id);
 		
 		
@@ -392,7 +405,10 @@ public class ProfileByFile {
 		
 		temp.setPassword(Encryption.getStringMessageDigest(person.getPassword(), Encryption.SHA1));
 		temp.setPlain(person.getPassword());
+		ProfileCensedIn censedIn=new ProfileCensedIn(temp.getId());
+		censedInDao.store(censedIn);
 		userDao.store(temp);
+		
 		if(request.isXHR())
 		{
 			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);

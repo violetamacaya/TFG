@@ -8,6 +8,7 @@ import org.apache.tapestry5.annotations.SessionState;
 
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Census;
@@ -18,10 +19,13 @@ import com.pfc.ballots.pages.admin.AdminMail;
 
 public class CensusList {
 
+	@SessionState
+	private DataSession datasession;
 	
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	UserDao userDao=null;
 	CensusDao censusDao=null;
+	ProfileCensedInDao censedInDao=null;
 	
 	
 	@InjectPage
@@ -31,22 +35,21 @@ public class CensusList {
 	private Census census;
 	
 
-	@SessionState
-	private DataSession datasession;
-	public CensusList()
-	{
+	public void setupRender()
+	{	
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
 		censusDao= DB4O.getCensusDao(datasession.getDBName());
-		
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
 	}
 	
 	public List<Census> getCensuses()
 	{
-		//SUSTITUIR POR CENSUS  DE EL USUARIO
 		return censusDao.getByOwnerId(datasession.getId());
 	}
 	public void onActionFromRemoveBut(String idCensus)
 	{
+		Census toDelete=censusDao.getById(idCensus);
+		censedInDao.removeIdCensus(toDelete.getUsersCounted(), idCensus);
 		censusDao.deleteById(idCensus);
 	}
 	

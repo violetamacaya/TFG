@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -27,7 +28,7 @@ import com.pfc.ballots.util.Encryption;
 
 
 
-
+@Secure
 public class LogIn {
 
 	@SessionState

@@ -24,17 +24,20 @@ public class Contact
 	
 	public void setupRender()
 	{
+		showEmailProblem=false;
 		emailAccountDao=DB4O.getEmailAccountDao();
 		emailAccount=emailAccountDao.getAccount();
-		if(Mail.checkAccount(emailAccount))
+		
+		if(!Mail.checkAccount(emailAccount))
 		{
-			showEmailProblem=false;
+			showEmailProblem=true;
+			System.out.println("--------------------\nHOLA");
 		}
 		
 	}
 	
 	@Property
-	@Persist()
+	@Persist
 	EmailAccount emailAccount;
 	
 	@Property

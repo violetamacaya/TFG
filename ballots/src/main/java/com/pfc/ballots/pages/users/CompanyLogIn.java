@@ -2,6 +2,7 @@ package com.pfc.ballots.pages.users;
 
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -22,6 +23,7 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 
+@Secure
 public class CompanyLogIn {
 	
 	

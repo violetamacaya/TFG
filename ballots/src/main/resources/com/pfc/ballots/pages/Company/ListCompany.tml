@@ -1,6 +1,6 @@
-<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
-	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	<t:border>
 		
 		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////// COMPANY GRID ZONE /////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@
 		
 		<t:zone t:id="areuSureZone" id="areuSureZone">
 			<t:if test="showSure">
-				Esta seguro de que quiere <b><t:if test="status">activar<p:else>desctivar</p:else></t:if></b> la compañia <b>${toCheck.companyName }</b><br/>
+				Esta seguro de que quiere <b><t:if test="status">activar<p:else>desctivar</p:else></t:if></b> la compaï¿½ia <b>${toCheck.companyName }</b><br/>
 				<t:actionlink t:id="isSureBut" zone="^"><button>SI</button></t:actionlink>
 				<t:actionlink t:id="isNotSureBut" zone="^"><button>NO</button></t:actionlink>
 			</t:if>

@@ -13,11 +13,17 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.CensusDao;
+import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.entities.Census;
+import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
@@ -80,18 +86,28 @@ public class UserList {
 	UserDao userDao;
 	@Persist
 	UserLogedDao userLogedDao;
+	@Persist
+	ProfileCensedInDao censedInDao;
+	@Persist
+	CensusDao censusDao;
+	@Persist
+	CompanyDao companyDao;
 	
 	public void setupRender()
 	{
-		editing=false;
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
+		censusDao=DB4O.getCensusDao(datasession.getDBName());
+		companyDao=DB4O.getCompanyDao();
+		editing=false;
+		
 		users=userDao.RetrieveAllProfilesSortLastLog();
 		nomails=userDao.getNoMailProfiles();
 		if(nomails==null || nomails.size()==0)
 		{showNoMail=false;}
 		else
 		{showNoMail=true;}
-		userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());
 		editprof=null;
 	}
 	
@@ -131,6 +147,20 @@ public class UserList {
 							{
 								nonavalible=true;
 								success=false;
+							}
+							else
+							{
+								if(datasession.isCompanyUser())
+								{				 
+									Company company=datasession.isCompanyOwner(null);
+									if(company!=null)
+									{
+										company.setAdminEmail(editprof.getEmail());
+										companyDao.updateCompany(company);
+									}
+								}
+								List<Census> censusOwner=censusDao.getByOwnerId(editprof.getId());
+								censusDao.changeEmailOfCensus(censusOwner, editprof.getEmail());
 							}
 						}
 						if(success)
@@ -225,31 +255,43 @@ public class UserList {
 			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("editZone",editZone);
 		}
 	}
-	public void onActionFromDeleteuser(String email)
+	public void onActionFromDeleteuser(String idUser)
 	{
 		if(request.isXHR())
 		{
-			userDao.deleteByEmail(email);
-			userLogedDao.deleteByEmail(email);
-			if(email.contains("@nomail"))
+			Profile toDelete=userDao.getProfileById(idUser);			
+			ProfileCensedIn censedIn=censedInDao.getProfileCensedIn(idUser);
+			
+			censusDao.removeUserCountedOfCensus(censedIn.getInCensus(), idUser);
+			censedInDao.delete(idUser);
+			
+			userDao.deleteByEmail(toDelete.getEmail());
+			userLogedDao.deleteByEmail(toDelete.getEmail());
+			if(toDelete.getEmail().contains("@nomail"))
 			{
-			nomail=lookfornomail(email);
+			nomail=lookfornomail(toDelete.getEmail());
 			nomails.remove(nomail);
 			}
-			user=lookforemail(email);
+			user=lookforemail(toDelete.getEmail());
 			users.remove(user);
 			ajaxResponseRenderer.addRender("nomailgrid",nomailgrid).addRender("usergrid",usergrid);
 		}
 	}
-	public void onActionFromDeletenomail(String email)
+	public void onActionFromDeletenomail(String idUser)
 	{
 		if(request.isXHR())
 		{
-			userDao.deleteByEmail(email);
-			userLogedDao.deleteByEmail(email);
-			nomail=lookfornomail(email);
+			Profile toDelete=userDao.getProfileById(idUser);
+			ProfileCensedIn censedIn=censedInDao.getProfileCensedIn(idUser);
+			
+			censusDao.removeUserCountedOfCensus(censedIn.getInCensus(), idUser);
+			censedInDao.delete(idUser);
+
+			userDao.deleteByEmail(toDelete.getEmail());
+			userLogedDao.deleteByEmail(toDelete.getEmail());
+			nomail=lookfornomail(toDelete.getEmail());
 			nomails.remove(nomail);
-			user=lookforemail(email);
+			user=lookforemail(toDelete.getEmail());
 			users.remove(user);
 			ajaxResponseRenderer.addRender("nomailgrid",nomailgrid).addRender("usergrid",usergrid);
 		}

@@ -16,6 +16,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Census;
@@ -27,9 +28,7 @@ import com.pfc.ballots.pages.admin.AdminMail;
 public class AdminCensus {
 
 	
-	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	UserDao userDao=null;
-	CensusDao censusDao=null;
+	
 	
 	@SessionState
 	private DataSession datasession;
@@ -49,24 +48,32 @@ public class AdminCensus {
 	@Inject
 	private AjaxResponseRenderer ajaxResponseRenderer;
 		
+	
+	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	@Persist
+	UserDao userDao;
+	@Persist
+	CensusDao censusDao;
+	@Persist 
+	ProfileCensedInDao censedInDao;
+	
+
+	
+	public void setupRender()
+	{
+		componentResources.discardPersistentFieldChanges();
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		censusDao= DB4O.getCensusDao(datasession.getDBName());
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
+		searched=false;
+	}
+	
 	@Property
 	private Census census;
 	
 	@Persist
 	private List<Census> censuses;
 	
-	public AdminCensus()
-	{
-		userDao=DB4O.getUsuarioDao(datasession.getDBName());
-		censusDao= DB4O.getCensusDao(datasession.getDBName());
-		System.out.println("create");
-	}
-	
-	public void setupRender()
-	{
-		componentResources.discardPersistentFieldChanges();
-		searched=false;
-	}
 	
 	public List<Census> getCensuses()
 	{
@@ -93,6 +100,7 @@ public class AdminCensus {
 		usersCounted.setup(idCensus);
 		return usersCounted;
 	}
+	
 	public void onActionFromRemovebut(String idCensus)
 	{
 		if(request.isXHR())
@@ -101,7 +109,9 @@ public class AdminCensus {
 			{
 				if(temp.getId().equals(idCensus))
 				{
+					censedInDao.removeIdCensus(temp.getUsersCounted(), temp.getId());
 					censuses.remove(temp);
+					
 				}
 			}
 			censusDao.deleteById(idCensus);

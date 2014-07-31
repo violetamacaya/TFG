@@ -14,6 +14,7 @@ public interface CensusDao {
 	public void update(Census census);
 	public void deleteById(String id);
 	public void deleteAllCensusOfOwner(String idOwner);
-	
+	public void changeEmailOfCensus(List<Census> Censuses,String email);
 	public boolean isNameInUse(String name,String idOwner);
+	public void removeUserCountedOfCensus(List<String> idCensus,String idProfile);
 }

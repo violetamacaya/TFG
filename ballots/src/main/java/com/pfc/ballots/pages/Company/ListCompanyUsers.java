@@ -13,13 +13,16 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
-
+import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
@@ -73,6 +76,11 @@ public class ListCompanyUsers {
 	UserDao userDao;
 	@Persist
 	UserLogedDao userLogedDao;
+	@Persist
+	ProfileCensedInDao censedInDao;
+	@Persist
+	CensusDao censusDao;
+	
 	
 	public void setup(String companyName,String DBName)
 	{
@@ -80,6 +88,8 @@ public class ListCompanyUsers {
 		this.companyName=companyName;
 		userDao=DB4O.getUsuarioDao(DBName);
 		userLogedDao=DB4O.getUserLogedDao(DBName);
+		censedInDao=DB4O.getProfileCensedInDao(DBName);
+		censusDao=DB4O.getCensusDao(DBName);
 		
 	}
 	public void setupRender()
@@ -116,6 +126,12 @@ public class ListCompanyUsers {
 		if(request.isXHR())
 		{
 			Profile temp=lookforemail(email);
+			ProfileCensedIn censedIn=censedInDao.getProfileCensedIn(temp.getId());
+			
+			censusDao.removeUserCountedOfCensus(censedIn.getInCensus(), temp.getId());
+			censedInDao.delete(temp.getId());
+			
+			
 			userLogedDao.deleteByEmail(email);
 			userDao.deleteById(temp.getId());
 			users.remove(temp);
@@ -123,6 +139,7 @@ public class ListCompanyUsers {
 			ajaxResponseRenderer.addRender("userGridZone", userGridZone);
 		}
 	}
+	
 	public void onActionFromMakeOwnerBut(String idNewOwner)
 	{
 		if(request.isXHR())
@@ -173,6 +190,11 @@ public class ListCompanyUsers {
 						{
 							nonavalible=true;
 							success=false;
+						}
+						else
+						{
+							List<Census> censusOwner=censusDao.getByOwnerId(editprof.getId());
+							censusDao.changeEmailOfCensus(censusOwner, editprof.getEmail());
 						}
 					}
 					if(success)

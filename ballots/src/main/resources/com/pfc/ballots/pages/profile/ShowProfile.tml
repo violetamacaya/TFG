@@ -1,6 +1,6 @@
-<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
-	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	<t:border>
 	<infouser>
 	
 	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@
 						<td>${profile.country }</td>
 					</tr>
 					<tr>
-						<td>Cambiar Contraseña</td>
+						<td>Cambiar Contraseï¿½a</td>
 						<td><t:actionlink t:id="changePass" zone="^"><button>Cambiar</button></t:actionlink></td>
 					</tr>
 					<tr>
@@ -76,12 +76,12 @@
 	   					<tr>
 	   						<td><label>Password:</label></td>
 	   						<td><t:passwordfield t:id="pass"/></td>
-	   						<td><t:if test="badPass">Contraseña incorrecta</t:if></td>
+	   						<td><t:if test="badPass">Contraseï¿½a incorrecta</t:if></td>
 	   					</tr>
 	   					<tr>
 	   						<td><label>New Password</label></td>
 	   						<td><t:passwordfield t:id="newPass1"/></td>
-	   						<td><t:if test="badMatch">Contraseñas no coinciden</t:if></td>
+	   						<td><t:if test="badMatch">Contraseï¿½as no coinciden</t:if></td>
 	   					</tr>
 	   					<tr>
 	   						<td><label>Repeat password</label></td>

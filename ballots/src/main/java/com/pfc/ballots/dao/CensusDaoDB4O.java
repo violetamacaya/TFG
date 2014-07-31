@@ -234,6 +234,101 @@ public class CensusDaoDB4O implements CensusDao{
 			close();
 		}
 	}
+	public void changeEmailOfCensus(List<Census> censuses,String email)
+	{
+		open();
+		try
+		{
+			for(Census current:censuses)
+			{
+				Census temp=new Census();
+				temp.setId(current.getId());
+				ObjectSet result=DB.queryByExample(temp);
+				
+				if(result.hasNext())
+				{
+					Census old=(Census)result.next();
+					Census updated=new Census(old);
+					updated.setEmail(email);
+					DB.delete(old);
+					DB.store(updated);
+					
+				}
+			}
+			System.out.println("[DB4O] Census was updated");
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4]ERROR:Census could not be updated");
+		}
+		finally
+		{
+			close();
+		}
+	}
+
+	public void changeEmailOfCensus(String idCensus, String email) 
+	{
+		open();
+		try
+		{
+			Census temp=new Census();
+			temp.setId(idCensus);
+			ObjectSet result=DB.queryByExample(temp);
+			
+			if(result.hasNext())
+			{
+				Census old=(Census)result.next();
+				Census updated=new Census(old);
+				updated.setEmail(email);
+				DB.delete(old);
+				DB.store(updated);
+				System.out.println("[DB4O] Census was updated");
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4]ERROR:Census could not be updated");
+		}
+		finally
+		{
+			close();
+		}
+		
+		
+	}
+
+	public void removeUserCountedOfCensus(List<String> idCensus,String idProfile)
+	{
+		open();
+		try
+		{
+			for(String current:idCensus)
+			{
+				Census old=getCensusById(current);
+				Census updated=new Census(old);
+				updated.removeIdOfUsersCounted(idProfile);
+				DB.delete(old);
+				DB.store(updated);
+			}
+			System.out.println("[DB4O] Census was updated");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4]ERROR:Census could not be updated");
+		}
+		finally
+		{
+			close();
+		}
+		
+		
+	}
 	
 	//**************************************************UTIL*******************************************//
 	
@@ -274,6 +369,19 @@ public class CensusDaoDB4O implements CensusDao{
 		return false;
 		
 	}
+	////////////////////////////////////////////////// UTIL NO OPEN-CLOSE////////////////////////////////
+	private Census getCensusById(String idCensus)
+	{
+		Census census= new Census();
+		census.setId(idCensus);
+		ObjectSet result=DB.queryByExample(census);
+		
+		if(result.hasNext())
+		{
+			return (Census)result.next();
+		}
+		return null;
+	}
 	
 	
 	//********************************************Open and Close DB************************************//
@@ -300,6 +408,9 @@ public class CensusDaoDB4O implements CensusDao{
 			DB.close();
 			System.out.println("[DB4O]Database was closed");
 		}
+
+		
+		
 
 	
 	

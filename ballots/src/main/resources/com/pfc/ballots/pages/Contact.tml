@@ -1,6 +1,6 @@
-<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
-	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<t:border>
 	
 		<t:if test="showEmailProblem">
 			<h1>PROBLEMA CON EL EMAIL</h1>
@@ -12,7 +12,7 @@
 			<p:else>
 				<t:form t:id="contact">
 					<h1>Conctacta con nosotros</h1>
-					Nuestra direccion de contacto es ${emailAccount.email}<br/>
+					Nuestra direccion de contacto es ${emailAccount.email}<br/><br/>
 					<table>
 						<tr>
 							<td><t:Label t:for="remitente"/></td>

@@ -1,6 +1,6 @@
-<html><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
-	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	<t:border>
 	
 		
 			<h1>Company Access</h1>
@@ -19,7 +19,7 @@
 							Nombre de usuario o contraseÃ±a incorrectos
 					</t:if>
 					<t:if test="notactive">
-							Compañia no activa
+							Compaï¿½ia no activa
 					</t:if>
 				</span>
 			
@@ -28,7 +28,7 @@
 				<label>Pass</label><div><input type="password" t:type="textfield" t:value="password"/></div><br/><br/>
 				
 				<input type="submit" value="acceder"/><br/>
-				<t:actionlink t:id="forgottenPass">Olvido su contraseña</t:actionlink>		
+				<t:actionlink t:id="forgottenPass">Olvido su contraseï¿½a</t:actionlink>		
 			</t:form>
 			</t:zone>
 			</infouser>	

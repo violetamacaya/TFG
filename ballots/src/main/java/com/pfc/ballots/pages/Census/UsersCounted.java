@@ -18,6 +18,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Census;
@@ -48,22 +49,24 @@ public class UsersCounted {
 	
 	
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	CensusDao censusDao=null;
-	UserDao userDao=null;
+	@Persist
+	CensusDao censusDao;
+	@Persist
+	UserDao userDao;
+	@Persist
+	ProfileCensedInDao censedInDao;
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////// BUILDER AND SETUP ///////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public UsersCounted()
-	{
-		
-		censusDao=DB4O.getCensusDao(datasession.getDBName());
-		userDao=DB4O.getUsuarioDao(datasession.getDBName());
 	
-	}
 	
 	public void setupRender()
 	{
+		censusDao=DB4O.getCensusDao(datasession.getDBName());
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
+		
 		showUsersCountedZone=false;
 		showNameZone=false;
 		nameNotAvalible=false;
@@ -542,12 +545,17 @@ public class UsersCounted {
 	}
 	public void onActionFromSavebut()
 	{
+		Census old=new Census(census);
 		census.emptyUsersCounted();
 		users=editUsers;
 		for(Profile temp:editUsers)
 		{
 			census.addIdToUsersCounted(temp.getId());
 		}
+		List<String> added=new LinkedList<String>();
+		List<String> removed=new LinkedList<String>();
+		old.calcDifference(census, added, removed);
+		censedInDao.addAndRemoveIds(old.getId(), added, removed);
 		censusDao.update(census);
 	}
 	

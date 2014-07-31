@@ -18,6 +18,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Census;
@@ -35,8 +36,12 @@ public class CreateCensus {
 	
 	//DAO
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	UserDao userDao=null;
-	CensusDao censusDao=null;
+	@Persist
+	UserDao userDao;
+	@Persist
+	CensusDao censusDao;
+	@Persist
+	ProfileCensedInDao censedInDao;
 	
 	//Variables
 	@Inject
@@ -49,23 +54,16 @@ public class CreateCensus {
 	@SessionState
 	private DataSession datasession;
 	
-	
-	//Methods
-	public CreateCensus()
-	{
-		userDao=DB4O.getUsuarioDao(datasession.getDBName());
-		censusDao=DB4O.getCensusDao(datasession.getDBName());
-	}
+
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		censusDao=DB4O.getCensusDao(datasession.getDBName());
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
 		
 	}
-	public void cleanupRender()
-	{
-		componentResources.discardPersistentFieldChanges();
-		
-	}
+
 	
 	      ////////////////////////////////////////////////////////////////////////////////////////////////
 		 ///////////////////////////////// CENSUS NAME FORM AND ZONE ////////////////////////////////////
@@ -487,6 +485,7 @@ public class CreateCensus {
 		{
 			census.addIdToUsersCounted(temp.getId());
 		}
+		censedInDao.addIdCensus(census.getUsersCounted(), census.getId());
 		censusDao.store(census);
 		
 		return CensusList.class;

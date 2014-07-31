@@ -22,6 +22,7 @@ import com.pfc.ballots.dao.LogDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.pages.About;
 import com.pfc.ballots.pages.Contact;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.MethodsInfo;
@@ -34,7 +35,6 @@ import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.pages.ballot.BallotWizzard;
-import com.pfc.ballots.pages.ballot.CreateBallot;
 import com.pfc.ballots.pages.ballot.ShowBallotAdmin;
 import com.pfc.ballots.pages.profile.CreateProfile;
 import com.pfc.ballots.pages.profile.ProfileByFile;
@@ -331,15 +331,19 @@ public class Border {
 			visibilityCensus=false;
 			if(section.equals("index"))
 				{page=Index.class;}
-			if(section.equals("new-user1"))
+			else if(section.equals("about"))
+				{page=About.class;}
+			else if(section.equals("new-ballot"))
+				{page=BallotWizzard.class;}
+			else if(section.equals("new-user1"))
 				{page=CreateProfile.class;}
-			if(section.equals("contact"))
+			else if(section.equals("contact"))
 				{page=Contact.class;}
-			if(section.equals("LogIn"))
+			else if(section.equals("LogIn"))
 				{page=LogIn.class;}
-			if(section.equals("methods"))
+			else if(section.equals("methods"))
 				{page=MethodsInfo.class;}
-			if(section.equals("company-login"))
+			else if(section.equals("company-login"))
 				{page=CompanyLogIn.class;}
 		}
 		if(request.isXHR())

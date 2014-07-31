@@ -1,6 +1,6 @@
-<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    
-	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	<t:border>
 		<infouser>
 		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////// NO EMAIL ZONE /////////////////////////////////////////////////////////////////////
@@ -11,7 +11,7 @@
 			<t:if test="showNewZone">
 				<h1>NO HAY EMAIL</h1>
 				<t:form t:id="newForm" zone="^">
-					<t:if test="badCombination">La contraseña introducida no es valida para el email</t:if>
+					<t:if test="badCombination">La contraseï¿½a introducida no es valida para el email</t:if>
 					<table>
 						<tr>
 							<td>emailAddress</td>
@@ -70,7 +70,7 @@
 		<t:zone t:id="changePassZone" id="changePassZone">
 			<t:if test="showChange">
 				<t:form t:id="changePassForm" zone="^">
-					<t:if test="badCombination">La contraseña introducida no es valida para el email</t:if>
+					<t:if test="badCombination">La contraseï¿½a introducida no es valida para el email</t:if>
 					<table>
 						<tr>
 							<td>AdminPassword</td>
@@ -105,7 +105,7 @@
 	   <t:zone t:id="changeAccountZone" id="changeAccountZone">
 	   		<t:if test="showChangeAccount">
 	   			<t:form t:id="changeAccountForm" zone="^">
-					<t:if test="badCombination">La contraseña introducida no es valida para el email</t:if>	   				
+					<t:if test="badCombination">La contraseï¿½a introducida no es valida para el email</t:if>	   				
 	   				<table>
 	   					<tr>
 	   						<td>AdminPassword</td>

@@ -6,9 +6,11 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
@@ -51,6 +53,7 @@ public class CreateCompanyUser {
 	//****************************** DAO **********************************//
 	FactoryDao DB4O= FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	UserDao userDao=null;
+	ProfileCensedInDao censedInDao=null;
 	
 	
 	public void setup(String CompanyName,String DBName)
@@ -63,6 +66,7 @@ public class CreateCompanyUser {
 	public void onSuccess()
 	{
 		userDao=DB4O.getUsuarioDao(DBName);
+		censedInDao=DB4O.getProfileCensedInDao(DBName);
 		if(!password.equals(repeat))
 		{
 			isnotPassOk=true;
@@ -80,7 +84,9 @@ public class CreateCompanyUser {
 			profile.setPlain(password);
 			profile.setId(UUID.generate());
 			profile.setRegDatetoActual();
+			ProfileCensedIn censedIn =new ProfileCensedIn(profile.getId());
 			userDao.store(profile);
+			censedInDao.store(censedIn);
 			profile=new Profile();
 		}
 	}
