@@ -3,18 +3,18 @@
 	<t:border>
 			
 		<t:zone t:id="logedZone" id="logedZone">
-			<h1>Usuarios Logeados</h1>
+			<h1>${message:users-loged}</h1>
 			<t:grid source="usersLoged" row="userLoged" add="kick" rowsperpage="15" inplace="true">
 				<p:kickcell>
-					<t:actionlink t:id="kickbut" context="userLoged.idSession" zone="^"><button>kick</button></t:actionlink>
+					<t:actionlink t:id="kickbut" context="userLoged.idSession" zone="^"><button>${message:kick-but}</button></t:actionlink>
 				</p:kickcell>
 			</t:grid>
 		</t:zone>
 		<t:zone t:id="logZone" id="logZone">
-			<h1>Log de usuarios</h1>
+			<h1>${message:users-log}</h1>
 			<t:if test="main">
 				<t:form>
-					<label>ShowAll</label><input t:type="checkbox" t:id="showAll" value="showAll" onclick="this.form.submit()"/>
+					<label>${message:show-all}</label><input t:type="checkbox" t:id="showAll" value="showAll" onclick="this.form.submit()"/>
 				</t:form>
 				<t:grid source="logs" row="log" rowsperpage="15" inplace="true" />
 				

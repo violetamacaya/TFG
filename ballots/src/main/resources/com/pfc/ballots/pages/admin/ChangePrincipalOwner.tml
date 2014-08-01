@@ -7,17 +7,18 @@
 			<t:if test="!showSure">
 				<t:grid source="users" row="user" add="makeOwner" exclude="password,plainpass,owner,lastlog">
 					<p:makeOwnerCell>
-						<t:actionlink t:id="makeOwnerBut" context="user.id" zone="^"><button>makeOwner</button></t:actionlink>
+						<t:actionlink t:id="makeOwnerBut" context="user.id" zone="^"><button>${message:make-owner}</button></t:actionlink>
 					</p:makeOwnerCell>
 				</t:grid>
 			</t:if>
 		</t:zone>
 		<t:zone t:id="areuSureZone" id="areuSureZone">
 			<t:if test="showSure">
-				Esta seguro de hacer a <b>${newOwner.email}</b> propietario de la <b>aplicacion</b>
+				${message:are-u-sure}<b>${newOwner.email}</b>${message:owner} <b>${message:aplication}</b>						
+				
 				<br/>
-				<t:actionlink t:id="isSureBut" zone="^"><button>SI</button></t:actionlink>
-				<t:actionlink t:id="notSureBut" zone="^"><button>NO</button></t:actionlink>
+				<t:actionlink t:id="isSureBut" zone="^"><button>${message:yes}</button></t:actionlink>
+				<t:actionlink t:id="notSureBut" zone="^"><button>${message:no}</button></t:actionlink>
 			</t:if>
 		</t:zone>
 		

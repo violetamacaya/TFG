@@ -247,14 +247,6 @@ public class UserList {
 		}
 	}
 	
-	public void onActionFromEndbut()
-	{
-		if(request.isXHR())
-		{
-			editing=false;
-			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("editZone",editZone);
-		}
-	}
 	public void onActionFromDeleteuser(String idUser)
 	{
 		if(request.isXHR())

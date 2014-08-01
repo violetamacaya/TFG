@@ -30,7 +30,7 @@
 			
 			<t:if test="!loged">		
 				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:LogIn" ><plain>${message:login}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>Company Access</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>${message:company-login}</plain></t:eventlink></li>
 			</t:if>
 		</ul>
 	</pagehead>
@@ -42,60 +42,59 @@
 		
 		<t:if test="maker">
 			<li><plain>${message:ballots-by-me}</plain></li>
-			<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:censusz"><plain>Censos</plain></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:censusz"><plain>${message:census}</plain></t:eventlink></li>
 		</t:if>
 		
 			<t:zone t:id="censusZone" id="censusZone">
 				<t:if test="visibilityCensus">
 							
-					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:new-census"><plain2>Crear Censo</plain2></t:eventlink></li>
-					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-census"><plain2>Mis Censos</plain2></t:eventlink></li>
-					<t:if test="admin">
-						<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-admincensus"><plain2>Admin census</plain2></t:eventlink></li>
-					</t:if>
+					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:new-census"><plain2>${message:new-census}</plain2></t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-census"><plain2>${message:my-census}</plain2></t:eventlink></li>
+					
 				</t:if>
 			</t:zone>
 		
-		
+		<t:if test="admin">
+				<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-admincensus"><plain>${message:census-admin}</plain></t:eventlink></li>
+		</t:if>
 		
 		<t:if test="admin">
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:userz" ><plain>User Admin</plain></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:userz" ><plain>${message:users-admin}</plain></t:eventlink></li>
 		</t:if>
 		
 			<t:zone t:id="userZone" id="userZone">
 				<t:if test="visibilityUser">
-					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-list" ><plain2>Lista usuarios</plain2></t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-list" ><plain2>${message:users-list}</plain2></t:eventlink></li>
 					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:new-user2" ><plain2>${message:new-user}</plain2></t:eventlink></li>
-					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-file" ><plain2>Upload user file</plain2></t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-file" ><plain2>${message:upload}</plain2></t:eventlink></li>
 					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:log-list" ><plain2>Logs</plain2></t:eventlink></li>
 				</t:if>
 			</t:zone>
 			
 		<t:if test="maker">
-			<li><t:eventlink t:event="menu" t:context="literal:ballotz" t:zone="ballotZone"><plain>Ballot Admin</plain></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:context="literal:ballotz" t:zone="ballotZone"><plain>${message:ballot-admin}</plain></t:eventlink></li>
 		</t:if>
 		
 			<t:zone t:id="ballotZone" id="ballotZone">
 			<t:if test="visibilityBallot">
 
 				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:show-adminBallot" ><plain2>${message:ballots}</plain2></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:create-ballot" ><plain2>Crear Votacion</plain2></t:eventlink></li>
-				<li><plain2>Mensaje censo</plain2></li>
+				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:create-ballot" ><plain2>${message:new-ballot}</plain2></t:eventlink></li>
 			</t:if>
 			</t:zone>
 		
 		<t:if test="mainAdmin">	
-			<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:companyz" ><plain>Company Admin</plain></t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:companyz" ><plain>${message:company-admin}</plain></t:eventlink></li>
 		</t:if>
 				<t:zone t:id="companyZone" id="companyZone">
 					<t:if test="visibilityCompany">
-						<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:list-company"><plain2>Company List</plain2></t:eventlink></li>
-						<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:new-company"><plain2>Create Company</plain2></t:eventlink></li>
+						<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:list-company"><plain2>${message:company-list}</plain2></t:eventlink></li>
+						<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:new-company"><plain2>${message:create-company}</plain2></t:eventlink></li>
 					</t:if>
 				</t:zone>
 		
 		<t:if test="mainAdmin">
-			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>Mail Admin</plain></t:eventLink></li>
+			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>${message:email-admin}</plain></t:eventLink></li>
 		</t:if>	
 		
 		

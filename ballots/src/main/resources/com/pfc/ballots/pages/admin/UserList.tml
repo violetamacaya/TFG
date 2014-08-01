@@ -6,12 +6,12 @@
 				<t:grid source="nomails" reorder="email,admin,maker" row="nomail" add="id,Edit,Delete" exclude="password,owner">
 					<p:deletecell>
 						<t:if test="!editing">
-								<t:actionlink t:id="deletenomail" context="nomail.id" zone="^"><button>Delete</button></t:actionlink>
+								<t:actionlink t:id="deletenomail" context="nomail.id" zone="^"><button>${message:delete-but}</button></t:actionlink>
 						</t:if>
 					</p:deletecell>
 					<p:editcell>
 						<t:if test="!editing">
-							<t:actionlink t:id="editnomail" zone="^" context="nomail.id"><button>edit</button></t:actionlink>
+							<t:actionlink t:id="editnomail" zone="^" context="nomail.id"><button>${message:edit-but}</button></t:actionlink>
 						</t:if>
 					</p:editcell>
 				</t:grid>					
@@ -23,14 +23,14 @@
 				<p:editcell>
 					<t:if test="!editing">
 						<t:if test="!owner">
-							<t:actionlink t:id="editbut" zone="^" context="user.id"><button>edit</button></t:actionlink>
+							<t:actionlink t:id="editbut" zone="^" context="user.id"><button>${message:edit-but}</button></t:actionlink>
 						</t:if>
 					</t:if>
 				</p:editcell>
 				<p:deleteCell>
 					<t:if test="!editing">
 						<t:if test="!owner">
-							<t:actionlink t:id="deleteuser" context="user.id" zone="^"><button>Delete</button></t:actionlink>
+							<t:actionlink t:id="deleteuser" context="user.id" zone="^"><button>${message:delete-but}</button></t:actionlink>
 						</t:if>
 					</t:if>
 				</p:deleteCell>
@@ -48,20 +48,20 @@
 				<table>
 					<tr>
 						<td>
-							<label>Email</label>
+							<label>${message:email-label}</label>
 						</td>
 						<td>
 							<t:textfield t:id="emailfield" t:value="editprof.email"/>
 						</td>
 						<td>
 							<t:if test="nonavalible">
-								email en uso
+								${message:email-non-available}
 							</t:if>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label>Admin</label>
+							<label>${message:admin-label}</label>
 						</td>
 						<td>
 							<t:checkbox t:id="adminbox" t:value="editprof.admin"/>
@@ -69,7 +69,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>Maker</label>
+							<label>${message:maker-label}</label>
 						</td>
 						<td>
 							<t:checkbox t:id="makerbox" t:value="editprof.maker"/>
@@ -77,7 +77,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>FirstName</label>
+							<label>${message:firstname-label}</label>
 						</td>
 						<td>
 							<t:textfield t:id="firstnamefield" t:value="editprof.firstname"/>
@@ -85,7 +85,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>LastName</label>
+							<label>${message:lastname-label}</label>
 						</td>
 						<td>
 							<t:textfield t:id="lastnamefield" t:value="editprof.lastname"/>
@@ -93,7 +93,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>University</label>
+							<label>${message:university-label}</label>
 						</td>
 						<td>
 							<t:textfield t:id="universityfield" t:value="editprof.university"/>
@@ -101,7 +101,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>City</label>
+							<label>${message:city-label}</label>
 						</td>
 						<td>
 							<t:textfield t:id="cityfield" t:value="editprof.city"/>
@@ -109,7 +109,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>Country</label>
+							<label>${message:country-label}</label>
 						</td>
 						<td>
 							<t:textfield t:id="countryfield" t:value="editprof.country"/>
@@ -117,17 +117,17 @@
 					</tr>
 					<tr>
 						<td>
-							<label><input t:type="submit" t:id="save" value="Save"/></label>
+							<label><input t:type="submit" t:id="save" value="${message:save}"/></label>
 						</td>
 						<td>
-							<input t:type="submit" t:id="cancel" value="Cancel" t:mode="cancel"/>
+							<input t:type="submit" t:id="cancel" value="${message:cancel}" t:mode="cancel"/>
 						</td>
 					</tr>
 				</table>
 				</t:form>
 			
 			
-				<t:actionlink t:id="endbut" zone="^">END</t:actionlink>
+				
 			</t:if>
 		</t:zone>
 		

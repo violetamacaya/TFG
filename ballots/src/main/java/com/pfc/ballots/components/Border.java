@@ -228,7 +228,8 @@ public class Border {
 			visibilityCensus=false;
 			page=ShowProfile.class;
 		}
-		if(section.equals("admin-mail"))
+		
+		else if(section.equals("admin-mail"))
 		{
 			visibilityUser=false;
 			visibilityBallot=false;
@@ -236,7 +237,7 @@ public class Border {
 			visibilityCensus=false;
 			page=AdminMail.class;
 		}
-		if(section.equals("censusz"))		
+		else if(section.equals("censusz"))		
 		{
 			visibilityUser=false;
 			visibilityBallot=false;
@@ -245,6 +246,14 @@ public class Border {
 				{visibilityCensus=false;}
 			else
 				{visibilityCensus=true;}
+		}
+		else if(section.equals("show-admincensus"))//////
+		{
+			visibilityUser=false;
+			visibilityBallot=false;
+			visibilityCompany=false;
+			visibilityCensus=false;
+			page=AdminCensus.class;
 		}
 		else if(section.equals("userz"))		
 		{
@@ -286,22 +295,18 @@ public class Border {
 			{
 				page=CensusList.class;
 			}
-		else if(section.equals("show-admincensus"))
-			{
-				page=AdminCensus.class;
-			}
 		else if(section.equals("new-user2"))
 			{
-			page=CreateProfile.class;}
+				page=CreateProfile.class;
+			}
 		else if(section.equals("user-list"))
 			{
-			
-			page=UserList.class;}
+				page=UserList.class;
+			}
 		else if(section.equals("user-file"))
 			{
 				profileByFile.setup(datasession.getDBName());
 				page=profileByFile;
-				
 			}
 		else if(section.equals("log-list"))
 			{
@@ -316,13 +321,13 @@ public class Border {
 			page=ListCompany.class;
 			}
 		else if(section.equals("create-ballot"))
-		{
+			{
 			page=BallotWizzard.class;
-		}
+			}
 		else if(section.equals("show-adminBallot"))
-		{
+			{
 			page=ShowBallotAdmin.class;
-		}
+			}
 		else							//This handle the upper menu
 		{
 			visibilityCompany=false;

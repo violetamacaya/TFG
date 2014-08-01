@@ -21,6 +21,7 @@
 					</p:finishCell>
 				</t:grid>
 				
+				<!-- Comprobar si tienen la clase de datos asociada 
 				RELATIVE MAJORITY
 				<table>
 					<tr><td><t:grid t:id="relGrid" source="relMays" reorder="ballotId,id"/></td></tr>
@@ -31,7 +32,7 @@
 					<tr><td><t:grid t:id="kemGrid" source="kemenys" reorder="ballotId,id"/></td></tr>
 					<tr><td><t:actionlink t:id="deleteAllKem" t:zone="^">deleteAll</t:actionlink></td></tr>
 				</table>
-				
+				 -->
 			</t:if>
 		</t:zone>
 		

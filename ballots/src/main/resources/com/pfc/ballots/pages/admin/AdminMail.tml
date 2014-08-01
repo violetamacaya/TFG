@@ -9,27 +9,27 @@
 		   
 		<t:zone t:id="newEmailZone" id="newEmailZone">
 			<t:if test="showNewZone">
-				<h1>NO HAY EMAIL</h1>
+				<h1>${message:no-mail}</h1>
 				<t:form t:id="newForm" zone="^">
-					<t:if test="badCombination">La contrase�a introducida no es valida para el email</t:if>
+					<t:if test="badCombination">${message:invalid-epass}</t:if>
 					<table>
 						<tr>
-							<td>emailAddress</td>
+							<td><label>${message:email}</label></td>
 							<td><t:textfield t:id="emailAddress" t:value="emailform.email"/></td>
-							<td><t:if test="badServer">La cuenta debe ser de gmail</t:if></td>
+							<td><t:if test="badServer">${message:gmail-account}</t:if></td>
 						</tr>
 						<tr>
-							<td>password</td>
+							<td><label>${message:password}</label></td>
 							<td><t:passwordfield t:id="pass1"/></td>
-							<td><t:if test="badMatch"> Password no conincide</t:if></td>
+							<td><t:if test="badMatch">${message:pass-notmatch}</t:if></td>
 						</tr>
 						<tr>
-							<td>repeat password</td>
+							<td><label>${message:repeat-pass}</label></td>
 							<td><t:passwordfield t:id="pass2"/></td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><input t:type="submit" value="submit"/></td>
+							<td><input t:type="submit" value="${message:submit-but}"/></td>
 						</tr>	
 					</table>
 				</t:form>
@@ -44,22 +44,22 @@
 			<t:if test="showSettings">
 				<table>
 					<tr>
-						<td>Email account : </td>
+						<td><label>${message:email-account}:</label> </td>
 						<td>${emailAccount.email}</td>
 					</tr>
 					<tr>
-						<td>Password : </td>
+						<td><label>${message:epass}:</label></td>
 						<td>${emailAccount.password}</td>
 					</tr>
 					<tr>
-						<td>valid Combination : </td>
+						<td><label>${message:valid-convination}:</label></td>
 						<td>${validCombination}</td>
 					</tr>
 					
 				</table>
-				<t:actionlink t:id="changeAccount" t:zone="^"><button>ChangeAccount</button></t:actionlink>
-				<t:actionlink t:id="changePass" t:zone="^"><button>ChangePass</button></t:actionlink>
-				<t:actionlink t:id="deleteAccount" t:zone="^"><button>deleteAccount</button></t:actionlink>
+				<t:actionlink t:id="changeAccount" t:zone="^"><button>${message:change-account}</button></t:actionlink>
+				<t:actionlink t:id="changePass" t:zone="^"><button>${message:change-pass}</button></t:actionlink>
+				<t:actionlink t:id="deleteAccount" t:zone="^"><button>${message:delete-account}</button></t:actionlink>
 			</t:if>
 		</t:zone>
 		
@@ -70,26 +70,28 @@
 		<t:zone t:id="changePassZone" id="changePassZone">
 			<t:if test="showChange">
 				<t:form t:id="changePassForm" zone="^">
-					<t:if test="badCombination">La contrase�a introducida no es valida para el email</t:if>
+					<t:if test="badCombination">
+						${message:invalid-epass}
+					</t:if>
 					<table>
 						<tr>
-							<td>AdminPassword</td>
+							<td><label>${message:adminPass}</label></td>
 							<td><t:passwordfield t:id="adminPass"/></td>
-							<td><t:if test="badPass">PASS INCORRECTO</t:if></td>
+							<td><t:if test="badPass">${message:bad-pass}</t:if></td>
 						</tr>
 						<tr>
-							<td>NewEmailPassword</td>
+							<td><label>${message:new-pass}</label></td>
 							<td><t:passwordfield t:id="newPass1"/></td>
-							<td><t:if test="badMatch">PASS NO COINCIDE</t:if></td>
+							<td><t:if test="badMatch">${message:pass-notmatch}</t:if></td>
 						</tr>
 						<tr>
-							<td>repeatPassword</td>
+							<td><label>${message:repeat-pass}</label></td>
 							<td><t:passwordfield t:id="newPass2"/></td>
 						</tr>
 						<tr>
 							<td>
-								<input t:type="submit" t:value="submit"/>
-								<t:actionlink t:id="cancelChangePass" zone="^"><button>Cancel</button></t:actionlink>
+								<input t:type="submit" t:value="${message:submit-but}"/>
+ 								<t:actionlink t:id="cancelChangePass" zone="^"><button>${message:cancel-but}</button></t:actionlink>
 							</td>
 						</tr>
 					</table>
@@ -105,31 +107,33 @@
 	   <t:zone t:id="changeAccountZone" id="changeAccountZone">
 	   		<t:if test="showChangeAccount">
 	   			<t:form t:id="changeAccountForm" zone="^">
-					<t:if test="badCombination">La contrase�a introducida no es valida para el email</t:if>	   				
+					<t:if test="badCombination">
+						${message:invalid-epass}
+					</t:if>	   				
 	   				<table>
 	   					<tr>
-	   						<td>AdminPassword</td>
+	   						<td><label>${message:adminPass}</label></td>
 	   						<td><t:passwordfield t:id="adminPassword"/></td>
-	   						<td><t:if test="badPass">PASS INCORRECTO</t:if></td>
+	   						<td><t:if test="badPass">${message:bad-pass}</t:if></td>
 	   					</tr>
 	   					<tr>
-	   						<td>EmailAccount</td>
+	   						<td><label>${message:email}</label></td>
 	   						<td><t:textfield t:id="emailChange" t:value="emailform.email"/></td>
-	   						<td><t:if test="badServer">La cuenta debe ser de gmail</t:if></td>
+	   						<td><t:if test="badServer">${message:gmail-account}</t:if></td>
 	   					</tr>
 	   					<tr>
-	   						<td>Password</td>
+	   						<td><label>${message:password}</label></td>
 	   						<td><t:textfield t:id="password1"/></td>
-	   						<td><t:if test="badMatch">PASS NO COINCIDE</t:if></td>
+	   						<td><t:if test="badMatch">${message:pass-notmatch}</t:if></td>
 	   					</tr>
 	   					<tr>
-	   						<td>Password</td>
+	   						<td><label>${message:repeat-pass}</label></td>
 	   						<td><t:textfield t:id="password2"/></td>
 	   					</tr>
 	   					<tr>
 							<td>
-								<input t:type="submit" t:value="submit"/>
-								<t:actionlink t:id="cancelChangeAccount" zone="^"><button>Cancel</button></t:actionlink>
+								<input t:type="submit" t:value="${message:submit-but}"/>
+								<t:actionlink t:id="cancelChangeAccount" zone="^"><button>${message:cancel-but}</button></t:actionlink>
 							</td>
 						</tr>
 	   				</table>
