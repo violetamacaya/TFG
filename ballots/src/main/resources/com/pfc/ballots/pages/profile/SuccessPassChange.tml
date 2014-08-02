@@ -1,8 +1,9 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta http-equiv="refresh" content="5; URL=Index"/> 
+<meta http-equiv="refresh" content="5; URL=Index"/>
+  <head><title>${message:page-title}</title></head>
+ 
 	<t:border>
 		<infouser>
-			Se ha enviado un email con su nueva contrase�a
 			${message:mail-sended}
 			<t:pagelink page="index">INDEX</t:pagelink>
 		</infouser>
