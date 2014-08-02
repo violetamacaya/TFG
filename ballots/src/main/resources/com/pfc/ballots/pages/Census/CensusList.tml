@@ -3,11 +3,11 @@
 	<t:border>
 		<t:grid source="censuses" row="census" add="remove,details" exclude="id,idowner" reorder="email">
 			<p:removecell>
-				<t:actionlink t:id="removebut" context="census.id"><button>remove</button></t:actionlink>
+				<t:actionlink t:id="removebut" context="census.id"><button>${message:remove-but}</button></t:actionlink>
 			</p:removecell>
 	
 			<p:detailscell>
-				<t:actionlink t:id="detailsbut" context="census.id"><button>Show</button></t:actionlink>
+				<t:actionlink t:id="detailsbut" context="census.id"><button>${message:details-but}</button></t:actionlink>
 			</p:detailscell>
 		</t:grid>
 	</t:border>

@@ -3,32 +3,33 @@
 	<t:border>
 	
 		
-			<h1>Company Access</h1>
+			<h1>${message:company-access}</h1>
 			<infouser>
 			<t:zone t:id="logForm" id="logForm">
 			<t:form t:zone="^">
 			
 				<span class="error">
 					<t:if test="fillFields">
-							Rellene todos los campos
+							${message:fill-all-fields}
 					</t:if>
 					<t:if test="companyFailure">
-							Empresa no registrada
+							${message:non-registred-company}
 					</t:if>
 					<t:if test="authenticationFailure">
-							Nombre de usuario o contraseña incorrectos
+						
+							${message:name-pass-non}
 					</t:if>
 					<t:if test="notactive">
-							Compa�ia no activa
+							${message:non-active-company}
 					</t:if>
 				</span>
 			
-				<label>Company</label><div><input type="text" t:type="textfield" t:value="companyName"/></div>
-				<label>Usuario</label><div><input type="text" t:type="textfield" t:value="email"/></div>
-				<label>Pass</label><div><input type="password" t:type="textfield" t:value="password"/></div><br/><br/>
+				<label>${message:company}</label><div><input type="text" t:type="textfield" t:value="companyName"/></div>
+				<label>${message:email</label><div><input type="text" t:type="textfield" t:value="email"/></div>
+				<label>${message:password}</label><div><input type="password" t:type="textfield" t:value="password"/></div><br/><br/>
 				
-				<input type="submit" value="acceder"/><br/>
-				<t:actionlink t:id="forgottenPass">Olvido su contrase�a</t:actionlink>		
+				<input type="submit" value="${message:send}"/><br/>
+				<t:actionlink t:id="forgottenPass">${message:forgotten-pass}</t:actionlink>		
 			</t:form>
 			</t:zone>
 			</infouser>	

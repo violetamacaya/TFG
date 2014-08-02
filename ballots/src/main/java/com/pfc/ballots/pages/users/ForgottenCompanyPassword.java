@@ -125,4 +125,7 @@ public class ForgottenCompanyPassword {
 		}
 		return null;
 	}
+	public void onActivate()
+	{
+	}
 }

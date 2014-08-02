@@ -2,7 +2,8 @@
 
 
 	<t:border>
-					<h1>Creacion de Censo</h1>
+					<h1>Creacion de Censo
+						${message:creating-ceunsus}</h1>
 	
 		<!--//////////////////////////////////////////////////////////////////////////////////////////
 		   ///////////////////////////////// NAME CENSUS ZONE /////////////////////////////////////// 
@@ -14,18 +15,18 @@
 				<t:form t:id="censusNameForm" t:zone="^">
 					<table>
 						<tr>
-							<td><label>Nombre:</label></td>
+							<td><t:label for="censusName"/></td>
 							<td><t:textfield t:id="censusName" validate="required,minLength=5"/></td>
 																				  
 							<td>
 								<t:if test="nameNotAvalible">
-									NOMBRE NO DISPONIBLE
+									${message:non available}
 								</t:if>
 							</td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><p style="text-align:center;"><input t:type="submit" value="Next->"/></p></td> 
+							<td><p style="text-align:center;"><input t:type="submit" value="${message:next-but}"/></p></td> 
 						</tr>
 					</table>
 				</t:form>
@@ -39,9 +40,9 @@
 			<t:zone t:id="searchTypeZone" t:update="show" visible="secondVisible"> 
 						
 				<t:if test="advancedSearch">
-					<t:eventlink t:event="switchSearch" zone="^">Basica</t:eventlink>
+					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink>
 					<p:else>
-						<t:eventlink t:event="switchSearch" zone="^">Avanzada</t:eventlink>
+						<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search</t:eventlink>
 					</p:else>
 				</t:if>
 			</t:zone>
@@ -55,15 +56,15 @@
 					<t:form t:id="basicForm" zone="^">	
 						<table>
 							<tr>
-								<td><label>Email</label></td>
+								<td><t:label for="email"/></td>
 								<td><t:textfield t:id="email"/></td>
 							</tr>
 							
 							<tr>
 								
 								<td></td>
-								<td><p style="text-align:center;"><input t:type="submit" value="submit"/>
-									<t:eventlink t:event="reset" zone="^"><button>Reset</button></t:eventlink></p></td>
+								<td><p style="text-align:center;"><input t:type="submit" value="${message:search-but}"/>
+									<t:eventlink t:event="reset" zone="^"><button>${message:reset-but}</button></t:eventlink></p></td>
 							</tr>
 						</table>
 					</t:form>
@@ -80,37 +81,37 @@
 						<t:form t:id="advancedSearchForm" zone="^">
 							<table>
 						 		<tr>
-										<td><label>Admin</label></td>
+										<td><t:label for="admin"/></td>
 										<td><t:checkbox t:id="admin" value="profile.admin"/></td>
 								</tr>
 								<tr>
-										<td><label>Maker</label></td>
+										<td><t:label for="maker"/></td>
 										<td><t:checkbox t:id="maker" value="profile.maker"/></td>
 								</tr>
 					 			<tr>
-					 					<td><label>First Name</label></td>
+					 					<td><t:label for="firstName"/></td>
 					 					<td><t:textfield t:id="firstName"></t:textfield></td>
 					 			</tr>
 					 			<tr>
-					 					<td><label>Last Name</label></td>
+					 					<td><t:label for="lastName"/></td>
 					 					<td><t:textfield t:id="lastName"></t:textfield></td>
 					 			</tr>
 					 			<tr>
-					 					<td><label>University</label></td>
+					 					<td><t:label for="university"/></td>
 					 					<td><t:textfield t:id="university" value="profile.university"/></td>
 					 			</tr>
 						 		<tr>
-							 			<td><label>City</label></td>
+							 			<td><t:label for="city"/></td>
 							 			<td><t:textfield t:id="city" value="profile.city"/></td>
 						 		</tr>
 						 		<tr>
-							 			<td><label>Country</label></td>
+							 			<td><t:label for="country"/></td>
 							 			<td><t:textfield t:id="country" value="profile.country"/></td>
 						 		</tr>
 								<tr>
 									<td></td>
-									<td><p style="text-align:center;"><input t:type="submit" value="submit"/>
-										<t:eventlink t:event="reset" zone="^"><button>Reset</button></t:eventlink></p></td>
+									<td><p style="text-align:center;"><input t:type="submit" value="${message:search-but}"/>
+										<t:eventlink t:event="reset" zone="^"><button>${message:reset-but}</button></t:eventlink></p></td>
 								</tr>
 							</table>
 						</t:form>
@@ -125,7 +126,7 @@
 									
 				<t:form t:id="addForm" zone="^">
 					<table>
-						<tr><td><t:actionLink t:id="showAll" zone="^">showAllUsers</t:actionLink></td></tr>
+						<tr><td><t:actionLink t:id="showAll" zone="^">${message:showall-users}</t:actionLink></td></tr>
 							<tr><td>
 								<t:if test="showSearchList">				
 									<t:grid source="users" row="user" exclude="lastLog,regDate,password,plainPass" add="add" reorder="add" inplace="true">
@@ -137,8 +138,8 @@
 							</td></tr>
 							<tr><td>
 								<t:if test="showSearchList">
-									<input t:type="submit" value="add"/>
-									<t:actionLink t:id="addAll" zone="^"><button>AddAll</button></t:actionLink>
+									<input t:type="submit" value="${message:add-but}"/>
+									<t:actionLink t:id="addAll" zone="^"><button>${message:addall-but}</button></t:actionLink>
 								</t:if>
 							</td></tr>
 							
@@ -163,8 +164,8 @@
 							</t:grid>
 							</td></tr>
 							<tr><td>
-								<input t:type="submit" value="remove"/>
-								<t:actionLink t:id="removeAll" zone="^"><button>removeAll</button></t:actionLink>
+								<input t:type="submit" value="${message:remove-but}"/>
+								<t:actionLink t:id="removeAll" zone="^"><button>${message:removeall-but}</button></t:actionLink>
 							</td></tr>
 						</table>
 					</t:form>
@@ -172,9 +173,9 @@
 			</t:zone>
 			<t:zone t:id="buttonsZone" id="buttonsZone" visible="secondVisible">
 				
-						<t:actionLink t:id="backbut" zone="^"><button> &lt;-back </button></t:actionLink>
+						<t:actionLink t:id="backbut" zone="^"><button>${message:back-but}</button></t:actionLink>
 						<t:if test="showCensusList">
-							<t:actionLink t:id="endbut" zone="^"><button> Save census </button></t:actionLink>
+							<t:actionLink t:id="endbut" zone="^"><button>${message:savecensus-but}</button></t:actionLink>
 						</t:if>
 			</t:zone>
 

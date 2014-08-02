@@ -129,6 +129,7 @@ public class ForgottenPassword {
 	
 	public Object onActivate()
 	{
+		System.out.println(datasession.sessionState());
 		switch(datasession.sessionState())
 		{
 			case 0:

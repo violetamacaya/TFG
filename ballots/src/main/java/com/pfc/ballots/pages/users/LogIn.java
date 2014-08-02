@@ -60,6 +60,10 @@ public class LogIn {
 	Object onSuccess()
 	{
 		
+		userDao = DB4O.getUsuarioDao();
+		logDao=DB4O.getLogDao();
+		logedDao=DB4O.getUserLogedDao();
+		
 		//Check if the text fields are empties
 		if(email==null || password==null)
 		{
@@ -79,6 +83,10 @@ public class LogIn {
 		email=email.toLowerCase();
 		//Check if Email is in DB and if the password is correct
 		
+		if(userDao==null)
+		{
+			System.out.println("NULO USER DAO");
+		}
 		Profile temp=userDao.getProfileByEmail(email.toLowerCase());
 		if(temp==null)
 		{

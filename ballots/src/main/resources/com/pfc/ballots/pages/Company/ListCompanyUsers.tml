@@ -14,21 +14,21 @@
 					<p:deleteCell>
 						<t:if test="!editing">
 							<t:if test="!owner">
-								<t:actionlink t:id="deleteuser" context="user.email" zone="^"><button>Delete</button></t:actionlink>
+								<t:actionlink t:id="deleteuser" context="user.email" zone="^"><button>${message:delete-but}</button></t:actionlink>
 							</t:if>
 						</t:if>
 					</p:deleteCell>
 					<p:editCell>
 						<t:if test="!editing">
 							<t:if test="!owner">
-								<t:actionlink t:id="editbut" context="user.id" zone="^"><button>Edit</button></t:actionlink>
+								<t:actionlink t:id="editbut" context="user.id" zone="^"><button>${message:edit-but}</button></t:actionlink>
 							</t:if>
 						</t:if>
 					</p:editCell>
 					<p:makeOwnercell>
 						<t:if test="!editing">
 							<t:if test="!owner">
-								<t:actionlink t:id="makeOwnerBut" context="user.id" zone="^"><button>makeOwner</button></t:actionlink>
+								<t:actionlink t:id="makeOwnerBut" context="user.id" zone="^"><button>${message:makeowner-but}</button></t:actionlink>
 							</t:if>
 						</t:if>
 					</p:makeOwnercell>
@@ -44,9 +44,10 @@
 		
 		<t:zone t:id="areuSureZone" id="areuSureZone">
 			<t:if test="showSure">
-				Esta seguro de hacer a <b>${toCheck.email }</b> propietario de <b>${companyName }</b><br/>
-				<t:actionlink t:id="successChangeOwnerBut" t:zone="^"><button>SI</button></t:actionlink>
-				<t:actionlink t:id="cancelChangeOwnerBut" t:zone="^"><button>NO</button></t:actionlink>
+				
+				${message:are-u-sure}<b>${toCheck.email }</b>${message:owner-of}<b>${companyName }</b><br/>
+				<t:actionlink t:id="successChangeOwnerBut" t:zone="^"><button>${message:yes-but}</button></t:actionlink>
+				<t:actionlink t:id="cancelChangeOwnerBut" t:zone="^"><button>${message:not-but}</button></t:actionlink>
 			</t:if>
 		</t:zone>
 		<!--  
@@ -61,20 +62,20 @@
 					<table>
 						<tr>
 							<td>
-								<label>Email</label>
+								<t:label for="emailfield"/>
 							</td>
 							<td>
 								<t:textfield t:id="emailfield" t:value="editprof.email"/>
 							</td>
 							<td>
 							<t:if test="nonavalible">
-								email en uso
+								${message:non-available}
 							</t:if>
 						</td>
 						</tr>
 						<tr>
 						<td>
-							<label>Admin</label>
+							<t:label for="adminbox"/>
 						</td>
 						<td>
 							<t:checkbox t:id="adminbox" t:value="editprof.admin"/>
@@ -82,7 +83,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>Maker</label>
+							<t:label for="makerbox"/>
 						</td>
 						<td>
 							<t:checkbox t:id="makerbox" t:value="editprof.maker"/>
@@ -90,7 +91,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>FirstName</label>
+							<t:label for="firstnamefield"/>
 						</td>
 						<td>
 							<t:textfield t:id="firstnamefield" t:value="editprof.firstname"/>
@@ -98,7 +99,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>LastName</label>
+							<t:label for="lastnamefield"/>
 						</td>
 						<td>
 							<t:textfield t:id="lastnamefield" t:value="editprof.lastname"/>
@@ -106,7 +107,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>University</label>
+							<t:label for="universityfield"/>
 						</td>
 						<td>
 							<t:textfield t:id="universityfield" t:value="editprof.university"/>
@@ -114,7 +115,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>City</label>
+							<t:label for="cityfield"/>
 						</td>
 						<td>
 							<t:textfield t:id="cityfield" t:value="editprof.city"/>
@@ -122,7 +123,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label>Country</label>
+							<t:label for="countryfield"/>
 						</td>
 						<td>
 							<t:textfield t:id="countryfield" t:value="editprof.country"/>
@@ -130,10 +131,10 @@
 					</tr>
 					<tr>
 						<td>
-							<label><input t:type="submit" t:id="save" value="Save"/></label>
+							<label><input t:type="submit" t:id="save" value="${message:save-but}"/></label>
 						</td>
 						<td>
-							<input t:type="submit" t:id="cancel" value="Cancel" t:mode="cancel"/>
+							<input t:type="submit" t:id="cancel" value="${message:cancel-but}" t:mode="cancel"/>
 						</td>
 					</tr>
 					</table>

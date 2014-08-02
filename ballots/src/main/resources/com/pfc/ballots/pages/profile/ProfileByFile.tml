@@ -5,18 +5,18 @@
 
 
 
-	<h1>A�adir usuarios por fichero </h1>
+	<h1>${message:add-by-file} </h1>
 		
 		<t:form t:id="uploadForm">
 			<t:errors/>
 			<input t:type="upload" t:id="file" t:value="file" validate="required"/><br/>
-			<input type="submit" value="Upload"/>		
+			<input type="submit" value="${message:upload}"/>		
 		</t:form>
 			
 			
 		<t:zone t:id="gridZone" id="gridZone">
 			<t:if test="fileupload">
-				<t:grid source="persons" row="person" add="ID,Edit,Avalible,Add" exclude="lastLog,regDate,plainpass" reorder="ID,Avalible" rowsperpage="10" inplace="true">
+				<t:grid source="persons" row="person" add="ID,Edit,Avalible,Add" exclude="owner,lastLog,regDate,plainpass" reorder="ID,Avalible" rowsperpage="10" inplace="true">
 					<p:idcell>
 						${person.id }
 					</p:idcell>
@@ -25,36 +25,36 @@
 					</p:avaliblecell>
 					<p:emailcell>
 						${person.email }
-						<t:if test="!okemail"><br/><font color="red">Email no valido</font> </t:if>
+						<t:if test="!okemail"><br/><font color="red">${message:non-available-email}</font> </t:if>
 					</p:emailcell>
 					<p:passwordcell>
 						${person.password }
-						<t:if test="!okpass"><br/><font color="red">minimo 6 caracteres</font> </t:if>
+						<t:if test="!okpass"><br/><font color="red">${message:min-6}</font> </t:if>
 					</p:passwordcell>
 					<p:firstnamecell>
 						${person.firstname}
-						<t:if test="!okfirstname"><br/><font color="red">Obligatorio</font></t:if>
+						<t:if test="!okfirstname"><br/><font color="red">${message:required}</font></t:if>
 					</p:firstnamecell>
 					<p:lastnamecell>
 						${person.lastname }
-						<t:if test="!oklastname"><br/><font color="red">Obligatorio</font></t:if>
+						<t:if test="!oklastname"><br/><font color="red">${message:required}</font></t:if>
 					</p:lastnamecell>
 					<p:editcell>
 						<t:if test="!editing">
-							<t:actionlink t:id="editBut" context="person.id" zone="^"><button>Edit</button></t:actionlink>
+							<t:actionlink t:id="editBut" context="person.id" zone="^"><button>${message:edit-but}</button></t:actionlink>
 						</t:if>
 					</p:editcell>  
 					<p:addcell>
 						<t:if test="avalible">
 							<t:if test="complete">
-								<t:actionlink t:id="addbut" context="person.id" zone="^"><button>Add</button></t:actionlink>
+								<t:actionlink t:id="addbut" context="person.id" zone="^"><button>${message:add-but}</button></t:actionlink>
 							</t:if>
 						</t:if>
 					</p:addcell>        
 				</t:grid>
-				<t:actionlink t:id="endBut"><button>FINISH</button></t:actionlink>
-				<t:actionlink t:id="addRowBut" zone="^"><button>AddRow</button></t:actionlink>
-				<t:actionlink t:id="addavaliblesBut" zone="^"><button>AddAvalibles</button></t:actionlink>
+				<t:actionlink t:id="endBut"><button>${message:finish-but}</button></t:actionlink>
+				<t:actionlink t:id="addRowBut" zone="^"><button>${message:addrow-but}</button></t:actionlink>
+				<t:actionlink t:id="addavaliblesBut" zone="^"><button>${message:addavailable-but}</button></t:actionlink>
 			</t:if>
 		</t:zone>
 		<t:zone t:id="editZone" id="editZone">
@@ -63,7 +63,23 @@
 					<table>
 						<tr>
 							<td>
-								<label>Email</label>
+								<t:label for="adminbox"/>
+							</td>
+							<td>
+								<t:checkbox t:id="adminbox" t:value="profile.admin"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<t:label for="makerbox"/>
+							</td>
+							<td>
+								<t:checkbox t:id="makerbox" t:value="profile.maker"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<t:label for="emailfield"/>
 							</td>
 							<td>
 								<t:textfield t:id="emailfield" t:value="profile.email"/>
@@ -71,7 +87,7 @@
 						</tr>
 						<tr>
 							<td>
-								<label>Password</label>
+								<t:label for="passfield"/>
 							</td>
 							<td>
 								<t:textfield t:id="passfield" t:value="profile.password" validate="required,minLength=6"/>
@@ -79,7 +95,7 @@
 						</tr>
 						<tr>
 							<td>
-								<label>First Name</label>
+								<t:label for="firstnamefield"/>
 							</td>
 							<td>
 								<t:textfield t:id="firstnamefield" t:value="profile.firstName"/>
@@ -87,7 +103,7 @@
 						</tr>
 						<tr>
 							<td>
-								<label>Last Name</label>
+								<t:label for="lastnamefield"/>
 							</td>
 							<td>
 								<t:textfield t:id="lastnamefield" t:value="profile.lastName"/>
@@ -95,7 +111,7 @@
 						</tr>
 						<tr>
 							<td>
-								<label>University</label>
+								<t:label for="universityfield"/>
 							</td>
 							<td>
 								<t:textfield t:id="universityfield" t:value="profile.university"/>
@@ -103,7 +119,7 @@
 						</tr>
 						<tr>
 							<td>
-								<label>City</label>
+								<t:label for="cityfield"/>
 							</td>
 							<td>
 								<t:textfield t:id="cityfield" t:value="profile.city"/>
@@ -111,7 +127,7 @@
 						</tr>
 						<tr>
 							<td>
-								<label>Country</label>
+								<t:label for="countryfield"/>
 							</td>
 							<td>
 								<t:textfield t:id="countryfield" t:value="profile.country"/>
@@ -119,10 +135,10 @@
 						</tr>
 						<tr>
 							<td>
-								<label><input t:type="submit" t:id="save" value="Save"/></label>
+								<label><input t:type="submit" t:id="save" value="${message:save-but}"/></label>
 							</td>
 							<td>
-								<input t:type="submit" t:id="cancel" value="Cancel" t:mode="cancel"/>
+								<input t:type="submit" t:id="cancel" value="${message:cancel-but}" t:mode="cancel"/>
 							</td>
 						</tr>
 					</table>

@@ -10,12 +10,12 @@
 			<t:if test="!showUsersCountedZone">
 				<h1>${censusName}</h1>
 				<t:grid source="users" row="user" exclude="regdate,password,id,plainpass,lastlog"/>
-				<t:actionlink t:id="editbut" t:zone="^"><button>EDIT</button></t:actionlink>
+				<t:actionlink t:id="editbut" t:zone="^"><button>${message:edit-but}</button></t:actionlink>
 			</t:if>
 		</t:zone>
 		<t:zone t:id="upperBackZone" id="upperBackZone">
 			<t:if test="showUsersCountedZone">
-				<t:eventLink t:event="back" zone="^"><button>Finish</button></t:eventLink>
+				<t:eventLink t:event="back" zone="^"><button>${message:finish-but}</button></t:eventLink>
 			</t:if>
 		</t:zone>
 		
@@ -29,17 +29,18 @@
 				<t:form t:id="nameForm" zone="^">
 					<table>
 						<tr>
-							<td><label>Census Name:</label></td>
+							<td><t:label for="censusName"/></td>
 							<td>
 								<t:textfield t:id="censusName"/>
 								<t:if test="nameNotAvalible">
-									Nombre no disponible
+									${message:non-available}
 								</t:if>
 							</td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><input t:type="submit" value="update"/><t:actionLink t:id="cancelNameBut" zone="^"><button>restore</button></t:actionLink></td>
+							<td><input t:type="submit" value="${message:update-but}"/>
+							<t:actionLink t:id="cancelNameBut" zone="^"><button>${message:restore:but}</button></t:actionLink></td>
 						</tr>
 					</table>
 				</t:form>
@@ -53,9 +54,9 @@
 	   <t:zone t:id="searchTypeZone" id="searchTypeZone">
 	   		<t:if test="showSearchType">
 	   			<t:if test="showBasicSearch">
-	   				<t:eventlink t:event="switchSearch" zone="^">Avanzada</t:eventlink>
+	   				<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search}</t:eventlink>
 	   				<p:else>
-	   					<t:eventlink t:event="switchSearch" zone="^">Basica</t:eventlink>
+	   					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink>
 	   				</p:else>
 	   			</t:if>
 	   		</t:if>
@@ -71,12 +72,12 @@
 	   			<t:form t:id="basicSearchForm" zone="^">
 	   				<table>
 	   					<tr>
-	   						<td><label>Email</label></td>
+	   						<td><t:label for="email"/></td>
 	   						<td><t:textfield t:id="email"/></td>
 	   					</tr>
 	   					<tr>
 	   						<td></td>
-	   						<td><p style="text-align:center;"><input t:type="submit" value="submit"/></p></td>
+	   						<td><p style="text-align:center;"><input t:type="submit" value="${message:search-but}"/></p></td>
 	   					</tr>
 	   					
 	   				</table>
@@ -92,37 +93,37 @@
 	   			<t:form t:id="advancedSearchForm" zone="^">
 	   				<table>
    						<tr>
-								<td><label>Admin</label></td>
+								<td><t:label for="admin"/></td>
 								<td><t:checkbox t:id="admin" value="profile.admin"/></td>
 						</tr>
 						<tr>
-								<td><label>Maker</label></td>
+								<td><t:label for="maker"/></td>
 								<td><t:checkbox t:id="maker" value="profile.maker"/></td>
 						</tr>
 						<tr>
-					 		<td><label>First Name</label></td>
+					 		<td><t:label for="firstName"/></td>
 					 		<td><t:textfield t:id="firstName"></t:textfield></td>
 					 	</tr>
 						<tr>
-			 					<td><label>Last Name</label></td>
+			 					<td><t:label for="lastName"/></td>
 			 					<td><t:textfield t:id="lastName"></t:textfield></td>
 			 			</tr>
 			 			<tr>
-			 					<td><label>University</label></td>
+			 					<td><t:label for="university"/></td>
 			 					<td><t:textfield t:id="university" value="profile.university"/></td>
 			 			</tr>
 				 		<tr>
-					 			<td><label>City</label></td>
+					 			<td><t:label for="city"/></td>
 					 			<td><t:textfield t:id="city" value="profile.city"/></td>
 				 		</tr>
 				 		<tr>
-					 			<td><label>Country</label></td>
+					 			<td><t:label for="country"/></td>
 					 			<td><t:textfield t:id="country" value="profile.country"/></td>
 				 		</tr>					 	
 					 	<tr>
 					 		<td></td>
-							<td><p style="text-align:center;"><input t:type="submit" value="Submit"/>
-								<t:actionlink t:id="reset" t:zone="^"><button>Reset</button></t:actionlink>
+							<td><p style="text-align:center;"><input t:type="submit" value="${message:search-but}"/>
+								<t:actionlink t:id="reset" t:zone="^"><button>${message:reset-but}</button></t:actionlink>
 							</p></td>
 									
 					 	</tr>	   				
@@ -139,7 +140,7 @@
 			<t:if test="showSearchType">
 				<t:form t:id="addForm" zone="^">
 					<table>
-						<tr><td><t:actionlink t:id="showAll" t:zone="^">showAll</t:actionlink></td></tr>
+						<tr><td><t:actionlink t:id="showAll" t:zone="^">${message:showall-users}</t:actionlink></td></tr>
 						<tr><td>
 							<t:if test="showSearchList">
 								<t:grid source="searchList" row="user" add="add" reorder="add" exclude="regdate,password,id,plainpass,lastlog">
@@ -151,7 +152,7 @@
 						</td></tr>
 						<tr><td>
 							<t:if test="showSearchList">
-								<input t:type="submit" value="add"/><t:actionlink t:id="addAll" t:zone="^"><button>addAll</button></t:actionlink>
+								<input t:type="submit" value="${message:add-but}"/><t:actionlink t:id="addAll" t:zone="^"><button>${message:addall-but}</button></t:actionlink>
 							</t:if>
 						</td></tr>
 					</table>
@@ -178,7 +179,7 @@
 							</t:grid>
 						</td></tr>
 						<tr><td>
-							<input t:type="submit" value="remove"/><t:actionlink t:id="removeAll" t:zone="^"><button>removeAll</button></t:actionlink>
+							<input t:type="submit" value="${message:remove-but}"/><t:actionlink t:id="removeAll" t:zone="^"><button>${message:removeall-but}</button></t:actionlink>
 						</td></tr>
 					</table>
 				</t:form>
@@ -190,16 +191,16 @@
 	   
 		<t:zone t:id="saveCancelZone" id="saveCancelZone">
 	   		<t:if test="showSave">
-	   			<t:actionlink t:id="savebut" t:zone="^"><button>SAVE</button></t:actionlink>
+	   			<t:actionlink t:id="savebut" t:zone="^"><button>${message:save-but}</button></t:actionlink>
 	   		</t:if>
 	   		<t:if test="showCancel">
-	   			<t:actionlink t:id="cancelbut" t:zone="^"><button>RESTORE</button></t:actionlink>
+	   			<t:actionlink t:id="cancelbut" t:zone="^"><button>${message:restore-but}</button></t:actionlink>
 	   		</t:if>
 		</t:zone>
 		
 		<t:zone t:id="lowerBackZone" id="lowerBackZone">
 			<t:if test="showUsersCountedZone">
-				<t:eventLink t:event="back" zone="^"><button>Finish</button></t:eventLink>
+				<t:eventLink t:event="back" zone="^"><button>${message:finish-but}</button></t:eventLink>
 			</t:if>
 		</t:zone>
 		

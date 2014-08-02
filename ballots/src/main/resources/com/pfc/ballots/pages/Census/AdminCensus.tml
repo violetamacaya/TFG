@@ -6,12 +6,12 @@
 			<t:form t:id="searchForm" t:zone="censusGridZone">
 				<table>
 					<tr>
-						<td><label>Email</label></td>
+						<td><t:label for="email"/></td>
 						<td><t:textfield t:id="email"/></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input t:type="submit" value="search"/></td>
+						<td><input t:type="submit" value="${message:search-but}"/></td>
 					</tr>
 				</table>
 			</t:form>		
@@ -19,15 +19,15 @@
 		
 		<t:zone t:id="censusGridZone" id="censusGridZone" >
 			<table>
-				<tr><td><t:actionlink t:id="showAll" t:zone="^"><button>showAll</button></t:actionlink></td></tr>
+				<tr><td><t:actionlink t:id="showAll" t:zone="^"><button>${message:showall-but}</button></t:actionlink></td></tr>
 				<tr><td>
 					<t:grid source="censuses" row="census" exclude="id,idowner" reorder="email" add="details,remove">
 						<p:detailscell>
-							<t:actionlink t:id="detailsbut" context="census.id"><button>details</button></t:actionlink>
+							<t:actionlink t:id="detailsbut" context="census.id"><button>${message:details-but}</button></t:actionlink>
 						</p:detailscell>
 						
 						<p:removecell>
-							<t:actionlink t:id="removebut" context="census.id" zone="^"><button>remove</button></t:actionlink>
+							<t:actionlink t:id="removebut" context="census.id" zone="^"><button>${message:remove-but}</button></t:actionlink>
 						</p:removecell>
 						
 					</t:grid>

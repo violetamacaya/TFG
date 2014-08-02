@@ -3,16 +3,17 @@
 	<t:border>
 	
 		<t:if test="showEmailProblem">
-			<h1>PROBLEMA CON EL EMAIL</h1>
-			En estos momentos no es posible que usted se ponga en contacto con nostros debido a un problema con nuestra cuenta de correo electronico<br/>
-			Por favor, intentelo mas tarde<br/>
-			Perdon por las molestias
+			<h1>${message:mail-problem}</h1>
+			${message:in-this-moments}<br/>
+			${message:please}<br/>
+			${message:sorry}
+			
 			
 			
 			<p:else>
 				<t:form t:id="contact">
-					<h1>Conctacta con nosotros</h1>
-					Nuestra direccion de contacto es ${emailAccount.email}<br/><br/>
+					<h1>${message:contact-with-us}</h1>
+					${message:our-email} ${emailAccount.email}<br/><br/>
 					<table>
 						<tr>
 							<td><t:Label t:for="remitente"/></td>
@@ -26,7 +27,7 @@
 						
 					
 						<tr>
-							<td><input t:type="submit" value="send"/></td>
+							<td><input t:type="submit" value="${message:send}"/></td>
 						</tr>
 					
 					</table>

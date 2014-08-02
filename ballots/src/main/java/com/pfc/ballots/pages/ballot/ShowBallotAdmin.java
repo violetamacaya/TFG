@@ -88,17 +88,21 @@ public class ShowBallotAdmin {
 				  	relMay.calcularMayoriaRelativa();
 				  	relMayDao.update(relMay);
 				  	ballot_temp.setCounted(true);
-				  	ballotDao.updateBallot(ballot);
+				  	ballotDao.updateBallot(ballot_temp);
 				}
-				if(ballot_temp.getMethod()==Method.KEMENY)
+				else if(ballot_temp.getMethod()==Method.KEMENY)
 				{
-					//CALCULAR KEMENY AQUI
+					Kemeny kemeny=kemenyDao.getByBallotId(ballot_temp.getId());
+					kemeny.calcularKemeny();
+					kemenyDao.update(kemeny);
+					ballot_temp.setCounted(true);
+					ballotDao.updateBallot(ballot_temp);
 				}
 			}
 			
 		}
-		kemenys=kemenyDao.retrieveAll();
-		relMays=relMayDao.retrieveAll();
+		//kemenys=kemenyDao.retrieveAll();
+		//relMays=relMayDao.retrieveAll();
 		
 	}
 	
@@ -187,7 +191,7 @@ public class ShowBallotAdmin {
 			return Index.class;
 		}
 	}
-	public void onActionFromDeleteAllMaj()
+	/*public void onActionFromDeleteAllMaj()
 	{
 		if(request.isXHR())
 		{
@@ -204,7 +208,7 @@ public class ShowBallotAdmin {
 			kemenys=null;
 			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone);
 		}
-	}
+	}*/
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 //////////////////////////////////////////////////// AREUSURE ZONE //////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

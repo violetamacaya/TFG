@@ -3,6 +3,7 @@
 	<t:border>
 		<infouser>
 			Se ha enviado un email con su nueva contrase�a
+			${message:mail-sended}
 			<t:pagelink page="index">INDEX</t:pagelink>
 		</infouser>
 		

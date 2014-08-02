@@ -13,11 +13,15 @@ import org.apache.tapestry5.alerts.AlertManager;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.KemenyDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Vote;
+import com.pfc.ballots.entities.ballotdata.Kemeny;
+import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.ballot.ResultBallot;
 import com.pfc.ballots.pages.ballot.VoteBallot;
 
@@ -37,6 +41,19 @@ public class Index
 		private ComponentResources componentResources;
 		
 		
+		  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		 /////////////////////////////////////////////////////// DAO ///////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+		@Persist
+		BallotDao ballotDao;
+		@Persist
+		VoteDao voteDao;
+		@Persist
+		RelativeMajorityDao relMayDao;
+		@Persist
+		KemenyDao kemenyDao;
+		
 		
 		  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 ///////////////////////////////////////////////////// INITIALIZE //////////////////////////////////////////////////////////////////
@@ -53,18 +70,38 @@ public class Index
 			{
 				ballotDao=DB4O.getBallotDao(datasession.getDBName());
 				voteDao=DB4O.getVoteDao(datasession.getDBName());
+				relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
+				kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 				currentBallots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()));//Obtiene las votaciones
+				for(Ballot ballot_temp:currentBallots)
+				{
+					if(ballot_temp.isEnded()==true && ballot_temp.isCounted()==false)
+					{
+						if(ballot_temp.getMethod()==Method.MAYORIA_RELATIVA)
+						{
+							//relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
+							RelativeMajority relMay=relMayDao.getByBallotId(ballot_temp.getId());
+						  	relMay.calcularMayoriaRelativa();
+						  	relMayDao.update(relMay);
+						  	ballot_temp.setCounted(true);
+						  	ballotDao.updateBallot(ballot_temp);
+						}
+						else if(ballot_temp.getMethod()==Method.KEMENY)
+						{
+							Kemeny kemeny=kemenyDao.getByBallotId(ballot_temp.getId());
+							kemeny.calcularKemeny();
+							kemenyDao.update(kemeny);
+							ballot_temp.setCounted(true);
+							ballotDao.updateBallot(ballot_temp);
+						}
+					}
+					
+				}
+				
 			}
 		}
 		
-		  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		 /////////////////////////////////////////////////////// DAO ///////////////////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-		@Persist
-		BallotDao ballotDao;
-		@Persist
-		VoteDao voteDao;
+
 		
 		
 		  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

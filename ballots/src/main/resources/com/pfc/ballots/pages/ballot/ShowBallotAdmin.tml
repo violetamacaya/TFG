@@ -12,11 +12,11 @@
 						${censusName}
 					</p:censusCell>
 					<p:deleteCell>
-						<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><button>delete</button></t:actionLink>
+						<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><button>${message:delete-but}</button></t:actionLink>
 					</p:deleteCell>
 					<p:finishCell>
 						<t:if test="!ballot.ended">
-							<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><button>finish</button></t:actionLink>
+							<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><button>${message:finish-but}</button></t:actionLink>
 						</t:if>
 					</p:finishCell>
 				</t:grid>

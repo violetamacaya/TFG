@@ -19,7 +19,7 @@
 							</tr>
 						</table>
 					 	</t:radiogroup>
-					 	<input t:type="submit" value="vote"/>
+					 	<input t:type="submit" value="${message:vote-but}"/>
 					 </t:form>
 					 
 				 </table>
@@ -27,17 +27,17 @@
 			<t:if test="showKemeny">
 				<t:zone t:id="kemenyZone">
 					<t:if test="showErrorKemeny">
-						Debe seleccionar todas las opciones en el orden que usted crea oportuno
+						${message:kemeny-text}
 					</t:if>
 					<t:form t:id="kemenyForm" t:zone="^">
 				 		<input t:type="Palette" t:id="palette" t:reorder="true" t:model="kemeny.optionPairs" t:selected="kemenyVote" t:encoder="stringValueEncoder"/>
-				 		<input t:type="submit" value="vote"/>
+				 		<input t:type="submit" value="${message:vote-but}"/>
 				 	</t:form>
 				 </t:zone>
 			</t:if>
 			
 			 <p:else>
-			 	Usted ya ha votado, espere a que se publiquen los resultados cuando termine la votacion
+			 	${message:vote-done}
 			 </p:else>
 		</t:if>
 	</t:border>
