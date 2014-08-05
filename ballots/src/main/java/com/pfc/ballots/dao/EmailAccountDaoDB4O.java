@@ -8,7 +8,17 @@ import com.db4o.query.Query;
 import com.pfc.ballots.entities.EmailAccount;
 
 public class EmailAccountDaoDB4O implements EmailAccountDao{
+
 /**
+ * 
+ * Implementation of the interface EmailAccount for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ *
+ */
+	
+/*
  * THIS DAO IS IMPLEMENTED FOR ONLY ONE ITEM EmailAccount IN THE DATABASE
  * 
  */
@@ -30,7 +40,10 @@ public class EmailAccountDaoDB4O implements EmailAccountDao{
 			PATH=ruta+DBName;
 		}
 	}
-	
+	/**
+	 * Retrieves the EmailAccout
+	 * @return EmailAccount
+	 */
 	@SuppressWarnings("rawtypes")
 	public EmailAccount getAccount() {
 			
@@ -61,6 +74,10 @@ public class EmailAccountDaoDB4O implements EmailAccountDao{
 		return account;
 	}
 
+	/**
+	 * Stores the emailAccount
+	 * @param account account to store
+	 */
 	public void setEmailAccount(EmailAccount account) {
 		open();
 		try
@@ -77,7 +94,10 @@ public class EmailAccountDaoDB4O implements EmailAccountDao{
 			close();
 		}
 	}
-
+	
+	/**
+	 * Deletes the email account
+	 */
 	@SuppressWarnings("rawtypes")
 	public void deleteEmailAccount() {
 		open();
@@ -109,7 +129,10 @@ public class EmailAccountDaoDB4O implements EmailAccountDao{
 		}
 		
 	}
-
+	/**
+	 * Updates the account
+	 * @param newAccount account to store
+	 */
 	@SuppressWarnings("rawtypes")
 	public void updateEmailAccount(EmailAccount newAccount) {
 		open();
@@ -144,7 +167,9 @@ public class EmailAccountDaoDB4O implements EmailAccountDao{
 	}
 	
 	//********************************************Open and Close DB************************************//
-	
+		/**
+		 * Opens database
+		 */
 			private void open()
 			{
 				config=Db4oEmbedded.newConfiguration();
@@ -162,6 +187,9 @@ public class EmailAccountDaoDB4O implements EmailAccountDao{
 					e.printStackTrace();
 				}
 			}
+			/**
+			 * Closes database
+			 */
 			private void close()
 			{
 				DB.close();

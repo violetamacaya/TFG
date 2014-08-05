@@ -27,9 +27,65 @@ import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
-
+/**
+ * 
+ * UsersList class is the controller for the UsersList page that
+ * provides the administration of the registered users
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
 public class UserList {
-
+   ///////////////////////////////////////////////// GENERAL ///////////////////////////////////////////////
+	@Inject
+	private AjaxResponseRenderer ajaxResponseRenderer;
+	@Inject
+	private Request request;
+	
+	@SessionState
+	private DataSession datasession;
+	
+	/**
+	 *Enum to control the form state
+	 */
+	private enum Actions{
+		SAVE,CANCEL
+	};
+	
+	
+	///////////////////////////////////////////////// DAO ///////////////////////////////////////////////////////////
+	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	@Persist
+	UserDao userDao;
+	@Persist
+	UserLogedDao userLogedDao;
+	@Persist
+	ProfileCensedInDao censedInDao;
+	@Persist
+	CensusDao censusDao;
+	@Persist
+	CompanyDao companyDao;
+	
+	
+	/////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////
+	public void setupRender()
+	{
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
+		censusDao=DB4O.getCensusDao(datasession.getDBName());
+		companyDao=DB4O.getCompanyDao();
+		editing=false;
+		
+		users=userDao.RetrieveAllProfilesSortLastLog();
+		nomails=userDao.getNoMailProfiles();
+		if(nomails==null || nomails.size()==0)
+		{showNoMail=false;}
+		else
+		{showNoMail=true;}
+		editprof=null;
+	}
+	//////////////////////////////////////////////////// PAGE ISSUES /////////////////////
 	@InjectComponent
 	private Zone nomailgrid;
 	@InjectComponent
@@ -40,11 +96,6 @@ public class UserList {
 	@InjectComponent
 	private Form editForm;
 	
-	@Inject
-	private Request request;
-	
-	@SessionState
-	private DataSession datasession;
 	@Property
 	@Persist
 	private List<Profile> users;
@@ -71,45 +122,7 @@ public class UserList {
 	@Property
 	private Profile editprof;
 	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	
-	private enum Actions{
-		SAVE,CANCEL
-	};
-	
 	private Actions action;
-	
-	//****************************************Initialize DAO****************************//
-	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	@Persist
-	UserDao userDao;
-	@Persist
-	UserLogedDao userLogedDao;
-	@Persist
-	ProfileCensedInDao censedInDao;
-	@Persist
-	CensusDao censusDao;
-	@Persist
-	CompanyDao companyDao;
-	
-	public void setupRender()
-	{
-		userDao=DB4O.getUsuarioDao(datasession.getDBName());
-		userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());
-		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
-		censusDao=DB4O.getCensusDao(datasession.getDBName());
-		companyDao=DB4O.getCompanyDao();
-		editing=false;
-		
-		users=userDao.RetrieveAllProfilesSortLastLog();
-		nomails=userDao.getNoMailProfiles();
-		if(nomails==null || nomails.size()==0)
-		{showNoMail=false;}
-		else
-		{showNoMail=true;}
-		editprof=null;
-	}
 	
 	public boolean isOwner()
 	{
@@ -118,16 +131,24 @@ public class UserList {
 		else
 			return false;
 	}
-
+	/**
+	 *Report that the save button has been pressed
+	 */
 	public void onSelectedFromSave()
 	{
 		action=Actions.SAVE;
 	}
+	
+	/**
+	 *Report that the cancel button has been pressed
+	 */
 	public void onSelectedFromCancel()
 	{
 		action=Actions.CANCEL;
 	}
-	
+	/**
+	 * Checks if the changes of the user are correct and store them
+	 */
 	void onSuccessFromEditForm()
 	{
 		boolean success=true;
@@ -221,7 +242,10 @@ public class UserList {
 		editForm.clearErrors();
 	}
 	
-	
+	/**
+	 * Show a edition form for the user with the corresponding id
+	 * @param id
+	 */
 	public void onActionFromEditbut(String id)
 	{
 		if(request.isXHR())
@@ -234,6 +258,11 @@ public class UserList {
 			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("nomailgrid",nomailgrid).addRender("editZone",editZone);
 		}
 	}
+	
+	/**
+	 * Show a edition form for the user with the corresponding id
+	 * @param id
+	 */
 	public void onActionFromEditnomail(String id)
 	{
 		if(request.isXHR())
@@ -246,7 +275,10 @@ public class UserList {
 			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("nomailgrid",nomailgrid).addRender("editZone",editZone);
 		}
 	}
-	
+	/**
+	 * Delete a user and all the unnecessary data
+	 * @param idUser
+	 */
 	public void onActionFromDeleteuser(String idUser)
 	{
 		if(request.isXHR())
@@ -269,6 +301,10 @@ public class UserList {
 			ajaxResponseRenderer.addRender("nomailgrid",nomailgrid).addRender("usergrid",usergrid);
 		}
 	}
+	/**
+	 * Delete a user and all the unnecessary data
+	 * @param idUser
+	 */
 	public void onActionFromDeletenomail(String idUser)
 	{
 		if(request.isXHR())
@@ -339,27 +375,21 @@ public class UserList {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE /////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
+	/**
+	 * Controls if the user can enter in the page
+	 * @return another page if the user can't enter
 	 */
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
-			case 1:
-				return null;
-			case 2:
-				return AdminMail.class;
-			case 3:
 				return Index.class;
-			case 4:
+			case 1:
+				return UnauthorizedAttempt.class;
+			case 2:
+				return null;
+			case 3:
 				return SessionExpired.class;
 			default:
 				return Index.class;

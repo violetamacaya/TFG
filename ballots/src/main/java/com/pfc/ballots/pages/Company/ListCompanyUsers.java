@@ -28,20 +28,20 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
 
-
+/**
+ * 
+ * ListCompanyUsers class is the controller for the ListCompanyUsers page that
+ * shows the list of users of a companies and allow to administrate them
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ */
 
 
 public class ListCompanyUsers {
 
 	@SessionState
 	private DataSession datasession;
-	
-	@Property
-	private Profile user;
-	
-	@InjectComponent
-	private Zone userGridZone;
-	
 	@Inject
 	private Request request;
 	
@@ -55,21 +55,11 @@ public class ListCompanyUsers {
 	@Persist
 	private String companyName;
 	
-	@Persist
-	private List<Profile> users;
-	
-	@Persist
-	@Property
-	private boolean editing;
-	@Persist
-	@Property
-	private boolean nonavalible;
-	
 	private enum Actions{
 		SAVE,CANCEL
 	};
 	
-	private Actions action;
+	
 	//******************************************     DAO    ***************************************************//
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	@Persist
@@ -81,7 +71,11 @@ public class ListCompanyUsers {
 	@Persist
 	CensusDao censusDao;
 	
-	
+	/**
+	 * Set the values of the company to administrate their users
+	 * @param companyName
+	 * @param DBName
+	 */
 	public void setup(String companyName,String DBName)
 	{
 		this.DBName=DBName;
@@ -92,6 +86,9 @@ public class ListCompanyUsers {
 		censusDao=DB4O.getCensusDao(DBName);
 		
 	}
+	/**
+	 * Initalize variables
+	 */
 	public void setupRender()
 	{
 		users=null;
@@ -99,6 +96,31 @@ public class ListCompanyUsers {
 		editing=false;
 		showSure=false;
 	}
+	
+	
+	/////////////////////////////////////////////////// PAGE STUFF////////////////////////////////////////
+	
+	
+	
+	@Persist
+	private List<Profile> users;
+	
+	@Persist
+	@Property
+	private boolean editing;
+	@Persist
+	@Property
+	private boolean nonavalible;
+	
+	@Property
+	private Profile user;
+	
+	@InjectComponent
+	private Zone userGridZone;	
+	
+	private Actions action;
+	
+	
 	public List<Profile> getUsers()
 	{
 		if(users==null)
@@ -107,7 +129,10 @@ public class ListCompanyUsers {
 		}
 		return users;
 	}
-	
+	/**
+	 * Shows the edition zone
+	 * @param id
+	 */
 	public void onActionFromEditbut(String id)
 	{
 		if(request.isXHR())
@@ -120,7 +145,10 @@ public class ListCompanyUsers {
 			ajaxResponseRenderer.addRender("userGridZone", userGridZone).addRender("editZone", editZone);
 		}
 	}
-	
+	/**
+	 * Deletes an user
+	 * @param email
+	 */
 	public void onActionFromDeleteuser(String email)
 	{
 		if(request.isXHR())
@@ -139,7 +167,10 @@ public class ListCompanyUsers {
 			ajaxResponseRenderer.addRender("userGridZone", userGridZone);
 		}
 	}
-	
+	/**
+	 * Shows a dialog to change the owner of the company
+	 * @param idNewOwner
+	 */
 	public void onActionFromMakeOwnerBut(String idNewOwner)
 	{
 		if(request.isXHR())
@@ -172,7 +203,9 @@ public class ListCompanyUsers {
 	{
 		action=Actions.CANCEL;
 	}
-	
+	/**
+	 * Updates the values of the users if is possible
+	 */
 	public void onSuccessFromEditForm()
 	{
 		boolean success=true;
@@ -254,7 +287,9 @@ public class ListCompanyUsers {
 	@Persist
 	private Profile toCheck;
 	
-	
+	/**
+	 * Changes the owner of the company
+	 */
 	public void onActionFromSuccessChangeOwnerBut()
 	{
 		if(request.isXHR())
@@ -268,6 +303,9 @@ public class ListCompanyUsers {
 			ajaxResponseRenderer.addRender("areuSureZone",areuSureZone).addRender("userGridZone", userGridZone);
 		}
 	}
+	/**
+	 * Cancels the change of owner of the company
+	 */
 	public void onActionFromCancelChangeOwnerBut()
 	{
 		if(request.isXHR())
@@ -319,37 +357,29 @@ public class ListCompanyUsers {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*
-		 *  * return an int with the state of the session
-		 * 		0->UserLogedIn;
-		 * 		1->AdminLoged
-		 * 		2->MainAdminLoged no email of the apliction configured
-		 * 		3->not loged
-		 * 		4->Session expired or kicked from server
-		 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
-		if(DBName==null)
-		{
-			return UnauthorizedAttempt.class;
-		}
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
+				return Index.class;
 			case 1:
-				if(datasession.isMainAdmin())
-					{return null;}
 				return UnauthorizedAttempt.class;
 			case 2:
-				return AdminMail.class;
+				if(datasession.isMainUser())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
 			case 3:
-				return Index.class;
-			case 4:
 				return SessionExpired.class;
 			default:
 				return Index.class;
 		}
-	
+		
 	}
 }

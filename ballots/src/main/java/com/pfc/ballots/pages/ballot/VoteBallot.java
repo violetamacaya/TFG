@@ -28,7 +28,15 @@ import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
-
+import com.pfc.ballots.pages.SessionExpired;
+/**
+ * 
+ * VoteBallot class is the controller for the VoteBallot page that
+ * allow to vote in a ballot
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ */
 public class VoteBallot {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 //////////////////////////////////////////////////// GENERAL STUFF //////////////////////////////////////////////////////////////////
@@ -79,10 +87,11 @@ public class VoteBallot {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * Initialize data
+	 */
 	public void setupRender()
 	{
-		System.out.println("HOOLA");
 		componentResources.discardPersistentFieldChanges();
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		ballot=ballotDao.getById(contextBallotId);
@@ -117,7 +126,10 @@ public class VoteBallot {
 	@Property
 	private String relMayOption;
 	
-	
+	/**
+	 * Stores the majority relative vote
+	 * @return
+	 */
 	public Object onSuccessFromRelativeMajorityForm()
 	{
 		vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
@@ -168,7 +180,10 @@ public class VoteBallot {
 	@Property
 	@Persist
 	private List<String> kemenyVote;
-	
+	/**
+	 * Stores the kemeny vote
+	 * @return
+	 */
 	public Object onSuccessFromKemenyForm()
 	{
 		showErrorKemeny=false;
@@ -210,5 +225,34 @@ public class VoteBallot {
 		}
 		return false;
 			
+	}
+	
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				return Index.class;
+			case 1:
+			case 2:
+				if(contextBallotId==null)
+					return Index.class;
+				else
+				{
+					return null;
+				}
+			case 3:
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
+		
 	}
 }

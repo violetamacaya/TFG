@@ -10,6 +10,14 @@ import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.Profile;
 
+/**
+ * 
+ * Implementation of the interface UserDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 2.0 FEB-2014
+ *
+ */
 
 public class UserDaoDB4O implements UserDao{
 
@@ -35,6 +43,11 @@ public class UserDaoDB4O implements UserDao{
 				   
 	
 	//*************************************************Store******************************************************
+	/**
+	 * Stores a profile
+	 * @param profile profile to store
+	 * 
+	 */
 	public void store(Profile profile)
 	{
 		open();
@@ -61,6 +74,10 @@ public class UserDaoDB4O implements UserDao{
 		}
 		
 	}
+	/**
+	 * Stores a list of profiles
+	 * @param profiles list of profiles to store
+	 */
 	public void store(List<Profile> profiles)
 	{
 		open();
@@ -88,7 +105,11 @@ public class UserDaoDB4O implements UserDao{
 	
 	
 	//******************************************************Retrievers*********************************//
-
+	/**
+	 * Retrieves a list of profiles that match with the example
+	 * @param example example for the search
+	 * @return List<Profile>
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<Profile> getByExample(Profile example)
 	{
@@ -137,7 +158,11 @@ public class UserDaoDB4O implements UserDao{
 		return list;
 	}
 	
-	
+	/**
+	 * Retrieves a Profile from its email
+	 * @param email of the profile
+	 * @return Profile
+	 */
 	@SuppressWarnings("rawtypes")
 	public Profile getProfileByEmail(String Email)
 	{
@@ -169,7 +194,11 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;
 	}
-	
+	/**
+	 * Retrieves a Profile from its id
+	 * @param id of the Profile
+	 * @return profile
+	 */
 	@SuppressWarnings("rawtypes")
 	public Profile getProfileById(String Id){
 
@@ -204,6 +233,11 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;	
 	}
+	/**
+	 * Retrieve a list of profiles from a list of its id
+	 * @param id list of id of the profiles
+	 * @return List<Profile>
+	 */
 	public List<Profile> getProfileById(List<String> id)
 	{
 		open();
@@ -227,6 +261,12 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return list;
 	}
+	
+	/**
+	 * Retrieves the email of a profile from its id
+	 * @param id of the profile
+	 * @return String 
+	 */
 	@SuppressWarnings("rawtypes")
 	public String getEmailById(String Id)
 	{
@@ -262,6 +302,11 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;	
 	}
+	/**
+	 * Retrieves an id of a profile from its email
+	 * @param email of the profile
+	 * @return String
+	 */
 	@SuppressWarnings("rawtypes")
 	public String getIdByEmail(String email)
 	{
@@ -295,6 +340,10 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;
 	}
+	/**
+	 * Retrieves the profiles with "@nomail"
+	 * @return List<Profile>
+	 */
 	public List<Profile> getNoMailProfiles()
 	{
 		List<Profile> all=RetrieveAllProfiles();
@@ -314,7 +363,10 @@ public class UserDaoDB4O implements UserDao{
 	}
 	
 	//*******************************************Retrieves all****************************************//
-	
+	/**
+	 * Retrieves all profiles in DB
+	 * @return List<Profile>
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<Profile> RetrieveAllProfiles() {
 		
@@ -346,6 +398,10 @@ public class UserDaoDB4O implements UserDao{
 		
 		return profiles;
 	}
+	/**
+	 * Retrieves all profiles sorted for last login
+	 * @return List<Profile>
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<Profile> RetrieveAllProfilesSortLastLog() {
 		List<Profile> profiles=new LinkedList<Profile>();
@@ -379,6 +435,10 @@ public class UserDaoDB4O implements UserDao{
 	}
 	
 	//************************************************** get/set-Owner***************************************************//
+	/**
+	 * Retrieves the profile of the owner of the DB
+	 * @return Profile
+	 */
 	public Profile getOwner()
 	{
 
@@ -413,6 +473,10 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return null;
 	}
+	/**
+	 * Set an user like owner of the database
+	 * @param idNewOwner id of the new owner
+	 */
 	@SuppressWarnings("rawtypes")
 	public void setOwner(String idNewOwner)
 	{
@@ -451,7 +515,11 @@ public class UserDaoDB4O implements UserDao{
 	}
 	
 	//***************************************************IsRegistred************************************************//
-	
+	/**
+	 * Checks if an email is in use
+	 * @param email to check
+	 * @return boolean
+	 */
 	public boolean isProfileRegistred(String email)
 	{
 		boolean temp=true;
@@ -472,6 +540,11 @@ public class UserDaoDB4O implements UserDao{
 		}
 		return temp;
 	}
+	/**
+	 * Checks if a no mail is in use
+	 * @param email to check
+	 * @return boolean
+	 */
 	public boolean isNoMailRegistred(String email)
 	{
 		boolean isRegistred=true;
@@ -499,7 +572,11 @@ public class UserDaoDB4O implements UserDao{
 	}
 	
 	//*********************************************** Updates ************************************************************//
-	
+	/**
+	 * Updates a Profile from its email(BETER NOT USE)
+	 * @param email of the profile to update
+	 * @param updatedProfile profile to update
+	 */
 	public void UpdateByEmail(String Email, Profile updatedProfile) {
 		
 		Profile temp=null;
@@ -521,7 +598,11 @@ public class UserDaoDB4O implements UserDao{
 			close();
 		}
 	}
-
+	
+	/**
+	 * Update a Profile from its email (BETTER NOT USE)
+	 * @param updatedProfile profile to update
+	 */
 	public void UpdateByEmail(Profile updatedProfile) {
 		
 		Profile temp=null;
@@ -543,6 +624,10 @@ public class UserDaoDB4O implements UserDao{
 			close();
 		}
 	}
+	/**
+	 * Updates a profile
+	 * @param updatedProfile profile to update
+	 */
 	public void UpdateById(Profile updatedProfile)
 	{
 		Profile temp=null;
@@ -565,6 +650,10 @@ public class UserDaoDB4O implements UserDao{
 	}
 	
 	//**********************************************   Delete    **************************************************//
+	/**
+	 * Deletes a Profile from its email
+	 * @param email of the profile to delete
+	 */
 	public void deleteByEmail(String Email)
 	{
 		Profile temp=null;
@@ -586,6 +675,10 @@ public class UserDaoDB4O implements UserDao{
 		}
 		
 	}
+	/**
+	 * Deletes a Profile from its id
+	 * @param id of the profile to delete
+	 */
 	public void deleteById(String id)
 	{
 		Profile temp=null;
@@ -607,7 +700,11 @@ public class UserDaoDB4O implements UserDao{
 	
 	
 	//************************************************Util(without open or close)***********************************//
-	
+	/**
+	 * Checks if an email is in use
+	 * @param Email to check
+	 * @return boolean
+	 */
 	@SuppressWarnings("rawtypes")
 	private boolean testEmail(String Email)
 	{
@@ -620,6 +717,11 @@ public class UserDaoDB4O implements UserDao{
 		return false;
 		
 	}
+	/**
+	 * Retrieves a Profile from its id
+	 * @param id of the profile to retrieve
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	private Profile getById(String id)
 	{
@@ -633,6 +735,11 @@ public class UserDaoDB4O implements UserDao{
 		
 		return null;
 	}
+	/**
+	 * Retrieves a Profile from its email
+	 * @param Email of the profile to retrieve
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	private Profile getByEmail(String Email)
 	{
@@ -646,7 +753,9 @@ public class UserDaoDB4O implements UserDao{
 	
 
 	//********************************************Open and Close DB************************************//
-	
+	/**
+	 * Opens database
+	 */
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
@@ -664,6 +773,9 @@ public class UserDaoDB4O implements UserDao{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Closes database
+	 */
 	private void close()
 	{
 		DB.close();

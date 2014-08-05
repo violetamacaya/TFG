@@ -27,6 +27,14 @@ import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
+/**
+ * 
+ * UsersCounted class is the controller for the UsersCounted page that
+ * shows user counted in a census
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
 
 public class UsersCounted {
 
@@ -47,7 +55,7 @@ public class UsersCounted {
 	@Inject
 	private Request request;
 	
-	
+	//////////////////////////////////////////////////// DAO  ////////////////////////////////////////////////
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	@Persist
 	CensusDao censusDao;
@@ -60,7 +68,9 @@ public class UsersCounted {
 	 /////////////////////////////////////////////// BUILDER AND SETUP ///////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	
+	/**
+	 * Initialize data
+	 */
 	public void setupRender()
 	{
 		censusDao=DB4O.getCensusDao(datasession.getDBName());
@@ -79,7 +89,10 @@ public class UsersCounted {
 		
 		
 	}
-	
+	/**
+	 * Set the id of the census to show 
+	 * @param censusId
+	 */
 	public void setup(String censusId)
 	{
 		this.censusId=censusId;
@@ -128,6 +141,9 @@ public class UsersCounted {
 		return users;
 	}
 	
+	/**
+	 * Shows an edit form to make changes in a census
+	 */
 	public void onActionFromEditbut()
 	{
 		showUsersCountedZone=true;
@@ -172,6 +188,9 @@ public class UsersCounted {
 	@Persist
 	private boolean nameNotAvalible;
 	
+	/**
+	 * Changes the census name 
+	 */
 	public void onSuccessFromNameForm()
 	{
 		if(!census.getCensusName().equals(censusName))
@@ -192,6 +211,9 @@ public class UsersCounted {
 			}
 		}
 	}
+	/**
+	 * Cancels the change of the name
+	 */
 	public void onActionFromCancelNameBut()
 	{
 		censusName=census.getCensusName();
@@ -215,6 +237,9 @@ public class UsersCounted {
 	@Persist
 	private Profile example;
 	
+	/**
+	 * Changes the kind of search
+	 */
 	public void onSwitchSearch()
 	{
 		if(showBasicSearch)
@@ -233,7 +258,9 @@ public class UsersCounted {
 			ajaxResponseRenderer.addRender("searchTypeZone", searchTypeZone).addRender("basicSearchZone", basicSearchZone).addRender("advancedSearchZone", advancedSearchZone);
 		}
 	}
-	
+	/**
+	 * Resets the search values
+	 */
 	public void onActionFromReset()
 	{
 		firstName=null;
@@ -261,7 +288,9 @@ public class UsersCounted {
 	@Property
 	@Persist
 	private String email;
-	
+	/**
+	 * Checks the basic search values
+	 */
 	public void onValidateFromBasicSearchForm()
 	{
 		example=null;
@@ -279,7 +308,9 @@ public class UsersCounted {
 			}
 		}
 	}
-	
+	/**
+	 * Allows the basic search
+	 */
 	public void onSuccessFromBasicSearchForm()
 	{
 		if(request.isXHR())
@@ -287,7 +318,9 @@ public class UsersCounted {
 			ajaxResponseRenderer.addRender("searchListZone", searchListZone);
 		}
 	}
-	
+	/**
+	 * Shows all the users
+	 */
 	public void onActionFromShowAll()
 	{
 		example=new Profile();
@@ -320,6 +353,9 @@ public class UsersCounted {
 	@Persist
 	private Profile profile;
 	
+	/**
+	 * Checks the advanced search values
+	 */
 	public void onValidateFromAdvancedSearchForm()
 	{
 		if(firstName!=null)
@@ -350,7 +386,9 @@ public class UsersCounted {
 				profile.setCountry(null);
 		}
 	}
-	
+	/**
+	 * Allows the basic search
+	 */
 	public void onSuccessFromAdvancedSearchForm()
 	{
 		example=new Profile(profile);
@@ -400,6 +438,10 @@ public class UsersCounted {
 		}
 		return false;
 	}
+	/**
+	 * Add a user to the census
+	 * @param add
+	 */
 	public void setAdd(boolean add)
 	{
 		if(add)
@@ -422,7 +464,9 @@ public class UsersCounted {
 		}
 		
 	}
-	
+	/**
+	 * Allows to add the selected users to the census
+	 */
 	public void onSuccessFromAddForm()
 	{
 		if(request.isXHR())
@@ -431,6 +475,9 @@ public class UsersCounted {
 			
 		}
 	}
+	/**
+	 * Adds all the users to the census
+	 */
 	public void onActionFromAddAll()
 	{
 		for(Profile temp:searchList)
@@ -478,6 +525,10 @@ public class UsersCounted {
 	{
 		return false;
 	}
+	/**
+	 * removes a user of the census
+	 * @param remove
+	 */
 	public void setRemove(boolean remove)
 	{
 		if(remove)
@@ -487,6 +538,9 @@ public class UsersCounted {
 			editUsers.remove(temp);
 		}
 	}
+	/**
+	 * Allows to remove a user of the census
+	 */
 	public void onSuccessFromRemoveForm()
 	{
 		if(request.isXHR())
@@ -494,6 +548,9 @@ public class UsersCounted {
 			ajaxResponseRenderer.addRender("searchListZone", searchListZone).addRender("usersCountedEditZone", usersCountedEditZone).addRender("saveCancelZone",saveCancelZone);
 		}
 	}
+	/**
+	 * Removes all the users of the census
+	 */
 	public void onActionFromRemoveAll()
 	{
 		map.clear();
@@ -526,7 +583,9 @@ public class UsersCounted {
 		}
 		return false;
 	}
-	
+	/**
+	 * Cancel the edition of the census
+	 */
 	public void onActionFromCancelbut()
 	{
 		editUsers.clear();
@@ -543,6 +602,9 @@ public class UsersCounted {
 			ajaxResponseRenderer.addRender("searchListZone", searchListZone).addRender("usersCountedEditZone", usersCountedEditZone).addRender("saveCancelZone",saveCancelZone);
 		}
 	}
+	/**
+	 * Update the census
+	 */
 	public void onActionFromSavebut()
 	{
 		Census old=new Census(census);
@@ -596,41 +658,34 @@ public class UsersCounted {
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
-	 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				if(datasession.isMaker())
+				return Index.class;
+			case 1:
+				if(datasession.isMaker() && censusId!=null)
 				{
-					if(censusId!=null)
-						return null;
-					else
-						return CensusList.class;
+					return null;
 				}
 				return UnauthorizedAttempt.class;
-			case 1:
-				if(censusId!=null)
-					return null;
-				else
-					return CensusList.class;
 			case 2:
-				return AdminMail.class;
+				if(censusId==null)
+				{
+					return Index.class;
+				}
+				return null;
 			case 3:
-				return Index.class;
-			case 4:
 				return SessionExpired.class;
 			default:
 				return Index.class;
 		}
+		
 	}
 	
 }

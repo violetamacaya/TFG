@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.Calculo.CalcMayoriaRelativa;
+/**
+ * RelativeMajority entity that contains the information of specific information
+ * for a relative majority ballot
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
 
 public class RelativeMajority {
 
@@ -77,7 +85,10 @@ public class RelativeMajority {
 	}
 
 	///////////////////////////////////////////////////////// tools ///////////////////////////////////////
-	
+	/**
+	 * Add a vote to the list
+	 * @param option vote to add
+	 */
 	public void addVote(String option)
 	{
 		if(votes==null)
@@ -86,6 +97,10 @@ public class RelativeMajority {
 		}
 		votes.add(option);
 	}
+	/**
+	 * Adds an option to the list
+	 * @param option to add
+	 */
 	public void addOption(String option)
 	{
 		if(options==null)
@@ -94,6 +109,11 @@ public class RelativeMajority {
 		}
 		options.add(option);
 	}
+	/**
+	 * Retrives the number of votes of a option
+	 * @param option to retrieve its result
+	 * @return
+	 */
 	public int getResultOption(String option)
 	{
 		if(results!=null)
@@ -102,7 +122,9 @@ public class RelativeMajority {
 		}
 		return -1;
 	}
-	
+	/**
+	 * Calculate the result of the ballot(the calc method is in a external jar)
+	 */
 	public void calcularMayoriaRelativa()
 	{
 		if(votes==null ||options==null)
@@ -115,7 +137,7 @@ public class RelativeMajority {
 			this.results=CalcMayoriaRelativa.CalculateMayoriaRelativa(options, votes, winners);
 		}
 	}
-	
+	/*
 	public Map<String,Integer> calcularMayoriaRelativa(List<String> options,List<String> votes,List<String> winners)
 	{
 		
@@ -126,6 +148,6 @@ public class RelativeMajority {
 		}
 		return CalcMayoriaRelativa.CalculateMayoriaRelativa(options, votes, winners);
 		
-	}
+	}*/
 
 }

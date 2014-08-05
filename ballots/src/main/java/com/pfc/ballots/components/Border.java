@@ -41,7 +41,13 @@ import com.pfc.ballots.pages.profile.ProfileByFile;
 import com.pfc.ballots.pages.profile.ShowProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
-
+/**
+ * Border class is a component that provides the menu interface for all the application
+ * 
+ * @author Mario Temprano Martín
+ * @version 2.0 FEB-2014
+ *
+ */
 public class Border {
 
 	/***************************************** Ajax menu stuff *******************************************************************/
@@ -104,6 +110,10 @@ public class Border {
 
 
 	}
+	
+	/**
+	 * Initialize border values to avoid errors
+	 */
 	public void restoreBorder()
 	{
 		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null || visibilityCensus==null)
@@ -163,7 +173,10 @@ public class Border {
 			persistentLocale.set(Locale.ENGLISH);
 		}
 	}
-	
+	/**
+	 * 
+	 * @return if the user is a maker
+	 */
 	public boolean isMaker()
 	{
 		if(datasession.isMaker())
@@ -179,10 +192,19 @@ public class Border {
 			return false;
 		}
 	}
+	/**
+	 * 
+	 * @return if the user is admin
+	 */
 	public boolean isAdmin()
 	{
 		return datasession.isAdmin();
 	}
+	
+	/**
+	 * 
+	 * @return if the user is an admin of the main application
+	 */
 	public boolean isMainAdmin()
 	{
 		if(datasession.isMainUser()&& datasession.isAdmin())
@@ -190,14 +212,18 @@ public class Border {
 		else 
 			return false;
 	}
+	/**
+	 * 
+	 * @return if the user is loged
+	 */
 	public boolean isLoged()
 	{
-		
 			return datasession.isLoged();
-		
-
-		
 	}
+	
+	/**
+	 * Logout the user from DB and clear session data
+	 */
 	public Object onActionFromLogout()
 	{
 		logedDao=DB4O.getUserLogedDao(datasession.getDBName());
@@ -213,7 +239,7 @@ public class Border {
 	}
 	/***************************************** Ajax menu Event Handler **********************************************************/
 	
-	/*
+	/**
 	 * Section is the context submitted by the eventlink to identify each link
 	 * in the menu of the border component for close or open drop menus. 
 	 */

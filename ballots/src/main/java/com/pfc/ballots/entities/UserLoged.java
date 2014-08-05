@@ -1,7 +1,14 @@
 package com.pfc.ballots.entities;
 
 import java.util.Date;
-
+/**
+ * UserLoged entity that contains the information of the session of 
+ * a user loged in the application
+ * 
+ * @author Mario Temprano Martin 
+ * @version 1.0 MAY-2014
+ *
+ */
 public class UserLoged {
 
 	private String email;

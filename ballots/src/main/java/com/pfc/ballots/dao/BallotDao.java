@@ -1,5 +1,11 @@
 package com.pfc.ballots.dao;
-
+/**
+ * Dao Interface to retrieves ballot entity
+ * 
+ * @author Mario Temprano Martin
+ * @Version 2.0 JUL-2014
+ * 
+ */
 import java.util.List;
 
 import com.pfc.ballots.entities.Ballot;

@@ -8,7 +8,14 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.pfc.ballots.entities.Vote;
-
+/**
+ * 
+ * Implementation of the interface VoteDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
 public class VoteDaoDB4O implements VoteDao {
 	
 	String sep=System.getProperty("file.separator");
@@ -31,6 +38,10 @@ public class VoteDaoDB4O implements VoteDao {
 		}
 	}
 	//********************************************* store *********************************************//
+	/**
+	 * Stores a Vote
+	 * @param vote to store
+	 */
 	public void store(Vote vote)
 	{
 		open();
@@ -49,6 +60,10 @@ public class VoteDaoDB4O implements VoteDao {
 			close();
 		}
 	}
+	/**
+	 * Stores a list of votes
+	 * @param votes list to store
+	 */
 	public void store(List<Vote> votes)
 	{
 		open();
@@ -71,7 +86,11 @@ public class VoteDaoDB4O implements VoteDao {
 		}
 	}
 	//******************************************** getters*********************************************//
-	
+	/**
+	 * Retrieves the votes of a ballot from its id
+	 * @param idBallot id of the ballot to retrieve their votes
+	 * @return List<Vote>
+	 */
 	public List<Vote> getBallotVotes(String idBallot)
 	{
 		open();
@@ -98,6 +117,12 @@ public class VoteDaoDB4O implements VoteDao {
 			close();
 		}
 	}
+	/**
+	 * Retrieves a Vote from its idBallot and its idUser
+	 * @param idBallot id of the ballot 
+	 * @param iduser id of the user
+	 * @return Vote 
+	 */
 	public Vote getVoteByIds(String idBallot,String idUser)
 	{
 		open();
@@ -120,6 +145,11 @@ public class VoteDaoDB4O implements VoteDao {
 			close();
 		}
 	}
+	/**
+	 * Retrieves the votes of an user from its id
+	 * @param idUser id of the user to retrieve his votes
+	 * @return List<Vote>
+	 */
 	public List<Vote> getVotesUser(String idUser)
 	{
 		open();
@@ -146,6 +176,11 @@ public class VoteDaoDB4O implements VoteDao {
 			close();
 		}
 	}
+	/**
+	 * Retrieves a list of the ids of the ballots that the user can vote
+	 * @param idUser id of the user
+	 * @return List<String>
+	 */
 	public List<String> getBallotsWithParticipation(String idUser)
 	{
 		open();
@@ -172,6 +207,12 @@ public class VoteDaoDB4O implements VoteDao {
 			close();
 		}
 	}
+	/**
+	 * Checks if a user already votes in a ballot
+	 * @param idBallot id of the ballot to check
+	 * @param idUser id of the user to check
+	 * @return boolean
+	 */
 	public boolean isVoted(String idBallot,String idUser)
 	{
 		open();
@@ -195,6 +236,10 @@ public class VoteDaoDB4O implements VoteDao {
 		}
 	}
 	//************************************************* Update ****************************************//
+	/**
+	 * Updates a vote
+	 * @param vote vote to update
+	 */
 		public void updateVote(Vote vote)
 		{
 			open();
@@ -218,7 +263,11 @@ public class VoteDaoDB4O implements VoteDao {
 			
 		}
 	//************************************************* Delete ****************************************//
-	public void deleteVoteOfBallot(String idBallot)
+	/**
+	 * Deletes the votes of a ballot from its id
+	 * @param idBallot id of the ballot
+	 */
+		public void deleteVoteOfBallot(String idBallot)
 	{
 		open();
 		try
@@ -242,7 +291,9 @@ public class VoteDaoDB4O implements VoteDao {
 		
 	}
 	//********************************************Open and Close DB************************************//
-	
+	/**
+	 * Opens database
+	 */
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
@@ -260,6 +311,9 @@ public class VoteDaoDB4O implements VoteDao {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Closes database
+	 */
 	private void close()
 	{
 		DB.close();

@@ -3,10 +3,17 @@ package com.pfc.ballots.entities;
 import java.util.Date;
 
 import com.pfc.ballots.data.Method;
-
+/**
+ * Ballot entity that contains the general information of a ballot
+ * 
+ * @author Mario Temprano Martin
+ * @version 2.0 JUN-2014
+ *
+ */
 public class Ballot {
 
 
+	
 	private String id;
 	private String name;
 	private String description;

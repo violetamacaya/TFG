@@ -12,6 +12,15 @@ import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.UserLoged;
 
+/**
+ * 
+ * Implementation of the interface UserLogedDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ *
+ */
+
 public class UserLogedDaoDB4O implements UserLogedDao{
 
 	String sep=System.getProperty("file.separator");
@@ -33,6 +42,11 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		System.out.println(ruta);
 	}
 	//***********************************************Store**********************************************//
+	
+	/**
+	 * Stores an UserLoged
+	 * @param userLoged to store
+	 */
 	public void store(UserLoged userLoged) {
 		open();
 		try
@@ -52,7 +66,11 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		
 	}
 	//*********************************************** Getter ******************************************//
-	
+	/**
+	 * Retrieves an UserLoged from its idSession
+	 * @param idSession of the UserLoged to retrieve
+	 * @return UserLoged
+	 */
 	public UserLoged getUserLoged(String idSession)
 	{
 		open();
@@ -77,6 +95,10 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		}
 	}
 	//**********************************************Retrieve all***************************************//
+	/**
+	 * Retrieves all the UserLoged entities in the database
+	 * @return List<UserLoged>
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<UserLoged> retrieveAll()
 	{
@@ -111,7 +133,9 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 	}
 	
 	//******************************************************Delete*************************************************************************//
-	
+	/**
+	 * Delete all UserLoged in database
+	 */
 	public void deleteAll()
 	{
 		open();
@@ -136,7 +160,10 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 	}
 	
 	
-	
+	/**
+	 * Delete an UserLoged from its idSession
+	 * @param idSession of the UserLoged to delete
+	 */
 	@SuppressWarnings("rawtypes")
 	public void delete(String idSession)
 	{
@@ -166,7 +193,10 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 			close();
 		}
 	}
-	
+	/**
+	 * Deletes an UserLoged from its email
+	 * @param email of the UserLoged to delete
+	 */
 	@SuppressWarnings("rawtypes")
 	public void deleteByEmail(String email)
 	{
@@ -197,6 +227,11 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		}
 	}
 	//**********************************************isLogedIn******************************************//
+	/**
+	 * Checks if a UserLoged is in database from its idSession
+	 * @param idSession to check
+	 * @return boolean
+	 */
 	@SuppressWarnings("rawtypes")
 	public boolean isLogedIn(String idSession)
 	{
@@ -223,7 +258,8 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		
 	}
 	/**
-	 * 				Compare Dates to close expired users Sesions
+	 * 	Deletes all UserLoged that exceeds the time of session
+	 * @param timeOfSession to check if the UserLoged exceeds
 	 */
 	@SuppressWarnings("rawtypes")
 	public void clearSessions(long timeOfSession) {
@@ -285,7 +321,10 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 		
 	}
 	//*********************************************** Update ******************************************//
-	
+	/**
+	 * Updates an UserLoged
+	 * @param userLoged to update
+	 */
 	public void updateUserLoged(UserLoged userLoged)
 	{
 		open();
@@ -318,7 +357,9 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 	
 	
 	//********************************************Open and Close DB************************************//
-	
+	/**
+	 * Opens database
+	 */
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
@@ -336,6 +377,9 @@ public class UserLogedDaoDB4O implements UserLogedDao{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Closes database
+	 */
 	private void close()
 	{
 		DB.close();

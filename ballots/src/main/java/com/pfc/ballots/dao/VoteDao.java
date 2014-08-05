@@ -3,6 +3,13 @@ package com.pfc.ballots.dao;
 import java.util.List;
 
 import com.pfc.ballots.entities.Vote;
+/**
+ * Dao Interface to retrieves Vote entity
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
 
 public interface VoteDao {
 

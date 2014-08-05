@@ -4,7 +4,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * Census entity that contains the information of a census
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ *
+ */
 public class Census {
 
 	private String id;
@@ -57,6 +63,10 @@ public class Census {
 		this.usersCounted = usersCounted;
 	}
 
+	/**
+	 * Adds an user to the census
+	 * @param id of the user to add
+	 */
 	public void addIdToUsersCounted(String id)
 	{
 		if(usersCounted==null)
@@ -65,10 +75,17 @@ public class Census {
 		}
 		usersCounted.add(id);
 	}
+	/**
+	 * Deletes all users of the census
+	 */
 	public void emptyUsersCounted()
 	{
 		usersCounted.clear();
 	}
+	/**
+	 * Removes the user from its id of the census
+	 * @param id of the user to remove
+	 */
 	public void removeIdOfUsersCounted(String id)
 	{
 		if(usersCounted!=null)
@@ -83,14 +100,25 @@ public class Census {
 		}
 	}
 	
-	
+	/**
+	 * Retrieves the number of user in the census
+	 * @return int
+	 */
 	public int getNumberOfCensed()
 	{
 		return usersCounted.size();
 	}
+	/**
+	 * Retrieves the email of the creator of the census
+	 * @return String
+	 */
 	public String getEmail() {
 		return email;
 	}
+	/**
+	 * Set the email of the creator of the census
+	 * @param email of the creator
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}

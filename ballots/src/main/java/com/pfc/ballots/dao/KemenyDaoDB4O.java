@@ -9,7 +9,14 @@ import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
-
+/**
+ * 
+ * Implementation of the interface KemenyDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
 public class KemenyDaoDB4O implements KemenyDao 
 {
 	String sep=System.getProperty("file.separator");
@@ -34,6 +41,10 @@ public class KemenyDaoDB4O implements KemenyDao
 	
 	
 	//********************************************* Store *********************************************//
+	/**
+	 * Stores a kemeny entity
+	 * @param kemeny entity to store
+	 */
 	public void store(Kemeny kemeny) {
 		open();
 		try
@@ -53,7 +64,10 @@ public class KemenyDaoDB4O implements KemenyDao
 	}
 
 	//********************************************** GETTRS *******************************************//
-
+	/**
+	 * Retrieves all Kemeny entities
+	 * @return list<Kemeny> list of all Kemeny entities
+	 */
 	public List<Kemeny> retrieveAll() {
 		List<Kemeny> kem=new LinkedList<Kemeny>();
 		open();
@@ -84,7 +98,11 @@ public class KemenyDaoDB4O implements KemenyDao
 		return kem;
 	}
 
-
+	/**
+	 * Retrieves a Kemeny entity from its idBallot
+	 * @param idBallot id of the ballot that use the Kemeny entity
+	 * @retur Kemeny entity
+	 */
 	public Kemeny getByBallotId(String idBallot) {
 		open();
 		try
@@ -110,11 +128,11 @@ public class KemenyDaoDB4O implements KemenyDao
 		
 	}
 
-
-
-
-
-
+	/**
+	 * Retrieves a Kemeny by its id
+	 * @param id id of the Kemeny entity
+	 * @return Kemeny
+	 */
 	public Kemeny getById(String id) {
 		open();
 		try
@@ -141,6 +159,9 @@ public class KemenyDaoDB4O implements KemenyDao
 
 
 	//********************************************** DELETE *******************************************//
+	/**
+	 * Deletes all the Kemeny entities
+	 */
 		public void deleteAll()
 		{
 			open();
@@ -169,7 +190,10 @@ public class KemenyDaoDB4O implements KemenyDao
 		}
 
 
-
+	/**
+	 * Deteles a Kemeny from its ballotId
+	 * @param ballotId id of the ballot that use the Kemeny entity
+	 */
 	public void deleteByBallotId(String ballotId) {
 		open();
 		try
@@ -198,7 +222,10 @@ public class KemenyDaoDB4O implements KemenyDao
 
 
 
-
+	/**
+	 * Deletes a Kemeny from its id
+	 * @param id id of the Kemeny to delete
+	 */
 	public void deleteById(String id) {
 		open();
 		try
@@ -223,7 +250,11 @@ public class KemenyDaoDB4O implements KemenyDao
 	}
 
 	//********************************************** UPDATE *******************************************//
-	
+		/**
+		 * Updates a Kemeny
+		 * 
+		 * @param updated Kemeny to update
+		 */
 		public void update(Kemeny updated)
 		{
 			open();
@@ -253,6 +284,9 @@ public class KemenyDaoDB4O implements KemenyDao
 	
 	
 	//********************************************Open and Close DB************************************//
+	/**
+	 * Opens database
+	 */
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
@@ -270,6 +304,9 @@ public class KemenyDaoDB4O implements KemenyDao
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Closes database
+	 */
 	private void close()
 	{
 		DB.close();

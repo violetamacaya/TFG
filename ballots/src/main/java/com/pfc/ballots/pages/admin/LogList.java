@@ -21,10 +21,19 @@ import com.pfc.ballots.entities.UserLoged;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
-
+/**
+ * 
+ * LogList class is the controller for the LogList page that
+ * provides the administration of the users loged and shows the 
+ * logins attempts
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
 public class LogList {
 
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	@Persist
 	LogDao logDao =DB4O.getLogDao();
 	@Persist
 	UserLogedDao userLogedDao;
@@ -73,7 +82,10 @@ public class LogList {
 	{
 		return userLogedDao.retrieveAll();
 	}
-	
+	/**
+	 * Kick a user from the application
+	 * @param idSession
+	 */
 	public void onActionFromKickbut(String idSession)
 	{
 		if(request.isXHR())
@@ -92,27 +104,21 @@ public class LogList {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE /////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
+	/**
+	 * Controls if the user can enter in the page
+	 * @return another page if the user can't enter
 	 */
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
-			case 1:
-				return null;
-			case 2:
-				return AdminMail.class;
-			case 3:
 				return Index.class;
-			case 4:
+			case 1:
+				return UnauthorizedAttempt.class;
+			case 2:
+				return null;
+			case 3:
 				return SessionExpired.class;
 			default:
 				return Index.class;

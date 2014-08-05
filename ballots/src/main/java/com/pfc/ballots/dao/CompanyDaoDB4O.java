@@ -13,7 +13,14 @@ import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.Company;
 
-
+/**
+ * 
+ * Implementation of the interface CompanyDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ *
+ */
 public class CompanyDaoDB4O implements CompanyDao {
 	
 	String sep=System.getProperty("file.separator");
@@ -25,7 +32,11 @@ public class CompanyDaoDB4O implements CompanyDao {
 	
 	
 	//************************************   Store    *****************************************//
-	
+	/**
+	 * Stores a company
+	 * 
+	 * @param company company to store
+	 */
 	public void store(Company company) 
 	{
 		open();
@@ -54,7 +65,11 @@ public class CompanyDaoDB4O implements CompanyDao {
 	}
 	
 	//**************************************  Retrieve *******************************************//
-	
+	/**
+	 * Retrieves a company from its name
+	 * @param companyName name of the company to retrieve
+	 * @return Company company whose name is companyName
+	 */
 	public Company getCompanyByName(String companyName)
 	{
 		Company temp=null;
@@ -82,7 +97,10 @@ public class CompanyDaoDB4O implements CompanyDao {
 		return temp;
 	}
 	
-	
+	/**
+	 * Retrieves all companies in database
+	 * @return List<Company> list of retrieved companies
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<Company> RetrieveAllCompanies()
 	{
@@ -114,6 +132,10 @@ public class CompanyDaoDB4O implements CompanyDao {
 		
 	}
 	//*************************************** Update  ******************************************//
+	/**
+	 * Updates a company
+	 * @param company company to update
+	 */
 	public void updateCompany(Company company)
 	{
 		
@@ -146,7 +168,10 @@ public class CompanyDaoDB4O implements CompanyDao {
 	
 	
 	//*************************************** Delete  ******************************************//
-	
+	/**
+	 * Deletes a company by its name
+	 * @param companyName name of the company to delete
+	 */
 	@SuppressWarnings("rawtypes")
 	public void deleteCompanyByName(String companyName)
 	{
@@ -171,7 +196,7 @@ public class CompanyDaoDB4O implements CompanyDao {
 					e2.printStackTrace();
 					System.out.println("DATABASE COULD NOT BE ERASED");
 				}
-				//
+				
 			}
 			else
 			{
@@ -192,6 +217,12 @@ public class CompanyDaoDB4O implements CompanyDao {
 	}
 	
 	//************************************ isRegistred  ****************************************//
+	
+	/**
+	 * Checks if a company name is registred
+	 * @Param companyName name to check
+	 * @return boolean
+	 */
 	public boolean isCompanyRegistred(String companyName) {
 		open();
 		boolean temp=true;
@@ -210,6 +241,11 @@ public class CompanyDaoDB4O implements CompanyDao {
 		}
 		return temp;
 	}
+	/**
+	 * Checks if the name of a database is in use
+	 * @param DBName name to check
+	 * @return boolean
+	 */
 	public boolean isDBNameRegistred(String DBName)
 	{
 		open();
@@ -230,7 +266,11 @@ public class CompanyDaoDB4O implements CompanyDao {
 		return temp;
 		
 	}
-	
+	/**
+	 * Checks if a database is active
+	 * @param companyName name of the company to check
+	 * @return boolean
+	 */
 	public boolean isActive(String companyName)
 	{
 		open();
@@ -261,6 +301,11 @@ public class CompanyDaoDB4O implements CompanyDao {
 		return false;
 	}
 	//*************************************Util (without open or close DB*************************//
+	/**
+	 * Checks if a companyName is in use
+	 * @param companyName name to check
+	 * @return boolean
+	 */
 	@SuppressWarnings("rawtypes")
 	private boolean testCompany(String companyName)
 	{
@@ -273,6 +318,11 @@ public class CompanyDaoDB4O implements CompanyDao {
 		}
 		return false;
 	}
+	/**
+	 * Checks if a DBname is in use
+	 * @param DBName to check
+	 * @return boolean
+	 */
 	@SuppressWarnings("rawtypes")
 	private boolean testDBName(String DBName)
 	{
@@ -290,7 +340,9 @@ public class CompanyDaoDB4O implements CompanyDao {
 	
 	
 	//********************************************Open and Close DB************************************//
-	
+	/**
+	 * Opens database
+	 */
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
@@ -308,6 +360,10 @@ public class CompanyDaoDB4O implements CompanyDao {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Closes databases
+	 */
 	private void close()
 	{
 		DB.close();

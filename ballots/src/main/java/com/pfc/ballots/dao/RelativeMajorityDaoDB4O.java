@@ -11,6 +11,15 @@ import com.db4o.query.Query;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 
+/**
+ * 
+ * Implementation of the interface RelativeMajorityDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
+
 public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 
 	String sep=System.getProperty("file.separator");
@@ -33,6 +42,10 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		}
 	}
 	//********************************************* Store *********************************************//
+	/**
+	 * Stores a RelativeMajority
+	 * @param relativeMajority to store
+	 */
 	public void store(RelativeMajority relativeMajority)
 	{
 		open();
@@ -53,6 +66,10 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 	}
 	
 	//********************************************** GETTRS *******************************************//
+	/**
+	 * Retrieve all the RelativeMajority entities
+	 * @return List<RelativeMajority>
+	 */
 	public List<RelativeMajority> retrieveAll()
 	{
 		List<RelativeMajority> relMays=new LinkedList<RelativeMajority>();
@@ -83,6 +100,11 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		
 		return relMays;
 	}
+	/**
+	 * Retrieves a RelativeMajority from its idBallot
+	 * @param idBallot id of the ballot that use the entity
+	 * @return RelativeMajority
+	 */
 	public RelativeMajority getByBallotId(String idBallot)
 	{
 		open();
@@ -108,6 +130,11 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		}
 		
 	}
+	/**
+	 * Retrieves a RelativaMajority from its id
+	 * @param id id of the RelativeMajority
+	 * @return RelativeMajority
+	 */
 	public RelativeMajority getById(String id)
 	{
 		open();
@@ -133,6 +160,9 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		}
 	}
 	//********************************************** DELETE *******************************************//
+	/**
+	 * Deletes all the RelativeMajority entities
+	 */
 	public void deleteAll()
 	{
 		open();
@@ -159,6 +189,10 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 			close();
 		}
 	}
+	/**
+	 * Deletes a RelativeMajority from its ballotId
+	 * @param BallotId id of the ballot that use the entity
+	 */
 	public void deleteByBallotId(String ballotId)
 	{
 		open();
@@ -182,6 +216,10 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 			close();
 		}
 	}
+	/**
+	 * Deletes a RelativeMajortiy from its id
+	 * @param id if of the RelativeMajority to delete
+	 */
 	public void deleteById(String id)
 	{
 		open();
@@ -206,7 +244,10 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		}
 	}
 	//********************************************** UPDATE *******************************************//
-	
+	/**
+	 * Updates a RelativeMajority
+	 * @param updated RelativeMajority to update
+	 */
 	public void update(RelativeMajority updated)
 	{
 		open();
@@ -234,7 +275,9 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 	}
 	
 	//********************************************Open and Close DB************************************//
-	
+	/**
+	 * Opens database
+	 */
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
@@ -252,6 +295,9 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Closes database
+	 */
 	private void close()
 	{
 		DB.close();

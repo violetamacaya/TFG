@@ -1,5 +1,11 @@
 package com.pfc.ballots.util;
-
+/**
+ * Generates a random password 
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 FEB-2014
+ *
+ */
 public class PasswordGenerator {
 	public static String NUMBERS = "0123456789";
 	 

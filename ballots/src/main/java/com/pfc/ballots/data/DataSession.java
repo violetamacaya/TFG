@@ -17,6 +17,13 @@ import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.UUID;
 
+/**
+ * DataSession class controls and store the session and
+ * privileges of the user loged
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
 public class DataSession {
 	
 	public static final long SESSION_TIME = 45;
@@ -133,7 +140,10 @@ public class DataSession {
 	
 	
 	
-	//Normal login
+	/**
+	 * Initialize and store the data session
+	 * @param profile
+	 */
 	public void login(Profile profile)	
 	{
 		company="main";
@@ -149,7 +159,10 @@ public class DataSession {
 		lgdDao=DB4O.getUserLogedDao(DBName);
 		lgdDao.clearSessions(SESSION_TIME);
 	}
-	//Login for companies
+	/**
+	 * Initialize and store the session data
+	 * @param profile
+	 */
 	public void login(Profile profile,Company company)
 	{
 		setIdSession(UUID.generate());
@@ -166,7 +179,9 @@ public class DataSession {
 		lgdDao.clearSessions(SESSION_TIME);
 	}
 	
-	
+	/**
+	 * Delete session data
+	 */
 	public void logout()
 	{
 		if(lgdDao!=null)
@@ -190,20 +205,20 @@ public class DataSession {
 	/**
 	 * 
 	 * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
+	 * 		0->Not loged
+	 * 		1->Normal user(loged)
+	 * 		2->Admin  user(loged)
+	 * 		3->Session expired/kicked from server
 	 */
 	
 	
 	public int sessionState()
 	{	
-		if(!isLoged())
-			return 3;
-		else
+		if(!isLoged())//No esta logeado
+			return 0;
+		else//Esta logeado
 		{
+			
 			Date actualDate=new Date();
 			Calendar calActualDate=Calendar.getInstance();
 			Calendar calLogDate=Calendar.getInstance();
@@ -214,41 +229,35 @@ public class DataSession {
 			long milisLogDate=calLogDate.getTimeInMillis();
 			long diff=milisActualDate-milisLogDate;
 			long diffMin=diff/(60*1000);
+			//Comprueba el timpo de sesion
 			if(diffMin>SESSION_TIME)
 			{
+				//Sesion excede tiempo
 				lgdDao.delete(idSession);
 				logout();
 				request.getSession(true).invalidate();
-				return 5;
+				return 3;//
 			}
-			else
+			else//Tiempo no excedido
 			{
-				if(lgdDao.isLogedIn(idSession))
+				//Logeado en la BDD
+				if(lgdDao.isLogedIn(idSession))//SI
 				{
 					if(isAdmin())
 					{
-						EmailAccount account=emailDao.getAccount();
-						if(account==null)
-						{
-							return 2;
-						}
-						if(isMainAdmin() && !Mail.checkAccount(emailDao.getAccount()))
-						{
-							return 2;
-						}
-						return 1;
+						return 2;
 					}
 					else
 					{
-						return 0;
+						return 1;
 					}
 				
 				}
-				else
+				else//No(Kickeado)
 				{
 					logout();
 					request.getSession(true).invalidate();
-					return 4;
+					return 3;
 				}
 			}
 		}
@@ -258,6 +267,10 @@ public class DataSession {
 	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////// SESSION UTILS //////////////////////////////////////////////
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * 
+	 * @return if the user is the main owner 
+	 */
 	public boolean isMainOwner()
 	{
 		if(company.equals("main") && owner==true)
@@ -266,6 +279,10 @@ public class DataSession {
 		}
 		return false;
 	}
+	/**
+	 *  
+	 * @return if the user is a user of a company 
+	 */
 	public boolean isCompanyOwner()
 	{
 		if(company.equals("main"))
@@ -278,6 +295,10 @@ public class DataSession {
 		}
 		return false;
 	}
+	/**
+	 * 
+	 * @return if the user is a company owner 
+	 */
 	public Company isCompanyOwner(String leftNull)
 	{
 		Company temp=companyDao.getCompanyByName(company);
@@ -291,6 +312,10 @@ public class DataSession {
 		}
 		return null;
 	}
+	/**
+	 * 
+	 * @return if the user is a company user 
+	 */
 	public boolean isCompanyUser()
 	{
 		if(DBName==null)
@@ -302,6 +327,9 @@ public class DataSession {
 			return true;
 		}
 	}
+	/**
+	 * @return if the is a user of the main application 
+	 */
 	public boolean isMainUser()
 	{
 		if(DBName==null)
@@ -314,12 +342,19 @@ public class DataSession {
 		}
 	}
 
-
+	/**
+	 * 
+	 * @return if the user is an admin of the main application 
+	 */
 	public boolean isMainAdmin(){
 		if(isAdmin() && isMainUser())
 			return true;
 		return false;
 	}
+	/**
+	 * 
+	 * @return if the user is an admin of a company
+	 */
 	public boolean isCompanyAdmin()
 	{
 		if(isAdmin() && !isMainUser())
@@ -329,7 +364,10 @@ public class DataSession {
 		return false;
 	}
 	
-
+	/**
+	 * 
+	 * @return if the mail of the application still working 
+	 */
 	public boolean isMailWorking()
 	{
 		return Mail.checkAccount(emailDao.getAccount());

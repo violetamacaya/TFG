@@ -17,6 +17,16 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
 
+/**
+ * 
+ * CensusList class is the controller for the CensusList page that
+ * show the census of the loged user
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
+
+
 public class CensusList {
 
 	@SessionState
@@ -34,7 +44,9 @@ public class CensusList {
 	@Property
 	private Census census;
 	
-
+	/**
+	 * Initialize values
+	 */
 	public void setupRender()
 	{	
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
@@ -46,6 +58,10 @@ public class CensusList {
 	{
 		return censusDao.getByOwnerId(datasession.getId());
 	}
+	/**
+	 * Delete a census
+	 * @param idCensus
+	 */
 	public void onActionFromRemoveBut(String idCensus)
 	{
 		Census toDelete=censusDao.getById(idCensus);
@@ -53,6 +69,11 @@ public class CensusList {
 		censusDao.deleteById(idCensus);
 	}
 	
+	/**
+	 * Return the page where you can see the details of the census
+	 * @param idCensus
+	 * @return
+	 */
 	public Object onActionFromDetailsBut(String idCensus)
 	{
 		usersCounted.setup(idCensus);
@@ -62,31 +83,28 @@ public class CensusList {
 	  ////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
-	 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
+				return Index.class;
+			case 1:
 				if(datasession.isMaker())
 				{
 					return null;
 				}
-				return UnauthorizedAttempt.class;
-			case 1:
-				return null;
+				else
+				{
+					return UnauthorizedAttempt.class;
+				}
 			case 2:
-				return AdminMail.class;
+				return null;
 			case 3:
-				return Index.class;
-			case 4:
 				return SessionExpired.class;
 			default:
 				return Index.class;

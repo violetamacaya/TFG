@@ -49,6 +49,14 @@ import com.pfc.ballots.util.GenerateDocentVotes;
 import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.UUID;
 
+/**
+ * 
+ * BallotWizzard class is the controller for the BallotWizzard page that
+ * allow to create a new ballot
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ */
 
 public class BallotWizzard {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,7 +95,9 @@ public class BallotWizzard {
 	 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * Initialize values
+	 */
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
@@ -95,8 +105,6 @@ public class BallotWizzard {
 		
 		mayRelModel=NUMBERS2_7;
 		numOpt=2;
-		
-		
 		
 		initializeBooleans();
 		
@@ -162,7 +170,10 @@ public class BallotWizzard {
 	//@Validate("minLength=20")
 	private String description;
 
-
+	/**
+	 * Check if the Ballot name is in use and give access 
+	 * to the next zone of the wizard
+	 */
 	public void onSuccessFromGeneralForm()
 	{
 		if(request.isXHR())
@@ -259,6 +270,11 @@ public class BallotWizzard {
 	private String endHour;
 	
 	
+	/**
+	 * Controls the change of the ballot kind
+	 * and corresponding wizard changes
+	 * @param kind
+	 */
 	public void onValueChangedFromBallotKindSelect(BallotKind kind)
 	{
 		showNormalCensus=false;
@@ -284,6 +300,10 @@ public class BallotWizzard {
 	private Calendar cal2;
 	@Persist
 	private Calendar cal3;
+	
+	/**
+	 * Checks if the data of the ballot are correct
+	 */
 	public void onValidateFromTypeForm()
 	{
 		cal1=new GregorianCalendar();
@@ -415,6 +435,11 @@ public class BallotWizzard {
 		}
 		
 	}
+	
+	/**
+	 * If the data are correct, give access to the next
+	 * step of the wizard 
+	 */
 	public void onSuccessFromTypeForm()
 	{
 		if(request.isXHR())
@@ -500,7 +525,10 @@ public class BallotWizzard {
 		this.option = option;
 	}
 	
-	
+	/**
+	 * Controls the number of opitions for the relative majority
+	 * @param str
+	 */
 	public void  onValueChangedFromMayRelSel(String str)
 	{
 		numOpt=Integer.parseInt(str);
@@ -538,7 +566,9 @@ public class BallotWizzard {
 			return true;
 		return false;
 	}
-	
+	/**
+	 * Checks the options of the relative majority
+	 */
 	 public void onValidateFromMayRelForm()
 	 {
 		 showErrorMayRel=false;
@@ -593,6 +623,11 @@ public class BallotWizzard {
 			 relativeMajority=new RelativeMajority(listOptions);
 		 }
 	 }
+	 
+	 /**
+	  * Stores all the necessary data of the ballot
+	  * @return
+	  */
 	 public Object onSuccessFromMayRelForm()
 	 {
 		if(request.isXHR())
@@ -696,7 +731,9 @@ public class BallotWizzard {
 	@Property
 	@Validate("minLength=3")
 	private String cat2_op2;
-	
+	/**
+	 * Checks if Kameny options are correct
+	 */
 	public void onValidateFromKemenyForm()
 	{
 		showErrorKemeny=false;
@@ -741,6 +778,11 @@ public class BallotWizzard {
 			kemeny=new Kemeny(options,categories);
 		}
 	} 
+	
+	 /**
+	  * Stores all the necessary data of the ballot
+	  * @return
+	  */
 	public Object onSuccessFromKemenyForm()
 	{
 		if(showErrorKemeny && showRepeatKemeny)
@@ -851,7 +893,11 @@ public class BallotWizzard {
 		return newBallot;
 	}
 	
-	
+	/**
+	 * Report the users that are able to vote in the created ballot
+	 * @param censo
+	 * @param ballotMail
+	 */
 	private void sendMail(Census censo,Ballot ballotMail)
 	{
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
@@ -890,6 +936,11 @@ public class BallotWizzard {
 			Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino.getEmail(), subject, txt);
 		}
 	}
+	/**
+	 * Report a users that are able to vote in the created ballot
+	 * @param censo
+	 * @param ballotMail
+	 */
 	private void sendMail (String idUser,Ballot ballotMail)
 	{
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
@@ -931,31 +982,25 @@ public class BallotWizzard {
 	  ////////////////////////////////////////////////////////////////////////////////////
 		 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
 		////////////////////////////////////////////////////////////////////////////////////
-		/*
-		 *  * return an int with the state of the session
-		 * 		0->UserLogedIn;
-		 * 		1->AdminLoged
-		 * 		2->MainAdminLoged no email of the apliction configured
-		 * 		3->not loged
-		 * 		4->Session expired or kicked from server
-		 */
+	/**
+	 * Controls if the user can enter in the page
+	 * @return another page if the user can't enter
+	 */
 		public Object onActivate()
 		{
 			switch(datasession.sessionState())
 			{
 				case 0:
+					return Index.class;
+				case 1:
 					if(datasession.isMaker())
 					{
 						return null;
 					}
 					return UnauthorizedAttempt.class;
-				case 1:
-					return null;
 				case 2:
-					return AdminMail.class;
+					return null;
 				case 3:
-					return Index.class;
-				case 4:
 					return SessionExpired.class;
 				default:
 					return Index.class;

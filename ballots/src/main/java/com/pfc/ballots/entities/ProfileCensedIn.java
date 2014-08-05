@@ -2,7 +2,14 @@ package com.pfc.ballots.entities;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * ProfilesCensedIn entity that contains the information of the census 
+ * in which is the user censed
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ *
+ */
 public class ProfileCensedIn {
 
 	
@@ -60,6 +67,10 @@ public class ProfileCensedIn {
 	{
 		return inCensus;
 	}
+	/**
+	 * Adds an Census to the list 
+	 * @param idCensus id of the census to add
+	 */
 	public void addIdCensus(String idCensus)
 	{
 		if(inCensus==null)
@@ -68,6 +79,10 @@ public class ProfileCensedIn {
 		}
 		inCensus.add(idCensus);
 	}
+	/**
+	 * Adds a list of Census to the list
+	 * @param idCensus list of Census to add
+	 */
 	public void addIdCensus(List<String> idCensus)
 	{
 		if(inCensus==null)
@@ -83,6 +98,11 @@ public class ProfileCensedIn {
 			}
 		}
 	}
+	/**
+	 * Removes a Census of the list
+	 * @param idCensus id of the census to remove
+	 * @return true if the census is removed and false if isn't in the list
+	 */
 	public boolean removeIdCensus(String idCensus)
 	{
 		if(inCensus!=null)
@@ -98,6 +118,10 @@ public class ProfileCensedIn {
 		}
 		return false;
 	}
+	/**
+	 * Removes a list of Census of the list
+	 * @param idCensus list of ids of the census to remove
+	 */
 	public void removeIdCensus(List<String>idCensus)
 	{
 		if(inCensus!=null && idCensus!=null)
@@ -108,6 +132,9 @@ public class ProfileCensedIn {
 			}
 		}
 	}
+	/**
+	 * Removes all the census of the list
+	 */
 	public void clearInCensus()
 	{
 		if(inCensus!=null)

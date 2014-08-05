@@ -5,9 +5,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
+/**
+ * Generates random votes for the ballots
+ * 
+ * @author Mario Temprano Martin
+ * @version JUL-2014
+ * 
+ */
 public class GenerateDocentVotes {
 
+	/**
+	 * Generates a list of random votes for a relative majority ballot
+	 * 
+	 * @param options options of the ballot
+	 * @param numVotes number of votes to generate
+	 * @return List<String> a list of random votes
+	 */
 	static public List<String> generateRelativeMajority(List<String> options,int numVotes)
 	{
 		List<String> votes=new LinkedList<String>();
@@ -19,6 +32,12 @@ public class GenerateDocentVotes {
 		
 		return votes;
 	}
+	/**
+	 * Generates a list of random votes for a kemeny ballot
+	 * @param kemenyOptions lists of options of the ballots
+	 * @param numVotes number of votes to generate
+	 * @return List<List<String>> list of random votes (a vote is a list)
+	 */
 	static public List<List<String>> generateKemeny(List<String> kemenyOptions,int numVotes)
 	{
 		Map<String,Integer> votesPerOption=new HashMap<String,Integer>();

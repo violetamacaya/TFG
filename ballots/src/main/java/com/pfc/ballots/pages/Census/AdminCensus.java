@@ -24,6 +24,15 @@ import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
+/**
+ * 
+ * AdminCensus class is the controller for the AdminCensus page that
+ * provides the census administration
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
+
 
 public class AdminCensus {
 
@@ -58,7 +67,9 @@ public class AdminCensus {
 	ProfileCensedInDao censedInDao;
 	
 
-	
+	/**
+	 * Initialize data
+	 */
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
@@ -95,12 +106,20 @@ public class AdminCensus {
 		}
 		return censuses;
 	}
+	/**
+	 * Return the page where you can see the details of the census
+	 * @param idCensus
+	 * @return
+	 */
 	public Object onActionFromDetailsbut(String idCensus)
 	{
 		usersCounted.setup(idCensus);
 		return usersCounted;
 	}
-	
+	/**
+	 * Delete a census
+	 * @param idCensus
+	 */
 	public void onActionFromRemovebut(String idCensus)
 	{
 		if(request.isXHR())
@@ -136,7 +155,9 @@ public class AdminCensus {
 	{
 		email=email.toLowerCase();
 	}
-
+	/**
+	 * Set the email for the census search
+	 */
 	public void onSuccessFromSearchForm()
 	{
 		System.out.println("Email->"+email);
@@ -147,7 +168,9 @@ public class AdminCensus {
 			
 		}
 	}
-	
+	/**
+	 * Report to show all censuses
+	 */
 	public void onActionFromShowAll()
 	{
 		if(request.isXHR())
@@ -161,28 +184,22 @@ public class AdminCensus {
 	  ////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
-	 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
-			case 1:
-				return null;
-			case 2:
-				return AdminMail.class;
-			case 3:
 				return Index.class;
-			case 4:
-				return SessionExpired.class;
+			case 1:
+				return UnauthorizedAttempt.class;
+			case 2:
+				return null;
+			case 3:
+				return SessionExpired.class;				
 			default:
 				return Index.class;
 		}

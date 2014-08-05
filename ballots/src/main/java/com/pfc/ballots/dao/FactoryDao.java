@@ -4,6 +4,12 @@ package com.pfc.ballots.dao;
 import com.pfc.ballots.dao.DB4OFactoryDao;
 import com.pfc.ballots.dao.UserDao;
 
+/**
+ * FactoryDao Creates an abstract factory for databases
+ * 
+ * @version 2.0, FEB-2014
+ * @author Mario Temprano Martin
+ */
 public abstract class FactoryDao {
 
 	

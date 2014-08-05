@@ -4,6 +4,15 @@ import java.util.List;
 
 import com.pfc.ballots.entities.Company;
 
+
+/**
+ * Dao Interface to retrieves Company entity
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ *
+ */
+
 public interface CompanyDao {
 	public void store(Company company);
 	public Company getCompanyByName(String companyName);

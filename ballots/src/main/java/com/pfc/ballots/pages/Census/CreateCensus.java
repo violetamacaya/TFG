@@ -28,20 +28,20 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.UUID;
+/**
+ * 
+ * CreateCensus class is the controller for the CreateCensus page that
+ * allow create a new census
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
 
 public class CreateCensus {
 	  ////////////////////////////////////////////////////////////////////////////////////////////////
 	 ///////////////////////////////////////// GENERAL STUFF/////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	//DAO
-	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	@Persist
-	UserDao userDao;
-	@Persist
-	CensusDao censusDao;
-	@Persist
-	ProfileCensedInDao censedInDao;
 	
 	//Variables
 	@Inject
@@ -54,7 +54,20 @@ public class CreateCensus {
 	@SessionState
 	private DataSession datasession;
 	
-
+	
+	//////////////////////////////////////////////DAO ////////////////////////////////////////////
+		
+	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	@Persist
+	UserDao userDao;
+	@Persist
+	CensusDao censusDao;
+	@Persist
+	ProfileCensedInDao censedInDao;
+		
+	/**
+	 * Initialize data
+	 */
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
@@ -84,7 +97,10 @@ public class CreateCensus {
 	@Persist
 	private boolean nameNotAvalible;
 	
-	//Methods
+	/**
+	 * Checks if censusName is available and shows the 
+	 * next step of the wizard
+	 */
 	public void onSuccessFromCensusNameForm()
 	{		
 		if(censusDao.isNameInUse(censusName, datasession.getId()))
@@ -132,7 +148,9 @@ public class CreateCensus {
 	@Persist
 	private Profile example;
 	
-	
+	/**
+	 * Change the search type
+	 */
 	public void onSwitchSearch()
 	{
 		advancedSearch= (advancedSearch) ? false:true;
@@ -144,6 +162,9 @@ public class CreateCensus {
 				.addRender("advancedSearchZone", advancedSearchZone);
 		}
 	}
+	/**
+	 * Resets the search values
+	 */
 	public void onReset()
 	{
 		email=null;
@@ -168,7 +189,9 @@ public class CreateCensus {
 	@Property
 	@Persist
 	private String email;
-	
+	/**
+	 * Check if the basic search values are correct
+	 */
 	public void onValidateFromBasicForm()
 	{
 		example=null;
@@ -186,6 +209,9 @@ public class CreateCensus {
 			}
 		}
 	}
+	/**
+	 * Allow the basic search
+	 */
 	public void onSuccessFromBasicForm()
 	{
 		if(request.isXHR())
@@ -215,6 +241,9 @@ public class CreateCensus {
 	@Persist
 	private Profile profile;
 	
+	/**
+	 * Checks if the advanced search data are correct
+	 */
 	public void onValidateFromAdvancedSearchForm()
 	{
 		if(firstName!=null)
@@ -246,6 +275,9 @@ public class CreateCensus {
 		}
 		
 	}
+	/**
+	 * Allow the advanced search
+	 */
 	public void onSuccessFromAdvancedSearchForm()
 	{
 		example=new Profile(profile);
@@ -275,7 +307,9 @@ public class CreateCensus {
 	{
 		return (example==null)? false:true;
 	}
-	
+	/**
+	 * Show all the census
+	 */
 	public void onActionFromShowAll()
 	{
 		example=new Profile();
@@ -309,7 +343,9 @@ public class CreateCensus {
 	
 	@Persist
 	private Map<String,Profile> map;
-	
+	/**
+	 * Allow to add the users selected
+	 */
 	public void onSuccessFromAddForm()
 	{
 		if(request.isXHR())
@@ -317,6 +353,10 @@ public class CreateCensus {
 			ajaxResponseRenderer.addRender("censusListZone", censusListZone).addRender("buttonsZone",buttonsZone);
 		}
 	}
+	/**
+	 * add the selected user
+	 * @param add
+	 */
 	public void setAdd(boolean add)
 	{
 				
@@ -367,7 +407,9 @@ public class CreateCensus {
 		}
 		return false;
 	}
-	
+	/**
+	 * add all the users
+	 */
 	public void onActionFromAddAll()
 	{
 		if(request.isXHR())
@@ -414,7 +456,9 @@ public class CreateCensus {
 	  ////////////////////////////////////////////////////////////////////////////////////
 	 //////////////////////////////// REMOVE FORM STUFF ///////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * Allow to delete  users of the census
+	 */
 	public void onSuccessFromRemoveForm()
 	{
 		if(request.isXHR())
@@ -424,7 +468,10 @@ public class CreateCensus {
 		}
 	}
 	
-	
+	/**
+	 * Delete a user of the census
+	 * @param remove
+	 */
 	public void setRemove(boolean remove) 
 	{
 		if(remove)
@@ -443,6 +490,9 @@ public class CreateCensus {
 	{
 		return false;
 	}
+	/**
+	 * Delete all the users of the census
+	 */
 	public void onActionFromRemoveAll()
 	{
 		if(request.isXHR())
@@ -460,7 +510,9 @@ public class CreateCensus {
 	@InjectComponent
 	private Zone buttonsZone;
 	
-	
+	/**
+	 * shows the first part of the wizard
+	 */
 	public void onActionFromBackbut()
 	{
 		censusNameVisible=false;
@@ -473,6 +525,9 @@ public class CreateCensus {
 				.addRender("buttonsZone",buttonsZone);
 		}
 	}
+	/**
+	 *Stores the census
+	 */
 	public Object onActionFromEndbut()
 	{
 		Census census=new Census();
@@ -495,31 +550,25 @@ public class CreateCensus {
 	  ////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
-	 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
+				return Index.class;
+			case 1:
 				if(datasession.isMaker())
 				{
 					return null;
 				}
 				return UnauthorizedAttempt.class;
-			case 1:
-				return null;
 			case 2:
-				return AdminMail.class;
+				return null;
 			case 3:
-				return Index.class;
-			case 4:
 				return SessionExpired.class;
 			default:
 				return Index.class;

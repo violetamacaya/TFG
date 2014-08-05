@@ -22,6 +22,15 @@ import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
 
+/**
+ * 
+ * CreateProfile class is the controller for the CreateProfile page that
+ * allows to create a new user
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 FEB-2014
+ */
+
 public class CreateProfile {
 
 	@SessionState
@@ -30,6 +39,36 @@ public class CreateProfile {
 	@Inject
     private ComponentResources componentResources;
 
+	
+	//****************************************Initialize DAO****************************//
+	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	@Persist
+	UserDao dao;
+	ProfileCensedInDao censedInDao;
+	
+	
+	/**
+	 *  Initialize data
+	 */
+	void setupRender() 
+	{
+		dao=DB4O.getUsuarioDao(datasession.getDBName());
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
+		if(!isnotFirstTime)
+		{
+			profile=new Profile();
+			isnotFirstTime=true;
+		}
+		else if(!isnotPassOk && !isnotAvalible)
+		{
+			componentResources.discardPersistentFieldChanges();
+			profile=new Profile();
+		}
+		
+		
+	}
+	//////////////////////////////////////////////////////// PAGE STUFF /////////////////////////////////////
+	
 	@Property
 	@Persist
 	private Profile profile;
@@ -51,42 +90,12 @@ public class CreateProfile {
 	
 	@Persist
 	private boolean isnotFirstTime;
-	//****************************************Initialize DAO****************************//
-	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	@Persist
-	UserDao dao;
-	ProfileCensedInDao censedInDao;
-	
-	
-	
 	
 	
 	/**
-	 * 
-	 *  Pre-render page method for initialice and erase(in that case) 
-	 *  the variables with persistence. 
-	 * 
+	 * Stores a new users
 	 */
-	
-	void setupRender() 
-	{
-		dao=DB4O.getUsuarioDao(datasession.getDBName());
-		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
-		if(!isnotFirstTime)
-		{
-			profile=new Profile();
-			isnotFirstTime=true;
-		}
-		else if(!isnotPassOk && !isnotAvalible)
-		{
-			componentResources.discardPersistentFieldChanges();
-			profile=new Profile();
-		}
-		
-		
-	}
-	
-	void onSuccess()
+	Object onSuccess()
 	{
 		if(!password.equals(repeat))
 		{
@@ -112,33 +121,28 @@ public class CreateProfile {
 			dao.store(profile);
 			componentResources.discardPersistentFieldChanges();
 		}
+		return Index.class;
 			
 	}
 
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*
-		 *  * return an int with the state of the session
-		 * 		0->UserLogedIn;
-		 * 		1->AdminLoged
-		 * 		2->MainAdminLoged no email of the apliction configured
-		 * 		3->not loged
-		 * 		4->Session expired or kicked from server
-		 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return Index.class;
+				return null;
 			case 1:
-				return null;
+				return Index.class;
 			case 2:
-				return AdminMail.class;
-			case 3:
 				return null;
-			case 4:
+			case 3:
 				return SessionExpired.class;
 			default:
 				return Index.class;

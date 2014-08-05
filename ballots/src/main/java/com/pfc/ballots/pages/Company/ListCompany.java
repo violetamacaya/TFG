@@ -23,7 +23,14 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.pages.profile.ProfileByFile;
-
+/**
+ * 
+ * ListCompany class is the controller for the ListCompany page that
+ * shows the list of companies and allow to administrate them
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ */
 public class ListCompany {
 
 	
@@ -49,7 +56,7 @@ public class ListCompany {
 	private Request request;
 	
 	
-	//****************************************Initialize DAO****************************//
+	//**************************************** DAO ****************************//
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	CompanyDao companyDao=DB4O.getCompanyDao();
 	UserLogedDao userLogedDao=null;
@@ -60,7 +67,9 @@ public class ListCompany {
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ////////////////////////////////////////////////////// INITIALIZE PAGE /////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * Initialize data
+	 */
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
@@ -87,32 +96,54 @@ public class ListCompany {
 		}
 		return companies;
 	}
-	
+	/**
+	 * returns a page where you can see the users in the company
+	 * @param CompanyName
+	 * @param DBName
+	 * @return
+	 */
 	public Object onActionFromVer(String CompanyName,String DBName)
 	{
 		System.out.println(CompanyName+" "+DBName);
 		listCompanyUsers.setup(CompanyName,DBName);
 		return listCompanyUsers;
 	}
-	
+	/**
+	 * returns a page where you can upload a file to create users
+	 * @param DBName
+	 * @return
+	 */
 	public Object onActionFromAddbyfile(String DBName)
 	{
 		System.out.println(DBName);
 		profileByFile.setup(DBName);
 		return profileByFile;
 	}
+	/**
+	 * Deletes a company
+	 * @param CompanyName
+	 */
 	public void onActionFromDelete(String CompanyName)
 	{
 		System.out.println(CompanyName);
 		companyDao.deleteCompanyByName(CompanyName);
 		
 	}
+	/**
+	 * returns a page where you can add users to the company
+	 * @param CompanyName
+	 * @param DBName
+	 * @return
+	 */
 	public Object onActionFromAddusers(String CompanyName,String DBName)
 	{
 		createCompanyUser.setup(CompanyName, DBName);
 		return createCompanyUser;
 	}
-	
+	/**
+	 * Deactivate a company
+	 * @param companyName
+	 */
 	public void onActionFromDeactivateBut(String companyName)
 	{
 		if(request.isXHR())
@@ -124,7 +155,10 @@ public class ListCompany {
 			ajaxResponseRenderer.addRender("companyGridZone", companyGridZone).addRender("areuSureZone",areuSureZone);
 		}
 	}
-	
+	/**
+	 * Activate a company
+	 * @param companyName
+	 */
 	public void onActionFromActivateBut(String companyName)
 	{
 		if(request.isXHR())
@@ -204,32 +238,29 @@ public class ListCompany {
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*
-		 *  * return an int with the state of the session
-		 * 		0->UserLogedIn;
-		 * 		1->AdminLoged
-		 * 		2->MainAdminLoged no email of the apliction configured
-		 * 		3->not loged
-		 * 		4->Session expired or kicked from server
-		 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
+				return Index.class;
 			case 1:
-				if(datasession.isMainAdmin())
-					{return null;}
 				return UnauthorizedAttempt.class;
 			case 2:
-				return AdminMail.class;
+				if(datasession.isMainUser())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
 			case 3:
-				return Index.class;
-			case 4:
 				return SessionExpired.class;
 			default:
 				return Index.class;
 		}
+		
 	}
 }

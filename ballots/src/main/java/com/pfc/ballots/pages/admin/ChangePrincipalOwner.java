@@ -21,6 +21,19 @@ import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 
+
+/**
+ * /**
+ * 
+ * ChangePrincipalOwner class is the controller for the ChangePrincipalOwner page that
+ * allow change the owner of the application
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ */
+
+
+
 public class ChangePrincipalOwner {
 
 
@@ -73,7 +86,9 @@ public class ChangePrincipalOwner {
 		}
 		return users;
 	}
-	
+	/**
+	 *  Shows a confirmation dialog for a owner change
+	 */
 	public void onActionFromMakeOwnerBut(String newOwnerId)
 	{
 		if(request.isXHR())
@@ -97,7 +112,10 @@ public class ChangePrincipalOwner {
 	@Persist
 	@Property
 	private Profile newOwner;
-	
+	/**
+	 * Changes the owner of the application
+	 * @return
+	 */
 	public Object onActionFromIsSureBut()
 	{
 		if(request.isXHR())
@@ -109,6 +127,9 @@ public class ChangePrincipalOwner {
 		}
 		return null;
 	}
+	/**
+	 * Cancels the change of owner
+	 */
 	public void onActionFromNotSureBut()
 	{
 		if(request.isXHR())
@@ -142,30 +163,26 @@ public class ChangePrincipalOwner {
 		 ///////////////////////////////////////////////// ONACTIVATE ///////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
+
+	/**
+	 * Controls if the user can enter in the page
+	 * @return another page if the user can't enter
 	 */
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
-			case 1:
-				if(datasession.isMainOwner())
-					return null;
-				else
-					return UnauthorizedAttempt.class;
-			case 2:
-				return AdminMail.class;
-			case 3:
 				return Index.class;
-			case 4:
+			case 1:
+				return UnauthorizedAttempt.class;
+			case 2:
+				if(datasession.isMainOwner())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
+			case 3:
 				return SessionExpired.class;
 			default:
 				return Index.class;

@@ -235,7 +235,6 @@ public class Profile {
 	/**
 	 * Requiered fields must be filled(no compare password) 
 	 */
-	
 	public boolean equals(Profile profile)
 	{
 		if (profile==null)

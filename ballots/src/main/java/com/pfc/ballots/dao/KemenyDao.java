@@ -4,7 +4,13 @@ import java.util.List;
 
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 
-
+/**
+ * Dao Interface to retrieves kemeny entity
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
 public interface KemenyDao {
 public void store(Kemeny kemeny);
 	

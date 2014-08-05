@@ -1,6 +1,12 @@
 package com.pfc.ballots.dao;
 
-
+/**
+ * Extends from FactoryDao and creates ballots for DB4O database
+ * 
+ * @author Mario Temprnano Martin
+ * @version 2.0 FEB-2014
+ *
+ */
 
 public class DB4OFactoryDao extends FactoryDao{
 

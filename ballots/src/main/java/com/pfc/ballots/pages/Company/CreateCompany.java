@@ -20,7 +20,14 @@ import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
-
+/**
+ * 
+ * CreateCompany class is the controller for the CreateCompany page that
+ * allow to create a company
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
 public class CreateCompany {
 	
 	@SessionState
@@ -28,42 +35,15 @@ public class CreateCompany {
 	
 	@Inject
     private ComponentResources componentResources;
-	
-	
-	/// Form objects
-	@Persist
-	@Property
-	private Company company;
-	@Persist
-	@Property
-	private Profile profile;
-	
-	@Property
-	private String password;
-	@Property
-	private String repeat;
 
-	//Form booleans
-	@Property
-	@Persist(PersistenceConstants.FLASH)
-	private boolean isnotPassOk;
-	@Property
-	@Persist(PersistenceConstants.FLASH)
-	private boolean isnotCompanyNameAvalible;
-	@Property
-	@Persist(PersistenceConstants.FLASH)
-	private boolean isnotDBNameAvalible;
-	
-	//FirstTime enter in the page
-	private boolean isnotFirstTime;
-	
-	
 	//****************************************Initialize DAO****************************//
 		FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 		CompanyDao companyDao= DB4O.getCompanyDao();
 		UserDao userDao =null;
 		
-
+	/**
+	 * Initialize data
+	 */
 	void setupRender() 
 	{
 		if(!isnotFirstTime)
@@ -80,6 +60,38 @@ public class CreateCompany {
 		}
 	}
 
+	
+	/// Form objects
+		@Persist
+		@Property
+		private Company company;
+		@Persist
+		@Property
+		private Profile profile;
+		
+		@Property
+		private String password;
+		@Property
+		private String repeat;
+
+		//Form booleans
+		@Property
+		@Persist(PersistenceConstants.FLASH)
+		private boolean isnotPassOk;
+		@Property
+		@Persist(PersistenceConstants.FLASH)
+		private boolean isnotCompanyNameAvalible;
+		@Property
+		@Persist(PersistenceConstants.FLASH)
+		private boolean isnotDBNameAvalible;
+		
+		//FirstTime enter in the page
+		private boolean isnotFirstTime;
+		
+		
+	/**
+	 * Stores the company
+	 */
 	void onSuccess()
 	{
 		company.setCompanyName(company.getCompanyName().toLowerCase());
@@ -121,35 +133,30 @@ public class CreateCompany {
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
-	 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
+				return Index.class;
 			case 1:
-				if(datasession.isMainAdmin())
+				return UnauthorizedAttempt.class;
+			case 2:
+				if(datasession.isMainUser())
 				{
 					return null;
 				}
 				return UnauthorizedAttempt.class;
-			case 2:
-				return AdminMail.class;
 			case 3:
-				return Index.class;
-			case 4:
 				return SessionExpired.class;
 			default:
 				return Index.class;
 		}
+		
 	}
 	
 }

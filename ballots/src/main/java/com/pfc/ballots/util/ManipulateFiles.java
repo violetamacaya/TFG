@@ -17,7 +17,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.pfc.ballots.entities.Profile;
-
+/**
+ * Reads the users in a xml file
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 FEB-2014
+ *
+ */
 public class ManipulateFiles {
 
 	public static List<Profile> getProfilesFromFile(String path)
@@ -27,10 +33,10 @@ public class ManipulateFiles {
 		{
 			return getXML(path);
 		}
-		else if(temp[temp.length-1].toLowerCase().equals("txt"))
+		/*else if(temp[temp.length-1].toLowerCase().equals("txt"))
 		{
 			return getTXT(path);
-		}
+		}*/
 		return null;
 	}
 	
@@ -94,7 +100,7 @@ public class ManipulateFiles {
 		
 		return list;
 	}
-	private static List<Profile> getTXT(String path)
+	/*private static List<Profile> getTXT(String path)
 	{
 
 		File file=null;
@@ -148,8 +154,12 @@ public class ManipulateFiles {
 			e.printStackTrace();
 		}
 		return list;
-	}
+	}*/
 	
+	/**
+	 * Deletes a file 
+	 * @param path of the file to delete
+	 */
 	public static void deletefile(String path)
 	{
 		try

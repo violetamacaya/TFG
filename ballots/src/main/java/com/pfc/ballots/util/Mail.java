@@ -9,19 +9,31 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.pfc.ballots.entities.EmailAccount;
-
+/** 
+ * Email utilities
+ * 
+ * @author Mario Temprano Martin
+ * @version 2.0 JUN-2014
+ *
+ */	
 public class Mail {
 	
 	
-	/** 
-     * Sends an email
-     * 
-     * @param emailEmisor Sender's email
-     * @param passEmisor Sender's email password
-     * @param emailReceptor Receiver's email
-     * @param asunto - subject of the mail
-     * @param mensaje - message of the mail
-     */	
+	
+	
+	
+	
+	
+	/**
+	 * Sends an email with an gmail account
+	 * 
+	 * @param emailEmisor of the gmail account
+	 * @param passEmisor of the gmail account
+	 * @param emailReceptor of the receptor of the mail
+	 * @param asunto subject of the mail
+	 * @param mensaje message of the mail
+	 * @return true if the mail is dispatched and false if can't be dispatched
+	 */
 	public static boolean sendMail(String emailEmisor,String passEmisor,String emailReceptor,String asunto,String mensaje)
 	{
 		 Properties props=new Properties();
@@ -85,7 +97,11 @@ public class Mail {
 			return true;	
 			
 		}
-	//Checks if is a gmail account
+		/**
+		 * Checks if is a gmail account
+		 * @param email to check
+		 * @return true if is a gmail account anf false if it isn't
+		 */
 		public static boolean isValidEmail(String email)
 		{
 			String [] temp=email.split("@");
@@ -98,7 +114,12 @@ public class Mail {
 				return false;
 			}
 		}
-		
+		/**
+		 * Checks if is the password of an email account
+		 * @param email account to check
+		 * @param pass password to check
+		 * @return true if the password works false if not
+		 */
 		public static boolean checkAccount(String email,String pass)
 		{
 			if(isValidEmail(email))
@@ -144,7 +165,10 @@ public class Mail {
 				return false;
 			}
 		}
-		
+		/**
+		 * Checks if is the password of and the email of an EmailAccount entity works
+		 * @return true if the password works false if not
+		 */
 		public static boolean checkAccount(EmailAccount emailAccount)
 		{
 			if(emailAccount==null)

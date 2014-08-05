@@ -23,6 +23,8 @@ import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.UserLoged;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.util.Encryption;
 
 public class ShowProfile {
@@ -30,22 +32,6 @@ public class ShowProfile {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 //////////////////////////////////////////// GENRAL & USER DATA ZONE ////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	@Persist
-	private UserDao userDao;
-	@Persist
-	private CompanyDao companyDao;
-	private UserLogedDao userLogedDao;
-	private CensusDao censusDao;
-	
-	
-	@Persist
-	@Property
-	private Profile profile;
-	@Persist
-	@Property
-	private Company company;
-
 	@SessionState
 	private DataSession datasession;
 	
@@ -58,18 +44,20 @@ public class ShowProfile {
 	@Inject
 	private Request request;
 	
-	@InjectComponent
-	private Zone userDataZone;
 	
-	
+	//////////////////////////////////////////////////////// DAO //////////////////////
+	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	@Persist
-	@Property
-	private boolean companyUser;
+	private UserDao userDao;
 	@Persist
-	@Property
-	private boolean showData;
+	private CompanyDao companyDao;
+	private UserLogedDao userLogedDao;
+	private CensusDao censusDao;
 	
-	
+
+	/**
+	 * Initialize data
+	 */
 	void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
@@ -92,6 +80,31 @@ public class ShowProfile {
 		}
 	}
 	
+	/////////////////////////////////////////////////// PAGE STUFF ///////////////////////////////
+	
+	@Persist
+	@Property
+	private Profile profile;
+	@Persist
+	@Property
+	private Company company;
+
+
+	
+	@InjectComponent
+	private Zone userDataZone;
+	
+	
+	@Persist
+	@Property
+	private boolean companyUser;
+	@Persist
+	@Property
+	private boolean showData;
+	
+	/**
+	 * Shows a change pass form
+	 */
 	public void onActionFromChangePass()
 	{
 		if(request.isXHR())
@@ -101,6 +114,9 @@ public class ShowProfile {
 			ajaxResponseRenderer.addRender("userDataZone", userDataZone).addRender("changePassZone", changePassZone);
 		}
 	}
+	/**
+	 * Shows an update profile form
+	 */
 	public void onActionFromUpdateProfile()
 	{
 		if(request.isXHR())
@@ -146,6 +162,9 @@ public class ShowProfile {
 	@Persist
 	@Property
 	private boolean badMatch;
+	/**
+	 * Changes the pass 
+	 */
 	public void onSuccessFromChangePassForm()
 	{
 
@@ -187,7 +206,9 @@ public class ShowProfile {
 		}
 		
 	}
-	
+	/**
+	 * Cancels change the pass
+	 */
 	public void onActionFromCancelChangePass()
 	{
 		if(request.isXHR())
@@ -216,6 +237,10 @@ public class ShowProfile {
 	@Persist
 	private Profile update;
 	
+	
+	/**
+	 * Updates the profiles
+	 */
 	public void onSuccessFromUpdateForm()
 	{
 		boolean changed=false;
@@ -293,6 +318,9 @@ public class ShowProfile {
 			
 		}
 	}
+	/**
+	 * Cancels the update
+	 */
 	public void onActionFromCancelUpdate()
 	{
 		if(request.isXHR())
@@ -302,5 +330,28 @@ public class ShowProfile {
 			ajaxResponseRenderer.addRender("userDataZone", userDataZone).addRender("updateProfileZone",updateProfileZone);
 		}
 	}
-	
+		  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/**
+		* Controls if the user can enter in the page
+		* @return another page if the user can't enter
+		*/
+		public Object onActivate()
+		{
+			switch(datasession.sessionState())
+			{
+				case 0:
+					return Index.class;
+				case 1:
+					return null;
+				case 2:
+					return null;
+	 			case 3:
+					return SessionExpired.class;
+				default:
+					return Index.class;
+			}
+			
+		}
 }

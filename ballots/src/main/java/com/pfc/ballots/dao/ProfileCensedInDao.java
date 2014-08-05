@@ -3,6 +3,13 @@ package com.pfc.ballots.dao;
 import java.util.List;
 
 import com.pfc.ballots.entities.ProfileCensedIn;
+/**
+ * Dao Interface to retrieves ProfileCensedIn entity
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ *
+ */
 
 public interface ProfileCensedInDao {
 

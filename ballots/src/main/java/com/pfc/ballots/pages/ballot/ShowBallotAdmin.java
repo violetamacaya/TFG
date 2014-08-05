@@ -26,7 +26,16 @@ import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
-
+import com.pfc.ballots.pages.SessionExpired;
+import com.pfc.ballots.pages.UnauthorizedAttempt;
+/**
+ * 
+ * ShowBallotAdmin class is the controller for the ShowBallotAdmin page that
+ * provides the administration of the ballots
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ */
 public class ShowBallotAdmin {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 //////////////////////////////////////////////////// GENERAL STUFF //////////////////////////////////////////////////////////////////
@@ -63,7 +72,10 @@ public class ShowBallotAdmin {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * Initialize data
+	 * (check if the ballots are ended and non counted and calculate the results)
+	 */
 	public void setupRender()
 	{
 		showAreuSure=false;
@@ -100,10 +112,7 @@ public class ShowBallotAdmin {
 				}
 			}
 			
-		}
-		//kemenys=kemenyDao.retrieveAll();
-		//relMays=relMayDao.retrieveAll();
-		
+		}		
 	}
 	
 	
@@ -156,6 +165,11 @@ public class ShowBallotAdmin {
 		}
 			
 	}
+	/**
+	 * Delete a ballot 
+	 * @param idBallot
+	 * @return
+	 */
 	public Object onActionFromDeleteBallot(String idBallot)
 	{
 		if(request.isXHR())
@@ -174,7 +188,11 @@ public class ShowBallotAdmin {
 		
 		
 	}
-	
+	/**
+	 * Finish a ballot and calculate the result
+	 * @param idBallot
+	 * @return
+	 */
 	public Object onActionFromFinishBallot(String idBallot)
 	{
 		if(request.isXHR())
@@ -229,6 +247,11 @@ public class ShowBallotAdmin {
 	{
 		return userDao.getEmailById(ballotSure.getIdOwner());
 	}
+	
+	/**
+	 * Controls the actions to take when is sure to delete/finish 
+	 * a ballot in the dialog "is sure delete/finish a ballot"
+	 */
 	public void onActionFromIsSure()
 	{
 		if(request.isXHR())
@@ -296,6 +319,9 @@ public class ShowBallotAdmin {
 		}
 		
 	}
+	/**
+	 * Cancel the dialog "is sure delete/finish a ballot"
+	 */
 	public void onActionFromNotSure()
 	{
 		if(request.isXHR())
@@ -304,5 +330,30 @@ public class ShowBallotAdmin {
 			showAreuSure=false;
 			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone);			
 		}
+	}
+	
+	  ////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
+	public Object onActivate()
+	{
+		switch(datasession.sessionState())
+		{
+			case 0:
+				return Index.class;
+			case 1:
+				return UnauthorizedAttempt.class;
+			case 2:
+				return null;
+			case 3:
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
+		
 	}
 }

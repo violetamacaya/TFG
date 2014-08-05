@@ -9,6 +9,15 @@ import com.db4o.config.EmbeddedConfiguration;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.ProfileCensedIn;
 
+
+/**
+ * 
+ * Implementation of the interface ProfileCensedInDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ *
+ */
 public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 
 	String sep=System.getProperty("file.separator");
@@ -31,7 +40,10 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 	}
 	
 	///////////////////////////////////////////////// STORE ////////////////////////////////////////////////////////////
-	
+	/**
+	 * Stores a ProfileCensedIn
+	 * @param censedIn entity to store
+	 */
  	public void store(ProfileCensedIn censedIn)
  	{
  		open();
@@ -51,7 +63,11 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
  		}
  	}
  	//////////////////////////////////////////////////// GETTER //////////////////////////////////////////////////////////////
- 	
+ 	/**
+ 	 * Retrieves a ProfileCensedIn from its idProfile
+ 	 * @param idProfile id of the profile that use the entity
+ 	 * @return ProfileCensedIn
+ 	 */
  	public ProfileCensedIn getProfileCensedIn(String idProfile)
  	{
  		open();
@@ -76,6 +92,10 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 		return null;
  	}
 	//////////////////////////////////////////////////// UPDATE ////////////////////////////////////////////////////////////
+ 	/**
+ 	 * Updates a ProfileCensedIn
+ 	 * @param updated ProfileCensedIn to update
+ 	 */
  	public void update(ProfileCensedIn updated)
  	{
  		open();
@@ -98,6 +118,12 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 			close();
 		}
  	}
+ 	
+ 	/**
+ 	 * Adds an id to a ProfileCensusIn 
+ 	 * @param idProfile id of the profile that use the entity
+ 	 * @param idCensus id of the census to add
+ 	 */
 	public void addIdCensus(String idProfile,String idCensus)
 	{
 		open();
@@ -125,6 +151,11 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 			close();
 		}
 	}
+	/**
+ 	 * Adds a list of ids to a ProfileCensusIn 
+ 	 * @param idProfile list of ids of the profiles that use the entities
+ 	 * @param idCensus id of the census to add
+ 	 */
 	public void addIdCensus(List<String> idProfile,String idCensus)
 	{
 		if(idProfile!=null)
@@ -151,7 +182,12 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 			}
 		}
 	}
-	
+	/**
+	 * Removes the id of a census of a ProfileCensedIn
+	 * @param idProfile id of the profile that use the entity
+ 	 * @param idCensus id of the census to remove
+ 	 */
+
 	public void removeIdCensus(String idProfile,String idCensus)
 	{
 		open();
@@ -179,6 +215,11 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 		}
 		
 	}
+	/**
+ 	 * Removes a list of ids to a ProfileCensusIn 
+ 	 * @param idProfile list of ids of the profiles that use the entities
+ 	 * @param idCensus id of the census to remove
+ 	 */
 	public void removeIdCensus(List<String> idProfile,String idCensus)
 	{
 		if(idProfile!=null)
@@ -205,6 +246,12 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 			}
 		}
 	}
+	/**
+	 * Adds and removes ids in a ProfileCensedIn
+	 * @param idProfile id of the profile that use the entity
+	 * @param added ids to add
+	 * @param removed ids to remove
+	 */
 	public void addAndRemoveIds(String idProfile,List<String>added,List<String> removed)
 	{
 		open();
@@ -233,7 +280,10 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 		}
 	}
 	/////////////////////////////////////////////////// DELETE /////////////////////////////////////////
-	
+	/**
+	 * Deletes a ProfileCensedIn
+	 * @param idProfile id of the profile that use the entity
+	 */
 	public void delete(String idProfile)
 	{
 		open();
@@ -258,7 +308,11 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 	}
 	
 	//////////////////////////////////////////// UTIL NO OPEN-CLOSE ////////////////////////////////////
-	
+	/**
+	 * Retrieves a ProfileCensed in from its idProfile
+	 * @param idProfile id of the profile that use the entity
+	 * @return ProfileCensedIn
+	 */
 	private ProfileCensedIn getById(String idProfile)
 	{
 		ObjectSet result=DB.queryByExample(new ProfileCensedIn(idProfile));
@@ -271,7 +325,9 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 	}
 	
 	//********************************************Open and Close DB************************************//
-	
+	/**
+	 * Opens database
+	 */
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
@@ -289,6 +345,9 @@ public class ProfileCensedInDaoDB4O implements ProfileCensedInDao{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Closes database
+	 */
 	private void close()
 	{
 		DB.close();

@@ -3,7 +3,13 @@ package com.pfc.ballots.dao;
 import java.util.List;
 
 import com.pfc.ballots.entities.Profile;
-
+/**
+ * Dao Interface to retrieves Profile entity
+ * 
+ * @author Mario Temprano Martin
+ * @version 2.0 FEB-2014
+ *
+ */
 public interface UserDao {
 
 	public void store(Profile profile);

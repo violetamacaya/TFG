@@ -3,7 +3,13 @@ package com.pfc.ballots.dao;
 import java.util.List;
 
 import com.pfc.ballots.entities.Census;
-
+/**
+ * Dao Interface to retrieves Census entity
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ *
+ */
 public interface CensusDao {
 
 	

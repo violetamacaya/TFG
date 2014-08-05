@@ -5,7 +5,13 @@ import java.util.Date;
 
 import org.apache.tapestry5.beaneditor.NonVisual;
 import org.apache.tapestry5.beaneditor.Validate;
-
+/**
+ * Company entity that contains the information of a Company
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ *
+ */
 public class Company {
 
 	

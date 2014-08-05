@@ -10,6 +10,15 @@ import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.Census;
 
+
+/**
+ * 
+ * Implementation of the interface CensusDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ *
+ */
 public class CensusDaoDB4O implements CensusDao{
 
 	String sep=System.getProperty("file.separator");
@@ -31,7 +40,10 @@ public class CensusDaoDB4O implements CensusDao{
 		System.out.println(ruta);
 	}
 	//************************************** Store ****************************************************//
-	
+	/**
+	 * Stores a census
+	 * @param census entity to store 
+	 */
 	public void store(Census census)
 	{
 		open();
@@ -51,7 +63,11 @@ public class CensusDaoDB4O implements CensusDao{
 		}
 	}
 	//***************************************** Retrievers **********************************************//
-	
+	/**
+	 * Retrieves all census in DB
+	 * 
+	 * @return List<Census> list of all census
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<Census> retrieveAll()
 	{
@@ -83,7 +99,10 @@ public class CensusDaoDB4O implements CensusDao{
 		return list;
 	}
 	
-	
+	/**
+	 * Retrieves a Census from its id
+	 * @param id id of the census to retrieve
+	 */
 	@SuppressWarnings("rawtypes")
 	public Census getById(String id) {
 		
@@ -119,7 +138,11 @@ public class CensusDaoDB4O implements CensusDao{
 		
 		
 	}
-	
+	/**
+	 * Retrieves all Census of an user from his id
+	 * @param idOwner id of the user 
+	 * @return List<Census> list of census of the user
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<Census> getByOwnerId(String idOwner) {
 
@@ -150,7 +173,11 @@ public class CensusDaoDB4O implements CensusDao{
 	}
 	
 	//*********************************************** DELETE ******************************************//
-	
+	/**
+	 * Deletes a census from its id
+	 * @param id id of the census to delete
+	 * 
+	 */
 	@SuppressWarnings("rawtypes")
 	public void deleteById(String id)
 	{
@@ -180,6 +207,10 @@ public class CensusDaoDB4O implements CensusDao{
 		}
 		
 	}
+	/**
+	 * Deletes all census of a owner from his id
+	 * @param idOwner id of the user whose census are going to delete
+	 */
 	@SuppressWarnings("rawtypes")
 	public void deleteAllCensusOfOwner(String idOwner)
 	{
@@ -206,6 +237,10 @@ public class CensusDaoDB4O implements CensusDao{
 	}
 	//************************************************ UPDATE *****************************************//
 	
+	/**
+	 * Updates a census
+	 * @param census census to update
+	 */
 	@SuppressWarnings("rawtypes")
 	public void update(Census census)
 	{
@@ -234,6 +269,11 @@ public class CensusDaoDB4O implements CensusDao{
 			close();
 		}
 	}
+	/**
+	 * Changes the email of a list of census
+	 * @param censuses list of censuses to change
+	 * @param email email to change
+	 */
 	public void changeEmailOfCensus(List<Census> censuses,String email)
 	{
 		open();
@@ -268,7 +308,11 @@ public class CensusDaoDB4O implements CensusDao{
 			close();
 		}
 	}
-
+	/**
+	 * Changes the email of a census
+	 * @param census census to change
+	 * @param email email to change
+	 */
 	public void changeEmailOfCensus(String idCensus, String email) 
 	{
 		open();
@@ -301,7 +345,12 @@ public class CensusDaoDB4O implements CensusDao{
 		
 		
 	}
-
+	/**
+	 * Removes an user of a list of censuses
+	 * @param idCensus list of census to remove the 
+	 * @param idProfile
+	 *  
+	 */
 	public void removeUserCountedOfCensus(List<String> idCensus,String idProfile)
 	{
 		open();
@@ -331,7 +380,12 @@ public class CensusDaoDB4O implements CensusDao{
 	}
 	
 	//**************************************************UTIL*******************************************//
-	
+	/**
+	 * Consult if a census' name is in use for a user
+	 * @param name name to consult
+	 * @param idOwner id of the user to check
+	 * @return boolean 
+	 */
 	@SuppressWarnings("rawtypes")
 	public boolean isNameInUse(String name,String idOwner)
 	{
@@ -370,6 +424,12 @@ public class CensusDaoDB4O implements CensusDao{
 		
 	}
 	////////////////////////////////////////////////// UTIL NO OPEN-CLOSE////////////////////////////////
+	/**
+	 * Retrieves a census from its id
+	 * 
+	 * @param idCensus id of the census to retrieve
+	 * @return 
+	 */
 	private Census getCensusById(String idCensus)
 	{
 		Census census= new Census();
@@ -385,7 +445,9 @@ public class CensusDaoDB4O implements CensusDao{
 	
 	
 	//********************************************Open and Close DB************************************//
-	
+		/**
+		 * Opens Database
+		 */
 		private void open()
 		{
 			config=Db4oEmbedded.newConfiguration();
@@ -403,6 +465,9 @@ public class CensusDaoDB4O implements CensusDao{
 				e.printStackTrace();
 			}
 		}
+		/**
+		 * Closes database
+		 */
 		private void close()
 		{
 			DB.close();

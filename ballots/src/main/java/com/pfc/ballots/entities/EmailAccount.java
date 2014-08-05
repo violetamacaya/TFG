@@ -3,9 +3,11 @@ package com.pfc.ballots.entities;
 import org.apache.tapestry5.beaneditor.Validate;
 
 /**
- * This email account is only for  account of the web-site
- * it isn't for users email!!
- * @author Mario
+ * EmailAccount entity that contains the information of the email account
+ * of the web-site
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
  *
  */
 public class EmailAccount {

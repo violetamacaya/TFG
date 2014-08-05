@@ -17,11 +17,37 @@ import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
-
+/**
+ * 
+ * CreateCompanyUser class is the controller for the CreateCompanyUser page that
+ * allow to create a user for a company
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ */
 public class CreateCompanyUser {
 
 	@SessionState
 	private DataSession datasession;
+	
+	
+	
+	//****************************** DAO **********************************//
+	FactoryDao DB4O= FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	UserDao userDao=null;
+	ProfileCensedInDao censedInDao=null;
+	
+	/**
+	 * Set the values store a user in the correct DB
+	 * @param CompanyName
+	 * @param DBName
+	 */
+	public void setup(String CompanyName,String DBName)
+	{
+		this.DBName=DBName;
+		this.CompanyName=CompanyName;
+		profile=new Profile();
+	}
 	
 	@Property
 	@Persist
@@ -49,20 +75,9 @@ public class CreateCompanyUser {
 	@Property
 	@Persist(PersistenceConstants.FLASH)
 	private boolean isnotPassOk;
-	
-	//****************************** DAO **********************************//
-	FactoryDao DB4O= FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	UserDao userDao=null;
-	ProfileCensedInDao censedInDao=null;
-	
-	
-	public void setup(String CompanyName,String DBName)
-	{
-		this.DBName=DBName;
-		this.CompanyName=CompanyName;
-		profile=new Profile();
-	}
-	
+	/**
+	 * Create a user for a company
+	 */
 	public void onSuccess()
 	{
 		userDao=DB4O.getUsuarioDao(DBName);
@@ -94,30 +109,29 @@ public class CreateCompanyUser {
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*
-		 *  * return an int with the state of the session
-		 * 		0->UserLogedIn;
-		 * 		1->AdminLoged
-		 * 		2->MainAdminLoged no email of the apliction configured
-		 * 		3->not loged
-		 * 		4->Session expired or kicked from server
-		 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
-			case 1:
-				return null;
-			case 2:
-				return AdminMail.class;
-			case 3:
 				return Index.class;
-			case 4:
+			case 1:
+				return UnauthorizedAttempt.class;
+			case 2:
+				if(datasession.isMainUser())
+				{
+					return null;
+				}
+				return UnauthorizedAttempt.class;
+			case 3:
 				return SessionExpired.class;
 			default:
 				return Index.class;
 		}
+		
 	}
 }

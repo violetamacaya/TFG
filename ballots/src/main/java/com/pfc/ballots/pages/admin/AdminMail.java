@@ -23,6 +23,14 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.Mail;
+/**
+ * 
+ * AdminMail class is the controller for the AdminMail page that
+ * provides the administration for the mail of the application
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ */
 
 @Secure
 public class AdminMail {
@@ -67,6 +75,9 @@ public class AdminMail {
 	@Persist
 	private boolean badCombination;
 	
+	/**
+	 * Initialize variables
+	 */
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
@@ -117,6 +128,10 @@ public class AdminMail {
 		}
 	}
 
+	/**
+	 * Success for the newForm form that stores a new 
+	 * email data 
+	 */
 	public void onSuccessFromNewForm()
 	{
 		boolean success=true;
@@ -184,6 +199,7 @@ public class AdminMail {
 	@Persist
 	private boolean settings;
 	
+
 	public boolean isShowSettings()
 	{
 		if(isShowNewZone())
@@ -202,6 +218,10 @@ public class AdminMail {
 			}
 		}
 	}
+	/**
+	 * 
+	 * @return if the email-pass combination
+	 */
 	public boolean isValidCombination()
 	{
 		if(Mail.checkAccount(emailAccount))
@@ -213,6 +233,10 @@ public class AdminMail {
 			return false;
 		}
 	}
+	
+	/**
+	 * Activate a form to store a new email account
+	 */
 	public void onActionFromChangeAccount()
 	{
 		System.out.println("CHANGE ACCOUNT");
@@ -229,6 +253,9 @@ public class AdminMail {
 			
 		}
 	}
+	/**
+	 * Delete the email account
+	 */
 	public void onActionFromDeleteAccount()
 	{
 		if(request.isXHR())
@@ -239,7 +266,9 @@ public class AdminMail {
 
 		}
 	}
-	
+	/**
+	 * Activate a form to change the password of the account
+	 */
 	public void onActionFromChangePass()
 	{
 		System.out.println("CHANGE PASS");
@@ -295,7 +324,9 @@ public class AdminMail {
 		}
 	}
 	
-	
+	/**
+	 * Checks if the new email pass is correct and store it 
+	 */
 	public void onSuccessFromChangePassForm()
 	{
 		boolean success=true;
@@ -353,6 +384,9 @@ public class AdminMail {
 			
 		}
 	}
+	/**
+	 * Cancel the form to change the email password
+	 */
 	public void onActionFromCancelChangePass()
 	{
 		if(request.isXHR())
@@ -403,7 +437,9 @@ public class AdminMail {
 			}
 		}
 	}
-	
+	/**
+	 * Stores a new email account for the application
+	 */
 	public void onSuccessFromChangeAccountForm()
 	{
 		boolean success=true;
@@ -474,6 +510,9 @@ public class AdminMail {
 		}
 		
 	}
+	/**
+	 * Cancels the form to store a new email account for the application
+	 */
 	public void onActionFromCancelChangeAccount()
 	{
 		if(request.isXHR())
@@ -489,31 +528,27 @@ public class AdminMail {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE /////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
+	
+	
+	/**
+	 * Controls if the user can enter in the page
+	 * @return another page if the user can't enter
 	 */
 	 public Object onActivate()
 	 {
 		 switch(datasession.sessionState())
 			{
 				case 0:
-					return UnauthorizedAttempt.class;
+					return Index.class;
 				case 1:
-					if(datasession.isMainAdmin())
+					return UnauthorizedAttempt.class;
+				case 2:
+					if(datasession.isMainUser())
 					{
 						return null;
 					}
 					return UnauthorizedAttempt.class;
-				case 2:
-					return null;
 				case 3:
-					return Index.class;
-				case 4:
 					return SessionExpired.class;
 				default:
 					return Index.class;

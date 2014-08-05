@@ -13,7 +13,13 @@ import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Profile;
-
+/**
+ * Implementation of the interface BallotDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 2.0 JUL-2014
+ *
+ */
 
 
 public class BallotDaoDB4O implements BallotDao{
@@ -45,6 +51,10 @@ public class BallotDaoDB4O implements BallotDao{
 	
 	
 	//*************************************************Store******************************************************
+	/**
+	 * Stores a ballot 
+	 * @param ballot that will be stored
+	 */
 	public void store(Ballot ballot)
 	{
 		open();
@@ -73,6 +83,12 @@ public class BallotDaoDB4O implements BallotDao{
 	}
 	//***************************************** retrievers ********************************************//
 
+	/**
+	 * Retrieves a ballot's information from its id
+     * 
+     * @param Id Id of the ballot that will be retrieved
+     * @return Ballot Ballot that will be retrieved
+	 */
 	public Ballot getById(String id) {
 		
 		open();
@@ -100,6 +116,11 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return null;
 	}
+	/**
+	 * Retrieves all ballots 
+	 * @return List<Ballot> list of ballots returned
+	 */
+	
 	public List<Ballot> retrieveAll() {
 		List<Ballot> ballots=new LinkedList<Ballot>();
 		open();
@@ -132,6 +153,12 @@ public class BallotDaoDB4O implements BallotDao{
 		return ballots;
 	}
 
+	/**
+	 * Retrieves all ballots from their ids
+	 * 
+	 * @param List<String> ids list of ids of the ballots that will be retrieved
+	 * @return List<Ballot> list of retrieved ballots
+	 */
 	public List<Ballot> getById(List<String> ids) {
 		open();
 		List<Ballot> list=new LinkedList<Ballot>();
@@ -163,6 +190,11 @@ public class BallotDaoDB4O implements BallotDao{
 			close();
 		}
 	}
+	/**
+	 * Retrieves the information of not counted ballots from ballots' ids
+	 * @param List<String> ids of ballots to retrieve
+	 * @return List<Ballot> list of ballots that aren't counted yet
+	 */
 	public List<Ballot> getEndedNotCountedById(List<String> ids)
 	{
 		open();
@@ -197,7 +229,11 @@ public class BallotDaoDB4O implements BallotDao{
 			close();
 		}
 	}
-	
+	/**
+	 * Retrieves all ballots of a user by his id
+	 * @param idOwner id of the user that are going to retieve his ballots
+	 * @return List<Ballot> list of ballots of the user
+	 */
 	public List<Ballot> getByOwnerId(String idOwner)
 	{
 		open();
@@ -229,6 +265,11 @@ public class BallotDaoDB4O implements BallotDao{
 		
 	}
 	
+	/**
+	 *  Retrieves a list of ballots from their idCensus
+	 *  @param idCensus 
+	 *  @Return List<Ballot> list of ballots with idcensus 
+	 */
 	public List<Ballot> getByIdCensus(String idCensus) {
 		open();
 		List<Ballot> list=new LinkedList<Ballot>();
@@ -259,6 +300,12 @@ public class BallotDaoDB4O implements BallotDao{
 		
 	}
 	//************************************************* Delete ****************************************************//
+	
+	/**
+	 * Deletes a ballot from its id
+	 * @param id id of the ballot to delete
+	 * 
+	 */
 	public void deleteBallotById(String id) {
 		open();
 		try
@@ -282,7 +329,10 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		
 	}
-
+	/**
+	 * Updates a ballot
+	 * @param updateBallot ballot to update
+	 */
 	public void updateBallot(Ballot updatedBallot)
 	{
 		open();
@@ -316,7 +366,12 @@ public class BallotDaoDB4O implements BallotDao{
 	
 	//******************************************** tools **********************************************//
 	
-	//public
+	
+	/**
+	 * Retrieve if a ballot name is in use
+	 * @param name name to consult
+	 * @return boolean
+	 */
 	public boolean isNameInUse(String name)
 	{
 		open();
@@ -334,6 +389,12 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return true;
 	}
+	
+	/**
+	 * Retrieve if a ballot is ended
+	 * @param idBallot id from the ballot to consult
+	 * @return boolean
+	 */
 	public boolean isEnded(String idBallot)
 	{
 		Ballot ballot=getById(idBallot);
@@ -350,6 +411,11 @@ public class BallotDaoDB4O implements BallotDao{
 			return false;
 		}
 	}
+	/**
+	 * Checks if a ballot is ended and update its data
+	 * @param ballot to check
+	 * @return boolean 
+	 */
 	private boolean updateEndBallot(Ballot ballot)//Marca como terminada la votacion y la actualiza
 	{
 		if(!ballot.isEnded())
@@ -365,7 +431,11 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return false;
 	}
-	//internal
+	/**
+	 * Checks if a ballot name is in use
+	 * @param ballotName to check
+	 * @return boolean
+	 */
 	private boolean testBallot(String ballotName)
 	{
 		Ballot temp=new Ballot();
@@ -382,7 +452,9 @@ public class BallotDaoDB4O implements BallotDao{
 	}
 	
 	//********************************************Open and Close DB************************************//
-	
+			/**
+			 * Opens the database
+			 */
 			private void open()
 			{
 				config=Db4oEmbedded.newConfiguration();
@@ -400,6 +472,9 @@ public class BallotDaoDB4O implements BallotDao{
 					e.printStackTrace();
 				}
 			}
+			/**
+			 * Closes the database
+			 */
 			private void close()
 			{
 				DB.close();

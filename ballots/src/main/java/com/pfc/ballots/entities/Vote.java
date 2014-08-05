@@ -1,5 +1,12 @@
 package com.pfc.ballots.entities;
-
+/**
+ * 
+ * Vote entity that contains if a user has voted in a ballot
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
 public class Vote {
 
 	private String idBallot;

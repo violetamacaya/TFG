@@ -5,6 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.Calculo.CalcKemeny;
+
+/**
+ * Kemeny entity that contains the information of specific information
+ * for a kemeny ballot
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
+
 public class Kemeny {
 
 	private String ballotId;
@@ -102,6 +112,10 @@ public class Kemeny {
 	public void setResults(Map<String,Integer> results) {
 		this.results = results;
 	}
+	/**
+	 * Add a category to the list
+	 * @param category
+	 */
 	public void addCategory(String category)
 	{
 		if(categories==null)
@@ -113,6 +127,10 @@ public class Kemeny {
 			categories.add(category);
 		}
 	}
+	/**
+	 * Adds a vote to the list
+	 * @param vote
+	 */
 	public void addVote(List<String> vote)
 	{
 		if(votes==null)
@@ -122,6 +140,11 @@ public class Kemeny {
 		if(vote!=null)
 			{votes.add(vote);}
 	}
+	/**
+	 * if a ballot is counted, retrieve the result
+	 * @param permutation
+	 * @return
+	 */
 	public int getResult(String permutation)
 	{
 		if(permutation==null || results==null)
@@ -133,6 +156,9 @@ public class Kemeny {
 			return results.get(permutation);
 		}
 	}
+	/**
+	 * Calculate the result of the ballot(the calc method is in a external jar)
+	 */
 	public void calcularKemeny()
 	{
 		if(votes==null ||options==null || winner==null)

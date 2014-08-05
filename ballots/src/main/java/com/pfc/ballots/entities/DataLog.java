@@ -1,7 +1,14 @@
 package com.pfc.ballots.entities;
 
 import java.util.Date;
-
+/**
+ * DataLog entity that contains the information of 
+ * an attempt of login
+ *
+ *  
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ */
 public class DataLog {
 	
 	private String email;

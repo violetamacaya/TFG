@@ -5,7 +5,15 @@ import java.util.List;
 import org.apache.tapestry5.ValueEncoder;
 
 import com.pfc.ballots.entities.Census;
-
+/**
+ * Encoder to display and save the correct values for the 
+ * census in the tapestr5 select component
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ * 
+ *
+ */
 public class CensusEncoder implements ValueEncoder<Census>{
 
 	private List<Census> censuses=null;

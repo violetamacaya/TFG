@@ -10,7 +10,14 @@ import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.DataLog;
 
-
+/**
+ * 
+ * Implementation of the interface LogDao for the DB4O database
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 MAY-2014
+ *
+ */
 public class LogDaoDB4O implements LogDao {
 
 	String sep=System.getProperty("file.separator");
@@ -21,7 +28,10 @@ public class LogDaoDB4O implements LogDao {
 	
 	/************************************ Store  *********************************************************/
 	
-	
+	/**
+	 * Stores a Datalog
+	 * @param datalog DataLog to store
+	 */
 	public void store(DataLog datalog){
 		
 		
@@ -47,6 +57,10 @@ public class LogDaoDB4O implements LogDao {
 	
 	/***********************************   Retrieves    ***************************************************/
 	
+	/**
+	 * Retrives all DataLog
+	 * @return List<Datalog>
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<DataLog> retrieve() {
 		open();
@@ -73,6 +87,11 @@ public class LogDaoDB4O implements LogDao {
 		return list;
 	}
 
+	/**
+	 * Retrieves the DataLog of a company
+	 * @param company name of the company to retrieve its dataLog
+	 * @return List<DataLog> DataLog of the company
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<DataLog> retrieve(String company )
 	{
@@ -104,7 +123,10 @@ public class LogDaoDB4O implements LogDao {
 	}
 
 
-
+	/**
+	 * Retrieve the recents logs
+	 * @param last number of logs to retrieve
+	 */
 	@SuppressWarnings("rawtypes")
 	public List<DataLog> retrieve(int last) {
 		open();
@@ -138,7 +160,9 @@ public class LogDaoDB4O implements LogDao {
 	}
 	
 	/***************************     Delete    **************************************************************/
-	
+	/**
+	 * Delete all DataLogs
+	 */
 	@SuppressWarnings("rawtypes")
 	public void DeleteAll() {
 		open();
@@ -169,6 +193,9 @@ public class LogDaoDB4O implements LogDao {
 	
 	/***************************** Open and close Database ************************************************/
 	
+	/**
+	 * Opens database
+	 */
 	private void open()
 	{
 		
@@ -185,6 +212,9 @@ public class LogDaoDB4O implements LogDao {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Closes database
+	 */
 	private void close()
 	{
 		DB.close();

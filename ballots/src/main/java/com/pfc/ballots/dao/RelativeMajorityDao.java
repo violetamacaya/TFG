@@ -4,7 +4,13 @@ import java.util.List;
 
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
-
+/**
+ * Dao Interface to retrieves RelativeMajority entity
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUL-2014
+ *
+ */
 public interface RelativeMajorityDao {
 	
 	public void store(RelativeMajority relativeMajority);

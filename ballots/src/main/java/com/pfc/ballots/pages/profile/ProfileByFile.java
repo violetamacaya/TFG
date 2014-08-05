@@ -34,6 +34,14 @@ import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.ManipulateFiles;
 import com.pfc.ballots.util.UUID;
 
+/**
+ * 
+ * CreateProfile class is the controller for the CreateProfile page that
+ * allows to create a new user
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 FEB-2014
+ */
 
 
 public class ProfileByFile {
@@ -51,10 +59,13 @@ public class ProfileByFile {
 	@Inject
     private ComponentResources componentResources;
 	
-	
+	/////////////////////////////////////////// DAO ///////////////////////////////////////////////
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	UserDao userDao=null;
 	ProfileCensedInDao censedInDao=null;
+	
+	
+	
 	
 	@Persist
 	String access;
@@ -84,11 +95,16 @@ public class ProfileByFile {
 	private Actions action;
 	
 	
-	
+	/**
+	 * Set the name of the DB
+	 * @param dname
+	 */
 	public void setup(String dname){
 		access=dname;
 	}
-	
+	/**
+	 * Initialize variables
+	 */
 	void setupRender()
 	{
 		
@@ -191,7 +207,9 @@ public class ProfileByFile {
 	
 	
 	
-	
+	/**
+	 * Upload the file
+	 */
 	public void onSuccessFromUploadForm()
 	{
 		System.out.println("SUCCESSS");
@@ -202,7 +220,10 @@ public class ProfileByFile {
 		fileLoaded=false;
 		file.write(copied);
 	}
-	
+	/**
+	 * Shows an edit form for a user
+	 * @param id
+	 */
 	public void onActionFromEditBut(String id)
 	{
 		
@@ -216,6 +237,10 @@ public class ProfileByFile {
 			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
 		}
 	}
+	/**
+	 * Deletes the uploaded file
+	 * @return
+	 */
 	public Object onActionFromEndBut()
 	{
 		fileupload=false;
@@ -226,7 +251,9 @@ public class ProfileByFile {
 		return Index.class;
 		
 	}
-
+	/**
+	 * Shows a form to add a new user row
+	 */
 	public void onActionFromAddRowBut()
 	{
 		profile=new Profile();
@@ -248,7 +275,9 @@ public class ProfileByFile {
 	{
 		action=Actions.CANCEL;
 	}
-	
+	/**
+	 * Stores the selected user
+	 */
 	public void onSuccessFromEditForm()
 	{
 		System.out.println("SUCCESS");
@@ -351,6 +380,9 @@ public class ProfileByFile {
 		
 		return true;
 	}
+	/**
+	 * Stores the available users
+	 */
 	public void onActionFromAddavaliblesbut()
 	{
 		userDao=DB4O.getUsuarioDao(access);
@@ -438,27 +470,21 @@ public class ProfileByFile {
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*
-		 *  * return an int with the state of the session
-		 * 		0->UserLogedIn;
-		 * 		1->AdminLoged
-		 * 		2->MainAdminLoged no email of the apliction configured
-		 * 		3->not loged
-		 * 		4->Session expired or kicked from server
-		 */
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return UnauthorizedAttempt.class;
-			case 1:
-				return null;
-			case 2:
-				return AdminMail.class;
-			case 3:
 				return Index.class;
-			case 4:
+			case 1:
+				return UnauthorizedAttempt.class;
+			case 2:
+				return null;
+ 			case 3:
 				return SessionExpired.class;
 			default:
 				return Index.class;
