@@ -64,9 +64,13 @@ public class CensusList {
 	 */
 	public void onActionFromRemoveBut(String idCensus)
 	{
+		censusDao=DB4O.getCensusDao(datasession.getDBName());
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
 		Census toDelete=censusDao.getById(idCensus);
 		censedInDao.removeIdCensus(toDelete.getUsersCounted(), idCensus);
 		censusDao.deleteById(idCensus);
+		
+		
 	}
 	
 	/**

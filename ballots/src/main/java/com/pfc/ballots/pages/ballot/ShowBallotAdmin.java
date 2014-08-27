@@ -88,7 +88,7 @@ public class ShowBallotAdmin {
 		kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 		relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 		
-		
+		/*
 		for(Ballot ballot_temp:ballots)
 		{
 			if(ballot_temp.isEnded()==true && ballot_temp.isCounted()==false)
@@ -112,7 +112,8 @@ public class ShowBallotAdmin {
 				}
 			}
 			
-		}		
+		}
+		*/		
 	}
 	
 	
@@ -272,8 +273,9 @@ public class ShowBallotAdmin {
 			{
 				ballotSure.setEnded(true);
 				ballotSure.setCounted(true);
+				ballotSure.setActive(false);
 				ballotDao.updateBallot(ballotSure);
-				ballots=ballotDao.retrieveAll();
+				/*ballots=ballotDao.retrieveAll();
 				
 				if(ballotSure.getMethod()==Method.MAYORIA_RELATIVA)
 				{
@@ -307,7 +309,7 @@ public class ShowBallotAdmin {
 						kemenys=kemenyDao.retrieveAll();
 					}
 		
-				}
+				}*/
 				
 			}
 				

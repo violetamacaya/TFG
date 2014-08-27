@@ -881,6 +881,7 @@ public class BallotWizzard {
 		newBallot.setIdOwner(datasession.getId());
 		if(ballotKind==BallotKind.NORMAL)
 		{
+			newBallot.setNotStarted(true);
 			newBallot.setIdCensus(censusNormal.getId());
 		}
 		else

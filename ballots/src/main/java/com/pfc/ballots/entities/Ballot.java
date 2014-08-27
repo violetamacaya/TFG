@@ -11,8 +11,7 @@ import com.pfc.ballots.data.Method;
  *
  */
 public class Ballot {
-
-
+	
 	
 	private String id;
 	private String name;
@@ -25,6 +24,8 @@ public class Ballot {
 	private Date startDate;
 	private Date endDate;
 	private boolean ended;
+	private boolean notStarted;
+	private boolean active;
 	private boolean counted;
 	
 	
@@ -99,6 +100,18 @@ public class Ballot {
 		}
 		public void setDescription(String description) {
 			this.description = description;
+		}
+		public boolean isActive() {
+			return active;
+		}
+		public void setActive(boolean active) {
+			this.active = active;
+		}
+		public boolean isNotStarted() {
+			return notStarted;
+		}
+		public void setNotStarted(boolean notStarted) {
+			this.notStarted = notStarted;
 		}
 	
 }

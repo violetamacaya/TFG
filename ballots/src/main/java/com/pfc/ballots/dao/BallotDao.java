@@ -15,11 +15,11 @@ public interface BallotDao {
 	public void store(Ballot ballot);
 	
 	public List<Ballot> retrieveAll();
+	public List<Ballot> retrieveAllSort();
 	public Ballot getById(String id);
-	
 
-	
 	public List<Ballot> getById(List<String> ids);
+	public List<Ballot> getById(List<String> ids,List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended);
 	public List<Ballot> getByOwnerId(String idOwner);
 	
 	//Cuando se pasen las votaciones que tiene un usuario devolvera las que not has sido contavilizadas
@@ -31,4 +31,9 @@ public interface BallotDao {
 	public void updateBallot(Ballot UpdatedBallot);
 	
 	public List<Ballot> getByIdCensus(String idCensus);
+	/*
+	public List<Ballot> getNotStartedBallots();
+	public List<Ballot> getActiveBallots();
+	public List<Ballot> getEndedBallots();
+	*/
 }

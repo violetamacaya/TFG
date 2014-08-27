@@ -41,7 +41,7 @@
 						<tr>
 							<td></td>
 							<td><input t:type="submit" value="${message:update-but}"/>
-							<t:actionLink t:id="cancelNameBut" zone="^"><button>${message:restore:but}</button></t:actionLink></td>
+							<t:actionLink t:id="cancelNameBut" zone="^"><button>${message:restore-but}</button></t:actionLink></td>
 						</tr>
 					</table>
 				</t:form>

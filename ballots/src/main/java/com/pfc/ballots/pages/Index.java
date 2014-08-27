@@ -1,6 +1,7 @@
 package com.pfc.ballots.pages;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.tapestry5.annotations.*;
@@ -58,7 +59,7 @@ public class Index
 		  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 ///////////////////////////////////////////////////// INITIALIZE //////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+		/*
 		public void setupRender()
 		{
 			componentResources.discardPersistentFieldChanges();
@@ -69,11 +70,15 @@ public class Index
 			if(datasession.isLoged())
 			{
 				ballotDao=DB4O.getBallotDao(datasession.getDBName());
+				
+				
 				voteDao=DB4O.getVoteDao(datasession.getDBName());
 				relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 				kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 				currentBallots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()));//Obtiene las votaciones
-				for(Ballot ballot_temp:currentBallots)
+				
+				
+				/*for(Ballot ballot_temp:currentBallots)
 				{
 					if(ballot_temp.isEnded()==true && ballot_temp.isCounted()==false)
 					{
@@ -99,6 +104,22 @@ public class Index
 				}
 				
 			}
+		}*/
+		
+		
+		public void setupRender()
+		{
+			componentResources.discardPersistentFieldChanges();
+			if(datasession.isLoged())
+			{
+				ballotDao=DB4O.getBallotDao(datasession.getDBName());
+				voteDao=DB4O.getVoteDao(datasession.getDBName());
+				
+				nonActiveBallots=new LinkedList<Ballot>();
+				activeBallots=new LinkedList<Ballot>();
+				endedBallots=new LinkedList<Ballot>();
+				currentBallots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()),nonActiveBallots,activeBallots,endedBallots);
+			}
 		}
 		
 
@@ -107,6 +128,15 @@ public class Index
 		  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 /////////////////////////////////////////////////////// PAGE //////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		@Property
+		@Persist
+		private List<Ballot> nonActiveBallots;
+		@Property
+		@Persist
+		private List<Ballot> activeBallots;
+		@Property
+		@Persist
+		private List<Ballot> endedBallots;
 		@Property
 		@Persist
 		private List<Ballot> currentBallots;
@@ -120,6 +150,31 @@ public class Index
 			return false;
 		}
 		
+		public boolean isShowNotStarted()
+		{
+			if(nonActiveBallots.size()==0)
+				return false;
+			return true;
+		}
+		public boolean isShowActive()
+		{
+			if(activeBallots.size()==0)
+				return false;
+			return true;
+		}
+		public boolean isShowEnded()
+		{
+			if(endedBallots.size()==0)
+				return false;
+			return true;
+		}
+		public boolean isShowCurrent()
+		{
+			if(currentBallots.size()==0)
+				return false;
+			return true;
+		}
+		/*
 	    @SessionAttribute
 		private String contextBallotId;
 		public Object onActionFromVoteBallot(String id)
@@ -134,7 +189,7 @@ public class Index
 		{
 			contextResultBallotId=id;
 			return ResultBallot.class;
-		}
+		}*/
 		
 		
 		

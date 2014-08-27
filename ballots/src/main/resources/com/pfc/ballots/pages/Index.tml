@@ -7,23 +7,45 @@
 			Bienvenidos a mi pagina web
 			<p:else>
 				<div class="ballotsList">
-					 <table>
-					 <tr><th>En Curso</th></tr>
-					 	<t:loop t:source="currentBallots" t:value="ballot">
-					 		<t:if test="!ballot.ended">
-								<tr><td>Nombre-><t:actionlink t:id="voteBallot" context="ballot.id"><button>${ballot.name}</button></t:actionlink></td></tr>
-							</t:if>
-						</t:loop>
-					 </table>
-					 
-					 <table>
-						 <tr><th>Terminadas</th></tr>
-						 <t:loop t:source="currentBallots" t:value="ballot">
-						 	<t:if test="ballot.ended">
-								<tr><td>Nombre-><t:actionlink t:id="resultBallot" context="ballot.id"><button>${ballot.name}</button></t:actionlink></td></tr>
-							</t:if>
-						</t:loop>
-					</table>
+					
+					<t:if test="!showCurrent">
+						${message:no-ballots}
+					</t:if>
+					
+					
+					
+					<t:if test="showCurrent">
+						 <table>
+							 <tr><th>Todas</th></tr>
+							 <t:loop t:source="currentBallots" t:value="ballot">
+									<tr><td>Nombre->${ballot.name}</td></tr>
+							</t:loop>
+						</table>
+					</t:if>
+					<t:if test="showNotStarted">
+						<table>
+					 		 <tr><th>No empezadas</th></tr>
+						 	 <t:loop t:source="nonActiveBallots" t:value="ballot">
+						 	 	<tr><td>Nombre->${ballot.name}</td></tr>
+						 	 </t:loop>
+					 	</table>
+					</t:if>
+					<t:if test="showActive">
+						<table>
+							 <tr><th>Activas</th></tr>
+							 <t:loop t:source="activeBallots" t:value="ballot">
+									<tr><td>Nombre->${ballot.name}</td></tr>
+							</t:loop>
+						</table>
+					</t:if>
+					<t:if test="showEnded">
+						<table>
+							 <tr><th>Terminadas</th></tr>
+							 <t:loop t:source="endedBallots" t:value="ballot">
+									<tr><td>Nombre->${ballot.name}</td></tr>
+							</t:loop>
+						</table>
+					</t:if>
 				</div>
 			</p:else>
 		</t:if>

@@ -2,6 +2,7 @@ package com.pfc.ballots.dao;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +11,7 @@ import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.query.Constraint;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Profile;
@@ -31,6 +33,7 @@ public class BallotDaoDB4O implements BallotDao{
 	
 	Calendar calAct;
 	Calendar calEnd;
+	Calendar calStart;
 	
 	
 	
@@ -38,7 +41,7 @@ public class BallotDaoDB4O implements BallotDao{
 	{
 		calAct=new GregorianCalendar();
 		calEnd=new GregorianCalendar();
-		
+		calStart=new GregorianCalendar();
 		if(DBName==null)
 		{
 			PATH=ruta+"DB4Obbdd.dat";
@@ -101,7 +104,7 @@ public class BallotDaoDB4O implements BallotDao{
 			if(result.hasNext())
 			{
 				x=(Ballot)result.next();
-				updateEndBallot(x);
+				updateStateBallot(x);
 				return x;
 			}
 			return null;
@@ -116,43 +119,8 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return null;
 	}
-	/**
-	 * Retrieves all ballots 
-	 * @return List<Ballot> list of ballots returned
-	 */
 	
-	public List<Ballot> retrieveAll() {
-		List<Ballot> ballots=new LinkedList<Ballot>();
-		open();
-		try
-		{
-				Query query=DB.query();
-				query.constrain(Ballot.class);
-				ObjectSet result = query.execute();
-				Ballot x;
-				while(result.hasNext())
-				{
-					x=(Ballot)result.next();
-					updateEndBallot(x);
-					ballots.add(x);
-				}
-				System.out.println("[DB4O]All ballots was retrieved");
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			System.out.println("[DB4O]ERROR:All ballots could not be retrieved");
-			ballots.clear();
-			return ballots;
-		}
-		finally
-		{
-			close();
-		}
-		
-		return ballots;
-	}
-
+	
 	/**
 	 * Retrieves all ballots from their ids
 	 * 
@@ -173,7 +141,7 @@ public class BallotDaoDB4O implements BallotDao{
 				if(result.hasNext())
 				{
 					x=(Ballot)result.next();
-					updateEndBallot(x);
+					updateStateBallot(x);
 					list.add(x);
 				}
 			}
@@ -190,6 +158,142 @@ public class BallotDaoDB4O implements BallotDao{
 			close();
 		}
 	}
+	
+	/**
+	 * Retrieves all ballots from their ids
+	 * 
+	 * @param List<String> ids list of ids of the ballots that will be retrieved
+	 * @param List<Ballot> nonActive , list of non active ballots
+	 * @param List<Ballot> active , list of active ballots
+	 * @param List<Ballot> ended , list of ended ballots
+	 * @return List<Ballot> a complete list
+	 */
+	public List<Ballot> getById(List<String> ids,List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended) {
+		open();
+		List<Ballot> list=new LinkedList<Ballot>();
+		try
+		{
+			Ballot temp=new Ballot();
+			Ballot x;
+			for(int i=0;i<ids.size();i++)
+			{
+				temp.setId(ids.get(i));
+				ObjectSet result=DB.queryByExample(temp);
+				if(result.hasNext())
+				{
+					x=(Ballot)result.next();
+					
+					switch(updateStateBallot(x))
+					{
+						case 0:
+							nonActive.add(x);
+							break;
+						case 1:
+							active.add(x);
+							break;
+						case 2:
+							ended.add(x);
+							break;
+						default:
+							break;
+							
+					}
+					list.add(x);
+				}
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			list.clear();
+			return list;
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	}
+	
+	
+	
+	/**
+	 * Retrieves all ballots 
+	 * @return List<Ballot> list of ballots returned
+	 */
+	
+	public List<Ballot> retrieveAll() {
+		List<Ballot> ballots=new LinkedList<Ballot>();
+		open();
+		try
+		{
+				Query query=DB.query();
+				query.constrain(Ballot.class);
+				ObjectSet result = query.execute();
+				Ballot x;
+				while(result.hasNext())
+				{
+					x=(Ballot)result.next();
+					updateStateBallot(x);
+					ballots.add(x);
+				}
+				System.out.println("[DB4O]All ballots was retrieved");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All ballots could not be retrieved");
+			ballots.clear();
+			return ballots;
+		}
+		finally
+		{
+			close();
+		}
+		
+		return ballots;
+	}
+
+	/**
+	 * Retrieves all ballots 
+	 * @return List<Ballot> list of ballots returned
+	 */
+	
+	public List<Ballot> retrieveAllSort() {
+		List<Ballot> ballots=new LinkedList<Ballot>();
+		open();
+		try
+		{
+				Query query=DB.query();
+				query.constrain(Ballot.class);
+				query.descend("endDate").orderDescending();
+				ObjectSet result = query.execute();
+				Ballot x;
+				while(result.hasNext())
+				{
+					x=(Ballot)result.next();
+					updateStateBallot(x);
+					ballots.add(x);
+				}
+				System.out.println("[DB4O]All ballots was retrieved");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All ballots could not be retrieved");
+			ballots.clear();
+			return ballots;
+		}
+		finally
+		{
+			close();
+		}
+		
+		return ballots;
+	}
+	
+
 	/**
 	 * Retrieves the information of not counted ballots from ballots' ids
 	 * @param List<String> ids of ballots to retrieve
@@ -211,7 +315,7 @@ public class BallotDaoDB4O implements BallotDao{
 				if(result.hasNext())
 				{
 					x=(Ballot)result.next();
-					updateEndBallot(x);
+					updateStateBallot(x);
 					if(!x.isCounted())
 						{list.add(x);}
 				}
@@ -247,7 +351,7 @@ public class BallotDaoDB4O implements BallotDao{
 			while(result.hasNext())
 			{
 				x=(Ballot)result.next();
-				updateEndBallot(x);
+				updateStateBallot(x);
 				list.add(x);
 			}
 			return list;
@@ -282,7 +386,7 @@ public class BallotDaoDB4O implements BallotDao{
 			while(result.hasNext())
 			{
 				x=(Ballot)result.next();
-				updateEndBallot(x);
+				updateStateBallot(x);
 				list.add(x);
 			}
 			return list;
@@ -409,6 +513,49 @@ public class BallotDaoDB4O implements BallotDao{
 				return true;
 			}
 			return false;
+		}
+	}
+	/**
+	 * Check the state of a ballot and modify it if is needed
+	 * @param ballot
+	 * @return 0->not Started 1->active 2->ended
+	 */
+	private int updateStateBallot(Ballot ballot)
+	{
+		calStart.setTime(ballot.getStartDate());
+		calEnd.setTime(ballot.getEndDate());
+		
+		if(ballot.isEnded())
+		{
+			return 2;
+		}
+		if(calStart.after(calAct))//NO HA EMPEZADO
+		{
+			return 0;
+		}
+		if(calEnd.before(calAct))//HA TERMINADO
+		{
+			if(!ballot.isEnded())
+			{
+				DB.delete(ballot);
+				ballot.setEnded(true);
+				ballot.setActive(false);
+				ballot.setNotStarted(false);
+				DB.store(ballot);
+			}
+			return 2;
+		}
+		else
+		{
+			if(!ballot.isActive())
+			{
+				DB.delete(ballot);
+				ballot.setEnded(false);
+				ballot.setActive(true);
+				ballot.setNotStarted(false);
+				DB.store(ballot);
+			}
+			return 1;
 		}
 	}
 	/**

@@ -3,7 +3,7 @@
 
 
 	<t:border>
-					<h1>${message:creating-ceunsus}</h1>
+					<h1>${message:create-census}</h1>
 	
 		<!--//////////////////////////////////////////////////////////////////////////////////////////
 		   ///////////////////////////////// NAME CENSUS ZONE /////////////////////////////////////// 
@@ -42,7 +42,7 @@
 				<t:if test="advancedSearch">
 					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink>
 					<p:else>
-						<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search</t:eventlink>
+						<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search}</t:eventlink>
 					</p:else>
 				</t:if>
 			</t:zone>
