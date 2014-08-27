@@ -19,6 +19,8 @@ import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.profile.SuccessPassChange;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.Mail;
@@ -125,7 +127,26 @@ public class ForgottenCompanyPassword {
 		}
 		return null;
 	}
-	public void onActivate()
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
+    
+    public Object onActivate()
 	{
+ 
+		switch(datasession.sessionState())
+		{
+			case 0:
+				return null;
+			case 1:
+				return Index.class;
+			case 2:
+				return Index.class; 
+			case 3:
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
 	}
 }

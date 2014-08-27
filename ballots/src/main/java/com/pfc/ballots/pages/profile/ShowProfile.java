@@ -6,6 +6,7 @@ import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Zone;
@@ -16,17 +17,22 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.Profile;
+import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.entities.UserLoged;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.util.Encryption;
 
+
+
+@Secure
 public class ShowProfile {
 
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,6 +59,7 @@ public class ShowProfile {
 	private CompanyDao companyDao;
 	private UserLogedDao userLogedDao;
 	private CensusDao censusDao;
+	private ProfileCensedInDao censedInDao;
 	
 
 	/**
@@ -67,6 +74,7 @@ public class ShowProfile {
 		showChange=false;
 		showUpdate=false;
 		badMail=false;
+		showSure=false;
 		if(datasession.isMainUser())
 		{
 			company=null;
@@ -132,6 +140,70 @@ public class ShowProfile {
 	public boolean isMainOwner()
 	{
 		return datasession.isMainOwner();
+	}
+	public boolean isNotOwner()
+	{
+		if(datasession.isOwner())
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	public void onActionFromDeleteBut()
+	{
+		if(request.isXHR())
+		{
+			showData=false;
+			showSure=true;
+			ajaxResponseRenderer.addRender("userDataZone", userDataZone).addRender("areuSureZone",areuSureZone);
+		}
+	}
+	
+	
+	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////// ARE U SURE TO DELETE ////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@InjectComponent
+	private Zone areuSureZone;
+	@Persist
+	@Property
+	private boolean showSure;
+	
+	/**
+	 * it's activate when the user press the button yes
+	 * for delete his account
+	 * 
+	 * @return Index page
+	 */
+	public Object onActionFromYesSureBut()
+	{
+		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
+		censusDao=DB4O.getCensusDao(datasession.getDBName());
+		userLogedDao=DB4O.getUserLogedDao(datasession.getDBName());
+		
+		ProfileCensedIn censedIn=censedInDao.getProfileCensedIn(datasession.getId());
+		censusDao.removeUserCountedOfCensus(censedIn.getInCensus(), datasession.getId());
+		censedInDao.delete(datasession.getId());
+		userDao.deleteById(datasession.getId());
+		
+		datasession.logout();
+		request.getSession(true).invalidate();
+		
+		return Index.class;
+	}
+	/**
+	 * it's activate when the user press the button no
+	 * for no delete his account
+	 */
+	public void onActionFromNotSureBut()
+	{
+		if(request.isXHR())
+		{
+			showData=true;
+			showSure=false;
+			ajaxResponseRenderer.addRender("userDataZone", userDataZone).addRender("areuSureZone",areuSureZone);
+		}
 	}
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

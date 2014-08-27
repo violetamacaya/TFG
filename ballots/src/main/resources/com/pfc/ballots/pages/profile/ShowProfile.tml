@@ -63,9 +63,30 @@
 							<td><t:pageLink page="admin/changePrincipalOwner"><button>${message:change-but}</button></t:pageLink></td>
 						</tr>
 					</t:if>
+					<t:if test="notOwner">
+						<tr>
+							<td>${message:delete-account}</td>
+							<td><t:actionlink t:id="deleteBut" t:zone="^"> <button>${message:delete-but}</button></t:actionlink></td>
+						</tr>
+					</t:if>
 				</table>
 			</t:if>
 		</t:zone>
+	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   /////////////////////////////////////////////ARE U SURE TO DELETE//////////////////////////////////////////////
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  -->	
+		
+	<t:zone t:id="areuSureZone" id="areuSureZone">
+		<t:if test="showSure">
+			${message:areuSure}
+			<t:actionlink t:id="yesSureBut"><button>${message:yesSure}</button></t:actionlink>
+			<t:actionlink t:id="notSureBut" t:zone="^"><button>No</button></t:actionlink>
+		</t:if>
+	</t:zone>		
+		
+		
+
 	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	   /////////////////////////////////////////////CHANGE PASS ZONE /////////////////////////////////////////////////
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +96,7 @@
 	   			<t:form t:id="changePassForm" zone="^">
 	   				<table>
 	   					<tr>
-	   						<td><t:label for="pass"></td>
+	   						<td><t:label for="pass"/></td>
 	   						<td><t:passwordfield t:id="pass"/></td>
 	   						<td><t:if test="badPass">${message:invalid-pass}</t:if></td>
 	   					</tr>

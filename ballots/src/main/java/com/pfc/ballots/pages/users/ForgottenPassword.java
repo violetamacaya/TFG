@@ -76,7 +76,11 @@ public class ForgottenPassword {
 	private String email;
 	
 	
-	
+	/**
+	 * 
+	 * sends an email if the email is in the database
+	 * @return Index page
+	 */
 	
 	public Object onSuccessFromForgottenForm()
 	{
@@ -118,36 +122,26 @@ public class ForgottenPassword {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE /////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 *  * return an int with the state of the session
-	 * 		0->UserLogedIn;
-	 * 		1->AdminLoged
-	 * 		2->MainAdminLoged no email of the apliction configured
-	 * 		3->not loged
-	 * 		4->Session expired or kicked from server
-	 */
-	
-	public Object onActivate()
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
+    
+    public Object onActivate()
 	{
-		System.out.println(datasession.sessionState());
+ 
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return Index.class;
+				return null;
 			case 1:
 				return Index.class;
 			case 2:
-				return AdminMail.class;
+				return Index.class; 
 			case 3:
-				if(datasession.isMailWorking())
-					return null;
-				else
-					return Index.class;
-			case 4:
 				return SessionExpired.class;
 			default:
 				return Index.class;
 		}
 	}
-	
 }
