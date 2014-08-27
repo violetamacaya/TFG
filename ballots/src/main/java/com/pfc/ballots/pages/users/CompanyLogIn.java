@@ -172,32 +172,26 @@ public class CompanyLogIn {
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			/*
-			 *  * return an int with the state of the session
-			 * 		0->UserLogedIn;
-			 * 		1->AdminLoged
-			 * 		2->MainAdminLoged no email of the apliction configured
-			 * 		3->not loged
-			 * 		4->Session expired or kicked from server
-			 */
-	    
-	    public Object onActivate()
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
+    public Object onActivate()
+	{
+ 
+		switch(datasession.sessionState())
 		{
-			switch(datasession.sessionState())
-			{
-				case 0:
-					return Index.class;
-				case 1:
-					return Index.class;
-				case 2:
-					return AdminMail.class; 
-				case 3:
-					return null;
-				case 4:
-					return SessionExpired.class;
-				default:
-					return Index.class;
-			}
+			case 0:
+				return null;
+			case 1:
+				return Index.class;
+			case 2:
+				return Index.class; 
+			case 3:
+				return SessionExpired.class;
+			default:
+				return Index.class;
 		}
+	}
 
 }

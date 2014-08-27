@@ -375,7 +375,9 @@ public class Border {
 			else if(section.equals("methods"))
 				{page=MethodsInfo.class;}
 			else if(section.equals("company-login"))
-				{page=CompanyLogIn.class;}
+				{
+					page=CompanyLogIn.class;
+				}
 		}
 		if(request.isXHR())
 		{
