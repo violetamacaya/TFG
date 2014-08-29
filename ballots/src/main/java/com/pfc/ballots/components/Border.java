@@ -223,9 +223,25 @@ public class Border {
 	}
 	
 	/**
-	 * Logout the user from DB and clear session data
+	 * Logout(lateral menu) the user from DB and clear session data
 	 */
 	public Object onActionFromLogout()
+	{
+		logedDao=DB4O.getUserLogedDao(datasession.getDBName());
+		logedDao.delete(datasession.getIdSession());
+		datasession.logout();
+		visibilityCompany=false;
+		visibilityUser=false;
+		visibilityBallot=false;
+		componentResources.discardPersistentFieldChanges();
+		request.getSession(true).invalidate();
+		restoreBorder();
+		return Index.class;
+	}
+	/**
+	 * Logout(upper menu) the user from DB and clear session data
+	 */
+	public Object onActionFromLogout2()
 	{
 		logedDao=DB4O.getUserLogedDao(datasession.getDBName());
 		logedDao.delete(datasession.getIdSession());

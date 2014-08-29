@@ -3,12 +3,16 @@ package com.pfc.ballots.pages.ballot;
 import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.json.JSONArray;
+import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.CensusDao;
@@ -22,7 +26,11 @@ import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
+import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.SessionExpired;
 
+
+@Import(library = "context:js/charts.js")
 public class ResultBallot {
 
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,6 +59,9 @@ public class ResultBallot {
 	@Property 
 	private boolean noBallot;
 	
+	@Inject
+    private JavaScriptSupport javaScriptSupport;
+	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,11 +80,14 @@ public class ResultBallot {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * Initialize values
+	 */
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
 		
+		System.out.println("SET UP");
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		ballot=ballotDao.getById(contextResultBallotId);
 		if(ballot==null)
@@ -92,10 +106,6 @@ public class ResultBallot {
 				relMayDao.update(relMay);
 				ballotDao.updateBallot(ballot);
 			}
-			for(String vote:relMay.getVotes())
-			{
-				System.out.println("VOTE->"+vote);
-			}
 		}
 		else if(ballot.getMethod()==Method.KEMENY)
 		{
@@ -113,11 +123,55 @@ public class ResultBallot {
 		
 		
 		
+		
+	}
+	/**
+	 * JavaScript controller
+	 */
+	public void afterRender()
+	{
+		System.out.println("AFTER");
+		JSONArray array=new JSONArray();
+	
+		JSONObject obj=new JSONObject();
+		obj.put("title", ballot.getName());
+		array.put(obj);
+		
+	
+		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
+		{
+			
+			for(String option:relMay.getOptions())
+			{
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", relMay.getResultOption(option));
+				array.put(obj);
+			}
+			
+			System.out.println("tamaño->"+array.toString());
+			javaScriptSupport.addInitializerCall("charts_may",array.toString());
+		}
+		if(ballot.getMethod()==Method.KEMENY)
+		{
+			for(String permutation:kemeny.getPermutations())
+			{
+				obj=new JSONObject();
+				obj.put("option", permutation);
+				obj.put("value", kemeny.getResult(permutation));
+				array.put(obj);
+			}
+			javaScriptSupport.addInitializerCall("charts_kem",array.toString());
+		}
+		
 	}
 	
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////// MAYORIA RELATIVA //////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Relative Majority Data
+	 */
 	@Persist
 	@Property
 	RelativeMajority relMay;
@@ -139,6 +193,9 @@ public class ResultBallot {
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////// MAYORIA RELATIVA //////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Kemeney Data
+	 */
 	@Property
 	@Persist
 	Kemeny kemeny;
@@ -156,5 +213,34 @@ public class ResultBallot {
 		return String.valueOf(kemeny.getResult(permutation));
 	}
 	
+	
+	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	* Controls if the user can enter in the page
+	* @return another page if the user can't enter
+	*/
+	public Object onActivate()
+	{
+		if(contextResultBallotId==null)
+		{
+			return Index.class;
+		}
+		switch(datasession.sessionState())
+		{
+			case 0:
+				return Index.class;
+			case 1:
+				return null;
+			case 2:
+				return null;
+			case 3:
+				return SessionExpired.class;
+			default:
+				return Index.class;
+		}
+		
+	}
 	
 }

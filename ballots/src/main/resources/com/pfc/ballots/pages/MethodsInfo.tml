@@ -1,24 +1,225 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <head>
-
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
-      </script>
-      
+	<title>${message:page-title}</title>
  </head>
 	<t:border>
 	
-
+		<body>
+			<h2>Método Hare</h2><br/>
+			<p class="methodtext">
+			A los votantes se les pide que expresen, cada uno de ellos, un orden completo de preferencias,
+jerarquizando la alternativa más preferida, que se sitúa en primer lugar, a la menos preferida,
+que se colca en último lugar. La opción ganadora es aquella que obtiene la mayoría absoluta
+de votos con arreglo a las primeras preferencias de los votantes. En caso de no haber ninguna
+alternativa respaldada con la mayoría absoluta de las primeras preferencias, se elimina de
+todos los órdenes individuales de preferencias, la alternativa menos votada con arreglo a las
+primeras preferencias, y se vuelve a indagar si existe una alternativa que tenga el respaldo
+de la mayoría absoluta de las primeras preferencias remanentes. Caso contrario, se vuelve a
+proceder del mismo modo, hasta llegar a una alternativa respaldada por la mayoría absoluta
+de las primeras preferencias remanentes. Cuando hay dos o más alternativas que resultan
+minoritarias con arreglo a las primeras preferencias, se desempata tomando las segundas
+preferencias y considerando, a los efectos del desempate, sólo las alternativas empatadas.
+			</p><br/>
+			<h2>Método Coombs</h2><br/>
+			<p class="methodtext">
+			A los votantes se les pide que expresen, cada uno de ellos, un orden completo de preferencias,
+jerarquizando la alternativa más preferida, que se sitúa en primer lugar, a la menos preferida,
+que se colca en último lugar. La opción ganadora es aquella que obtiene la mayoría absoluta
+de votos con arreglo a las primeras preferencias de los votantes. En caso de no haber ninguna
+alternativa respaldada con la mayoría absoluta de las primeras preferencias, se elimina, de
+los órdenes individuales de preferencias, la alternativa que cuenta con el rechazo mayoritario
+de la mayoría de los votantes, esto es, la alternativa que cuenta con la mayoría de votos
+relativa de las últimas preferencias. Dicha alternativa se elimina de los órdenes individuales y
+se vuelve a indagar si existe una alternativa que tenga el respaldo de la mayoría absoluta de
+las primeras preferencias remanentes. Caso contrario, se vuelve a proceder del mismo modo,
+hasta llegar a una alternativa que tenga el respaldo de la mayoría de las primeras preferencias
+remanentes. Cuando hay dos o más alternativas que resultan mayoritarias con arreglo a las
+últimas preferencias, se desempata tomando las anteúltimas preferencias y considerando, a
+los efectos del desempate, sólo las alternativas empatadas.
+			</p><br/>
+			<h2>Método Bucklin</h2><br/>
+			<p class="methodtext">A los votantes se les pide que expresen, cada uno de ellos, un orden completo de preferencias,
+jerarquizando la alternativa más preferida, que se sitúa en primer lugar, a la menos preferida,
+que se colca en último lugar. La opción ganadora es aquella que obtiene la mayoría absoluta
+de votos con arreglo a las primeras preferencias de los votantes. En caso de no haber ninguna
+alternativa respaldada con la mayoría absoluta de las primeras preferencias, se pasa a
+computar los votos que reciben las alternativas según las segundas preferencias, votos que
+pasan a sumarse a los ya recibidos según las primeras preferencias. Si alguna alternativa
+alcanza la mayoría absoluta de votos, es la ganadora Bucklin. En caso contrario, se pasa a
+computar los votos que reciben las alternativas según las terceras preferencias, votos que
+pasan a sumarse a los recibidos con arreglo a las primeras y segundas preferencias. En
+definitiva, se procede bajando en los niveles de preferencias hasta conseguir una alternativa
+que cuente con una mayoría absoluta de votos. Si en el proceso nos encontramos con dos o
+más alternativas que cuentan con una mayoría de votos, se desempata en el nivel subsiguiente
+tomando en cuenta sólo las alternativas empatadas.
+			</p><br/>
+			<h2>Método Borda</h2><br/>
+			<p class="methodtext">
+			A los votantes se les pide que expresen, cada uno de ellos, un orden completo de preferencias,
+jerarquizando la alternativa más preferida, que se sitúa en primer lugar, a la menos preferida,
+que se colca en último lugar. Dentro de cada orden individual de preferencias, se adjudica
+un puntaje a las alternativas situadas en cada nivel dentro del orden. La alternativa situada
+en el nivel más alto, recibe el puntaje N-1 (es decir, el número de alternativas jerarquizadas,
+menos uno). Si existen cuatro alternativas, la alternativa de la primera preferencia recibirá un
+puntaje de 3. La alternativa situada en segundo nivel recibirá un puntaje equivalente a N-2, y
+así hasta la última alternativa, que recibirá el puntaje N-N, esto es, un puntaje de 0. Se pasan a
+sumar los puntajes que reciben las alternativas en cada orden individual. La opción ganadora
+es aquella que obtiene el mayor puntaje, que es la ganadora Borda. En caso de empate entre
+dos alternativas ganadoras, se escoge una de las dos alternativas al azar.
+			</p><br/>
+			<h2>Método Condorcet</h2><br/>
+			<p class="methodtext">
+			Este método consiste en confrontar cada alternativa con las demás, una por una (poniendo
+entre paréntesis el resto de las alternativas) y ver cuál de las dos recibe una mayor cantidad
+de votos. Aquella alternativa que, en comparaciones por pares, gane a todas las demás
+alternativas, será la ganadora Condorcet. Aquella que pierda con todas las demás alternativas,
+será la perdedora Condorcet. En caso de no existir ningún ganador Condorcet, se aplica algún
+método subsidiario.
+			</p><br/>
+			<h2>Método Black</h2><br/>
+			<p class="methodtext">Es un método subsidiario al de Condorcet. En caso de no existir ningún ganador Condorcet, se
+aplica el método Borda y se obtiene el ganador Borda.
+			</p><br/>
+			<h2>Método Copeland</h2><br/>
+			<p class="methodtext">Es un método subsidiario al de Condorcet. En caso de no existir ningún ganador Condorcet, se
+computan las victorias de cada alternativa en comparaciones por pares, y aquella alternativa
+que cuenta con mayor cantidad de victorias frente al resto de alternativas, resultará la
+ganadora Copeland. En caso de empate entre dos alternativas, debe escogerse aquella cuyas
+victorias cuenten con un mayor respaldo de votos.
+			</p><br/>
+			<h2>Método Small</h2><br/>
+			<p class="methodtext">Se trata de un método subsidiario al de Condorcet. Consiste en aplicar el método Copeland,
+pero en caso de empate entre dos o más alternativas, se eliminan los demás candidatos
+perdedores y se vuelve a emplear el método Copeland.
+			</p><br/>
+			<h2>Método Dodgson</h2><br/>
+			<p class="methodtext">Se trata de un método subsidiario al de Condorcet. En caso de no existir ningún ganador
+Condorcet, se suman los márgenes de derrota de cada alternativa en comparaciones por
+pares. Aquella alternativa con un margen de derrota total menor, es la ganadora Dodgson.
+			</p><br/>
+			<h2>Método Nanson</h2><br/>
+			<p class="methodtext">Consiste en adjudicar puntajes en cada orden individual de preferencias según el método
+Borda. Seguidamente se suman todos los puntajes que recibe cada alternativa, y el resultado
+se divide por el número de alternativas, extrayendo así el puntaje promedio. Las alternativas
+que reciban un puntaje inferior al puntaje promedio se eliminan de los órdenes individuales
+de preferencias, y se vuelve a aplicar el mismo método. Así hasta conseguir un único ganador,
+que será el ganador Nanson. Si existe un ganador Condorcet, el método Nanson garantiza que
+saldrá escogido.
+			</p><br/>
+			<h2>Método Kemeny-Young</h2><br/>
+			<p class="methodtext">Normalmente a los votantes se les pide que expresen, cada uno de ellos, un orden completo
+de preferencias, jerarquizando la alternativa más preferida, que se sitúa en primer lugar, a
+la menos preferida, que se colca en último lugar. No obstante, el método también admite la
+expresión de órdenes incompletos de preferencias. Se evalúa, en comparaciones por pares,
+los votos que recibe cada alternativa frente a las demás, obteniendo de este modo la tabla de
+comparaciones por pares. Acto seguido, se calculan y extraen todas las permutaciones posibles
+entre las alternativas. Si existen cuatro alternativas, el número total de permutaciones posibles
+equivale a 4 x 3 x 2 x 1 = 24. Si existen cinco, el número total equivale a 5 x 4 x 3 x 2 x 1= 120.
+En cada una de las permutaciones, se adjudican los votos que recibe cada alternativa frente a
+las demás en la tabla de comparaciones por pares, pero respetando el orden que tenga cada
+alternativa frente a las demás en la permutación. Por ejemplo: la permutación es A>B>C, y en
+la tabla de comparaciones por pares tenemos que A obtiene 10 votos frente a B, y 10 frente
+a C; B en cambio obtiene 8 votos frente a A, y 8 frente a C; y C finalmente obtiene 8 frente
+a A, y 10 frente a B. Entonces, adjudicamos los votos recibidos por A frente a B (10), por A
+frente a C (10), y por B frente a C (8). El puntaje total de la permutación es 28. Se procede
+del mismo modo en todas las permutaciones posibles, y aquella permutación que obtenga el
+mayor puntaje, es la secuencia ganadora Kemeny, y la primera alternativa de la secuencia es la
+ganadora Kemeny. En caso de existir un ganador Condorcet, el método Kemeny asegura que
+éste salga ganador. En caso de empate entre dos secuencias, se escoge al azar una de ellas.
+			</p><br/>
+			<h2>Método Schulze</h2><br/>
+			<p class="methodtext">
+			Los votantes pueden expresar un orden incompleto de preferencias, jerarquizando la
+alternativa más preferida, que se sitúa en primer lugar, a la menos preferida, que se colca en
+último lugar. En caso de consignar sólo una alternativa en primer lugar, las demás alternativas
+se colocan en segundo lugar en el mismo nivel. Primero se extrae la tabla de comparaciones
+por pares. Acto seguido, se procede a analizar en un gráfico las relaciones de votos entre
+las distintas alternativas, colocando una flecha (o vínculo) que parte de cada alternativa al
+resto de las demás. En las flechas o vínculos se consigna el número de votos que recibe cada
+alternativa frente a aquella alternativa a la cual se dirige la flecha. De este modo, obtendremos
+un gráfico de vínculos, como el del siguiente ejemplo (sólo se consignan las flechas ganadoras
+en comparaciones por pares):</p><br/>
+<br/>
+<center><img src="${asset:context:/layout/images/schulze.png}"/></center><br/>
+			
+			<p class="methodtext">Acto seguido, se procede a analizar cuál de todas las sendas posibles, para llegar al resto de
+alternativas, cuenta con el vínculo que tenga más votos de respaldo. En el gráfico, por ejemplo,
+se analiza cómo llegar de A a C, por la senda más robusta. Se observa que el vínculo directo
+que une A con C es de 27 votos, mientras que, en la senda que parte desde A y pasa por D,
+tenemos dos vínculos, uno de 30 votos, y otro de 29 votos. En ambos vínculos, encontramos
+un número de votos mayor a 27, lo que equivale a decir que es la senda más robusta que une
+A con C. De las sendas más robustas, siempre se toma el vínculo con menor cantidad de votos.
+Se procede del mismo modo con todas las alternativas, y se extrae la tabla de comparación
+de sendas más robustas. La tabla de comparación de sendas más robustas ofrece un orden
+colectivo de preferencias. Aquella que gana a todas las demás, en la tabla de comparación de
+sendas más robustas, es la ganadora Schulze. En caso de empate entre dos alternativas, se
+escoge una por azar.</p>
+			
+			<br/>
+			<h2>Approval voting</h2><br/>
+			<p class="methodtext">
+			Es un sistema de votación mediante el cual el votante puede votar por todas las alternativas
+que desee. Cada votante puede votar tantas opciones como quiera, y a cada una puede dar
+sólo un voto. La opción con más votos gana. En caso de empate, se escoge un ganador al azar.
+			</p><br/>
+			<h2>Range voting</h2><br/>
+			<p class="methodtext">
+			En este sistema cada votante califica a cada alternativa con arreglo a una escala concreta, por
+ejemplo, de 0 a 99, o de 1 a 5. Es por eso que el administrador de la votación debe primero
+especificar la escala a la luz de la cual los votantes evaluarán las alternativas. Todas las
+alternativas deben ser calificadas a la luz de esa misma escala, que funciona como parámetro
+intersubjetivo externo de los votantes. Los puntajes que recibe cada alternativa son sumados,
+y aquella que obtenga el mayor puntaje promedio es la ganadora. A los votantes se les puede
+permitir abstenerse de calificar ciertas alternativas. En ese caso, se considera por defecto que
+los votantes han adjudicado a dichas alternativas el menor puntaje posible.
+			</p><br/>
+			<h2>Juicio mayoritario</h2><br/>
+			<p class="methodtext">
+			Se pide a los votantes que califiquen las alternativas con arreglo a alguna escala ordinal, como
+la de muy bueno, bueno, regular, malo y muy malo, o algún otro parámetro, que deberá ser
+especificado por el administrador de la votación. A los votantes se les permite que asignen
+un grado o juicio a cada alternativa. Los adjetivos y categorías ordinales utilizadas pueden ser
+diversos dependiendo de las dimensiones evaluadas (eficiencia, duración, bondad, justicia,
+etc.). Como las elecciones políticas son multidimensionales, lo más práctico es utilizar una
+escala que permita a los votantes resumir todas las (potencialmente infinitas) dimensiones en
+una única escala, como “muy bueno, bueno, regular, malo y muy malo”, con independencia de
+qué tipo de dimensiones estén involucradas. Los votantes pueden asignar la mayor calificación
+a una o más alternativas, si lo creen adecuado. La alternativa con la escala mediana más alta
+es la ganadora. En caso de empate, se escoge una al azar.
+			</p><br/>
+			<h2>Voto acumulativo</h2><br/>
+			<p class="methodtext">
+			Consiste en otorgar, a cada votante, un número específico de votos, que puede repartir como
+mejor le parezca entre las diferentes alternativas. Por ejemplo, si cada votante posee 5 votos,
+y existen cinco alternativas, el votante puede escoger entre adjudicar los cinco votos a una
+sola alternativa, o instrumentar algún esquema de reparto (por ejemplo, dar 3 votos a una
+alternativa y 2 a otra, o 1 voto a cada una). La alternativa con mayor número de votos resulta
+la ganadora. En caso de empate, se escoge una al azar.
+			</p><br/>
+			<h2>Método Mejor-peor</h2><br/>
+			<p class="methodtext">
+			Las personas votan sólo por la mejor y la peor alternativa, de un conjunto N de alternativas.
+La alternativa ganadora es aquella que obtiene la mayoría relativa de votos netos, esto es,
+una vez que se computa, por cada una de ellas, la diferencia entre los votos “mejor” y los
+votos “peor”. Es útil cuando existen más de siete alternativas, y las personas son incapaces de
+jerarquizarlas a todas por falta de información.
+			</p><br/>
+			<h2>Método Brams</h2><br/>
+			<p class="methodtext">
+			Consiste que una combinación del voto aprobatorio y el voto promedio. Es útil cuando existen
+más de siete alternativas, y las personas son incapaces de jerarquizarlas a todas por falta de
+información. Se trata de que las personas escojan, de entre el menú total de alternativas,
+un número limitado de ellas. El votante calificará las alternativas escogidas según unos
+parámetros determinados (de 0 a 5, o de 1 a 10) por el administrador. Sólo se considerarán
+aquellas alternativas que reciban un umbral de votos aprobatorios (a especificar por el
+administrador). Una vez que se extraen las alternativas “aprobadas”, se pasa a evaluar la
+calificación que reciben por los votantes. Aquella que recibe la máxima calificación promedio,
+es la ganadora.
+			</p><br/><br/><br/><br/>
+		</body>
+	</t:border>
 	
-		 <div id="chart_div"></div>
-		</t:border>
+
 	
 		
 			

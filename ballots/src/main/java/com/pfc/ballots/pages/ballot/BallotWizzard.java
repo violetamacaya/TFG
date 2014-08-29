@@ -949,6 +949,7 @@ public class BallotWizzard {
 		String emailDestino=userDao.getEmailById(idUser);
 		EmailAccount account=emailAccountDao.getAccount();
 		
+		SimpleDateFormat dateFormat;
 		
 		String metodo=null;
 		String subject;
@@ -969,9 +970,16 @@ public class BallotWizzard {
 			txt="La votacion docente "+ballotMail.getName()+" ha sido realizada con el metodo "+metodo+"<br/><br/>Su descripcion es:<br/>"+ballotMail.getDescription();
 		}
 		else
-		{
-			subject="Ya puedes Votar en: "+ballotMail.getName();
-			txt="Ya tiene acceso a la votacion ("+metodo+"): "+ballotMail.getName()+"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
+		{			
+			dateFormat =new SimpleDateFormat("dd/MM/yyyy");
+			String fecha = dateFormat.format(ballot.getStartDate());
+			dateFormat=new SimpleDateFormat("HH:mm");
+			String hora= dateFormat.format(ballot.getStartDate());
+			
+			subject="Nueva votación: "+ballotMail.getName();
+			txt="Ha sido invitado a participación a la votación ("+metodo+"): "+ballotMail.getName()+ "que dara comienzo el "+fecha+" a las "+hora+
+					"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
+					
 		}
 
 		

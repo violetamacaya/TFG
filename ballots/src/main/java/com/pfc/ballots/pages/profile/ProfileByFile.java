@@ -1,6 +1,8 @@
 package com.pfc.ballots.pages.profile;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,6 +21,8 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.upload.services.UploadedFile;
+import org.apache.tapestry5.StreamResponse;
+import org.apache.tapestry5.services.Response;
 
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.ProfileCensedInDao;
@@ -33,6 +37,13 @@ import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.ManipulateFiles;
 import com.pfc.ballots.util.UUID;
+
+
+
+
+
+
+
 
 /**
  * 
@@ -146,6 +157,43 @@ public class ProfileByFile {
 		}
 		
 	}
+	
+	/**
+	 * Return a view of an example xml file
+	 * 
+	 * @return the view of the example file
+	 */
+	  StreamResponse onReturnStreamResponse() {
+	        return new StreamResponse() {
+	            InputStream inputStream;
+
+	            //@Override
+	            public void prepareResponse(Response response) {
+	                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+	                
+	                inputStream = classLoader.getResourceAsStream("com/pfc/ballots/util/examples/example.xml");
+	               
+	                try {
+	                    response.setHeader("Content-Length", "" + inputStream.available());
+	                }
+	                catch (IOException e) {
+	                    // Ignore the exception in this simple example.
+	                }
+	            }
+
+	            //@Override
+	            public String getContentType() {
+	                return "text/plain";
+	            }
+
+	            //@Override
+	            public InputStream getStream() throws IOException {
+	                return inputStream;
+	            }
+	        };
+	    }
+	
+	
 	@Property
 	@Persist
 	private List<Profile> persons;

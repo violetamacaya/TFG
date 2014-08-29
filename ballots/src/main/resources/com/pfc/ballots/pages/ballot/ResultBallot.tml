@@ -1,12 +1,32 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  
+  <head>
+	
+	<title>${message:page-title}</title>
+	
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+      </script>
+      
+ </head>
+ 
 	<t:border>
+		
+		<h1>${ballot.name}</h1>
+		<h3>${ballot.description}</h3>
+		
+		<div id="chart_div"></div>
+		
+		
 		<t:if test="showRelMay">
-			Nombre->${ballot.name}<br/>
-			IdData->${relMay.id}
-			
 			<table>
-				<tr><th>Opcion</th><th>Votos</th></tr>
+				<tr><th>${message:option}</th><th>${message:votes}</th></tr>
 				<t:loop t:source="relMay.options" t:value="option">
 					<tr>
 						<td>${option}</td><td>${relMayVote}</td>
@@ -15,9 +35,9 @@
 			</table>
 		</t:if>
 		<t:if test="showKemeny">
-			Nombre->${ballot.name}
-			IdData->${kemeny.id}
+
 			<table>
+				<tr><th>${message:permutation}</th><th>${message:votes}</th></tr>
 				<t:loop t:source="kemeny.permutations" t:value="permutation">
 					<tr>
 						<td>${permutation}</td><td>${kemenyVote}</td>

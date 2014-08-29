@@ -109,12 +109,19 @@ public class LogIn {
 			{
 				datasession=new DataSession();
 			}
-			datasession.login( updatedProfile);
+			datasession.login(updatedProfile);
 			
 			logedDao.store(new UserLoged(email,request.getRemoteHost(),datasession.getIdSession()));
 			
 			System.out.println("LOGIN CORRECTO");
-			return Index.class;
+			if(datasession.isMainAdmin() && !datasession.isMailWorking())
+			{
+				return AdminMail.class;
+			}
+			else
+			{
+				return Index.class;
+			}
 		}
 		else
 		{

@@ -6,6 +6,7 @@ import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.Validate;
 
@@ -30,7 +31,7 @@ import com.pfc.ballots.util.UUID;
  * @author Mario Temprano Martin
  * @version 1.0 FEB-2014
  */
-
+@Secure
 public class CreateProfile {
 
 	@SessionState
