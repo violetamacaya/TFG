@@ -121,7 +121,7 @@ public class CreateCompany {
 			profile.setAdmin(true);
 			profile.setEmail(company.getAdminEmail());
 			profile.setPassword(encrypt);
-			profile.setPlain(password);
+			
 			profile.setOwner(true);
 			
 			userDao.store(profile);

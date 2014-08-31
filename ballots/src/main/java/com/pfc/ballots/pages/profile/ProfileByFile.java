@@ -262,7 +262,14 @@ public class ProfileByFile {
 	{
 		System.out.println("SUCCESSS");
 		String[] namef=file.getFileName().split("\\.");
-		finalpath=path+datasession.getEmail()+"."+namef[namef.length-1];
+		if(datasession.isMainAdmin())
+		{
+			finalpath=path+datasession.getEmail()+"."+namef[namef.length-1];
+		}
+		else
+		{
+			finalpath=path+datasession.getEmail()+"."+datasession.getDBName()+"."+namef[namef.length-1];
+		}
 		File copied= new File(finalpath);
 		fileupload=true;
 		fileLoaded=false;
@@ -449,7 +456,7 @@ public class ProfileByFile {
 				temp.setId(UUID.generate());
 				temp.setRegDatetoActual();
 				temp.setPassword(Encryption.getStringMessageDigest(person.getPassword(), Encryption.SHA1));
-				temp.setPlain(person.getPassword());
+				
 				ProfileCensedIn censedIn=new ProfileCensedIn(temp.getId());
 				
 				censedInDao.store(censedIn);
@@ -484,7 +491,7 @@ public class ProfileByFile {
 		temp.setRegDatetoActual();
 		
 		temp.setPassword(Encryption.getStringMessageDigest(person.getPassword(), Encryption.SHA1));
-		temp.setPlain(person.getPassword());
+		
 		ProfileCensedIn censedIn=new ProfileCensedIn(temp.getId());
 		censedInDao.store(censedIn);
 		userDao.store(temp);

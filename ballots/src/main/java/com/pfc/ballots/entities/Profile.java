@@ -71,7 +71,7 @@ public class Profile {
 	private String password;
 	
 	
-	private String plainPass;
+	
 
 	//Other stuff of the user
 	private Sex sex;
@@ -205,12 +205,7 @@ public class Profile {
 	public void setLogtoactual() {
 		lastLog =new Date();
 	}
-	public String getPlainPass() {
-		return plainPass;
-	}
-	public void setPlain(String plainPass) {
-		this.plainPass = plainPass;
-	}
+
 	public void copy(Profile old)
 	{
 		this.admin=old.isAdmin();

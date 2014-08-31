@@ -96,7 +96,7 @@ public class CreateCompanyUser {
 			//Encryption password,and store in database
 			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);
 			profile.setPassword(encrypt);
-			profile.setPlain(password);
+			
 			profile.setId(UUID.generate());
 			profile.setRegDatetoActual();
 			ProfileCensedIn censedIn =new ProfileCensedIn(profile.getId());

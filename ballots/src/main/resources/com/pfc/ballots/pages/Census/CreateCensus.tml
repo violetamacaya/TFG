@@ -129,7 +129,7 @@
 						<tr><td><t:actionLink t:id="showAll" zone="^">${message:showall-users}</t:actionLink></td></tr>
 							<tr><td>
 								<t:if test="showSearchList">				
-									<t:grid source="users" row="user" exclude="lastLog,regDate,password,plainPass" add="add" reorder="add" inplace="true">
+									<t:grid source="users" row="user" exclude="lastLog,regDate,password" add="add" reorder="add" inplace="true">
 										<p:addCell>
 											<t:checkbox t:id="add"/>
 										</p:addCell>
@@ -157,7 +157,7 @@
 					<t:form t:id="removeForm" zone="^">
 						<table>
 							<tr><td>
-							<t:grid source="censusList" row="user" exclude="lastLog,regDate,password,plainPass" add="remove" reorder="remove" inplace="true">
+							<t:grid source="censusList" row="user" exclude="lastLog,regDate,password" add="remove" reorder="remove" inplace="true">
 								<p:removeCell>
 										<t:checkbox t:id="remove"/>						
 								</p:removeCell>

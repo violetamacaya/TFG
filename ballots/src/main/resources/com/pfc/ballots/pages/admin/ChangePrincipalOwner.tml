@@ -6,7 +6,7 @@
 	
 		<t:zone t:id="userGridZone" id="userGridZone">
 			<t:if test="!showSure">
-				<t:grid source="users" row="user" add="makeOwner" exclude="password,plainpass,owner,lastlog">
+				<t:grid source="users" row="user" add="makeOwner" exclude="password,owner,lastlog">
 					<p:makeOwnerCell>
 						<t:actionlink t:id="makeOwnerBut" context="user.id" zone="^"><button>${message:make-owner}</button></t:actionlink>
 					</p:makeOwnerCell>

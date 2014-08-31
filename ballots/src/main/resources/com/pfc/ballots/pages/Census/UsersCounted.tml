@@ -10,7 +10,7 @@
 		<t:zone t:id="usersCountedZone" id="usersCountedZone">
 			<t:if test="!showUsersCountedZone">
 				<h1>${censusName}</h1>
-				<t:grid source="users" row="user" exclude="regdate,password,id,plainpass,lastlog"/>
+				<t:grid source="users" row="user" exclude="regdate,password,id,lastlog"/>
 				<t:actionlink t:id="editbut" t:zone="^"><button>${message:edit-but}</button></t:actionlink>
 			</t:if>
 		</t:zone>
@@ -144,7 +144,7 @@
 						<tr><td><t:actionlink t:id="showAll" t:zone="^">${message:showall-users}</t:actionlink></td></tr>
 						<tr><td>
 							<t:if test="showSearchList">
-								<t:grid source="searchList" row="user" add="add" reorder="add" exclude="regdate,password,id,plainpass,lastlog">
+								<t:grid source="searchList" row="user" add="add" reorder="add" exclude="regdate,password,id,lastlog">
 									<p:addCell>
 										<t:checkbox t:id="add"/>
 									</p:addCell>
@@ -173,7 +173,7 @@
 				<t:form t:id="removeForm" t:zone="^">
 					<table>
 						<tr><td>
-							<t:grid source="editUsers" row="user" add="remove" reorder="remove" exclude="regdate,password,id,plainpass,lastlog">
+							<t:grid source="editUsers" row="user" add="remove" reorder="remove" exclude="regdate,password,id,lastlog">
 								<p:removeCell>
 									<t:checkbox t:id="remove"/>	
 								</p:removeCell>							
