@@ -31,6 +31,7 @@ import com.pfc.ballots.pages.Census.CensusList;
 import com.pfc.ballots.pages.Census.CreateCensus;
 import com.pfc.ballots.pages.Company.CreateCompany;
 import com.pfc.ballots.pages.Company.ListCompany;
+import com.pfc.ballots.pages.admin.AdminCreateProfile;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
@@ -347,7 +348,7 @@ public class Border {
 			}
 		else if(section.equals("new-user2"))
 			{
-				page=CreateProfile.class;
+				page=AdminCreateProfile.class;
 			}
 		else if(section.equals("user-list"))
 			{
@@ -391,7 +392,16 @@ public class Border {
 			else if(section.equals("new-ballot"))
 				{page=BallotWizzard.class;}
 			else if(section.equals("new-user1"))
-				{page=CreateProfile.class;}
+			{
+				if(datasession.isAdmin())
+				{
+					page=AdminCreateProfile.class;
+				}
+				else
+				{
+					page=CreateProfile.class;
+				}
+			}
 			else if(section.equals("contact"))
 				{page=Contact.class;}
 			else if(section.equals("LogIn"))

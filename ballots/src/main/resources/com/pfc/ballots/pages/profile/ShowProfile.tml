@@ -11,7 +11,7 @@
 	   ////////////////////////////////////////////// USER DATA ZONE /////////////////////////////////////////////////
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	  -->
-		<t:zone t:id="userDataZone" id="userDataZone">
+		<t:zone t:id="userDataZone" id="userDataZone" t:update="show">
 			<t:if test="showData">
 				<table>
 					<tr>
@@ -80,7 +80,7 @@
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	  -->	
 		
-	<t:zone t:id="areuSureZone" id="areuSureZone">
+	<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 		<t:if test="showSure">
 			${message:areuSure}
 			<t:actionlink t:id="yesSureBut"><button>${message:yesSure}</button></t:actionlink>
@@ -94,7 +94,7 @@
 	   /////////////////////////////////////////////CHANGE PASS ZONE /////////////////////////////////////////////////
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	  -->		
-	   <t:zone t:id="changePassZone" id="changePassZone">
+	   <t:zone t:id="changePassZone" id="changePassZone" t:update="show">
 	   		<t:if test="showChange">
 	   			<t:form t:id="changePassForm" zone="^">
 	   				<table>
@@ -126,7 +126,7 @@
 	   ///////////////////////////////////////// UPDATE PROFILE ZONE /////////////////////////////////////////////////
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 -->
-	 	<t:zone t:id="updateProfileZone" id="updateProfileZone">
+	 	<t:zone t:id="updateProfileZone" id="updateProfileZone" t:update="show">
 	 		<t:if test="showUpdate">
 	 			<t:form t:id="updateForm" zone="^">
 	 				<table>

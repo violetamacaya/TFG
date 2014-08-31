@@ -4,7 +4,7 @@
 	<t:border><div id="userListDiv">
 	
 		<h1>${message:userlist}</h1><hr/>
-		<t:zone t:id="nomailgrid" id="nomailgrid">
+		<t:zone t:id="nomailgrid" id="nomailgrid" t:update="show">
 			<t:if test="showNoMail">
 				<t:grid source="nomails" reorder="email,admin,maker" row="nomail" add="Edit,Delete" exclude="password,owner">
 					<p:deletecell>
@@ -21,7 +21,7 @@
 			</t:if>
 		</t:zone>
 		
-		<t:zone t:id="usergrid" id="usergrid">	
+		<t:zone t:id="usergrid" id="usergrid" t:update="show">	
 			<t:grid source="users" reorder="email,owner,admin,maker" row="user" add="Edit,Delete" exclude="password">
 				<p:editcell>
 					<t:if test="!editing">
@@ -45,7 +45,7 @@
 		</t:zone>
 		
 		
-		<t:zone t:id="editZone" id="editZone">
+		<t:zone t:id="editZone" id="editZone" t:update="show">
 			<t:if test="editing">
 				<t:form t:id="editForm" zone="^">
 				<table>

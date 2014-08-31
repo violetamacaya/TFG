@@ -1,6 +1,4 @@
-package com.pfc.ballots.pages.profile;
-
-import javax.inject.Inject;
+package com.pfc.ballots.pages.admin;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.PersistenceConstants;
@@ -9,6 +7,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.Validate;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.ProfileCensedInDao;
@@ -18,21 +17,12 @@ import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
-import com.pfc.ballots.pages.UnauthorizedAttempt;
-import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
 
-/**
- * 
- * CreateProfile class is the controller for the CreateProfile page that
- * allows to create a new user
- * 
- * @author Mario Temprano Martin
- * @version 1.0 FEB-2014
- */
+
 @Secure
-public class CreateProfile {
+public class AdminCreateProfile {
 
 	@SessionState
 	private DataSession datasession;
@@ -122,7 +112,7 @@ public class CreateProfile {
 			dao.store(profile);
 			componentResources.discardPersistentFieldChanges();
 		}
-		return Index.class;
+		return UserList.class;
 			
 	}
 
@@ -138,11 +128,11 @@ public class CreateProfile {
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return null;
+				return Index.class;
 			case 1:
 				return Index.class;
 			case 2:
-				return Index.class;
+				return null;
 			case 3:
 				return SessionExpired.class;
 			default:

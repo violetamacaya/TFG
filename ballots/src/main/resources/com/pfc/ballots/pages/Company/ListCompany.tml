@@ -10,7 +10,7 @@
 			//////////////////////////////////////////////// COMPANY GRID ZONE /////////////////////////////////////////////////////////////////
 		   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		
-		<t:zone t:id="companyGridZone" id="companyGridZone">
+		<t:zone t:id="companyGridZone" id="companyGridZone" t:update="show">
 			<t:if test="!showSure">
 				<t:grid source="companies" row="company" add="seeusers,addusers,deletecompany,addusersfile,ChangeActive" reorder="active">
 					
@@ -44,7 +44,7 @@
 			//////////////////////////////////////////////// AREUSURE ZONE /////////////////////////////////////////////////////////////////////
 		   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		
-		<t:zone t:id="areuSureZone" id="areuSureZone">
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 			<t:if test="showSure">
 				${message:are-u-sure}<t:if test="status">${message:activate-but}<p:else>desctivar</p:else></t:if><b>${toCheck.companyName }</b><br/>
 				<t:actionlink t:id="isSureBut" zone="^"><button>${message:yes-but}</button></t:actionlink>

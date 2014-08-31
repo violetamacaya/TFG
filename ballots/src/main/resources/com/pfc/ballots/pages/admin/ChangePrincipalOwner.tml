@@ -4,7 +4,7 @@
 	<t:border>
 	
 	
-		<t:zone t:id="userGridZone" id="userGridZone">
+		<t:zone t:id="userGridZone" id="userGridZone" t:update="show">
 			<t:if test="!showSure">
 				<t:grid source="users" row="user" add="makeOwner" exclude="password,owner,lastlog">
 					<p:makeOwnerCell>
@@ -13,7 +13,7 @@
 				</t:grid>
 			</t:if>
 		</t:zone>
-		<t:zone t:id="areuSureZone" id="areuSureZone">
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 			<t:if test="showSure">
 				${message:are-u-sure}<b>${newOwner.email}</b>${message:owner} <b>${message:aplication}</b>						
 				

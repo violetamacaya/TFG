@@ -5,7 +5,7 @@
 		
 		<h1>${message:admin-census}</h1><hr/>
 		
-		<t:zone t:id="searchZone" id="searchZone">
+		<t:zone t:id="searchZone" id="searchZone" t:update="show">
 			<t:form t:id="searchForm" t:zone="censusGridZone">
 				<table>
 					<tr>
@@ -20,7 +20,7 @@
 			</t:form>		
 		</t:zone>
 		
-		<t:zone t:id="censusGridZone" id="censusGridZone" >
+		<t:zone t:id="censusGridZone" id="censusGridZone" t:update="show">
 			<table>
 				<tr><td><t:actionlink t:id="showAll" t:zone="^"><button>${message:showall-but}</button></t:actionlink></td></tr>
 				<tr><td>

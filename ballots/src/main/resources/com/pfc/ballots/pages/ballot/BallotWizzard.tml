@@ -5,7 +5,7 @@
 	
 		<h1>${message:create-ballot}</h1><hr/>
 	
-		<t:zone t:id="generalZone" id="generalZone">
+		<t:zone t:id="generalZone" id="generalZone" t:update="show">
 			<t:if test="showGeneral">
 				
 				<t:form t:id="generalForm" zone="^">
@@ -39,7 +39,7 @@
 			</t:if>
 		</t:zone>
 		
-		<t:zone t:id="typeZone" id="typeZone">
+		<t:zone t:id="typeZone" id="typeZone" t:update="show">
 			<t:if test="showtype">
 				<t:form t:id="typeForm" zone="^">
 					<t:if test="showErrorType">
@@ -104,7 +104,7 @@
 			
 			
 		</t:zone>
-		<t:zone t:id="mayRelZone" id="mayRelZone">
+		<t:zone t:id="mayRelZone" id="mayRelZone" t:update="show">
 			<t:if test="showMayRel">
 				${message:relative-majority}
 				<t:form t:id="mayRelForm" t:zone="^">
@@ -168,7 +168,7 @@
 		
 		
 		
-		<t:zone t:id="kemenyZone" id="kemenyZone">
+		<t:zone t:id="kemenyZone" id="kemenyZone" t:update="show">
 			<t:if test="showKemeny">
 				${message:kemeny}
 				<t:form t:id="kemenyForm" t:zone="^">

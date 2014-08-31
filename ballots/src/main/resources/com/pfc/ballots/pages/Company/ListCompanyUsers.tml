@@ -10,7 +10,7 @@
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  		-->
 		
-		<t:zone t:id="userGridZone" id="userGridZone">	
+		<t:zone t:id="userGridZone" id="userGridZone" t:update="show">	
 			<t:if test="!showSure">
 				<t:grid source="users" row="user" add="Edit,Delete,makeOwner" exclude="password,owner,lastlog">
 					<p:deleteCell>
@@ -44,7 +44,7 @@
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  		-->	
 		
-		<t:zone t:id="areuSureZone" id="areuSureZone">
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 			<t:if test="showSure">
 				
 				${message:are-u-sure}<b>${toCheck.email }</b>${message:owner-of}<b>${companyName }</b><br/>
@@ -58,7 +58,7 @@
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  		-->		
 
-		<t:zone t:id="editZone" id="editZone">
+		<t:zone t:id="editZone" id="editZone" t:update="show">
 			<t:if test="editing">
 				<t:form t:id="editForm" zone="^">
 					<table>

@@ -29,7 +29,7 @@
 				 
 			</t:if>
 			<t:if test="showKemeny">
-				<t:zone t:id="kemenyZone">
+				<t:zone t:id="kemenyZone" t:update="show">
 					<t:if test="showErrorKemeny">
 						${message:kemeny-text}
 					</t:if>

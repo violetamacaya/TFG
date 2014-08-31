@@ -6,7 +6,7 @@
 		<h1>${message:admin-ballots}</h1><hr/>
 		
 		
-		<t:zone t:id="gridZone" id="gridZone">
+		<t:zone t:id="gridZone" id="gridZone" t:update="show">
 			<t:if test="showGrid">
 				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="finish,delete,maker,census" reorder="maker,name,method,census" exclude="id,description,active,notstarted,counted,idOwner,idballotdata,idCensus">
 					<p:makerCell>
@@ -41,7 +41,7 @@
 		</t:zone>
 		
 		
-		<t:zone t:id="areuSureZone" id="areuSureZone">
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 			<t:if test="showAreuSure">
 				<t:if test="optionDelete">
 					Esta usted seguro de que quiere <strong>eliminar</strong> la botacion <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>

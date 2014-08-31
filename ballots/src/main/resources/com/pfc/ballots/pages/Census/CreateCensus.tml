@@ -10,7 +10,7 @@
 		  ////////////////////////////////////////////////////////////////////////////////////////// -->
 		  				
 		
-			<t:zone t:id="censusNameZone" id="censusNameZone" visible="!censusNameVisible">
+			<t:zone t:id="censusNameZone" id="censusNameZone" visible="!censusNameVisible" t:update="show">
 		 	  
 				<t:form t:id="censusNameForm" t:zone="^">
 					<table>
@@ -171,7 +171,7 @@
 					</t:form>
 				</t:if>
 			</t:zone>
-			<t:zone t:id="buttonsZone" id="buttonsZone" visible="secondVisible">
+			<t:zone t:id="buttonsZone" id="buttonsZone" visible="secondVisible" t:update="show">
 				
 						<t:actionLink t:id="backbut" zone="^"><button>${message:back-but}</button></t:actionLink>
 						<t:if test="showCensusList">
