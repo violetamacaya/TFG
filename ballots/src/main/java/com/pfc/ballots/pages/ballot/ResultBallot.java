@@ -98,26 +98,27 @@ public class ResultBallot {
 		{
 			relMayDao= DB4O.getRelativeMajorityDao(datasession.getDBName());
 			relMay=relMayDao.getByBallotId(ballot.getId());
-			
-			if(ballot.isEnded()==true && ballot.isCounted()==false && relMay!=null)
+			relMay.calcularMayoriaRelativa();
+			/*if(ballot.isEnded()==true && ballot.isCounted()==false && relMay!=null)
 			{
 				relMay.calcularMayoriaRelativa();
 				ballot.setCounted(true);
 				relMayDao.update(relMay);
 				ballotDao.updateBallot(ballot);
-			}
+			}*/
 		}
 		else if(ballot.getMethod()==Method.KEMENY)
 		{
 			kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 			kemeny=kemenyDao.getByBallotId(contextResultBallotId);
-			if(ballot.isEnded()==true && ballot.isCounted()==false && kemeny!=null)
+			kemeny.calcularKemeny();
+			/*if(ballot.isEnded()==true && ballot.isCounted()==false && kemeny!=null)
 			{
 				kemeny.calcularKemeny();
 				ballot.setCounted(true);
 				kemenyDao.update(kemeny);
 				ballotDao.updateBallot(ballot);
-			}
+			}*/
 			
 		}
 		

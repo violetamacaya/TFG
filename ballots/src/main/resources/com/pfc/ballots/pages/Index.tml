@@ -1,10 +1,10 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <head><title>${message:page-title}</title></head>
   
-	<t:border>
+	<t:border><div id=indexDiv>
 	
 		<t:if test="!showRegistred">
-			Bienvenidos a mi pagina web
+			<h1>${message:ballots-web}</h1>
 			<p:else>
 				<div class="ballotsList">
 					
@@ -13,39 +13,31 @@
 					</t:if>
 				
 					<t:if test="showNotStarted">
+						<h3>${message:not-started}</h3><hr/>
 						<table>
-					 		 <tr><th>No empezadas</th></tr>
 						 	 <t:loop t:source="nonActiveBallots" t:value="ballot">
-						 	 	<tr><td>Nombre->${ballot.name}</td></tr>
+						 	 	<div class="indexRow">
+									<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								
+									 <t:if test="ballot.teaching">
+											<span>Docente&nbsp;&nbsp;&nbsp;</span>
+											<p:else>
+												<span>Normal&nbsp;&nbsp;&nbsp;</span>
+											</p:else>
+									</t:if>
+									 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
+									 <br/>
+								 </div>
 						 	 </t:loop>
 					 	</table>
 					</t:if>
 			
 					
-				 <!--  <t:if test="showActive">
-						Activas
-							 <t:loop t:source="activeBallots" t:value="ballot">
-							 <div class="row">
-								<span><t:actionlink t:id="voteBallot" t:context="ballot.id"> Nombre->${ballot.name}</t:actionlink>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							
-								 <t:if test="ballot.teaching">
-										<span>Docente&nbsp;&nbsp;&nbsp;</span>
-										<p:else>
-											<span>Normal&nbsp;&nbsp;&nbsp;</span>
-										</p:else>
-								</t:if>
-								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
-							 </div>
-							</t:loop>
-						
-					</t:if>
-					-->
-					
 					<t:if test="showActive">
-						Activas<br/>
+						<h3>${message:actives}</h3><hr/>
 							 <t:loop t:source="activeBallots" t:value="ballot">
 							 <div t:type="actionlink" t:id="voteBallot" t:context="ballot.id" class="indexRow">
-								<span> Nombre->${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							
 								 <t:if test="ballot.teaching">
 										<span>Docente&nbsp;&nbsp;&nbsp;</span>
@@ -62,10 +54,10 @@
 					
 					<t:if test="showEnded">
 							
-							 Terminadas<br/>
+							 <h3>${message:ended}</h3><hr/>
 							 <t:loop t:source="endedBallots" t:value="ballot">
 							 	 <div t:type="actionlink" t:id="resultBallot" context="ballot.id" class="indexRow" >
-									<span>Nombre->${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<span>${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								
 								<t:if test="ballot.teaching">
 										<span>Docente&nbsp;&nbsp;&nbsp;</span>
@@ -83,7 +75,7 @@
 			</p:else>
 		</t:if>
 	
-	</t:border>
+	</div></t:border>
 	
 		
 			
