@@ -21,20 +21,20 @@
 			<t:if test="maker">
 				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:new-ballot" ><plain>${message:new-ballot}</plain></t:eventlink></li>
 			</t:if>
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:contact" ><plain>${message:contact}</plain></t:eventlink></li>	
-			
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:about" ><plain>${message:about}</plain></t:eventlink></li>
-			
-			
+						
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:methods" ><plain>${message:methods}</plain></t:eventlink></li>	
 			
 			<t:if test="!loged">		
 				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:LogIn" ><plain>${message:login}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>${message:company-login}</plain></t:eventlink></li>
 			</t:if>
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:contact" ><plain>${message:contact}</plain></t:eventlink></li>	
+			
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:about" ><plain>${message:about}</plain></t:eventlink></li>
+			
 			<t:if test="loged">
-			<li><t:actionlink t:id="logout2"><plain>${message:log-out}</plain></t:actionlink></li>
-		</t:if>
+				<li><t:actionlink t:id="logout2"><plain>${message:log-out}</plain></t:actionlink></li>
+			</t:if>
 		</ul>
 	</pagehead>
 	

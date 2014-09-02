@@ -6,7 +6,7 @@
 		<h1>${message:create-profile}</h1><hr/>
 		<infouser>
 			
-				<t:beaneditform t:id="form" submitlabel="${message:send-but}" object="profile" add="repeat" reorder="admin,email,password,repeat" exclude="owner">
+				<t:beaneditform t:id="form" submitlabel="${message:send-but}" object="profile" add="repeat" reorder="email,password,repeat" exclude="owner">
 					
 					<p:email>
 						<t:label for="email"/>
@@ -28,7 +28,6 @@
 					</p:repeat>
 				</t:beaneditform>
 				
-			</t:if>
 			
 			
 			

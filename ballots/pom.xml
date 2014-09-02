@@ -102,7 +102,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
 		<dependency>
 			<groupId>Calculo-lib</groupId>
 			<artifactId>CalculoVotaciones</artifactId>
-			<version>1.02</version>
+			<version>1.03</version>
 		</dependency>
 		
 		<dependency>
