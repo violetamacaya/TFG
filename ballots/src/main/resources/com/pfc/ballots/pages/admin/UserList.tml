@@ -17,6 +17,8 @@
 							<t:actionlink t:id="editnomail" zone="^" context="nomail.id"><button>${message:edit-but}</button></t:actionlink>
 						</t:if>
 					</p:editcell>
+					<p:else>
+					</p:else>
 				</t:grid>					
 			</t:if>
 		</t:zone>
