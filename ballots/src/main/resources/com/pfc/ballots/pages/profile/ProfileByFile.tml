@@ -52,7 +52,9 @@
 								<t:actionlink t:id="addbut" context="person.id" zone="^"><button>${message:add-but}</button></t:actionlink>
 							</t:if>
 						</t:if>
-					</p:addcell>        
+					</p:addcell> 
+					<p:else>
+					</p:else>       
 				</t:grid>
 				<t:actionlink t:id="endBut"><button>${message:finish-but}</button></t:actionlink>
 				<t:actionlink t:id="addRowBut" zone="^"><button>${message:addrow-but}</button></t:actionlink>
