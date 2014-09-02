@@ -9,10 +9,10 @@
 			<t:if test="showGeneral">
 				
 				<t:form t:id="generalForm" zone="^">
-					<t:if test="showErrorGeneral">
+					<t:if test="showErrorGeneral" class="error">
 						${message:fill-fields}<br/>
 					</t:if>
-					<t:if test="showBadName" zone="^">
+					<t:if test="showBadName" zone="^" class="error">
 						${message:name-in-use}<br/>
 					</t:if>
 					<table>
@@ -42,10 +42,10 @@
 		<t:zone t:id="typeZone" id="typeZone" t:update="show">
 			<t:if test="showtype">
 				<t:form t:id="typeForm" zone="^">
-					<t:if test="showErrorType">
+					<t:if test="showErrorType" class="error">
 						${message:fields-required}<br/>
 					</t:if>
-					<t:if test="showBadDate">
+					<t:if test="showBadDate" class="error">
 						${message:bad-date}<br/>
 					</t:if>
 					<table>
@@ -79,12 +79,13 @@
 									<td><t:label for="endHour"/></td>
 									<td><t:textfield t:id="endHour"/>(hh:mm:ss)</td>
 								</tr>
-								<tr><td><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>${message:back-but}</button>
-									 </t:eventlink><input t:type="submit" t:value="${message:next-but}"/></td>
+								<tr>
+									<td><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>${message:back-but}</button></t:eventlink></td>
+									<td><input t:type="submit" t:value="${message:next-but}"/></td>
 								</tr>
 								<p:else>
-									<tr>${message:no-census} <t:pagelink page="census/createCensus"><strong>${message:here-link}</strong></t:pagelink>
-									<t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>${message:back-but}</button></t:eventlink></tr>
+									<tr><td></td>
+									<td>${message:no-census} <t:pagelink page="census/createCensus"><strong>${message:here-link}</strong></t:pagelink></td></tr>
 								</p:else>
 							</t:if>
 							<p:else>
@@ -108,9 +109,9 @@
 		</t:zone>
 		<t:zone t:id="mayRelZone" id="mayRelZone" t:update="show">
 			<t:if test="showMayRel">
-				${message:relative-majority}
+				<h4>${message:relative-majority}</h4>
 				<t:form t:id="mayRelForm" t:zone="^">
-					<t:if test="showErrorMayRel">
+					<t:if test="showErrorMayRel" class="error">
 						${message:fill-fields}<br/>
 					</t:if>
 				
@@ -172,16 +173,16 @@
 		
 		<t:zone t:id="kemenyZone" id="kemenyZone" t:update="show">
 			<t:if test="showKemeny">
-				${message:kemeny}
+				<h4>${message:kemeny-title}</h4>
 				<t:form t:id="kemenyForm" t:zone="^">
-					<t:if test="showErrorKemeny">
-						${message:fill-fields}	
+					<t:if test="showErrorKemeny" class="error">
+						${message:fill-fields}<br/>	
 					</t:if>
-					<t:if test="showRepeatKemeny">
-						${message:not-repeated}
+					<t:if test="showRepeatKemeny" class="error">
+						${message:not-repeated}<br/>
 					</t:if>
-					<t:if test="showBadCharKemeny">
-						${message:bad-char}
+					<t:if test="showBadCharKemeny" class="error">
+						${message:bad-char}<br/>
 					</t:if>
 					<table>
 						<tr>
@@ -199,7 +200,7 @@
 						
 						
 					</table>
-					<br/><t:eventlink t:event="back" t:context="prop:['fromKemeny','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
+					<br/>
 					<input t:type="submit" t:value="${message:create}"/>
 					</t:form>
 				<br/><t:eventlink t:event="back" t:context="prop:['fromKemeny','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>

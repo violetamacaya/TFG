@@ -112,6 +112,7 @@ public class AdminCreateProfile {
 			dao.store(profile);
 			componentResources.discardPersistentFieldChanges();
 		}
+		
 		return UserList.class;
 			
 	}

@@ -78,7 +78,7 @@ public class CreateCompanyUser {
 	/**
 	 * Create a user for a company
 	 */
-	public void onSuccess()
+	 Object onSuccess()
 	{
 		userDao=DB4O.getUsuarioDao(DBName);
 		censedInDao=DB4O.getProfileCensedInDao(DBName);
@@ -104,6 +104,7 @@ public class CreateCompanyUser {
 			censedInDao.store(censedIn);
 			profile=new Profile();
 		}
+		return ListCompanyUsers.class;
 	}
 	
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

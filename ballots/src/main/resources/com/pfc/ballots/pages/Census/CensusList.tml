@@ -12,6 +12,9 @@
 			<p:detailscell>
 				<t:actionlink t:id="detailsbut" context="census.id"><button>${message:details-but}</button></t:actionlink>
 			</p:detailscell>
+			<p:else>
+				<h4>${message:no-census}</h4>
+			</p:else>
 		</t:grid>
 		
 	</div></t:border>
