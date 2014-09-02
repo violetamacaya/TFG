@@ -34,6 +34,9 @@
 								<t:actionlink t:id="activateBut" context="company.companyName" zone="^"><button>${message:activate-but}</button></t:actionlink>
 							</t:if>
 					</p:changeActiveCell>
+					<p:else>
+						<h4>${message:no-companies}</h4>
+					</p:else>
 				</t:grid>
 			</t:if>
 		</t:zone>
@@ -46,7 +49,7 @@
 		
 		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 			<t:if test="showSure">
-				${message:are-u-sure}<t:if test="status">${message:activate-but}<p:else>desctivar</p:else></t:if><b>${toCheck.companyName }</b><br/>
+				${message:are-u-sure} <t:if test="status">${message:activate-but} <p:else> desctivar</p:else></t:if><b> ${toCheck.companyName }</b><br/>
 				<t:actionlink t:id="isSureBut" zone="^"><button>${message:yes-but}</button></t:actionlink>
 				<t:actionlink t:id="isNotSureBut" zone="^"><button>${message:not-but}</button></t:actionlink>
 			</t:if>
