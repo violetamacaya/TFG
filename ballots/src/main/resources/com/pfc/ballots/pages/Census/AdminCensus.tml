@@ -32,7 +32,8 @@
 						<p:removecell>
 							<t:actionlink t:id="removebut" context="census.id" zone="^"><button>${message:remove-but}</button></t:actionlink>
 						</p:removecell>
-						
+						<p:empty>
+						</p:empty>
 					</t:grid>
 				</td></tr>
 			</table>

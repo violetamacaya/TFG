@@ -123,7 +123,7 @@
 			  ////////////////////////////////////////////////////////////////////////////////////////// -->
 		
 			<t:zone t:id="searchListZone" id="searchListZone" t:update="show" visible="secondVisible">
-									
+				<h3>${message:user-list}</h3><hr/>
 				<t:form t:id="addForm" zone="^">
 					<table>
 						<tr><td><t:actionLink t:id="showAll" zone="^">${message:showall-users}</t:actionLink></td></tr>
@@ -154,6 +154,7 @@
 			  
 			<t:zone t:id="censusListZone" id="censusListZone" t:update="show"  visible="secondVisible">
 				<t:if test="showCensusList">
+					<h3>${message:users-counted}</h3><hr/>
 					<t:form t:id="removeForm" zone="^">
 						<table>
 							<tr><td>
