@@ -180,6 +180,9 @@
 					<t:if test="showRepeatKemeny">
 						${message:not-repeated}
 					</t:if>
+					<t:if test="showBadCharKemeny">
+						${message:bad-char}
+					</t:if>
 					<table>
 						<tr>
 							<td><t:label for="cat1"/><t:textfield t:id="cat1"/></td>

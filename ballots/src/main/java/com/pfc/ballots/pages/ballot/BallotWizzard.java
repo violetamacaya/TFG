@@ -143,6 +143,7 @@ public class BallotWizzard {
 		
 		showKemeny=false;
 		showErrorKemeny=false;
+		showBadCharKemeny=false;
 	}
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -701,6 +702,9 @@ public class BallotWizzard {
 	@Property
 	@Persist
 	private boolean showRepeatKemeny;
+	@Property
+	@Persist
+	private boolean showBadCharKemeny;
 	
 	@Persist
 	private Kemeny kemeny;
@@ -738,6 +742,7 @@ public class BallotWizzard {
 	{
 		showErrorKemeny=false;
 		showRepeatKemeny=false;
+		showBadCharKemeny=false;
 
 		if(cat1==null || cat2==null || cat1_op1==null || cat1_op2==null || cat2_op1==null || cat2_op2==null )
 		{
@@ -760,7 +765,16 @@ public class BallotWizzard {
 		{
 			showRepeatKemeny=true;
 		}
-		if(showErrorKemeny==false && showRepeatKemeny==false)
+		
+		//Comprobación de caracter "-". No puede estar ya que lo utiliza la biblioteca de calculo para separar argumentos
+		
+		
+		if(cat1_op1.contains("-")||cat1_op2.contains("-")||cat2_op1.contains("-")||cat2_op2.contains("-"))
+		{
+			showBadCharKemeny=true;
+		}
+		
+		if(showErrorKemeny==false && showRepeatKemeny==false && showBadCharKemeny==false)
 		{
 			List<String> categories=new LinkedList<String>();
 			categories.add(cat1);
@@ -775,6 +789,7 @@ public class BallotWizzard {
 			options.add(option1);
 			options.add(option2);
 			
+			
 			kemeny=new Kemeny(options,categories);
 		}
 	} 
@@ -785,7 +800,7 @@ public class BallotWizzard {
 	  */
 	public Object onSuccessFromKemenyForm()
 	{
-		if(showErrorKemeny && showRepeatKemeny)
+		if(showErrorKemeny || showRepeatKemeny || showBadCharKemeny)
 		{
 			ajaxResponseRenderer.addRender("kemenyZone",kemenyZone);
 		}
