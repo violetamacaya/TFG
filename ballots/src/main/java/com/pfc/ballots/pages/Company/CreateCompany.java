@@ -50,6 +50,7 @@ public class CreateCompany {
 		{
 			profile=new Profile();
 			company=new Company();
+			company.setActive(true);
 			isnotFirstTime=true;
 		}
 		else if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible)
@@ -57,6 +58,7 @@ public class CreateCompany {
 			componentResources.discardPersistentFieldChanges();
 			profile=new Profile();
 			company=new Company();
+			company.setActive(true);
 		}
 	}
 
@@ -115,7 +117,6 @@ public class CreateCompany {
 			company.setId(UUID.generate());
 			profile.setId(UUID.generate());
 			company.setIdAdmin(profile.getId());
-			company.setActive(true);
 			company.setRegDatetoActual();
 			profile.setRegDatetoActual();
 			String encrypt=Encryption.getStringMessageDigest(password, Encryption.SHA1);

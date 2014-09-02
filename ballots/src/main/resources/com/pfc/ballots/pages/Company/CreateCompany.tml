@@ -5,7 +5,7 @@
 	
 		<h1>${message:create-company}</h1><hr/>
 		<infouser>
-	       <t:beaneditform t:id="form" submitlabel="${message:create-but}" object="company" reorder="active" add="password,repeat,firstName,LastName" exclude="active">
+	       <t:beaneditform t:id="form" submitlabel="${message:create-but}" object="company" reorder="active" add="password,repeat,firstName,LastName">
 		       <p:CompanyName>
 		       		<t:label for="CompanyName"/>
 		       		<t:textfield t:id="CompanyName" value="company.CompanyName"/>
