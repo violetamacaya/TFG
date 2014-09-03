@@ -58,3 +58,5 @@ encoding//src/main/resources/com/pfc/ballots/pages/users/CompanyLogIn.properties
 encoding//src/main/resources/com/pfc/ballots/pages/users/ForgottenCompanyPassword.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/users/ForgottenPassword.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/users/LogIn.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/users/logintst.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/users/logintst_en.properties=UTF-8

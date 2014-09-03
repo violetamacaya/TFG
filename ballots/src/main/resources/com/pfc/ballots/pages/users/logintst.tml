@@ -1,0 +1,53 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <head><title>${message:page-title}</title></head>
+   
+	<t:border>
+		<head></head>
+		<body>
+		
+			<h1>${message:login-page}</h1>
+			<infouser>
+			<t:zone t:id="logForm" id="logForm">
+			<t:form t:zone="^">
+			
+				<span class="error">
+					<t:if test="authenticationFailure">
+							Nombre de usuario o contraseña incorrectos
+							${message:name-pass-non}
+					</t:if>
+				</span>
+			
+				<table>
+					<tr>
+						<td><label>${message:email}</label></td>
+						<td><input type="text" t:type="textfield" t:value="email"/></td>
+					</tr>
+					<tr>
+						<td><label>${message:pass}</label></td>
+						<td><input type="password" t:type="textfield" t:value="password"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="${message:send}"/></td>
+					</tr>
+				</table>
+				<br/>
+				&nbsp;&nbsp;&nbsp;<t:pagelink page="profile/createprofile">${message:create-profile}</t:pagelink><br/>
+				&nbsp;&nbsp;&nbsp;<t:actionlink t:id="forgottenPass">&nbsp;${message:forgotten-pass}</t:actionlink>
+				
+			</t:form>
+			</t:zone>
+			</infouser>
+		
+		</body>
+		
+		
+	
+	</t:border>
+	
+		
+			
+	
+
+
+</html>
