@@ -4,58 +4,63 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.Calculo.CalcKemeny;
+import com.Calculo.CalcBorda;
+
 
 /**
- * Kemeny entity that contains the information of specific information
- * for a kemeny ballot
+ * Borda entity that contains the information of specific information
+ * for a borda ballot
  * 
  * @author Mario Temprano Martin
- * @version 1.0 JUL-2014
+ * @version 1.0 SEP-2014
  *
  */
+public class Borda {
 
-public class Kemeny {
-
-	private String ballotId;
 	private String id;
+	private String ballotId;
 	private List<String> categories;
-	private List<List<String>>options;
-	private List<String> optionPairs;
-	private List<String> permutations;
-	private List<List<String>>votes;
+	private List<List<String>> options;
+	private List<String> bordaOptions;
+	private List<List<String>> votes;
 	private List<String> winner;
-	private Map<String,Integer>results;
+	private Map<String,Integer> results;
 	
-	public Kemeny()
+	public Borda()
 	{
+		
 	}
-	public Kemeny(String nulltoinitalize)
+	public Borda (String nulltoinitialize)
 	{
+		setCategories(new LinkedList<String>());
 		setOptions(new LinkedList<List<String>>());
-		setCategories(new LinkedList<String>());
-		setOptionPairs(new LinkedList<String>());
+		setBordaOptions(new LinkedList<String>());
 		setVotes(new LinkedList<List<String>>());
 		setWinner(new LinkedList<String>());
-		setPermutations(new LinkedList<String>());
 	}
-	public Kemeny(List<List<String>>options)
+	public Borda(List<List<String>>options)
 	{
 		setCategories(new LinkedList<String>());
 		setOptions(options);
-		setOptionPairs(CalcKemeny.CalcularOpcionesKemeny(1, options));
+		setBordaOptions(CalcBorda.CalcularOpcionesBorda(1, options));
 		setVotes(new LinkedList<List<String>>());
 		setWinner(new LinkedList<String>());
-		setPermutations(new LinkedList<String>());
 	}
-	public Kemeny(List<List<String>>options,List<String> categories)
+	public Borda(List<List<String>>options,List<String> categories)
 	{
-		setOptions(options);
-		setOptionPairs(CalcKemeny.CalcularOpcionesKemeny(1, options));
-		setVotes(new LinkedList<List<String>>());
-		setWinner(new LinkedList<String>());
-		setPermutations(new LinkedList<String>());
 		setCategories(categories);
+		setOptions(new LinkedList<List<String>>());
+		setBordaOptions(new LinkedList<String>());
+		setVotes(new LinkedList<List<String>>());
+		setWinner(new LinkedList<String>());
+	}
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getBallotId() {
 		return ballotId;
@@ -63,36 +68,23 @@ public class Kemeny {
 	public void setBallotId(String ballotId) {
 		this.ballotId = ballotId;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	
 	public List<String> getCategories() {
 		return categories;
 	}
 	public void setCategories(List<String> categories) {
 		this.categories = categories;
 	}
-	public List<String> getOptionPairs() {
-		return optionPairs;
-	}
-	public void setOptionPairs(List<String> optionPairs) {
-		this.optionPairs = optionPairs;
-	}
-	public List<String> getPermutations() {
-		return permutations;
-	}
-	public void setPermutations(List<String> permutations) {
-		this.permutations = permutations;
-	}
 	public List<List<String>> getOptions() {
 		return options;
 	}
 	public void setOptions(List<List<String>> options) {
 		this.options = options;
+	}
+	public List<String> getBordaOptions() {
+		return bordaOptions;
+	}
+	public void setBordaOptions(List<String> bordaOptions) {
+		this.bordaOptions = bordaOptions;
 	}
 	public List<List<String>> getVotes() {
 		return votes;
@@ -129,7 +121,7 @@ public class Kemeny {
 	}
 	/**
 	 * Adds a vote to the list
-	 * @param vote
+	 * @param List<String> vote
 	 */
 	public void addVote(List<String> vote)
 	{
@@ -142,33 +134,35 @@ public class Kemeny {
 	}
 	/**
 	 * if a ballot is counted, retrieve the result
-	 * @param permutation
+	 * @param String bordaOption
 	 * @return
 	 */
-	public int getResult(String permutation)
+	public int getResult(String bordaOption)
 	{
-		if(permutation==null || results==null)
+		if(bordaOption==null || results==null)
 		{
 			return -1;
 		}
 		else
 		{
-			return results.get(permutation);
+			return results.get(bordaOption);
 		}
 	}
 	/**
 	 * Calculate the result of the ballot(the calc method is in a external jar)
 	 */
-	public boolean calcularKemeny()
+	public boolean calcularBorda()
 	{
-		if(votes==null ||options==null || winner==null)
+		if(votes==null ||options==null || winner==null || bordaOptions==null)
 		{
 			return false;
 		}
 		else
 		{
-			results=CalcKemeny.CalculateKemeny(options, votes, permutations, winner);
+			results=CalcBorda.CalcularBorda(options, bordaOptions, votes, winner);
 			return true;
 		}
+	
 	}
+	
 }

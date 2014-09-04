@@ -12,7 +12,7 @@ import com.pfc.ballots.entities.ballotdata.Kemeny;
  *
  */
 public interface KemenyDao {
-public void store(Kemeny kemeny);
+	public void store(Kemeny kemeny);
 	
 	public Kemeny getByBallotId(String idBallot);
 	public Kemeny getById(String id);

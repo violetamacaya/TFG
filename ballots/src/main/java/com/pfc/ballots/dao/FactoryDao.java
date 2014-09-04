@@ -46,6 +46,9 @@ public abstract class FactoryDao {
 	public abstract KemenyDao getKemenyDao();
 	public abstract KemenyDao getKemenyDao(String DBName);
 	
+	public abstract BordaDao getBordaDao();
+	public abstract BordaDao getBordaDao(String DBName);
+	
 	
 	public static FactoryDao getFactory(int claveFactory) {
 		

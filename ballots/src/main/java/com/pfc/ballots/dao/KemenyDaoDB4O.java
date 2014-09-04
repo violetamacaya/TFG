@@ -36,7 +36,7 @@ public class KemenyDaoDB4O implements KemenyDao
 		{
 			PATH=ruta+DBName;
 		}
-		System.out.println(ruta);
+		
 	}
 	
 	
@@ -81,7 +81,7 @@ public class KemenyDaoDB4O implements KemenyDao
 				{
 					kem.add((Kemeny)result.next());
 				}
-				System.out.println("[DB4O]All RelMay was retrieved");
+				System.out.println("[DB4O]All Kemeny was retrieved");
 		}
 		catch(Exception e)
 		{

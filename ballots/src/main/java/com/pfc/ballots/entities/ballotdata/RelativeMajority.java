@@ -125,16 +125,18 @@ public class RelativeMajority {
 	/**
 	 * Calculate the result of the ballot(the calc method is in a external jar)
 	 */
-	public void calcularMayoriaRelativa()
+	public boolean calcularMayoriaRelativa()
 	{
 		if(votes==null ||options==null)
 		{
-			System.out.println("No se puede Calcular");
+			//System.out.println("No se puede Calcular");
+			return false;
 		}
 		else
 		{
 			this.winners=new LinkedList<String>();
 			this.results=CalcMayoriaRelativa.CalculateMayoriaRelativa(options, votes, winners);
+			return true;
 		}
 	}
 	/*

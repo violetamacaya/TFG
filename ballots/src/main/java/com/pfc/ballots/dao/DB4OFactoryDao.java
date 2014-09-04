@@ -130,8 +130,18 @@ public class DB4OFactoryDao extends FactoryDao{
 
 	@Override
 	public ProfileCensedInDao getProfileCensedInDao(String DBName) {
-		// TODO Auto-generated method stub
 		return new ProfileCensedInDaoDB4O(DBName);
+	}
+	
+	@Override
+	public BordaDao getBordaDao()
+	{
+		return new BordaDaoDB4O(null);
+	}
+	@Override
+	public BordaDao getBordaDao(String DBName)
+	{
+		return new BordaDaoDB4O(DBName);
 	}
 	
 	
