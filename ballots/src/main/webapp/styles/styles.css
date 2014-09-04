@@ -15,8 +15,12 @@ pagehead
 TABLE.t-data-grid THEAD TR TH
 {
 	background: #8c1116;
+	
 }
-
+TABLE.t-data-grid TD
+{
+	text-align: center;	
+}
 
 #banner
 {

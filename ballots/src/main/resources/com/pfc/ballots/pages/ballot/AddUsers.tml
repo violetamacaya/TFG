@@ -1,0 +1,160 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<head><title>${message:page-title}</title></head>
+	
+	<t:border><div id="addToBallotDiv">
+	
+	
+					<h1>${message:add-users}</h1><hr/>
+	
+				<!--//////////////////////////////////////////////////////////////////////////////////////////
+			   /////////////////////////////// SWITCH SEARCH TYPE /////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+			
+			<t:zone t:id="searchTypeZone" t:update="show"> 
+						
+				<t:if test="advancedSearch">
+					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink>
+					<p:else>
+						<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search}</t:eventlink>
+					</p:else>
+				</t:if>
+			</t:zone>
+			<!--//////////////////////////////////////////////////////////////////////////////////////////
+			   ///////////////////////////////////  BASIC SEARCH  /////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+			<t:zone t:id="basicSearchZone" id="basicSearchZone" t:update="show" >
+				<t:if test="!advancedSearch">
+					<t:form t:id="basicForm" zone="^">	
+						<table>
+							<tr>
+								<td><t:label for="email"/></td>
+								<td><t:textfield t:id="email"/></td>
+							</tr>
+							
+							<tr>
+								
+								<td></td>
+								<td><p style="text-align:center;"><input t:type="submit" value="${message:search-but}"/>
+									<!-- <t:eventlink t:event="reset" zone="^"><button>${message:reset-but}</button></t:eventlink> --></p></td>
+							</tr>
+						</table>
+					</t:form>
+								
+				</t:if>	
+			</t:zone>
+			
+			
+			<!--//////////////////////////////////////////////////////////////////////////////////////////
+			   ///////////////////////////////// ADVANCED SEARCH  /////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+			
+					
+			
+			<t:zone t:id="advancedSearchZone" id="advancedSearchZone" t:update="show" >
+				<t:if test="advancedSearch">
+						<t:form t:id="advancedSearchForm" zone="^">
+							<table>
+						 		<tr>
+										<td><t:label for="admin"/></td>
+										<td><t:checkbox t:id="admin" value="profile.admin"/></td>
+								</tr>
+								<tr>
+										<td><t:label for="maker"/></td>
+										<td><t:checkbox t:id="maker" value="profile.maker"/></td>
+								</tr>
+					 			<tr>
+					 					<td><t:label for="firstName"/></td>
+					 					<td><t:textfield t:id="firstName"></t:textfield></td>
+					 			</tr>
+					 			<tr>
+					 					<td><t:label for="lastName"/></td>
+					 					<td><t:textfield t:id="lastName"></t:textfield></td>
+					 			</tr>
+					 			<tr>
+					 					<td><t:label for="university"/></td>
+					 					<td><t:textfield t:id="university" value="profile.university"/></td>
+					 			</tr>
+						 		<tr>
+							 			<td><t:label for="city"/></td>
+							 			<td><t:textfield t:id="city" value="profile.city"/></td>
+						 		</tr>
+						 		<tr>
+							 			<td><t:label for="country"/></td>
+							 			<td><t:textfield t:id="country" value="profile.country"/></td>
+						 		</tr>
+								<tr>
+									<td></td>
+									<td><p style="text-align:center;"><input t:type="submit" value="${message:search-but}"/>
+										<!-- <t:eventlink t:event="reset" zone="^"><button>${message:reset-but}</button></t:eventlink> --></p></td>
+								</tr>
+							</table>
+						</t:form>
+				</t:if>
+			</t:zone>
+			 <!--//////////////////////////////////////////////////////////////////////////////////////////
+			   ///////////////////////////////// SEARCH LIST GRID  ////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+		
+			<h3>${message:search-List}</h3><hr/>
+		
+			<t:zone t:id="searchListZone" id="searchListZone" t:update="show" >
+				<t:form t:id="addForm" zone="^">
+					<table>
+						<tr>
+							<td><t:actionLink t:id="showAll" zone="^">${message:showall-users}</t:actionLink></td>
+						</tr>
+						<tr>
+							<td>
+								<t:if test="showSearchList">				
+									<t:grid source="users" row="user" exclude="lastLog,regDate,password,owner" reorder="add" add="add"  inplace="true">
+										<p:addCell>
+											<t:if test="showAdd">
+												<t:checkbox t:id="add"/>
+											</t:if>
+										</p:addCell>
+									</t:grid>
+								</t:if>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<t:if test="showSearchList">
+									<!--  --><input t:type="submit" value="${message:add-but}"/>
+									<t:actionlink t:id="addAll" zone="^"><button>${message:add-all}</button></t:actionlink>
+								</t:if>
+							</td>
+						</tr>
+							
+					</table>
+				</t:form>
+				
+			</t:zone>
+			
+		
+			<t:zone t:id="votersZone" id="votersZone" t:update="show">
+				<t:if test="showVoters">
+					<h3>${message:new-voters}</h3><hr/>
+					<t:form t:id="removeForm" t:zone="^">
+						<t:grid source="votersList" row="user" exclude="lastLog,regDate,password,owner" reorder="remove" add="remove" inplace="true">
+							<p:removeCell>
+								<t:checkbox t:id="remove"/>	
+							</p:removeCell>
+						</t:grid>
+						<input t:type="submit" value="${message:remove-but}"/>
+						<t:actionlink t:id="removeAll" t:zone="^"><button>${message:removeall}</button></t:actionlink>
+					</t:form>
+				
+				</t:if>
+			
+			</t:zone>
+			<t:zone t:id="buttonsZone" id="buttonsZone"t:update="show">
+				<t:actionlink t:id="cancelBut"><button>${message:cancel-but}</button></t:actionlink>
+				<t:if test="showVoters">
+					<t:actionlink t:id="endBut"><button>${message:add-to-ballot}</button></t:actionlink>
+				</t:if>
+			</t:zone>
+			
+	
+	
+	</div></t:border>
+</html>
