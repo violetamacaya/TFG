@@ -38,7 +38,7 @@ public class UserDaoDB4O implements UserDao{
 		{
 			PATH=ruta+DBName;
 		}
-		System.out.println(ruta);
+		//System.out.println(ruta);
 	}
 				   
 	

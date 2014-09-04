@@ -20,6 +20,8 @@ encoding//src/main/resources/com/pfc/ballots/pages/Company/ListCompany.propertie
 encoding//src/main/resources/com/pfc/ballots/pages/Company/ListCompanyUsers.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Company/ListCompanyUsers_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Company/ListCompany_en.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/Company/UpdateCompany.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/Company/UpdateCompany_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Contact.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Contact_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Index.properties=UTF-8
@@ -36,6 +38,8 @@ encoding//src/main/resources/com/pfc/ballots/pages/admin/LogList.properties=UTF-
 encoding//src/main/resources/com/pfc/ballots/pages/admin/LogList_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/admin/UserList.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/admin/UserList_en.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/ballot/AddUsers.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/ballot/AddUsers_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/BallotList.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/BallotList_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/BallotWizzard.properties=UTF-8

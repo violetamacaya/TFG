@@ -6,7 +6,12 @@
 		<h1>${message:my-ballots}</h1><hr/>
 		<t:zone t:id="gridZone" id="gridZone" t:update="show">
 			<t:if test="showGrid">
-				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="finish,delete,maker,census" reorder="maker,name,method,census" exclude="id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
+				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="addusers,finish,delete,maker,census" reorder="maker,name,method,census" exclude="id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
+					<p:addusersCell>
+						<t:if test="!ballot.ended">
+							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><button>${message:add-users}</button></t:actionlink>
+						</t:if>
+					</p:addusersCell>
 					<p:makerCell>
 						${username}
 					</p:makerCell>
@@ -30,9 +35,9 @@
 		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 			<t:if test="showAreuSure">
 				<t:if test="optionDelete">
-					Esta usted seguro de que quiere <strong>eliminar</strong> la botacion <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
+					Esta usted seguro de que quiere <strong>eliminar</strong> la votación <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
 					<p:else>
-						Esta usted seguro de que quiere <strong>finalizar</strong> la votacion <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
+						Esta usted seguro de que quiere <strong>finalizar</strong> la votación <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
 					</p:else>
 				</t:if>
 				<br/>

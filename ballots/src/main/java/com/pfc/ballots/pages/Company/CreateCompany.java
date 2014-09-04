@@ -86,6 +86,12 @@ public class CreateCompany {
 		@Property
 		@Persist(PersistenceConstants.FLASH)
 		private boolean isnotDBNameAvalible;
+		@Property
+		@Persist(PersistenceConstants.FLASH)
+		private boolean isBadChar;
+		@Property
+		@Persist(PersistenceConstants.FLASH)
+		private boolean isBadName;
 		
 		//FirstTime enter in the page
 		private boolean isnotFirstTime;
@@ -96,7 +102,13 @@ public class CreateCompany {
 	 */
 	Object onSuccess()
 	{
+		
 		company.setCompanyName(company.getCompanyName().toLowerCase());
+		if(company.getCompanyName().equals("login"))
+		{
+			isBadName=true;
+		}
+		
 		if(companyDao.isCompanyRegistred(company.getCompanyName()))
 		{
 			isnotCompanyNameAvalible=true;
@@ -110,8 +122,15 @@ public class CreateCompany {
 		{
 			isnotPassOk=true;
 		}
+		
+		if(company.getCompanyName().contains("ñ"))
+		{
+			isBadChar=true;
+		}
+		
+		
 		//If all data are correct, store them in database
-		if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible)
+		if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible && !isBadChar && !isBadName)
 		{
 			userDao=DB4O.getUsuarioDao(company.getDBName());
 			company.setId(UUID.generate());

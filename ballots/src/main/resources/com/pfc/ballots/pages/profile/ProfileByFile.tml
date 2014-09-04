@@ -53,8 +53,8 @@
 							</t:if>
 						</t:if>
 					</p:addcell> 
-					<p:else>
-					</p:else>       
+					<p:empty>
+					</p:empty>     
 				</t:grid>
 				<t:actionlink t:id="endBut"><button>${message:finish-but}</button></t:actionlink>
 				<t:actionlink t:id="addRowBut" zone="^"><button>${message:addrow-but}</button></t:actionlink>

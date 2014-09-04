@@ -166,13 +166,16 @@ public class DataSession {
 	public void login(Profile profile,Company company)
 	{
 		setIdSession(UUID.generate());
-		this.company=company.getCompanyName();
+		if(company!=null)
+		{
+			this.company=company.getCompanyName();
+			this.DBName=company.getDBName();
+		}
 		owner=profile.isOwner();
 		id=profile.getId();
 		email=profile.getEmail();
 		maker=profile.isMaker();
 		admin=profile.isAdmin();
-		this.DBName=company.getDBName();
 		logDate=new Date();
 		loged=true;
 		lgdDao=DB4O.getUserLogedDao(DBName);

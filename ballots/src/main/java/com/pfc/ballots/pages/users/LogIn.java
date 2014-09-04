@@ -4,7 +4,9 @@ package com.pfc.ballots.pages.users;
 
 import java.util.Date;
 
+import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
@@ -12,11 +14,13 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 
+import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.LogDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.DataLog;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.UserLoged;
@@ -49,21 +53,69 @@ public class LogIn {
 	@InjectComponent
 	private Zone logForm;
 	
+	@Inject
+	private ComponentResources componentResources;
+	
+	@Persist
+	private String companyName;
+	
 	/******************************************* Initialize DAO *******************************************************/
 	FactoryDao DB4O = FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-    UserDao userDao = DB4O.getUsuarioDao();
-    LogDao logDao=DB4O.getLogDao();
-    UserLogedDao logedDao=DB4O.getUserLogedDao();
+    @Persist
+	UserDao userDao;
+    @Persist
+    LogDao logDao;
+    @Persist
+    UserLogedDao logedDao;
     
+    CompanyDao companyDao;
+    @Persist
+    Company company;
 
-	
+	void setupRender()
+	{
+    	componentResources.discardPersistentFieldChanges();
+    	
+		String direction=request.getPath();
+		System.out.println(direction);
+		String temp[] =direction.split("/");
+		String DBName=null;
+		if(!temp[temp.length-1].toLowerCase().equals("login"))
+		{
+			companyName=temp[temp.length-1];
+			companyDao=DB4O.getCompanyDao();
+			company=companyDao.getCompanyByName(companyName);
+			if(company==null)
+			{
+				System.out.println("NO EXISTE");
+			}
+			else
+			{
+				System.out.println("EXISTE");
+				DBName=company.getDBName();
+				System.out.println("DBName->"+DBName);
+			}
+			
+		}
+		else
+		{
+			System.out.println("Sin company");
+		}
+		userDao=DB4O.getUsuarioDao(DBName);
+		logDao=DB4O.getLogDao();
+		logedDao=DB4O.getUserLogedDao(DBName);
+		
+	}
+    
+    
+    
+    
+    
+    
+    
 	Object onSuccess()
 	{
-		
-		userDao = DB4O.getUsuarioDao();
-		logDao=DB4O.getLogDao();
-		logedDao=DB4O.getUserLogedDao();
-		
+				
 		//Check if the text fields are empties
 		if(email==null || password==null)
 		{
@@ -109,7 +161,7 @@ public class LogIn {
 			{
 				datasession=new DataSession();
 			}
-			datasession.login(updatedProfile);
+			datasession.login(updatedProfile,company);
 			
 			logedDao.store(new UserLoged(email,request.getRemoteHost(),datasession.getIdSession()));
 			

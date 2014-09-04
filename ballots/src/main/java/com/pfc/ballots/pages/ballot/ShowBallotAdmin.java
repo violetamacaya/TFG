@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -129,6 +130,8 @@ public class ShowBallotAdmin {
 	@Persist
 	private List<Kemeny> kemenys;
 	
+	@InjectPage
+	private AddUsers addUsers;
 	
 	
 	
@@ -188,6 +191,16 @@ public class ShowBallotAdmin {
 		}
 		
 		
+	}
+	/**
+	 * Redirects to a page for add users
+	 * @param idBallot
+	 * @return 
+	 */
+	public Object onActionFromAddUsersBut(String idBallot)
+	{
+		addUsers.setup(idBallot,ShowBallotAdmin.class);
+		return addUsers;
 	}
 	/**
 	 * Finish a ballot and calculate the result

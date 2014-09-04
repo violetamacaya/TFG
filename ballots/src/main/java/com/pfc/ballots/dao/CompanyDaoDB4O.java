@@ -12,6 +12,7 @@ import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.Company;
+import com.pfc.ballots.entities.Profile;
 
 /**
  * 
@@ -76,8 +77,14 @@ public class CompanyDaoDB4O implements CompanyDao {
 		open();
 		try
 		{
+			Query query =DB.query();
+			query.constrain(Company.class);
+			query.descend("CompanyName").constrain(companyName).endsWith(false);
+			ObjectSet result=query.execute();
+			/*
 			@SuppressWarnings("rawtypes")
 			ObjectSet result=DB.queryByExample(new Company(companyName));
+			*/
 			if(result.hasNext())
 			{
 				temp=(Company)result.next();
@@ -309,8 +316,11 @@ public class CompanyDaoDB4O implements CompanyDao {
 	@SuppressWarnings("rawtypes")
 	private boolean testCompany(String companyName)
 	{
+		Query query =DB.query();
+		query.constrain(Company.class);
+		query.descend("CompanyName").constrain(companyName).endsWith(false);
+		ObjectSet result=query.execute();
 		
-		ObjectSet result=DB.queryByExample(new Company(companyName));
 		
 		if(result.hasNext())
 		{

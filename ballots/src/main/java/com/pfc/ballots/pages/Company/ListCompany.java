@@ -44,6 +44,9 @@ public class ListCompany {
 	private CreateCompanyUser createCompanyUser;
 	
 	@InjectPage
+	private UpdateCompany updateCompany;
+	
+	@InjectPage
 	private ProfileByFile profileByFile;
 	
 	@Inject
@@ -95,6 +98,18 @@ public class ListCompany {
 			companies=companyDao.RetrieveAllCompanies();
 		}
 		return companies;
+	}
+	/**
+	 * returns a page where you can edit the company
+	 * @param CompanyName
+	 * @param DBName
+	 * @return
+	 */
+	public Object onActionFromEditBut(String CompanyName)
+	{
+		
+		updateCompany.setup(CompanyName);
+		return updateCompany;
 	}
 	/**
 	 * returns a page where you can see the users in the company

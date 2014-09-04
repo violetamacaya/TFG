@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -52,6 +53,9 @@ public class BallotList {
 	
 	@Inject
 	private Request request;
+	
+	@InjectPage
+	private AddUsers addUsers;
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -140,6 +144,18 @@ public class BallotList {
 		}
 			
 	}
+	/**
+	 * Redirects to a page for add users
+	 * @param idBallot
+	 * @return 
+	 */
+	public Object onActionFromAddUsersBut(String idBallot)
+	{
+		addUsers.setup(idBallot,BallotList.class);
+		return addUsers;
+	}
+	
+	
 	/**
 	 * Delete a ballot 
 	 * @param idBallot
