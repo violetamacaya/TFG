@@ -1,18 +1,17 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
      <head><title>${message:page-title}</title></head>
    
-	<t:border>
+	<t:border><div class="voteDiv">
 	
-		<t:if test="!vote.counted">			
+		<t:if test="!vote.counted">
+		
+			<!--///////////////////////////////////  MAYORIA RELATIVA /////////////////////////////////////////// -->			
 			<t:if test="showRelativeMajority">
+	
+					<h1>${ballot.name}</h1><hr/>
+					<h3>${ballot.description}</h3><br/>
 				 <table>		 
 					 <t:form t:id="relativeMajorityForm">
-					 	<tr>
-							<th><h1>${ballot.name}</h1></th>
-						</tr>
-						<tr>
-							<td>${ballot.description }</td>
-						</tr>
 					 	<t:radiogroup t:value="relMayVote" t:id="radioGroup" >
 					 	<table>
 							<tr t:type="Loop" t:source="relMay.options" t:value="relMayOption">
@@ -23,26 +22,43 @@
 					 	<input t:type="submit" value="${message:vote-but}"/>
 					 </t:form>
 				 </table>
-				 
-				 
-				 
-				 
+		
 			</t:if>
+			
+			<!-- ///////////////////////////////////////   KEMENY   ////////////////////////////////////////////// -->
 			<t:if test="showKemeny">
 				<t:zone t:id="kemenyZone" t:update="show">
 					<t:if test="showErrorKemeny">
-						${message:kemeny-text}
+						<div class="error">${message:kemeny-text}</div>
 					</t:if>
 					<t:form t:id="kemenyForm" t:zone="^">
-				 		<input t:type="Palette" t:id="palette" t:reorder="true" t:model="kemeny.optionPairs" t:selected="kemenyVote" t:encoder="stringValueEncoder"/>
+				 		<input t:type="Palette" t:id="paletteKem" t:reorder="true" t:model="kemeny.optionPairs" t:selected="kemenyVote" t:encoder="stringValueEncoder"/>
 				 		<input t:type="submit" value="${message:vote-but}"/>
 				 	</t:form>
 				 </t:zone>
 			</t:if>
 			
+			
+			
+			
+			<!-- ///////////////////////////////////////// BORDA  /////////////////////////////////////////////// -->
+			<t:if test="showBorda">
+				<t:zone t:id="bordaZone" t:update="show">
+					<t:if test="showErrorBorda">
+						<div class="error">${message:borda-text}</div>
+					</t:if>
+					<t:form t:id="bordaForm" t:zone="^">
+			 			<input t:type="Palette" t:id="paletteBorda" t:reorder="true" t:model="borda.bordaOptions" t:selected="BordaVote" t:encoder="stringValueEncoder"/>
+			 			<input t:type="submit" value="${message:vote-but}"/>
+			 		</t:form>
+			 	</t:zone>		
+				
+			</t:if>
+			
+			
 			 <p:else>
 			 	${message:vote-done}
 			 </p:else>
 		</t:if>
-	</t:border>
+	</div></t:border>
 </html>

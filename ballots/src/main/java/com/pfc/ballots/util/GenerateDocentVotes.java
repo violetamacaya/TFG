@@ -72,4 +72,39 @@ public class GenerateDocentVotes {
 		return votes;
 		
 	}
+	
+	
+	static public List<List<String>> generateBorda(List<String> bordaOptions,int numVotes)
+	{
+		Map<String,Integer> votesPerOption=new HashMap<String,Integer>();
+		 List<List<String>>votes=new LinkedList<List<String>>();
+		
+		for(String option:bordaOptions)
+		{
+			votesPerOption.put(option, 0);
+		}
+		
+		for(int i=1; i<=numVotes;i++)
+		{
+			List<String> vote=new LinkedList<String>();
+			for(int x=0;x<bordaOptions.size();x++)
+			{
+				boolean notSelected=true;
+				while(notSelected)
+				{
+					Random random=new Random();
+					int numOption=random.nextInt(bordaOptions.size());
+					if(votesPerOption.get(bordaOptions.get(numOption))<i)
+					{
+						notSelected=false;
+						vote.add(bordaOptions.get(numOption));
+						votesPerOption.put(bordaOptions.get(numOption), i);
+					}
+				}
+			}
+			votes.add(vote);
+		}
+		
+		return votes;
+	}
 }

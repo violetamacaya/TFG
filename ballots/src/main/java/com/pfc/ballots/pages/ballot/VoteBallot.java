@@ -16,6 +16,7 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.BallotDao;
+import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
@@ -25,6 +26,7 @@ import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Vote;
+import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
@@ -66,6 +68,8 @@ public class VoteBallot {
     @SessionAttribute
 	private String contextBallotId;
 	
+	@Property
+	private final StringValueEncoder stringValueEncoder = new StringValueEncoder();
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
@@ -82,6 +86,8 @@ public class VoteBallot {
 	RelativeMajorityDao relativeMajorityDao;
 	@Persist
 	KemenyDao kemenyDao;
+	@Persist
+	BordaDao bordaDao;
 	
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +117,13 @@ public class VoteBallot {
 			kemeny=kemenyDao.getByBallotId(contextBallotId);
 			kemenyVote=new LinkedList<String>();
 			showErrorKemeny=false;
+		}
+		if(ballot.getMethod()==Method.BORDA)
+		{
+			bordaDao=DB4O.getBordaDao(datasession.getDBName());
+			borda=bordaDao.getByBallotId(contextBallotId);
+			bordaVote=new LinkedList<String>();
+			showErrorBorda=false;			
 		}
 	
 	}
@@ -174,8 +187,7 @@ public class VoteBallot {
 	@Persist
 	private boolean showErrorKemeny;
 	
-	@Property
-	private final StringValueEncoder stringValueEncoder = new StringValueEncoder();
+	
 	
 	@Property
 	@Persist
@@ -225,6 +237,65 @@ public class VoteBallot {
 		}
 		return false;
 			
+	}
+	
+	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////////////////////////////// KEMENY /////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone bordaZone;
+	
+	@Property
+	@Persist
+	private Borda borda;
+	
+	@Property
+	@Persist
+	private boolean showErrorBorda;
+	
+	@Persist
+	@Property
+	private List<String> bordaVote;
+	
+	public Object onSuccessFromBordaForm()
+	{
+		showErrorBorda=false;
+		if(bordaVote.size()<borda.getBordaOptions().size())
+		{
+			showErrorBorda=true;
+			ajaxResponseRenderer.addRender("bordaZone", bordaZone);
+			return null;
+		}
+		for(String temp:bordaVote)
+		{
+			System.out.println(temp);
+		}
+		
+		vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+		ballot=ballotDao.getById(contextBallotId);
+		
+		if(ballot!=null||!ballot.isEnded()||!vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+		{
+			vote.setCounted(true);
+			voteDao.updateVote(vote);
+			borda.addVote(bordaVote);
+			bordaDao.update(borda);
+		}
+		
+		return Index.class;
+	}
+	public boolean isShowBorda()
+	{
+		if(ballot==null)
+		{
+			return false;
+		}
+		if(ballot.getMethod()==Method.BORDA)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	  ////////////////////////////////////////////////////////////////////////////////////

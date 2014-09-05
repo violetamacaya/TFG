@@ -23,6 +23,7 @@ import org.apache.tapestry5.services.SelectModelFactory;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.BallotDao;
+import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
@@ -39,6 +40,7 @@ import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.Vote;
+import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
@@ -78,6 +80,7 @@ public class BallotWizzard {
 	@Persist
 	private Ballot ballot;
 	
+	static final private String[] NUMBERS2_7 = new String[] { "2", "3", "4","5","6","7" };
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,6 +93,7 @@ public class BallotWizzard {
 	VoteDao voteDao;
 	RelativeMajorityDao relativeMajorityDao;
 	KemenyDao kemenyDao;
+	BordaDao bordaDao;
 	UserDao userDao;
 	EmailAccountDao emailAccountDao;
 	 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,7 +108,11 @@ public class BallotWizzard {
 		
 		
 		mayRelModel=NUMBERS2_7;
+		bordaModel=NUMBERS2_7;
+		
 		numOpt=2;
+		bordaOpt1=2;
+		bordaOpt2=2;
 		
 		initializeBooleans();
 		
@@ -144,6 +152,11 @@ public class BallotWizzard {
 		showKemeny=false;
 		showErrorKemeny=false;
 		showBadCharKemeny=false;
+		
+		showBorda=false;
+		showBordaFill=false;
+		showBordaRepeat=false;
+		showBordaBadChar=false;
 	}
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -462,6 +475,11 @@ public class BallotWizzard {
 					showKemeny=true;
 					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("kemenyZone",kemenyZone);
 				}
+				else if(method==Method.BORDA)
+				{
+					showBorda=true;
+					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bordaZone", bordaZone);
+				}
 				
 			}
 		}
@@ -471,7 +489,7 @@ public class BallotWizzard {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////// MAYORIA REL ZONE /////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	static final private String[] NUMBERS2_7 = new String[] { "2", "3", "4","5","6","7" };
+	
 	@InjectComponent
 	private Zone mayRelZone;
 	@Property
@@ -852,6 +870,404 @@ public class BallotWizzard {
 		}
 		return null;
 	}
+	
+  	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 ////////////////////////////////////////////////////// BORDA ZONE ///////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone bordaZone;
+	
+	@InjectComponent
+	private Zone bordaForm1Zone;
+	
+	@InjectComponent
+	private Zone bordaForm2Zone;
+	
+	@Persist
+	@Property
+	private boolean showBorda;
+	
+	
+	@Property
+	@Persist 
+	private String [] bordaModel;
+	
+	@Persist
+	private int bordaOpt1;
+	
+	@Property
+	@Persist
+	@Validate("required")
+	private String bordaNumOpt1;
+	
+	
+	@Persist
+	@Validate("required")
+	private int bordaOpt2;
+	
+	
+	@Property
+	@Persist
+	@Validate("required")
+	private String bordaNumOpt2;
+	
+	@Property
+	@Persist
+	private String bcat1;
+	@Property
+	@Persist
+	private String b1Opt1;
+	@Property
+	@Persist
+	private String b1Opt2;
+	@Property
+	@Persist
+	private String b1Opt3;
+	@Property
+	@Persist
+	private String b1Opt4;
+	@Property
+	@Persist
+	private String b1Opt5;
+	@Property
+	@Persist
+	private String b1Opt6;
+	@Property
+	@Persist
+	private String b1Opt7;
+	
+	@Persist
+	@Property
+	private boolean showBordaFill;
+	
+	@Persist
+	@Property
+	private boolean showBordaRepeat;
+	
+	@Persist
+	@Property
+	private boolean showBordaBadChar;
+	
+	//Primera zona
+	
+	public boolean isShowB1Opt3()
+	{
+		if (bordaOpt1>=3)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowB1Opt4()
+	{
+		if (bordaOpt1>=4)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowB1Opt5()
+	{
+		if (bordaOpt1>=5)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowB1Opt6()
+	{
+		if (bordaOpt1>=6)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowB1Opt7()
+	{
+		if (bordaOpt1>=7)
+			return true;
+		else
+			return false;
+	}
+	@Property
+	@Persist
+	private String bcat2;
+	@Property
+	@Persist
+	private String b2Opt1;
+	@Property
+	@Persist
+	private String b2Opt2;
+	@Property
+	@Persist
+	private String b2Opt3;
+	@Property
+	@Persist
+	private String b2Opt4;
+	@Property
+	@Persist
+	private String b2Opt5;
+	@Property
+	@Persist
+	private String b2Opt6;
+	@Property
+	@Persist
+	private String b2Opt7;
+	
+	@Persist
+	private List<String> bordaList1;
+	@Persist
+	private List<String> bordaList2;
+	
+	public boolean isShowB2Opt3()
+	{
+		if (bordaOpt2>=3)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowB2Opt4()
+	{
+		if (bordaOpt2>=4)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowB2Opt5()
+	{
+		if (bordaOpt2>=5)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowB2Opt6()
+	{
+		if (bordaOpt2>=6)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowB2Opt7()
+	{
+		if (bordaOpt2>=7)
+			return true;
+		else
+			return false;
+	}
+	
+	public void  onValueChangedFromBordaSel1(String str)
+	{
+		bordaOpt1=Integer.parseInt(str);
+		ajaxResponseRenderer.addRender("bordaForm1Zone", bordaForm1Zone);
+	}
+	
+	
+	public void  onValueChangedFromBordaSel2(String str)
+	{
+		bordaOpt2=Integer.parseInt(str);
+		ajaxResponseRenderer.addRender("bordaForm2Zone", bordaForm2Zone);
+	}
+	
+	
+	public void onValidateFromBordaForm()
+	{
+		showBordaFill=false;
+		showBordaRepeat=false;
+		showBordaBadChar=false;
+		bordaList1=new LinkedList<String>();
+		bordaList2=new LinkedList<String>();
+		if(bcat1==null || bcat2==null)
+		{
+			showBordaFill=true;
+		}
+		switch(bordaOpt1)
+		{
+			case 7:
+				if(b1Opt7==null){showBordaFill=true;}
+				else if(b1Opt7.contains("-")){showBordaBadChar=true;}
+			case 6:
+				if(b1Opt6==null){showBordaFill=true;}
+				else if(b1Opt6.contains("-")){showBordaBadChar=true;}
+			case 5:
+				if(b1Opt5==null){showBordaFill=true;}
+				else if(b1Opt5.contains("-")){showBordaBadChar=true;}
+			case 4:
+				if(b1Opt4==null){showBordaFill=true;}
+				else if(b1Opt4.contains("-")){showBordaBadChar=true;}
+			case 3:
+				if(b1Opt3==null){showBordaFill=true;}
+				else if(b1Opt3.contains("-")){showBordaBadChar=true;}
+			case 2:
+				if(b1Opt2==null){showBordaFill=true;}
+				else if(b1Opt2.contains("-")){showBordaBadChar=true;}
+				if(b1Opt1==null){showBordaFill=true;}
+				else if(b1Opt1.contains("-")){showBordaBadChar=true;}
+				break;
+			default:
+				showBordaFill=true;
+		}
+		switch(bordaOpt2)
+		{
+			case 7:
+				if(b2Opt7==null){showBordaFill=true;}
+				else if(b2Opt7.contains("-")){showBordaBadChar=true;}
+			case 6:
+				if(b2Opt6==null){showBordaFill=true;}
+				else if(b2Opt6.contains("-")){showBordaBadChar=true;}
+			case 5:
+				if(b2Opt5==null){showBordaFill=true;}
+				else if(b2Opt5.contains("-")){showBordaBadChar=true;}
+			case 4:
+				if(b2Opt4==null){showBordaFill=true;}
+				else if(b2Opt4.contains("-")){showBordaBadChar=true;}
+			case 3:
+				if(b2Opt3==null){showBordaFill=true;}
+				else if(b2Opt3.contains("-")){showBordaBadChar=true;}
+			case 2:
+				if(b2Opt2==null){showBordaFill=true;}
+				else if(b2Opt2.contains("-")){showBordaBadChar=true;}
+				if(b2Opt1==null){showBordaFill=true;}
+				else if(b2Opt1.contains("-")){showBordaBadChar=true;}
+				break;
+			default:
+				showBordaFill=true;
+		}
+		if(showBordaFill==false)
+		{
+			bordaList1.add(b1Opt1);
+			bordaList1.add(b1Opt2);
+			bordaList2.add(b2Opt1);
+			bordaList2.add(b2Opt2);
+			
+			if(bordaOpt1>=3)
+				bordaList1.add(b1Opt3);
+			
+			if(bordaOpt2>=3)
+				bordaList2.add(b2Opt3);
+			
+			if(bordaOpt1>=4)
+				bordaList1.add(b1Opt4);
+			
+			if(bordaOpt2>=4)
+				bordaList2.add(b2Opt4);
+			
+			if(bordaOpt1>=5)
+				bordaList1.add(b1Opt5);
+			
+			if(bordaOpt2>=5)
+				bordaList2.add(b2Opt5);
+			
+			if(bordaOpt1>=6)
+				bordaList1.add(b1Opt6);
+
+			if(bordaOpt2>=6)
+				bordaList2.add(b2Opt6);
+			
+			if(bordaOpt1>=7)
+				bordaList1.add(b1Opt7);
+
+			if(bordaOpt2>=7)
+				bordaList2.add(b2Opt7);
+			
+			
+			
+			for(int x=0;x<bordaList1.size();x++)
+			{
+				for(int i=x+1;i<bordaList1.size();i++)
+				{
+					if(bordaList1.get(x).toLowerCase().equals(bordaList1.get(i).toLowerCase()))
+						showBordaRepeat=true;
+				}
+				for(int i=0;i<bordaList2.size();i++)
+				{
+					if(bordaList1.get(x).toLowerCase().toLowerCase().equals(bordaList2.get(i).toLowerCase()))
+						showBordaRepeat=true;
+				}
+				
+			}
+			for(int x=0;x<bordaList2.size();x++)
+			{
+				for(int i=x+1;i<bordaList2.size();i++)
+				{
+					if(bordaList2.get(x).toLowerCase().equals(bordaList2.get(i).toLowerCase()))
+							showBordaRepeat=true;
+				}
+			}
+			
+			
+		}
+		
+		
+	}
+	
+	
+	public Object onSuccessFromBordaForm()
+	{
+		if(request.isXHR())
+		{
+			if(showBordaRepeat || showBordaFill || showBordaBadChar)
+			{
+				ajaxResponseRenderer.addRender("bordaZone", bordaZone);
+			}
+			else
+			{
+				List<List<String>> listaOpciones=new LinkedList<List<String>>();
+				listaOpciones.add(bordaList1);
+				listaOpciones.add(bordaList2);
+				Borda borda=new Borda(listaOpciones);
+				borda.addCategory(bcat1);
+				borda.addCategory(bcat2);
+				ballot=setBallotData();
+				borda.setId(UUID.generate());
+				ballot.setIdBallotData(borda.getId());
+				borda.setBallotId(ballot.getId());
+				 
+				voteDao=DB4O.getVoteDao(datasession.getDBName());
+				bordaDao=DB4O.getBordaDao(datasession.getDBName());
+				
+				if(ballot.isTeaching())
+				{
+					ballot.setIdCensus("none");
+					borda.setVotes(GenerateDocentVotes.generateBorda(borda.getBordaOptions(), Integer.parseInt(census)));
+					borda.calcularBorda();
+					ballot.setEnded(true);
+					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+					this.sendMail(datasession.getId(),ballot);
+					ballot.setEnded(true);
+					ballot.setCounted(true);
+					voteDao.store(vote);
+				}
+				else//Votacion Normal
+				{
+					 boolean creatorInCensus=false;
+					 this.sendMail(censusNormal, ballot);
+					 for(String idUser:censusNormal.getUsersCounted())
+					 {
+						 	if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+						 
+						 	voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+					 }
+					 if(!creatorInCensus)
+					 {
+						 voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+						 this.sendMail(datasession.getId(),ballot);
+					 }
+					 
+				 }
+				 
+				 bordaDao.store(borda);
+				 ballotDao.store(ballot);
+				 return Index.class;
+				
+			}
+					
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
 	  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ///////////////////////////////////////////////////// BACK EVENT /////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -879,6 +1295,12 @@ public class BallotWizzard {
 				showType=true;
 				showKemeny=false;
 				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("kemenyZone",kemenyZone);
+			}
+			if(from.equals("fromBorda"))
+			{
+				showType=true;
+				showBorda=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bordaZone",bordaZone);
 			}
 		}
 	}

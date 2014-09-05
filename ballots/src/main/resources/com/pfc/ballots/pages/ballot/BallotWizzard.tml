@@ -103,7 +103,9 @@
 				</t:form>
 			</t:if>
 			
-			
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////MAYORIA RELATIVA ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
 			
 			
 		</t:zone>
@@ -169,6 +171,9 @@
 		
 		
 		
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////// KEMENY /////////////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
 		
 		
 		<t:zone t:id="kemenyZone" id="kemenyZone" t:update="show">
@@ -206,6 +211,138 @@
 				<br/><t:eventlink t:event="back" t:context="prop:['fromKemeny','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
 			</t:if>
 		</t:zone>
+		
+	
+		
+		
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////// BORDA ///////////////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+		
+		<t:zone t:id="bordaZone" id="bordaZone" t:update="show">
+			<t:if test="showBorda">
+				BORDA<br/>
+				
+				<t:form t:id="bordaForm" zone="^">
+					<t:if test="showBordaFill">
+						<div class="erorr">${message:fill-fields}<br/></div>
+					</t:if>
+					<t:if test="showBordaRepeat" class="error">
+						<div class="erorr">${message:not-repeated}<br/></div>
+					</t:if>
+					<t:if test="showBordaBadChar" class="error">
+						<div class="erorr">${message:bad-char}<br/></div>
+						
+					</t:if>
+					<t:zone t:id="bordaForm1Zone" id="bordaForm1Zone">
+						<table>
+							<tr>
+								<td><t:label for="bordaSel1"/></td>
+								<td><t:select t:id="bordaSel1" value="bordaNumOpt1" t:model="bordaModel" t:zone="^"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="bcat1"/></td>
+								<td><t:textfield t:id="bcat1"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="b1Opt1"/></td>
+								<td><t:textfield t:id="b1Opt1"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="b1Opt2"/></td>
+								<td><t:textfield t:id="b1Opt2"/></td>
+							</tr>
+							<t:if test="showB1Opt3">
+								<tr>
+									<td><t:label for="b1Opt3"/></td>
+									<td><t:textfield t:id="b1Opt3"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB1Opt4">
+								<tr>
+									<td><t:label for="b1Opt4"/></td>
+									<td><t:textfield t:id="b1Opt4"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB1Opt5">
+								<tr>
+									<td><t:label for="b1Opt5"/></td>
+									<td><t:textfield t:id="b1Opt5"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB1Opt6">
+								<tr>
+									<td><t:label for="b1Opt6"/></td>
+									<td><t:textfield t:id="b1Opt6"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB1Opt7">
+								<tr>
+									<td><t:label for="b1Opt7"/></td>
+									<td><t:textfield t:id="b1Opt7"/></td>
+								</tr>
+							</t:if>
+						</table>
+					</t:zone>
+					
+					<t:zone t:id="bordaForm2Zone" id="bordaForm2Zone">
+						<table>
+							<tr>
+								<td><t:label for="bordaSel2"/></td>
+								<td><t:select t:id="bordaSel2" value="bordaNumOpt2" t:model="bordaModel" t:zone="^"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="bcat2"/></td>
+								<td><t:textfield t:id="bcat2"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="b2Opt1"/></td>
+								<td><t:textfield t:id="b2Opt1"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="b2Opt2"/></td>
+								<td><t:textfield t:id="b2Opt2"/></td>
+							</tr>
+							<t:if test="showB2Opt3">
+								<tr>
+									<td><t:label for="b2Opt3"/></td>
+									<td><t:textfield t:id="b2Opt3"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB2Opt4">
+								<tr>
+									<td><t:label for="b2Opt4"/></td>
+									<td><t:textfield t:id="b2Opt4"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB2Opt5">
+								<tr>
+									<td><t:label for="b2Opt5"/></td>
+									<td><t:textfield t:id="b2Opt5"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB2Opt6">
+								<tr>
+									<td><t:label for="b2Opt6"/></td>
+									<td><t:textfield t:id="b2Opt6"/></td>
+								</tr>
+							</t:if>						
+							<t:if test="showB2Opt7">
+								<tr>
+									<td><t:label for="b2Opt7"/></td>
+									<td><t:textfield t:id="b2Opt7"/></td>
+								</tr>
+							</t:if>
+						</table>
+					</t:zone>
+					<input t:type="submit" t:value="${message:create}"/>
+					
+				</t:form>
+				<br/><t:eventlink t:event="back" t:context="prop:['fromBorda','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
+			</t:if>
+		</t:zone>
+		
+		
 		
 	</div></t:border>
 </html>

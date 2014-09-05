@@ -50,10 +50,7 @@ public class Index
 		BallotDao ballotDao;
 		@Persist
 		VoteDao voteDao;
-		@Persist
-		RelativeMajorityDao relMayDao;
-		@Persist
-		KemenyDao kemenyDao;
+	
 		
 		
 		  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,10 +108,15 @@ public class Index
 			{
 				return "MAYORIA RELATIVA";
 			}
-			else
+			else if(ballot.getMethod()==Method.KEMENY)
 			{
 				return "KEMENY";
 			}
+			else if(ballot.getMethod()==Method.BORDA)
+			{
+				return "BORDA";
+			}
+			return null;
 		}
 		
 		public boolean isShowNotStarted()

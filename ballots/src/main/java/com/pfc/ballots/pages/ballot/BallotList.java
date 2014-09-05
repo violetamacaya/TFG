@@ -15,6 +15,7 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.BallotDao;
+import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
@@ -73,6 +74,8 @@ public class BallotList {
 	RelativeMajorityDao relMayDao;
 	@Persist
 	KemenyDao kemenyDao;
+	@Persist
+	BordaDao bordaDao;
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,6 +94,7 @@ public class BallotList {
 		ballots=ballotDao.getByOwnerId(datasession.getId());
 		kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 		relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
+		bordaDao=DB4O.getBordaDao(datasession.getDBName());
 		
 	}
 	
@@ -99,14 +103,14 @@ public class BallotList {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// GRID ZONE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/*
 	@Property
 	@Persist
 	private List<RelativeMajority> relMays;
 	@Property
 	@Persist
 	private List<Kemeny> kemenys;
-	
+	*/
 	
 	
 	
@@ -235,11 +239,19 @@ public class BallotList {
 				ballotDao.deleteBallotById(ballotSure.getId());
 				voteDao.deleteVoteOfBallot(ballotSure.getId());
 				if(ballotSure.getMethod()==Method.MAYORIA_RELATIVA)
-					{relMayDao.deleteByBallotId(ballotSure.getId());
-					relMays=relMayDao.retrieveAll();}
+				{
+					relMayDao.deleteByBallotId(ballotSure.getId());
+					//relMays=relMayDao.retrieveAll();
+				}
 				if(ballotSure.getMethod()==Method.KEMENY)
-					{kemenyDao.deleteByBallotId(ballotSure.getId());
-					 kemenys=kemenyDao.retrieveAll();}
+				{
+					kemenyDao.deleteByBallotId(ballotSure.getId());
+					//kemenys=kemenyDao.retrieveAll();
+				}
+				if(ballotSure.getMethod()==Method.BORDA)
+				{
+					bordaDao.deleteByBallotId(ballotSure.getId());
+				}
 				ballots=ballotDao.retrieveAll();
 			}
 			else
