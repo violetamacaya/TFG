@@ -27,8 +27,13 @@ charts= Class.create( {
             	data.addColumn('string', 'Kemeny Option');
                 data.addColumn('number', 'Vote');
             }
+            if(type=="BOR")
+            {
+            	data.addColumn('string', 'Option');
+                data.addColumn('number', 'Vote');
+            }
             var firstItem=true;
-            
+          
             array.forEach(function(obj)
             {
 	            if(firstItem==true)
@@ -40,6 +45,7 @@ charts= Class.create( {
 	            	data.addRow([obj.option,obj.value])
 	            }
             });
+            
             // Set chart options
             var options = {'title':array[0].title,
                            'width':1000,
@@ -53,9 +59,13 @@ charts= Class.create( {
             {
             	chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             }
-            else
+            if(type=="KEM")
             {
             	chart= new google.visualization.BarChart(document.getElementById('chart_div'));
+            }
+            if(type=="BOR")
+            {
+            	chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             }
             
             chart.draw(data, options);
@@ -76,4 +86,10 @@ Tapestry.Initializer.charts_kem = function(spec) {
 	var array=JSON.parse(spec);
 	new charts("KEM",array);
     
+}
+
+Tapestry.Initializer.charts_bor = function(spec) {
+	
+	var array=JSON.parse(spec);
+	new charts("BOR",array);
 }

@@ -9,11 +9,11 @@
 			<t:if test="showGeneral">
 				
 				<t:form t:id="generalForm" zone="^">
-					<t:if test="showErrorGeneral" class="error">
-						${message:fill-fields}<br/>
+					<t:if test="showErrorGeneral">
+						<div class="error">${message:fill-fields}<br/></div>
 					</t:if>
-					<t:if test="showBadName" zone="^" class="error">
-						${message:name-in-use}<br/>
+					<t:if test="showBadName" zone="^">
+						<div class="error">${message:name-in-use}<br/></div>
 					</t:if>
 					<table>
 						<tr>
@@ -42,12 +42,14 @@
 		<t:zone t:id="typeZone" id="typeZone" t:update="show">
 			<t:if test="showtype">
 				<t:form t:id="typeForm" zone="^">
-					<t:if test="showErrorType" class="error">
-						${message:fields-required}<br/>
-					</t:if>
-					<t:if test="showBadDate" class="error">
-						${message:bad-date}<br/>
-					</t:if>
+					<span class="error">
+						<t:if test="showErrorType">
+							${message:fields-required}<br/>
+						</t:if>
+						<t:if test="showBadDate">
+							${message:bad-date}<br/>
+						</t:if>
+					</span>
 					<table>
 						<tr>
 							<td><t:label for="methodSelect">${message:method}*</t:label></td>
@@ -113,8 +115,8 @@
 			<t:if test="showMayRel">
 				<h4>${message:relative-majority}</h4>
 				<t:form t:id="mayRelForm" t:zone="^">
-					<t:if test="showErrorMayRel" class="error">
-						${message:fill-fields}<br/>
+					<t:if test="showErrorMayRel">
+						<span class="error">${message:fill-fields}</span><br/>
 					</t:if>
 				
 					<table>
@@ -180,15 +182,17 @@
 			<t:if test="showKemeny">
 				<h4>${message:kemeny-title}</h4>
 				<t:form t:id="kemenyForm" t:zone="^">
-					<t:if test="showErrorKemeny" class="error">
-						${message:fill-fields}<br/>	
-					</t:if>
-					<t:if test="showRepeatKemeny" class="error">
-						${message:not-repeated}<br/>
-					</t:if>
-					<t:if test="showBadCharKemeny" class="error">
-						${message:bad-char}<br/>
-					</t:if>
+					<span class="error">
+						<t:if test="showErrorKemeny" >
+							${message:fill-fields}<br/><	
+						</t:if>
+						<t:if test="showRepeatKemeny">
+							${message:not-repeated}<br/>
+						</t:if>
+						<t:if test="showBadCharKemeny">
+							${message:bad-char}<br/>
+						</t:if>
+					</span>
 					<table>
 						<tr>
 							<td><t:label for="cat1"/><t:textfield t:id="cat1"/></td>
@@ -221,19 +225,21 @@
 		
 		<t:zone t:id="bordaZone" id="bordaZone" t:update="show">
 			<t:if test="showBorda">
-				BORDA<br/>
+				<h4>${message:borda-title}</h4>
 				
 				<t:form t:id="bordaForm" zone="^">
-					<t:if test="showBordaFill">
-						<div class="erorr">${message:fill-fields}<br/></div>
-					</t:if>
-					<t:if test="showBordaRepeat" class="error">
-						<div class="erorr">${message:not-repeated}<br/></div>
-					</t:if>
-					<t:if test="showBordaBadChar" class="error">
-						<div class="erorr">${message:bad-char}<br/></div>
-						
-					</t:if>
+					<span class="error">
+						<t:if test="showBordaFill">
+							${message:fill-fields}<br/><
+						</t:if>
+						<t:if test="showBordaRepeat">
+							${message:not-repeated}<br/>
+						</t:if>
+						<t:if test="showBordaBadChar" class="error">
+							${message:bad-char}<br/>
+							
+						</t:if>
+					</span>
 					<t:zone t:id="bordaForm1Zone" id="bordaForm1Zone">
 						<table>
 							<tr>

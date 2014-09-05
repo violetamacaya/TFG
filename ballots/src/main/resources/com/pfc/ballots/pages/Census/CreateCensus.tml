@@ -20,7 +20,7 @@
 																				  
 							<td>
 								<t:if test="nameNotAvalible">
-									${message:non available}
+									<span class="error">${message:non available}</span>
 								</t:if>
 							</td>
 						</tr>

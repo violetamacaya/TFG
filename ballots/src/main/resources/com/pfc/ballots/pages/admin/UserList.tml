@@ -60,7 +60,7 @@
 						</td>
 						<td>
 							<t:if test="nonavalible">
-								${message:email-non-available}
+								<span class="error">${message:email-non-available}</span>
 							</t:if>
 						</td>
 					</tr>

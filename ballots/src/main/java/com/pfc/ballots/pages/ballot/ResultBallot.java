@@ -15,6 +15,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 import com.pfc.ballots.dao.BallotDao;
+import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
@@ -24,6 +25,7 @@ import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
+import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
@@ -77,6 +79,7 @@ public class ResultBallot {
 	VoteDao voteDao;
 	RelativeMajorityDao relMayDao;
 	KemenyDao kemenyDao;
+	BordaDao bordaDao;
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,7 +90,6 @@ public class ResultBallot {
 	{
 		componentResources.discardPersistentFieldChanges();
 		
-		System.out.println("SET UP");
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		ballot=ballotDao.getById(contextResultBallotId);
 		if(ballot==null)
@@ -98,28 +100,41 @@ public class ResultBallot {
 		{
 			relMayDao= DB4O.getRelativeMajorityDao(datasession.getDBName());
 			relMay=relMayDao.getByBallotId(ballot.getId());
-			relMay.calcularMayoriaRelativa();
-			/*if(ballot.isEnded()==true && ballot.isCounted()==false && relMay!=null)
+			//relMay.calcularMayoriaRelativa();
+			if(ballot.isEnded()==true && ballot.isCounted()==false && relMay!=null)
 			{
 				relMay.calcularMayoriaRelativa();
 				ballot.setCounted(true);
 				relMayDao.update(relMay);
 				ballotDao.updateBallot(ballot);
-			}*/
+			}
 		}
 		else if(ballot.getMethod()==Method.KEMENY)
 		{
 			kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 			kemeny=kemenyDao.getByBallotId(contextResultBallotId);
-			kemeny.calcularKemeny();
-			/*if(ballot.isEnded()==true && ballot.isCounted()==false && kemeny!=null)
+			//kemeny.calcularKemeny();
+			if(ballot.isEnded()==true && ballot.isCounted()==false && kemeny!=null)
 			{
 				kemeny.calcularKemeny();
 				ballot.setCounted(true);
 				kemenyDao.update(kemeny);
 				ballotDao.updateBallot(ballot);
-			}*/
+			}
 			
+		}
+		else if(ballot.getMethod()==Method.BORDA)
+		{
+			bordaDao=DB4O.getBordaDao(datasession.getDBName());
+			borda=bordaDao.getByBallotId(contextResultBallotId);
+			
+			if(ballot.isEnded()==true && ballot.isCounted()==false && borda!=null)
+			{
+				borda.calcularBorda();
+				ballot.setCounted(true);
+				bordaDao.update(borda);
+				ballotDao.updateBallot(ballot);
+			}
 		}
 		
 		
@@ -164,6 +179,18 @@ public class ResultBallot {
 			}
 			javaScriptSupport.addInitializerCall("charts_kem",array.toString());
 		}
+		if(ballot.getMethod()==Method.BORDA)
+		{
+			for(String bordOpt:borda.getBordaOptions())
+			{
+				obj=new JSONObject();
+				obj.put("option", bordOpt);
+				obj.put("value", borda.getResult(bordOpt));
+				array.put(obj);
+			}
+			System.out.println("tamaño->"+array.toString());
+			javaScriptSupport.addInitializerCall("charts_bor",array.toString());
+		}
 		
 	}
 	
@@ -192,8 +219,9 @@ public class ResultBallot {
 	}
 
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 /////////////////////////////////////////////// MAYORIA RELATIVA //////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////////// KEMENY ////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	/**
 	 * Kemeney Data
 	 */
@@ -212,6 +240,30 @@ public class ResultBallot {
 	public String getKemenyVote()
 	{
 		return String.valueOf(kemeny.getResult(permutation));
+	}
+	
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////////////////////////// BORDA ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Borda Data
+	 */
+	@Property
+	@Persist
+	Borda borda;
+	
+	@Property
+	private String bordaOpt;
+	
+	public boolean getShowBorda()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.BORDA)
+			{return true;}
+		return false;
+	}
+	public String getBordaVote()
+	{
+		return String.valueOf(borda.getResult(bordaOpt));
 	}
 	
 	

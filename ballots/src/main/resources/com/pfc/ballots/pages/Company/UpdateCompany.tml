@@ -10,8 +10,8 @@
 	
 		<t:zone t:id="formZone" id="formZone">
 			<t:if test="showForm">
-				<t:if test="showBadChar" class="error">
-					${message:badChar}<br/>
+				<t:if test="showBadChar">
+					<span class="error">${message:badChar}<br/></span>
 				</t:if>
 				<t:form t:id="updateCompanyForm" zone="^">
 					<table>
@@ -19,11 +19,11 @@
 							<td><t:label for="companyName"/></td>
 							<td><t:textfield t:id="companyName" value="newCompany.companyName"/></td>
 							<td>
-								<t:if test="showNameInUse" class="error">
-									${message:name-in-use}
+								<t:if test="showNameInUse" >
+									<span class="error">${message:name-in-use}</span>
 								</t:if>
-								<t:if test="showBadName" class="error">
-									${message:bad-name}
+								<t:if test="showBadName" >
+									<span class="error">${message:bad-name}</span>
 								</t:if>
 							</td>
 						</tr>
