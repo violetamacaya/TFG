@@ -60,6 +60,16 @@
 				</t:loop>
 			</table>
 		</t:if>
+		<t:if test="showRange">
+			<table border="1px">
+				<tr><th>${message:option}</th><th>${message:votes}</th></tr>
+				<t:loop t:source="range.options" t:value="rangeOpt">
+					<tr>
+						<td>${rangeOpt}</td><td>${rangeVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
 	
 	</div></t:border>
 </html>

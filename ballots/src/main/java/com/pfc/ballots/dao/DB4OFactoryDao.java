@@ -144,7 +144,16 @@ public class DB4OFactoryDao extends FactoryDao{
 		return new BordaDaoDB4O(DBName);
 	}
 	
-	
+	@Override
+	public RangeVotingDao getRangeVotingDao()
+	{
+		return new RangeVotingDaoDB4O(null);
+	}
+	@Override
+	public RangeVotingDao getRangeVotingDao(String DBName)
+	{
+		return new RangeVotingDaoDB4O(DBName);
+	}
 
 
 	 

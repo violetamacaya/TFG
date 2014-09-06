@@ -184,7 +184,7 @@
 				<t:form t:id="kemenyForm" t:zone="^">
 					<span class="error">
 						<t:if test="showErrorKemeny" >
-							${message:fill-fields}<br/><	
+							${message:fill-fields}<br/>	
 						</t:if>
 						<t:if test="showRepeatKemeny">
 							${message:not-repeated}<br/>
@@ -230,12 +230,12 @@
 				<t:form t:id="bordaForm" zone="^">
 					<span class="error">
 						<t:if test="showBordaFill">
-							${message:fill-fields}<br/><
+							${message:fill-fields}<br/>
 						</t:if>
 						<t:if test="showBordaRepeat">
 							${message:not-repeated}<br/>
 						</t:if>
-						<t:if test="showBordaBadChar" class="error">
+						<t:if test="showBordaBadChar" >
 							${message:bad-char}<br/>
 							
 						</t:if>
@@ -348,6 +348,92 @@
 			</t:if>
 		</t:zone>
 		
+		
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////// RANGE_VOTING ///////////////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+		
+		
+		<t:zone t:id="RangeZone" id="rangeZone" t:update="show">
+			<t:if test="showRange">
+				<h4>${message:range-title}</h4>
+					<t:form t:id="rangeForm" zone="^">
+						<span class="error">
+							<t:if test="showRangeFill">
+								${message:fill-fields}<br/>
+							</t:if>
+							<t:if test="showRangeValues">
+								${message:range-values}<br/>
+							</t:if>
+							<t:if test="showRangeRepeated">
+								${message:not-repeated}<br/>
+							</t:if>
+							<t:if test="showRangeBadChar" >
+								${message:bad-char}<br/>
+							</t:if>
+							<t:if test="showRangeBadNum">
+								${message:bad-char}<br/>
+							</t:if>
+						</span>
+						<table>
+								<tr>
+									<td><t:label for="rangeSel"/></td>
+									<td><t:select t:id="rangeSel" value="rangeNumOpt" t:model="rangeModel" t:zone="^"/></td>
+								</tr>
+								<tr>
+									<td><t:label for="minRange"/></td>
+									<td><t:textfield t:id="minRange"/></td>
+								
+								</tr>
+								<tr>
+									<td><t:label for="maxRange"/></td>
+									<td><t:textfield t:id="maxRange"/></td>
+									<td><t:if test="showRangeMax"><span t:class="error">${message:max-range}</span></t:if></td>
+								</tr>
+								<tr>
+									<td><t:label for="rangeOpt1"/></td>
+									<td><t:textfield t:id="rangeOpt1"/></td>
+								</tr>
+								<tr>
+									<td><t:label for="rangeOpt2"/></td>
+									<td><t:textfield t:id="rangeOpt2"/></td>
+								</tr>
+								<t:if test="showrange3">
+									<tr>
+										<td><t:label for="rangeOpt3"/></td>
+										<td><t:textfield t:id="rangeOpt3"/></td>
+									</tr>
+								</t:if>
+								<t:if test="showrange4">
+									<tr>
+										<td><t:label for="rangeOpt4"/></td>
+										<td><t:textfield t:id="rangeOpt4"/></td>
+									</tr>
+								</t:if>
+								<t:if test="showrange5">
+									<tr>
+										<td><t:label for="rangeOpt5"/></td>
+										<td><t:textfield t:id="rangeOpt5"/></td>
+									</tr>
+								</t:if>
+								<t:if test="showrange6">
+									<tr>
+										<td><t:label for="rangeOpt6"/></td>
+										<td><t:textfield t:id="rangeOpt6"/></td>
+									</tr>
+								</t:if>
+								<t:if test="showrange7">
+									<tr>
+										<td><t:label for="rangeOpt7"/></td>
+										<td><t:textfield t:id="rangeOpt7"/></td>
+									</tr>
+								</t:if>								
+						</table>
+						<input t:type="submit" t:value="${message:create}"/>
+					</t:form>
+				<br/><t:eventlink t:event="back" t:context="prop:['fromRange','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
+			</t:if>
+		</t:zone>
 		
 		
 	</div></t:border>

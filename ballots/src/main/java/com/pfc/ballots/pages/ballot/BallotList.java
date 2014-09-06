@@ -19,6 +19,7 @@ import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
+import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
@@ -76,6 +77,8 @@ public class BallotList {
 	KemenyDao kemenyDao;
 	@Persist
 	BordaDao bordaDao;
+	@Persist
+	RangeVotingDao rangeDao;
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +98,7 @@ public class BallotList {
 		kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 		relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 		bordaDao=DB4O.getBordaDao(datasession.getDBName());
+		rangeDao=DB4O.getRangeVotingDao(datasession.getDBName());
 		
 	}
 	
@@ -251,6 +255,10 @@ public class BallotList {
 				if(ballotSure.getMethod()==Method.BORDA)
 				{
 					bordaDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.RANGE_VOTING)
+				{
+					rangeDao.deleteByBallotId(ballotSure.getId());
 				}
 				ballots=ballotDao.retrieveAll();
 			}

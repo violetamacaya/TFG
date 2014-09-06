@@ -116,6 +116,10 @@ public class Index
 			{
 				return "BORDA";
 			}
+			else if(ballot.getMethod()==Method.RANGE_VOTING)
+			{
+				return "RANGE VOTING";
+			}
 			return null;
 		}
 		

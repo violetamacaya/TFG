@@ -19,6 +19,7 @@ import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
+import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
@@ -27,6 +28,7 @@ import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
+import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
@@ -80,6 +82,8 @@ public class ResultBallot {
 	RelativeMajorityDao relMayDao;
 	KemenyDao kemenyDao;
 	BordaDao bordaDao;
+	RangeVotingDao rangeDao;
+	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,6 +137,19 @@ public class ResultBallot {
 				borda.calcularBorda();
 				ballot.setCounted(true);
 				bordaDao.update(borda);
+				ballotDao.updateBallot(ballot);
+			}
+		}
+		else if(ballot.getMethod()==Method.RANGE_VOTING)
+		{
+			rangeDao=DB4O.getRangeVotingDao();
+			range=rangeDao.getByBallotId(contextResultBallotId);
+			
+			if(ballot.isEnded()==true && ballot.isCounted()==false && range!=null)
+			{
+				range.calcularRangeVoting();
+				ballot.setCounted(true);
+				rangeDao.update(range);
 				ballotDao.updateBallot(ballot);
 			}
 		}
@@ -190,6 +207,18 @@ public class ResultBallot {
 			}
 			System.out.println("tamaño->"+array.toString());
 			javaScriptSupport.addInitializerCall("charts_bor",array.toString());
+		}
+		if(ballot.getMethod()==Method.RANGE_VOTING)
+		{
+			for(String rangeOption:range.getOptions())
+			{
+				obj=new JSONObject();
+				obj.put("option", rangeOption);
+				obj.put("value",  range.getResult(rangeOption));
+				array.put(obj);
+			}
+			System.out.println("tamaño->"+array.toString());
+			javaScriptSupport.addInitializerCall("charts_range",array.toString());
 		}
 		
 	}
@@ -265,7 +294,29 @@ public class ResultBallot {
 	{
 		return String.valueOf(borda.getResult(bordaOpt));
 	}
+	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////////////////////////// RANGE ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * RangeVoting Data
+	 */
+	@Property
+	@Persist
+	RangeVoting range;
+
+	@Property
+	private String rangeOpt;
 	
+	public boolean getShowRange()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.RANGE_VOTING)
+			{return true;}
+		return false;
+	}
+	public String getRangeVote()
+	{
+		return String.valueOf(range.getResult(rangeOpt));
+	}
 	
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 

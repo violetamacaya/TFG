@@ -32,6 +32,11 @@ charts= Class.create( {
             	data.addColumn('string', 'Option');
                 data.addColumn('number', 'Vote');
             }
+            if(type=="RANGE")
+            {
+            	data.addColumn('string', 'Option');
+                data.addColumn('number', 'Vote');
+            }
             var firstItem=true;
           
             array.forEach(function(obj)
@@ -67,6 +72,10 @@ charts= Class.create( {
             {
             	chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             }
+            if(type=="RANGE")
+            {
+            	chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            }
             
             chart.draw(data, options);
            
@@ -92,4 +101,9 @@ Tapestry.Initializer.charts_bor = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("BOR",array);
+}
+Tapestry.Initializer.charts_range = function(spec) {
+	
+	var array=JSON.parse(spec);
+	new charts("RANGE",array);
 }

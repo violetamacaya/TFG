@@ -72,7 +72,13 @@ public class GenerateDocentVotes {
 		return votes;
 		
 	}
-	
+	/**
+	 * Generates a list of random votes for a borda ballot
+	 * 
+	 * @param bordaOptions options of the ballot
+	 * @param numVotes number of votes to generate
+	 * @return List<String> a list of random votes
+	 */
 	
 	static public List<List<String>> generateBorda(List<String> bordaOptions,int numVotes)
 	{
@@ -106,5 +112,37 @@ public class GenerateDocentVotes {
 		}
 		
 		return votes;
+	}
+	
+	
+	
+	/**
+	 * Generates a list of random votes for a RangeVoting ballot
+	 * 
+	 * @param options options of the ballot
+	 * @param numVotes number of votes to generate
+	 * @param min minimum value
+	 * @param max maximum value
+	 * @return List<String> a list of random votes
+	 */
+	static public List<List<String>> generateRangeVoting(List<String>options, int numVotes,int min,int max)
+	{
+	
+		 List<List<String>>votes=new LinkedList<List<String>>();
+		
+		
+		for(int x=0;x<numVotes;x++)
+		{
+			List<String>vote=new LinkedList<String>();
+			for(String option:options)
+			{
+				Random random=new Random();
+				int valor=random.nextInt(max-min+1)+min;
+				vote.add(String.valueOf(valor));				
+			}
+			votes.add(vote);
+		}
+		return votes;
+		
 	}
 }

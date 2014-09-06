@@ -54,7 +54,63 @@
 			 	</t:zone>		
 				
 			</t:if>
+			<!-- ///////////////////////////////////////// RANGE VOTING /////////////////////////////////////////////// -->
 			
+			<t:if test="ShowRange">
+				Los valores estaran comprendidos entre ${range.minValue} y ${range.MaxValue} incluidos <br/>
+				<t:zone t:id="rangeZone">
+					
+					<t:form t:id="rangeForm" t:zone="^">
+					<t:if test="showRangeBadNumber">
+						<span class="error">NOPE</span>
+					</t:if>
+						<table>
+							<tr>
+								<td><label>${rangeOpt0}</label></td>
+								<td><t:textfield t:id="range0"/></td>
+							</tr>
+							<tr>
+								<td><label>${rangeOpt1}</label></td>
+								<td><t:textfield t:id="range1"/></td>
+							</tr>
+							<t:if test="showRange2">
+								<tr>
+									<td><label>${rangeOpt2}</label></td>
+									<td><t:textfield t:id="range2"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showRange3">
+								<tr>
+									<td><label>${rangeOpt3}</label></td>
+									<td><t:textfield t:id="range3"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showRange4">
+								<tr>
+									<td><label>${rangeOpt4}</label></td>
+									<td><t:textfield t:id="range4"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showRange5">
+								<tr>
+									<td><label>${rangeOpt5}</label></td>
+									<td><t:textfield t:id="range5"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showRange6">
+								<tr>
+									<td><label>${rangeOpt6}</label></td>
+									<td><t:textfield t:id="range6"/></td>
+								</tr>
+							</t:if>
+												
+						</table>
+						<input t:type="submit" value="${message:vote-but}"/>
+					</t:form>
+				</t:zone>
+				
+				
+			</t:if>
 			
 			 <p:else>
 			 	${message:vote-done}

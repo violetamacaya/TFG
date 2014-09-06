@@ -49,6 +49,9 @@ public abstract class FactoryDao {
 	public abstract BordaDao getBordaDao();
 	public abstract BordaDao getBordaDao(String DBName);
 	
+	public abstract RangeVotingDao getRangeVotingDao();
+	public abstract RangeVotingDao getRangeVotingDao(String DBName);
+	
 	
 	public static FactoryDao getFactory(int claveFactory) {
 		

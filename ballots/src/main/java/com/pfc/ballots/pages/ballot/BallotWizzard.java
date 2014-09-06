@@ -28,6 +28,7 @@ import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
+import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
@@ -42,6 +43,7 @@ import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
+import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
@@ -94,6 +96,7 @@ public class BallotWizzard {
 	RelativeMajorityDao relativeMajorityDao;
 	KemenyDao kemenyDao;
 	BordaDao bordaDao;
+	RangeVotingDao rangeDao;
 	UserDao userDao;
 	EmailAccountDao emailAccountDao;
 	 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,10 +112,12 @@ public class BallotWizzard {
 		
 		mayRelModel=NUMBERS2_7;
 		bordaModel=NUMBERS2_7;
+		rangeModel=NUMBERS2_7;
 		
 		numOpt=2;
 		bordaOpt1=2;
 		bordaOpt2=2;
+		rangeOpt=2;
 		
 		initializeBooleans();
 		
@@ -157,6 +162,14 @@ public class BallotWizzard {
 		showBordaFill=false;
 		showBordaRepeat=false;
 		showBordaBadChar=false;
+		
+		showRange=false;
+		showRangeMax=false;
+		showRangeValues=false;
+		showRangeFill=false;
+		showRangeBadChar=false;
+		showRangeRepeated=false;
+		showRangeBadNum=false;
 	}
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -479,6 +492,11 @@ public class BallotWizzard {
 				{
 					showBorda=true;
 					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bordaZone", bordaZone);
+				}
+				else if(method==Method.RANGE_VOTING)
+				{
+					showRange=true;
+					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("rangeZone",rangeZone);
 				}
 				
 			}
@@ -1262,9 +1280,278 @@ public class BallotWizzard {
 		return null;
 	}
 	
+	 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 ////////////////////////////////////////////////// RANGE ZONE /////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone rangeZone;
+	@Property
+	@Persist
+	private boolean showRange;
+	
+	@Property
+	@Persist
+	private RangeVoting range;
 	
 	
+	@Property
+	@Persist 
+	private String [] rangeModel;
 	
+	
+	@Persist
+	@Property
+	private int rangeOpt;
+	
+	@Property
+	@Persist
+	@Validate("required")
+	private String rangeNumOpt;
+	
+	@Property
+	@Persist
+	private boolean showRangeMax;
+	@Property
+	@Persist
+	private boolean showRangeValues;
+	@Property
+	@Persist
+	private boolean showRangeFill;
+	@Property
+	@Persist
+	private boolean showRangeBadChar;
+	@Property
+	@Persist
+	private boolean showRangeBadNum;
+	@Property
+	@Persist
+	private boolean showRangeRepeated;
+	
+	
+	@Property
+	@Persist
+	private String maxRange;
+	@Property
+	@Persist
+	private String minRange;
+	
+	@Property
+	@Persist
+	private String rangeOpt1;
+	@Property
+	@Persist
+	private String rangeOpt2;
+	@Property
+	@Persist
+	private String rangeOpt3;
+	@Property
+	@Persist
+	private String rangeOpt4;
+	@Property
+	@Persist
+	private String rangeOpt5;
+	@Property
+	@Persist
+	private String rangeOpt6;
+	@Property
+	@Persist
+	private String rangeOpt7;
+	@Property
+	@Persist
+	private List<String> rangeOptions;
+	
+	public boolean isShowRange3()
+	{
+		if (rangeOpt>=3)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowRange4()
+	{
+		if (rangeOpt>=4)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowRange5()
+	{
+		if (rangeOpt>=5)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowRange6()
+	{
+		if (rangeOpt>=6)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowRange7()
+	{
+		if (rangeOpt>=7)
+			return true;
+		else
+			return false;
+	}
+	public void  onValueChangedFromRangeSel(String str)
+	{
+		rangeOpt=Integer.parseInt(str);
+		ajaxResponseRenderer.addRender("rangeZone", rangeZone);
+	}
+	
+	public void onValidateFromRangeForm()
+	{
+		showRangeMax=false;
+		showRangeValues=false;
+		showRangeRepeated=false;
+		showRangeBadNum=false;
+		showRangeBadNum=false;
+		showRangeFill=false;
+		
+		if(minRange==null)
+		{
+			minRange="0";
+		}
+		else if(isNumeric(minRange))
+		{
+			showRangeBadNum=true;
+		}
+			
+		if(maxRange==null)
+		{
+			showRangeMax=true;
+		}
+		else
+		{
+			if(isNumeric(maxRange))
+			{
+				showRangeBadNum=true;
+			}
+			else if(Integer.parseInt(minRange)>=Integer.parseInt(maxRange))
+			{
+				showRangeValues=true;
+			}
+		}
+		switch(rangeOpt)
+		{
+			case 7:
+				if(rangeOpt7==null){showRangeFill=true;}
+				else if(rangeOpt7.contains("ñ")){showRangeBadChar=true;}
+			case 6:
+				if(rangeOpt6==null){showRangeFill=true;}
+				else if(rangeOpt6.contains("ñ")){showRangeBadChar=true;}
+			case 5:
+				if(rangeOpt5==null){showRangeFill=true;}
+				else if(rangeOpt5.contains("ñ")){showRangeBadChar=true;}
+			case 4:
+				if(rangeOpt4==null){showRangeFill=true;}
+				else if(rangeOpt4.contains("ñ")){showRangeBadChar=true;}
+			case 3:
+				if(rangeOpt3==null){showRangeFill=true;}
+				else if(rangeOpt3.contains("ñ")){showRangeBadChar=true;}
+			case 2:
+				if(rangeOpt2==null){showRangeFill=true;}
+				else if(rangeOpt2.contains("ñ")){showRangeBadChar=true;}
+				if(rangeOpt1==null){showRangeFill=true;}
+				else if(rangeOpt1.contains("ñ")){showRangeBadChar=true;}
+				break;
+			default:
+				showRangeFill=true;
+		}
+		
+		if(showRangeFill==false)
+		{
+			rangeOptions=new LinkedList<String>();
+			rangeOptions.add(rangeOpt1);
+			rangeOptions.add(rangeOpt2);
+			
+			if(rangeOpt>=3)
+				rangeOptions.add(rangeOpt3);
+			
+			if(rangeOpt>=4)
+				rangeOptions.add(rangeOpt4);
+			if(rangeOpt>=5)
+				rangeOptions.add(rangeOpt5);
+			if(rangeOpt>=6)
+				rangeOptions.add(rangeOpt6);
+			if(rangeOpt>=7)
+				rangeOptions.add(rangeOpt7);
+			
+		}
+		for(int x=0;x<rangeOptions.size();x++)
+		{
+			for(int i=x+1;i<rangeOptions.size();i++)
+			{
+				if(rangeOptions.get(x).toLowerCase().equals(rangeOptions.get(i).toLowerCase()))
+				{
+					showRangeRepeated=true;
+				}
+			}
+		}
+		
+	}
+	public Object onSuccessFromRangeForm()
+	{
+		if(request.isXHR())
+		{
+			if(showRangeBadChar || showRangeRepeated || showRangeFill || showRangeValues || showRangeMax)
+			{
+				ajaxResponseRenderer.addRender("rangeZone", rangeZone);
+				return null;
+			}
+			range=new RangeVoting(rangeOptions);
+			
+			ballot=setBallotData();
+			range.setId(UUID.generate());
+			ballot.setIdBallotData(range.getId());
+			range.setBallotId(ballot.getId());
+			range.setMinValue(Integer.parseInt(minRange));
+			
+			range.setMaxValue(Integer.parseInt(maxRange));
+			
+			System.out.println("MINIMO->"+range.getMinValue());
+			System.out.println("MAXIMO->"+range.getMaxValue());
+			voteDao=DB4O.getVoteDao(datasession.getDBName());
+			rangeDao=DB4O.getRangeVotingDao(datasession.getDBName());
+			if(ballot.isTeaching())
+			{
+				ballot.setIdCensus("none");
+				range.setVotes(GenerateDocentVotes.generateRangeVoting(range.getOptions(), Integer.parseInt(census),range.getMinValue(), range.getMaxValue()));
+				range.calcularRangeVoting();
+				ballot.setEnded(true);
+				Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+				this.sendMail(datasession.getId(),ballot);
+				ballot.setEnded(true);
+				ballot.setCounted(true);
+				voteDao.store(vote);
+			}
+			else//Votacion Normal
+			{
+				 boolean creatorInCensus=false;
+				 this.sendMail(censusNormal, ballot);
+				 for(String idUser:censusNormal.getUsersCounted())
+				 {
+					 	if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+					 
+					 	voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+				 }
+				 if(!creatorInCensus)
+				 {
+					 voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+					 this.sendMail(datasession.getId(),ballot);
+				 }
+				 
+			 }
+			 
+			 rangeDao.store(range);
+			 ballotDao.store(ballot);
+			 return Index.class;
+		}
+		return null;
+	}
 	
 	
 	
@@ -1301,6 +1588,12 @@ public class BallotWizzard {
 				showType=true;
 				showBorda=false;
 				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bordaZone",bordaZone);
+			}
+			if(from.equals("fromRange"))
+			{
+				showType=true;
+				showRange=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("rangeZone",rangeZone);
 			}
 		}
 	}
@@ -1423,6 +1716,15 @@ public class BallotWizzard {
 		Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino, subject, txt);
 	}
 	
+	private boolean isNumeric(String cadena)
+	{
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
+	}
 	
 	
 	  ////////////////////////////////////////////////////////////////////////////////////

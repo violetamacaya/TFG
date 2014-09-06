@@ -9,11 +9,9 @@ import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.ballotdata.Borda;
-import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 
-
-public class BordaDaoDB4O implements BordaDao {
+public class RangeVotingDaoDB4O implements RangeVotingDao{
 
 	String sep=System.getProperty("file.separator");
 	String PATH;
@@ -22,7 +20,7 @@ public class BordaDaoDB4O implements BordaDao {
 	ObjectContainer DB=null;
 	
 	
-	public BordaDaoDB4O(String DBName)
+	public RangeVotingDaoDB4O(String DBName)
 	{
 		if(DBName==null)
 		{
@@ -34,23 +32,25 @@ public class BordaDaoDB4O implements BordaDao {
 		}
 		
 	}
-
+	
+	
+	
 	//********************************************* Store *********************************************//
 	/**
 	 * Stores a Borda entity
 	 * @param borda, Borda entity to store
 	 */
-	public void store(Borda borda) {
+	public void store(RangeVoting rangeVoting) {
 		open();
 		try
 		{
-			DB.store(borda);
-			System.out.println("[DB4O]Borda stored");
+			DB.store(rangeVoting);
+			System.out.println("[DB4O]RangeVoting stored");
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			System.out.println("[DB4O]ERROR:Borda could not be stored");
+			System.out.println("[DB4O]ERROR:RangeVoting could not be stored");
 		}
 		finally
 		{
@@ -63,20 +63,20 @@ public class BordaDaoDB4O implements BordaDao {
 
 
     /**
-     * Gets a borda entity from its idBallot
+     * Gets a rangeVoting entity from its idBallot
      * @param idBallot , id of the ballot to get
-     * @return Borda entity
+     * @return RangeVoting entity
      */
-	public Borda getByBallotId(String idBallot) {
+	public RangeVoting getByBallotId(String idBallot) {
 		open();
 		try
 		{
-			Borda borda=new Borda();
-			borda.setBallotId(idBallot);
-			ObjectSet result=DB.queryByExample(borda);
+			RangeVoting rangeVoting=new RangeVoting();
+			rangeVoting.setBallotId(idBallot);
+			ObjectSet result=DB.queryByExample(rangeVoting);
 			if(result.hasNext())
 			{
-				return (Borda)result.next();
+				return (RangeVoting)result.next();
 			}
 			return null;
 		}
@@ -94,21 +94,21 @@ public class BordaDaoDB4O implements BordaDao {
 
 
 	 /**
-     * Gets a borda entity from its id
-     * @param id, id of the borda to get
-     * @return Borda entity
+     * Gets a RangeVoting entity from its id
+     * @param id, id of the RangeVoting to get
+     * @return RangeVoting entity
      */
 
-	public Borda getById(String id) {
+	public RangeVoting getById(String id) {
 		open();
 		try
 		{
-			Borda borda = new Borda();
-			borda.setId(id);
-			ObjectSet result=DB.queryByExample(borda);
+			RangeVoting rangeVoting = new RangeVoting();
+			rangeVoting.setId(id);
+			ObjectSet result=DB.queryByExample(rangeVoting);
 			if(result.hasNext())
 			{
-				return (Borda)result.next();
+				return (RangeVoting)result.next();
 			}
 			return null;
 		}
@@ -127,19 +127,19 @@ public class BordaDaoDB4O implements BordaDao {
 
 
 	/**
-	 * Deletes a borda entity from its ballotId
-	 * @param ballotId , id of the ballot to delete its borda entity
+	 * Deletes a RangeVoting entity from its ballotId
+	 * @param ballotId , id of the ballot to delete its RangeVoting entity
 	 */
 	public void deleteByBallotId(String ballotId) {
 		open();
 		try
 		{
-			Borda borda=new Borda();
-			borda.setBallotId(ballotId);
-			ObjectSet result=DB.queryByExample(borda);
+			RangeVoting rangeVoting=new RangeVoting();
+			rangeVoting.setBallotId(ballotId);
+			ObjectSet result=DB.queryByExample(rangeVoting);
 			if(result.hasNext())
 			{
-				DB.delete((Borda)result.next());
+				DB.delete((RangeVoting)result.next());
 			}
 		
 		}
@@ -158,16 +158,16 @@ public class BordaDaoDB4O implements BordaDao {
 
 
 	/**
-	 * Deletes a borda entity from its id
-	 * @param id , id of the borda entity to delete
+	 * Deletes a RangeVoting entity from its id
+	 * @param id , id of the RangeVoting entity to delete
 	 */
 	public void deleteById(String id) {
 		open();
 		try
 		{
-			Borda borda=new Borda();
-			borda.setId(id);
-			ObjectSet result=DB.queryByExample(borda);
+			RangeVoting rangeVoting=new RangeVoting();
+			rangeVoting.setId(id);
+			ObjectSet result=DB.queryByExample(rangeVoting);
 			if(result.hasNext())
 			{
 				DB.delete((Borda)result.next());
@@ -189,14 +189,14 @@ public class BordaDaoDB4O implements BordaDao {
 
 	
 	/**
-	 * Deletes all the borda entities in the system
+	 * Deletes all the RangeVoting entities in the system
 	 */
 	public void deleteAll() {
 		open();
 		try
 		{
 				Query query=DB.query();
-				query.constrain(Borda.class);
+				query.constrain(RangeVoting.class);
 				ObjectSet result = query.execute();
 			
 				while(result.hasNext())
@@ -224,18 +224,18 @@ public class BordaDaoDB4O implements BordaDao {
 	/**
 	 * retrieves all Borda entities
 	 */
-	public List<Borda> retrieveAll() {
-		List<Borda> borda=new LinkedList<Borda>();
+	public List<RangeVoting> retrieveAll() {
+		List<RangeVoting> rangeVoting=new LinkedList<RangeVoting>();
 		open();
 		try
 		{
 				Query query=DB.query();
-				query.constrain(Borda.class);
+				query.constrain(RangeVoting.class);
 				ObjectSet result = query.execute();
 			
 				while(result.hasNext())
 				{
-					borda.add((Borda)result.next());
+					rangeVoting.add((RangeVoting)result.next());
 				}
 				System.out.println("[DB4O]All Borda was retrieved");
 		}
@@ -243,32 +243,32 @@ public class BordaDaoDB4O implements BordaDao {
 		{
 			e.printStackTrace();
 			System.out.println("[DB4O]ERROR:All ballots could not be retrieved");
-			borda.clear();
-			return borda;
+			rangeVoting.clear();
+			return rangeVoting;
 		}
 		finally
 		{
 			close();
 		}
 		
-		return borda;
+		return rangeVoting;
 	}
 
 
 
 
 	/**
-	 * Updates a borda entity
+	 * Updates a RangeVoting entity
 	 * @param updated, entity to update
 	 */
-	public void update(Borda updated) {
+	public void update(RangeVoting updated) {
 		open();
 		try
 		{
-			Borda borda=new Borda();
-			borda.setId(updated.getId());
+			RangeVoting rangeVoting=new RangeVoting();
+			rangeVoting.setId(updated.getId());
 			
-			ObjectSet result=DB.queryByExample(borda);
+			ObjectSet result=DB.queryByExample(rangeVoting);
 			if(result.hasNext())
 			{
 				DB.delete(result.next());
@@ -294,7 +294,7 @@ public class BordaDaoDB4O implements BordaDao {
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
-		config.common().objectClass(Borda.class).cascadeOnUpdate(true);
+		config.common().objectClass(RangeVoting.class).cascadeOnUpdate(true);
 		try
 		{
 			
@@ -316,8 +316,5 @@ public class BordaDaoDB4O implements BordaDao {
 		DB.close();
 		System.out.println("[DB4O]Database was closed");
 	}
-
-
-
 
 }

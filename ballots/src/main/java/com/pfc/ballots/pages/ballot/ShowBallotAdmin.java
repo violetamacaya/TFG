@@ -18,6 +18,7 @@ import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
+import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
@@ -73,6 +74,8 @@ public class ShowBallotAdmin {
 	KemenyDao kemenyDao;
 	@Persist
 	BordaDao bordaDao;
+	@Persist
+	RangeVotingDao rangeDao;
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,33 +95,7 @@ public class ShowBallotAdmin {
 		kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 		relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 		bordaDao=DB4O.getBordaDao(datasession.getDBName());
-		
-		/*
-		for(Ballot ballot_temp:ballots)
-		{
-			if(ballot_temp.isEnded()==true && ballot_temp.isCounted()==false)
-			{
-				if(ballot_temp.getMethod()==Method.MAYORIA_RELATIVA)
-				{
-					//relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
-					RelativeMajority relMay=relMayDao.getByBallotId(ballot_temp.getId());
-				  	relMay.calcularMayoriaRelativa();
-				  	relMayDao.update(relMay);
-				  	ballot_temp.setCounted(true);
-				  	ballotDao.updateBallot(ballot_temp);
-				}
-				else if(ballot_temp.getMethod()==Method.KEMENY)
-				{
-					Kemeny kemeny=kemenyDao.getByBallotId(ballot_temp.getId());
-					kemeny.calcularKemeny();
-					kemenyDao.update(kemeny);
-					ballot_temp.setCounted(true);
-					ballotDao.updateBallot(ballot_temp);
-				}
-			}
-			
-		}
-		*/		
+		rangeDao=DB4O.getRangeVotingDao(datasession.getDBName());
 	}
 	
 	
@@ -126,14 +103,7 @@ public class ShowBallotAdmin {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// GRID ZONE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	@Property
-	@Persist
-	private List<RelativeMajority> relMays;
-	@Property
-	@Persist
-	private List<Kemeny> kemenys;
-	*/
+
 	@InjectPage
 	private AddUsers addUsers;
 	
@@ -274,6 +244,10 @@ public class ShowBallotAdmin {
 				if(ballotSure.getMethod()==Method.BORDA)
 				{
 					bordaDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.RANGE_VOTING)
+				{
+					rangeDao.deleteByBallotId(ballotSure.getId());
 				}
 				ballots=ballotDao.retrieveAll();
 			}
