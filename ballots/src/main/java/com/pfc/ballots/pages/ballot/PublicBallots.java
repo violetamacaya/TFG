@@ -111,8 +111,8 @@ public class PublicBallots {
 	public boolean isShowCurrent()
 	{
 		if(publicCurrentBallots.size()==0)
-			return true;
-		return false;
+			return false;
+		return true;
 	}
 	
 	public boolean isShowPublicActive()

@@ -1,7 +1,9 @@
 package com.pfc.ballots.pages.ballot;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.tapestry5.ComponentResources;
@@ -80,6 +82,8 @@ public class VoteBallot {
 	@Property
     @SessionAttribute
 	private String contextBallotId;
+	@SessionAttribute
+	private Map<String,List<String>>publicVotes;
 	
 	
 	@Property
@@ -121,13 +125,17 @@ public class VoteBallot {
 		voteDao=DB4O.getVoteDao(datasession.getDBName());
 		vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
 		captchaOk=true;
-	
+
 		if(ballot.isPublica())
 		{
 			Random r=new Random();
 			captcha1=String.valueOf(r.nextInt(101));
 			r=new Random();
 			captcha2=String.valueOf(r.nextInt(101));
+			if(publicVotes==null)
+			{
+				publicVotes=new HashMap<String,List<String>>();
+			}
 		}
 		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
 		{
@@ -172,7 +180,7 @@ public class VoteBallot {
 	{
 		if(ballot.isPublica())
 		{
-			return false;
+			return alreadyVote();
 		}
 		else
 			return vote.isCounted();
@@ -241,10 +249,12 @@ public class VoteBallot {
 			else
 			{
 				ballot=ballotDao.getById(contextBallotId);
-				if(ballot!=null && !ballot.isEnded() && captchaOk)
+				if(ballot!=null && !ballot.isEnded() && captchaOk && !alreadyVote())
 				{
 					relMay.addVote(relMayVote);
+					
 					relativeMajorityDao.update(relMay);
+					addPublicVote();
 				}
 				else
 				{
@@ -346,10 +356,11 @@ public class VoteBallot {
 					return null;
 				}
 				ballot=ballotDao.getById(contextBallotId);
-				if(ballot!=null && !ballot.isEnded())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				if(ballot!=null && !ballot.isEnded() && !alreadyVote())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
 				{					
 					kemeny.addVote(kemenyVote);
 					kemenyDao.update(kemeny);
+					addPublicVote();
 				}
 			}
 			else
@@ -459,10 +470,11 @@ public class VoteBallot {
 					return null;
 				}
 				ballot=ballotDao.getById(contextBallotId);
-				if(ballot!=null && !ballot.isEnded())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				if(ballot!=null && !ballot.isEnded()&& !alreadyVote())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
 				{
 					borda.addVote(bordaVote);
 					bordaDao.update(borda);
+					addPublicVote();
 				}
 			}
 			else
@@ -717,10 +729,11 @@ public class VoteBallot {
 						
 						return null;
 					}
-					if(ballot!=null && !ballot.isEnded())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+					if(ballot!=null && !ballot.isEnded()&& !alreadyVote())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
 					{
 						range.addVote(voto);
 						rangeDao.update(range);
+						addPublicVote();
 					}
 				}
 				else
@@ -739,6 +752,39 @@ public class VoteBallot {
 				
 			}
 			return Index.class;
+		}
+		/////////////////////////////////////////////////// TOOLS //////////////////////////
+		
+		private void addPublicVote()
+		{
+			List<String> list=publicVotes.get(datasession.getIdSession());
+			if(list==null)
+			{
+				list=new LinkedList<String>();
+			}
+			list.add(contextBallotId);
+			publicVotes.put(datasession.getIdSession(), list);
+		}
+		private boolean alreadyVote()
+		{
+			if(publicVotes==null)
+				return false;
+			List<String> list=publicVotes.get(datasession.getIdSession());
+			if(list==null)
+			{
+				return false;
+			}
+			else
+			{
+				for(String current:list)
+				{
+					if(current.equals(contextBallotId))
+					{
+						return true;
+					}
+				}
+				return false;
+			}
 		}
 		
 		private boolean isNumeric(String cadena)

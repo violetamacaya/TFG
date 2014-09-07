@@ -137,7 +137,7 @@
 			</t:if>
 			
 			 <p:else>
-			 	${message:vote-done}
+			 	<h2>${message:vote-done}</h2>
 			 </p:else>
 		</t:if>
 	</div></t:border>
