@@ -93,9 +93,17 @@ public class LogDaoDB4O implements LogDao {
 	 * @return List<DataLog> DataLog of the company
 	 */
 	@SuppressWarnings("rawtypes")
-	public List<DataLog> retrieve(String company )
+	public List<DataLog> retrieve(String companyName )
 	{
-		
+		String company;
+		if(companyName==null)
+		{
+			company="main";
+		}
+		else
+		{
+			company=companyName;
+		}
 		
 		open();
 		List<DataLog> list=new LinkedList<DataLog>();
