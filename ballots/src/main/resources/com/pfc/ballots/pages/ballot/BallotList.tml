@@ -8,7 +8,7 @@
 			<t:if test="showGrid">
 				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="addusers,finish,delete,maker,census" reorder="maker,name,method,census" exclude="id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
 					<p:addusersCell>
-						<t:if test="!ballot.ended">
+						<t:if test="showAdd">
 							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><button>${message:add-users}</button></t:actionlink>
 						</t:if>
 					</p:addusersCell>

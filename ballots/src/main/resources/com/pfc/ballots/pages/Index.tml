@@ -78,8 +78,54 @@
 								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
 								 <br/>
 								 </div>
+								</t:loop>
+					</t:if>
+					<t:if test="showPublicActive">
+						<h3>PUBLIC ${message:actives}</h3><hr/>
+							 <t:loop t:source="publicActiveBallots" t:value="ballot">
+							 <div t:type="actionlink" t:id="votePublicBallot" t:context="ballot.id" class="indexRow">
+								<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							
+								 <t:if test="ballot.teaching">
+										<span>Docente&nbsp;&nbsp;&nbsp;</span>
+										<p:else>
+											<t:if test="ballot.publica">
+												<span>Publica&nbsp;&nbsp;&nbsp;</span>
+												<p:else>
+													<span>Normal&nbsp;&nbsp;&nbsp;</span>
+												</p:else>
+											</t:if>
+										</p:else>
+								</t:if>
+								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
+								 <br/>
+							 </div>
 							</t:loop>
 						
+					</t:if>
+					<t:if test="showPublicEnded">
+							
+							 <h3>PUBLIC ${message:ended}</h3><hr/>
+							 <t:loop t:source="publicEndedBallots" t:value="ballot">
+							 	 <div t:type="actionlink" t:id="resultPublicBallot" context="ballot.id" class="indexRow" >
+									<span>${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								
+								<t:if test="ballot.teaching">
+										<span>Docente&nbsp;&nbsp;&nbsp;</span>
+										<p:else>
+											<t:if test="ballot.publica">
+												<span>Publica&nbsp;&nbsp;&nbsp;</span>
+												<p:else>
+													<span>Normal&nbsp;&nbsp;&nbsp;</span>
+												</p:else>
+											</t:if>
+										</p:else>
+								</t:if>
+							
+								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
+								 <br/>
+								 </div>
+								</t:loop>
 					</t:if>
 				</div>
 			</p:else>

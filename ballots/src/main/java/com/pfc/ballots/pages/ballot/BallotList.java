@@ -152,6 +152,17 @@ public class BallotList {
 		}
 			
 	}
+	
+	public boolean isShowAdd()
+	{
+		if(ballot.isEnded())
+			return false;
+		if(ballot.isPublica())
+			return false;
+		return true;
+	}
+	
+	
 	/**
 	 * Redirects to a page for add users
 	 * @param idBallot

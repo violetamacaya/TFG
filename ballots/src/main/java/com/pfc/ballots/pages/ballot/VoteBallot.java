@@ -2,6 +2,7 @@ package com.pfc.ballots.pages.ballot;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
@@ -65,10 +66,21 @@ public class VoteBallot {
 	@Property
 	private Vote vote;
 
+	@Persist
+	@Property
+	private boolean captchaOk;
+	@Persist
+	@Property
+	private String captcha1;
+	@Persist
+	@Property
+	private String captcha2;
+	
 	
 	@Property
     @SessionAttribute
 	private String contextBallotId;
+	
 	
 	@Property
 	private final StringValueEncoder stringValueEncoder = new StringValueEncoder();
@@ -108,7 +120,15 @@ public class VoteBallot {
 		
 		voteDao=DB4O.getVoteDao(datasession.getDBName());
 		vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
-		
+		captchaOk=true;
+	
+		if(ballot.isPublica())
+		{
+			Random r=new Random();
+			captcha1=String.valueOf(r.nextInt(101));
+			r=new Random();
+			captcha2=String.valueOf(r.nextInt(101));
+		}
 		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
 		{
 			relativeMajorityDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
@@ -146,10 +166,24 @@ public class VoteBallot {
 		}
 	
 	}
+	
+	
+	public boolean isVoteCounted()
+	{
+		if(ballot.isPublica())
+		{
+			return false;
+		}
+		else
+			return vote.isCounted();
+	}
 
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////// MAYORIA RELATIVA /////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+	
 	@Persist
 	@Property
 	private RelativeMajority relMay;
@@ -158,23 +192,66 @@ public class VoteBallot {
 	@Property
 	private String relMayOption;
 	
+	@Persist
+	@Property
+	private String relMayCaptcha;
+	 
+	
+	
+	public void onValidateFromRelativeMajorityForm()
+	{
+		if(ballot.isPublica())
+		{
+			if(isNumeric(relMayCaptcha))
+			{
+				if(Integer.parseInt(captcha1)+Integer.parseInt(captcha2)!=Integer.parseInt(relMayCaptcha))
+				{
+					captchaOk=false;
+				}
+			}
+			else
+			{
+				captchaOk=false;
+			}
+		}
+			
+	}
+	
 	/**
 	 * Stores the majority relative vote
 	 * @return
 	 */
 	public Object onSuccessFromRelativeMajorityForm()
 	{
-		vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
-		ballot=ballotDao.getById(contextBallotId);
 		
-		if(ballot!=null||!ballot.isEnded()||!vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
-		{
-			vote.setCounted(true);
-			System.out.println("SI");
-			voteDao.updateVote(vote);
-			relMay.addVote(relMayVote);
-			relativeMajorityDao.update(relMay);
-		}
+			if(!ballot.isPublica())
+			{
+				vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+				ballot=ballotDao.getById(contextBallotId);
+			
+				if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					vote.setCounted(true);
+					System.out.println("SI");
+					voteDao.updateVote(vote);
+					relMay.addVote(relMayVote);
+					relativeMajorityDao.update(relMay);
+				}
+			}
+			else
+			{
+				ballot=ballotDao.getById(contextBallotId);
+				if(ballot!=null && !ballot.isEnded() && captchaOk)
+				{
+					relMay.addVote(relMayVote);
+					relativeMajorityDao.update(relMay);
+				}
+				else
+				{
+					return null;
+				}
+			}
+		
 		
 		return Index.class;
 	}
@@ -206,11 +283,33 @@ public class VoteBallot {
 	@Persist
 	private boolean showErrorKemeny;
 	
-	
+	@Property
+	@Persist
+	private String kemenyCaptcha;
 	
 	@Property
 	@Persist
 	private List<String> kemenyVote;
+	
+	public void onValidateFromKemenyForm()
+	{
+		captchaOk=true;
+		if(ballot.isPublica())
+		{
+			if(isNumeric(kemenyCaptcha))
+			{
+				if(Integer.parseInt(captcha1)+Integer.parseInt(captcha2)!=Integer.parseInt(kemenyCaptcha))
+				{
+					captchaOk=false;
+				}
+			}
+			else
+			{
+				captchaOk=false;
+			}
+		}
+	}
+	
 	/**
 	 * Stores the kemeny vote
 	 * @return
@@ -224,23 +323,48 @@ public class VoteBallot {
 			{
 				showErrorKemeny=true;
 				ajaxResponseRenderer.addRender("kemenyZone", kemenyZone);
+				Random r=new Random();
+				captcha1=String.valueOf(r.nextInt(101));
+				r=new Random();
+				captcha2=String.valueOf(r.nextInt(101));
 				return null;
 			}
-			for(String temp:kemenyVote)
-			{
-				System.out.println(temp);
-			}
 			
-			vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
-			ballot=ballotDao.getById(contextBallotId);
-			
-			if(ballot!=null||!ballot.isEnded()||!vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+			if(ballot.isPublica())
 			{
-				vote.setCounted(true);
-				voteDao.updateVote(vote);
 				
-				kemeny.addVote(kemenyVote);
-				kemenyDao.update(kemeny);
+				if(!captchaOk)
+				{
+					
+					Random r=new Random();
+					captcha1=String.valueOf(r.nextInt(101));
+					r=new Random();
+					captcha2=String.valueOf(r.nextInt(101));
+					
+					ajaxResponseRenderer.addRender("kemenyZone", kemenyZone);
+					
+					return null;
+				}
+				ballot=ballotDao.getById(contextBallotId);
+				if(ballot!=null && !ballot.isEnded())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{					
+					kemeny.addVote(kemenyVote);
+					kemenyDao.update(kemeny);
+				}
+			}
+			else
+			{
+				vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+				ballot=ballotDao.getById(contextBallotId);
+				
+				if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					vote.setCounted(true);
+					voteDao.updateVote(vote);
+					
+					kemeny.addVote(kemenyVote);
+					kemenyDao.update(kemeny);
+				}
 			}
 		}
 		
@@ -276,9 +400,33 @@ public class VoteBallot {
 	@Persist
 	private boolean showErrorBorda;
 	
+	@Property
+	@Persist
+	private String bordaCaptcha;
+	
 	@Persist
 	@Property
 	private List<String> bordaVote;
+	
+	
+	public void onValidateFromBordaForm()
+	{
+		captchaOk=true;
+		if(ballot.isPublica())
+		{
+			if(isNumeric(bordaCaptcha))
+			{
+				if(Integer.parseInt(captcha1)+Integer.parseInt(captcha2)!=Integer.parseInt(bordaCaptcha))
+				{
+					captchaOk=false;
+				}
+			}
+			else
+			{
+				captchaOk=false;
+			}
+		}
+	}
 	
 	public Object onSuccessFromBordaForm()
 	{
@@ -289,22 +437,46 @@ public class VoteBallot {
 			{
 				showErrorBorda=true;
 				ajaxResponseRenderer.addRender("bordaZone", bordaZone);
+				Random r=new Random();
+				captcha1=String.valueOf(r.nextInt(101));
+				r=new Random();
+				captcha2=String.valueOf(r.nextInt(101));
 				return null;
 			}
-			for(String temp:bordaVote)
+			if(ballot.isPublica())
 			{
-				System.out.println(temp);
+				
+				if(!captchaOk)
+				{
+					
+					Random r=new Random();
+					captcha1=String.valueOf(r.nextInt(101));
+					r=new Random();
+					captcha2=String.valueOf(r.nextInt(101));
+					
+					ajaxResponseRenderer.addRender("bordaZone", bordaZone);
+					
+					return null;
+				}
+				ballot=ballotDao.getById(contextBallotId);
+				if(ballot!=null && !ballot.isEnded())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					borda.addVote(bordaVote);
+					bordaDao.update(borda);
+				}
 			}
-			
-			vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
-			ballot=ballotDao.getById(contextBallotId);
-			
-			if(ballot!=null||!ballot.isEnded()||!vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+			else
 			{
-				vote.setCounted(true);
-				voteDao.updateVote(vote);
-				borda.addVote(bordaVote);
-				bordaDao.update(borda);
+				vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+				ballot=ballotDao.getById(contextBallotId);
+				
+				if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					vote.setCounted(true);
+					voteDao.updateVote(vote);
+					borda.addVote(bordaVote);
+					bordaDao.update(borda);
+				}
 			}
 		}
 		
@@ -336,6 +508,10 @@ public class VoteBallot {
 		private RangeVoting range;
 	
 	
+		@Persist
+		@Property
+		private String rangeCaptcha;
+		
 		@Persist
 		@Property
 		private String range0;
@@ -484,6 +660,21 @@ public class VoteBallot {
 					else if(Integer.parseInt(range6)<range.getMinValue() || Integer.parseInt(range6)>range.getMaxValue())
 					{showRangeBadNumber=true;}
 			}
+			captchaOk=true;
+			if(ballot.isPublica())
+			{
+				if(isNumeric(rangeCaptcha))
+				{
+					if(Integer.parseInt(captcha1)+Integer.parseInt(captcha2)!=Integer.parseInt(rangeCaptcha))
+					{
+						captchaOk=false;
+					}
+				}
+				else
+				{
+					captchaOk=false;
+				}
+			}
 			
 		}
 		
@@ -494,9 +685,13 @@ public class VoteBallot {
 				if(showRangeBadNumber)
 				{
 					ajaxResponseRenderer.addRender("rangeZone",rangeZone);
+					Random r=new Random();
+					captcha1=String.valueOf(r.nextInt(101));
+					r=new Random();
+					captcha2=String.valueOf(r.nextInt(101));					
 					return null;
 				}
-				List<String> voto=new LinkedList();
+				List<String> voto=new LinkedList<String>();
 				voto.add(range0);
 				voto.add(range1);
 				if(range.getOptions().size()>=3){voto.add(range2);}
@@ -504,17 +699,44 @@ public class VoteBallot {
 				if(range.getOptions().size()>=5){voto.add(range4);}
 				if(range.getOptions().size()>=6){voto.add(range5);}
 				if(range.getOptions().size()>=7){voto.add(range6);}
-				range.addVote(voto);
 				
-				vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
-				ballot=ballotDao.getById(contextBallotId);
 				
-				if(ballot!=null||!ballot.isEnded()||!vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				if(ballot.isPublica())
 				{
-					vote.setCounted(true);
-					voteDao.updateVote(vote);
-					rangeDao.update(range);
+					ballot=ballotDao.getById(contextBallotId);
+					
+					if(!captchaOk)
+					{
+						
+						Random r=new Random();
+						captcha1=String.valueOf(r.nextInt(101));
+						r=new Random();
+						captcha2=String.valueOf(r.nextInt(101));
+						
+						ajaxResponseRenderer.addRender("rangeZone", rangeZone);
+						
+						return null;
+					}
+					if(ballot!=null && !ballot.isEnded())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+					{
+						range.addVote(voto);
+						rangeDao.update(range);
+					}
 				}
+				else
+				{
+					vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+					ballot=ballotDao.getById(contextBallotId);
+					
+					if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+					{
+						range.addVote(voto);
+						vote.setCounted(true);
+						voteDao.updateVote(vote);
+						rangeDao.update(range);
+					}
+				}
+				
 			}
 			return Index.class;
 		}
@@ -541,7 +763,6 @@ public class VoteBallot {
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return Index.class;
 			case 1:
 			case 2:
 				if(contextBallotId==null)

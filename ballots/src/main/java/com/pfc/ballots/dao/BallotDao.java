@@ -20,6 +20,7 @@ public interface BallotDao {
 
 	public List<Ballot> getById(List<String> ids);
 	public List<Ballot> getById(List<String> ids,List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended);
+    public List<Ballot> getPublics(List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended);
 	public List<Ballot> getByOwnerId(String idOwner);
 	
 	//Cuando se pasen las votaciones que tiene un usuario devolvera las que not has sido contavilizadas

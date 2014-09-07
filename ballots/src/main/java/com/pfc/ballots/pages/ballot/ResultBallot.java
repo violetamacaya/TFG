@@ -334,7 +334,7 @@ public class ResultBallot {
 		switch(datasession.sessionState())
 		{
 			case 0:
-				return Index.class;
+				return null;
 			case 1:
 				return null;
 			case 2:

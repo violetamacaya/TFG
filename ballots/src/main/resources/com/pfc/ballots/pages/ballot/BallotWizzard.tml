@@ -60,11 +60,19 @@
 							<td><t:select t:type="select" t:id="ballotKindSelect" value="ballotKind" t:blankLabel="Choose..." t:zone="^"/></td>
 						</tr>
 						<t:if test="showNormalCensus">
-							<t:if test="existCensus">
-								<tr>
-									<td><t:label for="censusNormalSelect">${message:census}*</t:label></td>
-									<td><t:select t:type="select" t:id="censusNormalSelect" t:model="censusNormalModel" t:value="censusNormal" t:encoder="censusNormalEncoder" t:blankLabel="Choose..." t:zone="^"/></td>
-								</tr>
+							<t:if test="showExist">
+								<t:if test="!showPublic">
+									<tr>
+										<td><t:label for="censusNormalSelect">${message:census}*</t:label></td>
+										<td><t:select t:type="select" t:id="censusNormalSelect" t:model="censusNormalModel" t:value="censusNormal" t:encoder="censusNormalEncoder" t:blankLabel="Choose..." t:zone="^"/></td>
+									</tr>
+									<p:else>
+										<tr>
+											<td><t:label for="censusModel">${message:census}</t:label></td>
+											<td><t:select t:type="select" t:id="censusPublic" t:value="census" t:model="censusModel" t:blankOption="ALWAYS" t:blankLabel="Choose..."/></td>
+										</tr>
+									</p:else>							
+								</t:if>
 								<tr>
 									<td><t:label for="startDate"/></td>
 									<td><t:datefield t:id="startDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})</td>

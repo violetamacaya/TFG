@@ -37,6 +37,7 @@ import com.pfc.ballots.pages.admin.LogList;
 import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.pages.ballot.BallotList;
 import com.pfc.ballots.pages.ballot.BallotWizzard;
+import com.pfc.ballots.pages.ballot.PublicBallots;
 import com.pfc.ballots.pages.ballot.ShowBallotAdmin;
 import com.pfc.ballots.pages.profile.CreateProfile;
 import com.pfc.ballots.pages.profile.ProfileByFile;
@@ -389,6 +390,8 @@ public class Border {
 				{page=Index.class;}
 			else if(section.equals("about"))
 				{page=About.class;}
+			else if(section.equals("publics"))
+				{page=PublicBallots.class;}
 			else if(section.equals("new-ballot"))
 				{page=BallotWizzard.class;}
 			else if(section.equals("new-user1"))

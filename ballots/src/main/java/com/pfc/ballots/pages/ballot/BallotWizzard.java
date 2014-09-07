@@ -297,6 +297,15 @@ public class BallotWizzard {
 	private String endHour;
 	
 	
+	
+	public boolean isShowExist()
+	{
+		if(ballotKind==BallotKind.PUBLICA)
+			return true;
+		else
+			return existCensus;
+	}
+	
 	/**
 	 * Controls the change of the ballot kind
 	 * and corresponding wizard changes
@@ -315,6 +324,11 @@ public class BallotWizzard {
 		}
 		if(kind==BallotKind.NORMAL)
 		{
+			showNormalCensus=true;
+		}
+		if(kind==BallotKind.PUBLICA)
+		{
+			censusModel=NO_CENSUS;
 			showNormalCensus=true;
 		}
 		ajaxResponseRenderer.addRender("typeZone", typeZone);
@@ -344,10 +358,10 @@ public class BallotWizzard {
 		{
 			showErrorType=true;
 		}
-		else if(ballotKind==BallotKind.NORMAL)
+		else if(ballotKind==BallotKind.NORMAL || ballotKind==BallotKind.PUBLICA)
 		{
 			
-			if(censusNormal==null)
+			if(censusNormal==null && ballotKind==BallotKind.NORMAL)
 			{
 				showErrorType=true;
 				System.out.println("NULL");
@@ -463,6 +477,14 @@ public class BallotWizzard {
 		
 	}
 	
+	
+	public boolean isShowPublic()
+	{
+		if(ballotKind==BallotKind.PUBLICA)
+			return true;
+		else
+			return false;
+	}
 	/**
 	 * If the data are correct, give access to the next
 	 * step of the wizard 
@@ -696,7 +718,10 @@ public class BallotWizzard {
 					 ballot.setCounted(true);
 					 voteDao.store(vote);
 				 }
-				 else//Votacion Normal
+				 else if(ballotKind==BallotKind.PUBLICA){
+					 ballot.setIdCensus("none");
+				 }
+				 else
 				 {
 					 boolean creatorInCensus=false;
 					 this.sendMail(censusNormal,ballot);
@@ -862,7 +887,9 @@ public class BallotWizzard {
 				ballot.setCounted(true);
 				voteDao.store(vote);
 				
-			}
+			}else if(ballotKind==BallotKind.PUBLICA){
+				 ballot.setIdCensus("none");
+			 }
 			else//Votacion Normal
 			{
 				 boolean creatorInCensus=false;
@@ -1252,6 +1279,9 @@ public class BallotWizzard {
 					ballot.setCounted(true);
 					voteDao.store(vote);
 				}
+				else if(ballotKind==BallotKind.PUBLICA){
+					 ballot.setIdCensus("none");
+				 }
 				else//Votacion Normal
 				{
 					 boolean creatorInCensus=false;
@@ -1528,6 +1558,9 @@ public class BallotWizzard {
 				ballot.setCounted(true);
 				voteDao.store(vote);
 			}
+			else if(ballotKind==BallotKind.PUBLICA){
+				 ballot.setIdCensus("none");
+			 }
 			else//Votacion Normal
 			{
 				 boolean creatorInCensus=false;
@@ -1614,9 +1647,13 @@ public class BallotWizzard {
 			newBallot.setNotStarted(true);
 			newBallot.setIdCensus(censusNormal.getId());
 		}
-		else
+		else if(ballotKind==BallotKind.DOCENTE)
 		{
 			newBallot.setTeaching(true);
+		}
+		else
+		{
+			newBallot.setPublica(true);
 		}
 		newBallot.setMethod(method);
 		newBallot.setStartDate(cal1.getTime());

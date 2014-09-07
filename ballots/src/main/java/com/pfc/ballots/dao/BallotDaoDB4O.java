@@ -216,7 +216,46 @@ public class BallotDaoDB4O implements BallotDao{
 		return list;
 	}
 	
-	
+	 public List<Ballot> getPublics(List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended){
+		open();
+		List<Ballot> list=new LinkedList<Ballot>();
+		try
+		{
+			Ballot temp=new Ballot();
+			temp.setPublica(true);
+			ObjectSet result=DB.queryByExample(temp);
+			while(result.hasNext())
+			{
+				Ballot x=(Ballot)result.next();
+				list.add(x);
+				switch(updateStateBallot(x))
+				{
+					case 0:
+						nonActive.add(x);
+						break;
+					case 1:
+						active.add(x);
+						break;
+					case 2:
+						ended.add(x);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			list.clear();
+			return list;
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	}
 	
 	/**
 	 * Retrieves all ballots 

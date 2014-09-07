@@ -21,6 +21,7 @@ public class Ballot {
 	private Method method;
 	private String idBallotData;
 	private boolean teaching;
+	private boolean publica;
 	private Date startDate;
 	private Date endDate;
 	private boolean ended;
@@ -70,6 +71,12 @@ public class Ballot {
 		}
 		public void setTeaching(boolean teaching) {
 			this.teaching = teaching;
+		}
+		public boolean isPublica() {
+			return publica;
+		}
+		public void setPublica(boolean publica) {
+			this.publica = publica;
 		}
 		public Date getStartDate() {
 			return startDate;

@@ -70,7 +70,11 @@ public class Index
 				nonActiveBallots=new LinkedList<Ballot>();
 				activeBallots=new LinkedList<Ballot>();
 				endedBallots=new LinkedList<Ballot>();
+				publicNonActiveBallots=new LinkedList<Ballot>();
+				publicActiveBallots=new LinkedList<Ballot>();
+				publicEndedBallots=new LinkedList<Ballot>();
 				currentBallots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()),nonActiveBallots,activeBallots,endedBallots);
+				publicCurrentBallots= ballotDao.getPublics(publicNonActiveBallots, publicActiveBallots, publicEndedBallots);
 			}
 		}
 		
@@ -92,6 +96,18 @@ public class Index
 		@Property
 		@Persist
 		private List<Ballot> currentBallots;
+		@Property
+		@Persist
+		private List<Ballot> publicNonActiveBallots;
+		@Property
+		@Persist
+		private List<Ballot> publicActiveBallots;
+		@Property
+		@Persist
+		private List<Ballot> publicEndedBallots;
+		@Property
+		@Persist
+		private List<Ballot> publicCurrentBallots;
 		@Property
 		private Ballot ballot;
 		
@@ -143,7 +159,20 @@ public class Index
 		}
 		public boolean isShowCurrent()
 		{
-			if(currentBallots.size()==0)
+			if(currentBallots.size()==0 && publicCurrentBallots.size()==0)
+				return false;
+			return true;
+		}
+		
+		public boolean isShowPublicActive()
+		{
+			if(publicActiveBallots.size()==0)
+				return false;
+			return true;
+		}
+		public boolean isShowPublicEnded()
+		{
+			if(publicEndedBallots.size()==0)
 				return false;
 			return true;
 		}
@@ -155,10 +184,19 @@ public class Index
 			contextBallotId=id;
 			return VoteBallot.class;
 		}
-		
+		public Object onActionFromVotePublicBallot(String id)
+		{
+			contextBallotId=id;
+			return VoteBallot.class;
+		}
 		@SessionAttribute
 		private String contextResultBallotId;
 		public Object onActionFromResultBallot(String id)
+		{
+			contextResultBallotId=id;
+			return ResultBallot.class;
+		}
+		public Object onActionFromResultPublicBallot(String id)
 		{
 			contextResultBallotId=id;
 			return ResultBallot.class;
