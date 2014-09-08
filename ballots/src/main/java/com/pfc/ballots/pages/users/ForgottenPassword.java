@@ -67,12 +67,14 @@ public class ForgottenPassword {
 	@Property
 	@Persist
 	private boolean badSend;
-	
+	@Property
+	@Persist
+	private boolean badUser;
 	@InjectComponent
 	private Zone formZone;
 	
 	@Property
-	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+	@Validate("regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	private String email;
 	
 	
@@ -84,13 +86,23 @@ public class ForgottenPassword {
 	
 	public Object onSuccessFromForgottenForm()
 	{
+		badUser=false;
+		badMail=false;
+		badSend=false;
 		if(request.isXHR())
 		{
 			Profile profile=userDao.getProfileByEmail(email);
+			if(email==null || email=="")
+			{
+				badUser=true;
+				ajaxResponseRenderer.addRender("formZone", formZone);
+				return null;
+			}
 			if(profile==null)
 			{
 				badMail=true;
 				ajaxResponseRenderer.addRender("formZone", formZone);
+				return null;
 				
 			}
 			else
