@@ -15,12 +15,12 @@
 			<t:if test="showNewZone">
 				<h1>${message:no-mail}</h1>
 				<t:form t:id="newForm" zone="^">
-					<t:if test="badCombination"><span class="error">${message:invalid-epass}</span</t:if>
+					<t:if test="badCombination"><span class="error">${message:invalid-epass}</span></t:if>
 					<table>
 						<tr>
 							<td><label>${message:email}</label></td>
 							<td><t:textfield t:id="emailAddress" t:value="emailform.email"/></td>
-							<td><t:if test="badServer"><span class="error">${message:gmail-account}</span</t:if></td>
+							<td><t:if test="badServer"><span class="error">${message:gmail-account}</span></t:if></td>
 						</tr>
 						<tr>
 							<td><label>${message:password}</label></td>
@@ -75,18 +75,18 @@
 			<t:if test="showChange">
 				<t:form t:id="changePassForm" zone="^">
 					<t:if test="badCombination">
-						<span class="error">${message:invalid-epass}</span
+						<span class="error">${message:invalid-epass}</span>
 					</t:if>
 					<table>
 						<tr>
 							<td><label>${message:adminPass}</label></td>
 							<td><t:passwordfield t:id="adminPass"/></td>
-							<td><t:if test="badPass"><span class="error">${message:bad-pass}</span</t:if></td>
+							<td><t:if test="badPass"><span class="error">${message:bad-pass}</span></t:if></td>
 						</tr>
 						<tr>
 							<td><label>${message:new-pass}</label></td>
 							<td><t:passwordfield t:id="newPass1"/></td>
-							<td><t:if test="badMatch"><span class="error">${message:pass-notmatch}</span</t:if></td>
+							<td><t:if test="badMatch"><span class="error">${message:pass-notmatch}</span></t:if></td>
 						</tr>
 						<tr>
 							<td><label>${message:repeat-pass}</label></td>
@@ -112,23 +112,23 @@
 	   		<t:if test="showChangeAccount">
 	   			<t:form t:id="changeAccountForm" zone="^">
 					<t:if test="badCombination">
-						${message:invalid-epass}
+						<span class="error">${message:invalid-epass}</span>
 					</t:if>	   				
 	   				<table>
 	   					<tr>
 	   						<td><label>${message:adminPass}</label></td>
 	   						<td><t:passwordfield t:id="adminPassword"/></td>
-	   						<td><t:if test="badPass"><span class="error">${message:bad-pass}</span</t:if></td>
+	   						<td><t:if test="badPass"><span class="error">${message:bad-pass}</span></t:if></td>
 	   					</tr>
 	   					<tr>
 	   						<td><label>${message:email}</label></td>
 	   						<td><t:textfield t:id="emailChange" t:value="emailform.email"/></td>
-	   						<td><t:if test="badServer"><span class="error">${message:gmail-account}</span</t:if></td>
+	   						<td><t:if test="badServer"><span class="error">${message:gmail-account}</span></t:if></td>
 	   					</tr>
 	   					<tr>
 	   						<td><label>${message:password}</label></td>
 	   						<td><t:textfield t:id="password1"/></td>
-	   						<td><t:if test="badMatch"><span class="error">${message:pass-notmatch}</span</t:if></td>
+	   						<td><t:if test="badMatch"><span class="error">${message:pass-notmatch}</span></t:if></td>
 	   					</tr>
 	   					<tr>
 	   						<td><label>${message:repeat-pass}</label></td>
@@ -142,6 +142,14 @@
 						</tr>
 	   				</table>
 	   			</t:form>
+	   		</t:if>
+	   </t:zone>
+	   <t:zone t:id="areusureZone">
+	   		<t:if test="showSure">
+	   			Esta usted seguro de eliminar la cuenta de correo electronico<br/>
+	   			<t:actionlink t:id="imSure" t:zone="^"><button>Si</button></t:actionlink>
+	   			<t:actionlink t:id="notSure" t:zone="^"><button>No</button></t:actionlink>
+	   			
 	   		</t:if>
 	   </t:zone>
 	  </infouser>

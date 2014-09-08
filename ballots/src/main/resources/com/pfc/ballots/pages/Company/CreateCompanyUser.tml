@@ -18,7 +18,7 @@
 				<t:label for="password"/>
 				<t:passwordfield t:id="password" value="password" validate="required,minLength=6"/>
 				<t:if test="isnotPassOk">
-					<<span class="error">${message:pass-not-match}</span>
+					<span class="error">${message:pass-not-match}</span>
 				</t:if>
 			</p:password>
 			<p:repeat>

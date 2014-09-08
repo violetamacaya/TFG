@@ -260,10 +260,14 @@ public class AdminMail {
 	{
 		if(request.isXHR())
 		{
-			emailAccountDao.deleteEmailAccount();
+			showSure=true;
+			settings=true;
+			ajaxResponseRenderer.addRender("areusureZone",areusureZone).addRender("emailSettingsZone",emailSettingsZone);
+			/*emailAccountDao.deleteEmailAccount();
 			emailAccount=null;
+			
 			ajaxResponseRenderer.addRender("newEmailZone", newEmailZone).addRender("emailSettingsZone", emailSettingsZone);
-
+*/
 		}
 	}
 	/**
@@ -524,6 +528,42 @@ public class AdminMail {
 			
 		}
 	}
+	
+	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 ///////////////////////////////////////////////////// ARE U SURE ZONE ///////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	@InjectComponent
+	private Zone areusureZone;
+	
+	@Persist
+	@Property
+	private boolean showSure;
+	
+	public void onActionFromImSure()
+	{
+		if(request.isXHR())
+		{
+			showSure=false;
+			settings=false;
+			emailAccountDao.deleteEmailAccount();
+			emailAccount=null;
+			
+			ajaxResponseRenderer.addRender("newEmailZone", newEmailZone).addRender("emailSettingsZone", emailSettingsZone).addRender("areusureZone",areusureZone);
+		}
+	}
+	public void onActionFromNotSure()
+	{
+		if(request.isXHR())
+		{
+			showSure=false;
+			settings=false;
+			ajaxResponseRenderer.addRender("areusureZone",areusureZone).addRender("emailSettingsZone",emailSettingsZone);
+		}
+	}
+	
+	
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE /////////////////////////////////////////////////////////////

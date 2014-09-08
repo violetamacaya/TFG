@@ -171,6 +171,10 @@ public class DataSession {
 			this.company=company.getCompanyName();
 			this.DBName=company.getDBName();
 		}
+		else
+		{
+			this.company="main";
+		}
 		owner=profile.isOwner();
 		id=profile.getId();
 		email=profile.getEmail();
@@ -270,10 +274,7 @@ public class DataSession {
 	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////// SESSION UTILS //////////////////////////////////////////////
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/**
-	 * 
-	 * @return if the user is the main owner 
-	 */
+	
 	public boolean isMainOwner()
 	{
 		if(company.equals("main") && owner==true)
