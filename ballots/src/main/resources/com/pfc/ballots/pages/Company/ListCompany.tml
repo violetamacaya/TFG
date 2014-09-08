@@ -11,7 +11,7 @@
 		   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		
 		<t:zone t:id="companyGridZone" id="companyGridZone" t:update="show">
-			<t:if test="!showSure">
+			<t:if test="!showMain">
 				<t:grid source="companies" row="company" add="edit,seeusers,addusers,deletecompany,addusersfile,ChangeActive" reorder="active">
 					
 					<p:editCell>
@@ -27,7 +27,7 @@
 							<t:actionlink t:id="addusers" context="[company.CompanyName,company.DBName]"><button>${message:add-but}</button></t:actionlink>
 					</p:addusersCell>
 					<p:deletecompanyCell>
-							<t:actionlink t:id="delete" context="company.CompanyName"><button>${message:delete-but}</button></t:actionlink>
+							<t:actionlink t:id="delete" context="company.CompanyName" zone="^"><button>${message:delete-but}</button></t:actionlink>
 					</p:deletecompanyCell>
 					<p:changeActiveCell>
 							<t:if test="company.active">
@@ -55,6 +55,14 @@
 				${message:are-u-sure} <t:if test="status">${message:activate-but} <p:else> desctivar</p:else></t:if><b> ${toCheck.companyName }</b><br/>
 				<t:actionlink t:id="isSureBut" zone="^"><button>${message:yes-but}</button></t:actionlink>
 				<t:actionlink t:id="isNotSureBut" zone="^"><button>${message:not-but}</button></t:actionlink>
+			</t:if>
+		</t:zone>
+		<t:zone t:id="sureToDeleteZone" id="sureToDeleteZone">
+			<t:if test="showToDelete">
+				${message:are-u-sure} <strong>${message:toDelete}</strong> ${message:thisCompany}<br/>
+				<t:actionlink t:id="deleteSure" zone="^"><button>${message:yes-but}</button></t:actionlink>
+				<t:actionlink t:id="deleteNot" zone="^"><button>${message:not-but}</button></t:actionlink>
+			
 			</t:if>
 		</t:zone>
 	

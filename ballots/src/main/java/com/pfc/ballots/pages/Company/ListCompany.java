@@ -90,6 +90,9 @@ public class ListCompany {
 	@Persist
 	private List<Company> companies;
 	
+	@Persist
+	@Property
+	private boolean showMain;
 	
 	public List<Company> getCompanies()
 	{
@@ -140,9 +143,15 @@ public class ListCompany {
 	 */
 	public void onActionFromDelete(String CompanyName)
 	{
-		System.out.println(CompanyName);
-		companyDao.deleteCompanyByName(CompanyName);
-		
+		if(request.isXHR())
+		{
+			System.out.println(CompanyName);
+			nameToDelete=CompanyName;
+			showMain=true;
+			showToDelete=true;
+			ajaxResponseRenderer.addRender("companyGridZone", companyGridZone).addRender("sureToDeleteZone", sureToDeleteZone);
+		//companyDao.deleteCompanyByName(CompanyName);
+		}
 	}
 	/**
 	 * returns a page where you can add users to the company
@@ -163,6 +172,7 @@ public class ListCompany {
 	{
 		if(request.isXHR())
 		{
+			showMain=true;
 			status=false;
 			showSure=true;
 			toCheck=lookforname(companyName);
@@ -178,6 +188,7 @@ public class ListCompany {
 	{
 		if(request.isXHR())
 		{
+			showMain=true;
 			status=true;
 			showSure=true;
 			toCheck=lookforname(companyName);
@@ -221,6 +232,7 @@ public class ListCompany {
 				
 				
 			}
+			showMain=false;
 			showSure=false;
 			ajaxResponseRenderer.addRender("companyGridZone", companyGridZone).addRender("areuSureZone",areuSureZone);
 		}
@@ -229,8 +241,46 @@ public class ListCompany {
 	{
 		if(request.isXHR())
 		{
+			showMain=false;
 			showSure=false;
 			ajaxResponseRenderer.addRender("companyGridZone", companyGridZone).addRender("areuSureZone",areuSureZone);
+		}
+	}
+	
+
+	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 ////////////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@InjectComponent
+	private Zone sureToDeleteZone;
+	
+	@Property
+	@Persist
+	private boolean showToDelete;
+	
+	@Persist
+	private String nameToDelete;
+	
+	public void onActionFromDeleteSure()
+	{
+		if(request.isXHR())
+		{
+			showMain=false;
+			showToDelete=false;
+			companyDao.deleteCompanyByName(nameToDelete);
+			companies=null;
+			ajaxResponseRenderer.addRender("sureToDeleteZone", sureToDeleteZone).addRender("companyGridZone",companyGridZone);
+		}
+	}
+	
+	public void onActionFromDeleteNot()
+	{
+		if(request.isXHR())
+		{
+			showMain=false;
+			showToDelete=false;
+			ajaxResponseRenderer.addRender("sureToDeleteZone", sureToDeleteZone).addRender("companyGridZone",companyGridZone);
+
 		}
 	}
 	
