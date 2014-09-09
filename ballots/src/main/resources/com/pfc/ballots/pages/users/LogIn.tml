@@ -3,7 +3,7 @@
     <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
 	<link rel="icon" href="/favicon2.ico" type="image/x-icon"/></head>
    
-	<t:border>
+	<t:border><div id="showprofileDiv">
 		<head></head>
 		<body>
 		
@@ -44,7 +44,7 @@
 		
 		
 	
-	</t:border>
+	</div></t:border>
 	
 		
 			

@@ -5,16 +5,60 @@
 	</head>
 	
 	<t:border><div id="ballotlistDiv">
+		<t:if test="isAdmin">
+			<h1>${message:admin-ballots}</h1><hr/>
+			<p:else>
+				<h1>${message:my-ballots}</h1><hr/>
+			</p:else>
+		</t:if>
 		
-		<h1>${message:my-ballots}</h1><hr/>
+		
 		<t:zone t:id="gridZone" id="gridZone" t:update="show">
 			<t:if test="showGrid">
-				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="addusers,finish,delete,maker,census" reorder="maker,name,method,census" exclude="id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
+				<t:if test="isAdmin">
+					<t:if test="showMine">
+							<t:actionlink t:id="mineBut" t:zone="^">${message:mine-ballots}</t:actionlink>
+						<p:else>
+							<t:actionlink t:id="allBut" t:zone="^">${message:all-ballots}</t:actionlink>
+						</p:else>
+					</t:if>
+				</t:if>
+			
+			
+			
+				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="vote,result,kind,addusers,finish,delete,maker,census" reorder="maker,name,method,census" exclude="teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
 					<p:addusersCell>
 						<t:if test="showAdd">
 							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><button>${message:add-users}</button></t:actionlink>
 						</t:if>
 					</p:addusersCell>
+					<p:kindCell>
+						<t:if test="ballot.publica">
+							${message:public}
+							<p:else>
+								<t:if test="ballot.teaching">
+									${message:teaching}
+									<p:else>
+										${message:private}
+									</p:else>
+								</t:if>
+							</p:else>
+						</t:if>
+					</p:kindCell>
+					<p:voteCell>
+						<t:if test="canVote">
+							<t:actionlink t:id="voteBallot" t:context="ballot.id"><img src="${asset:context:/layout/images/urn.png}" /></t:actionlink>
+						</t:if>
+					</p:voteCell>
+					<p:endedCell>
+						<t:if test="ballot.ended">
+							<img src="${asset:context:/layout/locked.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/unlocked.png}" />
+						</p:else>
+						</t:if>
+						
+					</p:endedCell>
 					<p:makerCell>
 						${username}
 					</p:makerCell>
@@ -24,14 +68,25 @@
 					<p:deleteCell>
 						<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><button>${message:delete-but}</button></t:actionLink>
 					</p:deleteCell>
+					
 					<p:finishCell>
 						<t:if test="!ballot.ended">
 							<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><button>${message:finish-but}</button></t:actionLink>
 						</t:if>
 					</p:finishCell>
+					
+					<p:resultCell>
+						<t:actionlink t:id="resultBallot" t:context="ballot.id"><button>${message:result}</button></t:actionlink>
+					</p:resultCell>
+					<p:empty>
+					</p:empty>
 				</t:grid>
+				<t:actionlink t:id="addBallot"><img src="${asset:context:/layout/images/plus.png}" /></t:actionlink>
 				
 			</t:if>
+			
+			
+			
 		</t:zone>
 		
 		
@@ -44,8 +99,8 @@
 					</p:else>
 				</t:if>
 				<br/>
-				<t:actionLink t:id="isSure" t:zone="^"><button>YES</button></t:actionLink>
-				<t:actionLink t:id="notSure" t:zone="^"><button>NO</button></t:actionLink>
+				<t:actionLink t:id="isSure" t:zone="^"><button>${message:yes}</button></t:actionLink>
+				<t:actionLink t:id="notSure" t:zone="^"><button>No</button></t:actionLink>
 			</t:if>
 		</t:zone>
 		

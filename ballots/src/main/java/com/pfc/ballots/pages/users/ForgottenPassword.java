@@ -11,10 +11,12 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.data.DataSession;
+import com.pfc.ballots.entities.Company;
 import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.pages.Index;
@@ -28,11 +30,7 @@ import com.pfc.ballots.util.PasswordGenerator;
 public class ForgottenPassword {
 
 	
-	private FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-	@Persist
-	private UserDao userDao;
-	@Persist
-	private EmailAccountDao emailAccountDao;
+	
 	
 	@SessionState
 	private DataSession datasession;
@@ -46,13 +44,50 @@ public class ForgottenPassword {
 	@Inject
 	private AjaxResponseRenderer ajaxResponseRenderer;
 	
+	
+	  /////////////////////////////////////////////////////////////////////////////////////////////
+	 ///////////////////////////////////////// DAO ///////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	private FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	@Persist
+	private UserDao userDao;
+	@Persist
+	private EmailAccountDao emailAccountDao;
+	@Persist
+	private CompanyDao companyDao;
+	
+	
+	
+	
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
-		userDao=DB4O.getUsuarioDao();
+		
+		String direction=request.getPath();
+		
+		String temp[] =direction.split("/");
+		String DBName=null;
+		if(!temp[temp.length-1].toLowerCase().equals("forgottenpassword"))
+		{
+			String companyName=temp[temp.length-1];
+			companyDao=DB4O.getCompanyDao();
+			Company company=companyDao.getCompanyByName(companyName);
+			if(company!=null)
+			{
+				DBName=company.getDBName();
+			}
+		}
+	
+		
+		
+		userDao=DB4O.getUsuarioDao(DBName);
 		emailAccountDao=DB4O.getEmailAccountDao();
 		badMail=false;
 		badSend=false;
+		
 	}
 	
 	

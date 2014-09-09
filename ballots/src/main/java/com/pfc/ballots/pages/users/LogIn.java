@@ -5,6 +5,7 @@ package com.pfc.ballots.pages.users;
 import java.util.Date;
 
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -12,6 +13,7 @@ import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
 
 import com.pfc.ballots.dao.CompanyDao;
@@ -59,6 +61,9 @@ public class LogIn {
 	@Persist
 	private String companyName;
 	
+	@Inject
+	PageRenderLinkSource linkSource;
+	
 	/******************************************* Initialize DAO *******************************************************/
 	FactoryDao DB4O = FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
     @Persist
@@ -77,7 +82,7 @@ public class LogIn {
     	componentResources.discardPersistentFieldChanges();
     	
 		String direction=request.getPath();
-		System.out.println(direction);
+		
 		String temp[] =direction.split("/");
 		String DBName=null;
 		if(!temp[temp.length-1].toLowerCase().equals("login"))
@@ -87,19 +92,19 @@ public class LogIn {
 			company=companyDao.getCompanyByName(companyName);
 			if(company==null)
 			{
-				System.out.println("NO EXISTE");
+				//System.out.println("NO EXISTE");
 			}
 			else
 			{
-				System.out.println("EXISTE");
+				//System.out.println("EXISTE");
 				DBName=company.getDBName();
-				System.out.println("DBName->"+DBName);
+				//System.out.println("DBName->"+DBName);
 			}
 			
 		}
 		else
 		{
-			System.out.println("Sin company");
+			companyName=null;
 		}
 		userDao=DB4O.getUsuarioDao(DBName);
 		logDao=DB4O.getLogDao();
@@ -180,7 +185,7 @@ public class LogIn {
 			//Record login attempt
 			logDao.store(new DataLog(email,request.getRemoteHost(),false));
 			authenticationFailure=true;
-			System.out.println("Login Incorrecto");
+			//System.out.println("Login Incorrecto");
 			return request.isXHR() ? logForm.getBody() : null;
 		}
 	}
@@ -189,7 +194,19 @@ public class LogIn {
 	
 	public Object onActionFromForgottenPass()
 	{
-		return ForgottenPassword.class;
+		//Sin .toString() pasa la direccion, no la cadena
+		
+		Link link;
+		if(companyName==null)
+		{
+			link= linkSource.createPageRenderLink(ForgottenPassword.class);
+		}
+		else
+		{
+			link= linkSource.createPageRenderLinkWithContext(ForgottenPassword.class,companyName.toString());
+		}
+		
+	    return link;
 	}
 	
 	

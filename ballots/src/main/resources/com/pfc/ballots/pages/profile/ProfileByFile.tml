@@ -25,7 +25,12 @@
 						${person.id }
 					</p:idcell>
 					<p:avaliblecell>
-						${avalible }
+						<t:if test="avalible">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
 					</p:avaliblecell>
 					<p:emailcell>
 						${person.email }
@@ -54,7 +59,40 @@
 								<t:actionlink t:id="addbut" context="person.id" zone="^"><button>${message:add-but}</button></t:actionlink>
 							</t:if>
 						</t:if>
-					</p:addcell> 
+					</p:addcell>
+					<p:adminCell>
+					<t:if test="person.admin">
+						<img src="${asset:context:/layout/tickv.png}" />
+					<p:else>
+						<img src="${asset:context:/layout/tickx.png}" />
+					</p:else>
+					</t:if>
+				</p:adminCell>
+				<p:makerCell>
+					<t:if test="person.maker">
+						<img src="${asset:context:/layout/tickv.png}" />
+					<p:else>
+						<img src="${asset:context:/layout/tickx.png}" />
+					</p:else>
+					</t:if>
+				</p:makerCell>
+				<p:studentCell>
+					<t:if test="person.student">
+						<img src="${asset:context:/layout/tickv.png}" />
+					<p:else>
+						<img src="${asset:context:/layout/tickx.png}" />
+					</p:else>
+					</t:if>
+				</p:studentCell>
+				<p:ownerCell>
+					<t:if test="person.owner">
+						<img src="${asset:context:/layout/tickv.png}" />
+					<p:else>
+						<img src="${asset:context:/layout/tickx.png}" />
+					</p:else>
+					</t:if>
+				</p:ownerCell>
+					 
 					<p:empty>
 					</p:empty>     
 				</t:grid>
@@ -81,6 +119,14 @@
 							</td>
 							<td>
 								<t:checkbox t:id="makerbox" t:value="profile.maker"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<t:label for="studentbox"/>
+							</td>
+							<td>
+								<t:checkbox t:id="studentbox" t:value="profile.student"/>
 							</td>
 						</tr>
 						<tr>
@@ -139,6 +185,35 @@
 								<t:textfield t:id="countryfield" t:value="profile.country"/>
 							</td>
 						</tr>
+						<tr>
+						<td><label>${message:fechaNac-label}</label></td>
+						<td><t:DateField t:id="nacField" t:value="profile.fechaNac"/></td>
+					</tr>
+					<tr>
+						<td><label>${message:phone-label}</label></td>
+						<td><t:textfield t:id="phonefield" t:value="profile.phone"/></td>
+					</tr>
+					<tr>
+						<td>
+							<label>${message:direction-label}</label>
+						</td>
+						<td>
+							<t:textfield t:id="directionfield" t:value="profile.direction"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label>${message:DNI-label}</label></td>
+						<td><t:textfield t:id="dniField" t:value="profile.DNI"/></td>
+					</tr>
+					
+					<tr>
+						<td><label>${message:carrera-label}</label></td>
+						<td><t:textfield t:id="carreraField" t:value="profile.carrera"/></td>
+					</tr>
+					<tr>
+						<td><label>${message:centro-label}</label></td>
+						<td><t:textfield t:id="centroField" t:value="profile.centro"/></td>
+					</tr>
 						<tr>
 							<td>
 								<label><input t:type="submit" t:id="save" value="${message:save-but}"/></label>

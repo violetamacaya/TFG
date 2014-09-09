@@ -83,6 +83,7 @@ public class BallotWizzard {
 	private Ballot ballot;
 	
 	static final private String[] NUMBERS2_7 = new String[] { "2", "3", "4","5","6","7" };
+	static final private String[] NUMBERS2_15 = new String[] { "2", "3", "4","5","6","7","8","9","10","11","12","13","14","15" };
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,7 +111,7 @@ public class BallotWizzard {
 		componentResources.discardPersistentFieldChanges();
 		
 		
-		mayRelModel=NUMBERS2_7;
+		mayRelModel=NUMBERS2_15;
 		bordaModel=NUMBERS2_7;
 		rangeModel=NUMBERS2_7;
 		
@@ -322,7 +323,7 @@ public class BallotWizzard {
 		{
 			censusModel=CENSUS_DOCENT;
 		}
-		if(kind==BallotKind.NORMAL)
+		if(kind==BallotKind.PRIVADA)
 		{
 			showNormalCensus=true;
 		}
@@ -358,10 +359,10 @@ public class BallotWizzard {
 		{
 			showErrorType=true;
 		}
-		else if(ballotKind==BallotKind.NORMAL || ballotKind==BallotKind.PUBLICA)
+		else if(ballotKind==BallotKind.PRIVADA || ballotKind==BallotKind.PUBLICA)
 		{
 			
-			if(censusNormal==null && ballotKind==BallotKind.NORMAL)
+			if(censusNormal==null && ballotKind==BallotKind.PRIVADA)
 			{
 				showErrorType=true;
 				System.out.println("NULL");
@@ -538,7 +539,9 @@ public class BallotWizzard {
 	@Property
 	@Persist
 	private boolean showErrorMayRel;
-	
+	@Property
+	@Persist
+	private boolean showRepeatedMayRel;
 	@Persist
 	private RelativeMajority relativeMajority;
 	
@@ -573,6 +576,31 @@ public class BallotWizzard {
 	@Property
 	@Persist
 	private String mayRelOp7;
+	@Property
+	@Persist
+	private String mayRelOp8;
+	@Property
+	@Persist
+	private String mayRelOp9;
+	@Property
+	@Persist
+	private String mayRelOp10;
+	@Property
+	@Persist
+	private String mayRelOp11;
+	@Property
+	@Persist
+	private String mayRelOp12;
+	@Property
+	@Persist
+	private String mayRelOp13;
+	@Property
+	@Persist
+	private String mayRelOp14;
+	@Property
+	@Persist
+	private String mayRelOp15;
+
 	
 	private String option;
 	public String getOption() {
@@ -625,20 +653,86 @@ public class BallotWizzard {
 			return true;
 		return false;
 	}
+	public boolean isShowMay8()
+	{
+		if(numOpt>=8)
+			return true;
+		return false;
+	}
+	public boolean isShowMay9()
+	{
+		if(numOpt>=9)
+			return true;
+		return false;
+	}
+	public boolean isShowMay10()
+	{
+		if(numOpt>=10)
+			return true;
+		return false;
+	}
+	public boolean isShowMay11()
+	{
+		if(numOpt>=11)
+			return true;
+		return false;
+	}
+	public boolean isShowMay12()
+	{
+		if(numOpt>=12)
+			return true;
+		return false;
+	}
+	public boolean isShowMay13()
+	{
+		if(numOpt>=13)
+			return true;
+		return false;
+	}
+	public boolean isShowMay14()
+	{
+		if(numOpt>=14)
+			return true;
+		return false;
+	}
+	public boolean isShowMay15()
+	{
+		if(numOpt>=15)
+			return true;
+		return false;
+	}
 	/**
 	 * Checks the options of the relative majority
 	 */
 	 public void onValidateFromMayRelForm()
 	 {
 		 showErrorMayRel=false;
+		 showRepeatedMayRel=false;
 		 if(mayRelOp1==null || mayRelOp2==null)
 		 {
 			
 			 showErrorMayRel=true;
 		 }
+		
 		 System.out.println("NUMOP->"+numOpt);
 		 switch(numOpt)
 		 {
+		 	case 15:
+		 		if(mayRelOp15==null){showErrorMayRel=true;}
+		 	case 14:
+		 		if(mayRelOp14==null){showErrorMayRel=true;}
+		 	case 13:
+		 		if(mayRelOp13==null){showErrorMayRel=true;}
+		 	case 12:
+		 		if(mayRelOp12==null){showErrorMayRel=true;}
+		 	case 11:
+		 		if(mayRelOp11==null){showErrorMayRel=true;}
+		 	case 10:
+		 		if(mayRelOp10==null){showErrorMayRel=true;}
+		 	case 9:
+		 		if(mayRelOp9==null){showErrorMayRel=true;}
+		 	case 8:
+		 		if(mayRelOp8==null){showErrorMayRel=true;}
 		 	case 7:
 		 		if(mayRelOp7==null){showErrorMayRel=true;}
 		 	case 6:
@@ -678,7 +772,49 @@ public class BallotWizzard {
 			 {
 				 listOptions.add(mayRelOp7);
 			 }
-		
+			 if(numOpt>=8)
+			 {
+				 listOptions.add(mayRelOp8);
+			 }
+			 if(numOpt>=9)
+			 {
+				 listOptions.add(mayRelOp9);
+			 }
+			 if(numOpt>=10)
+			 {
+				 listOptions.add(mayRelOp10);
+			 }
+			 if(numOpt>=11)
+			 {
+				 listOptions.add(mayRelOp11);
+			 }
+			 if(numOpt>=12)
+			 {
+				 listOptions.add(mayRelOp12);
+			 }
+			 if(numOpt>=13)
+			 {
+				 listOptions.add(mayRelOp13);
+			 }
+			 if(numOpt>=14)
+			 {
+				 listOptions.add(mayRelOp14);
+			 }
+			 if(numOpt>=15)
+			 {
+				 listOptions.add(mayRelOp15);
+			 }
+			 for(int x=0;x<listOptions.size();x++)
+			 {
+				 for(int i=x+1;i<listOptions.size();i++)
+				 {
+					 if(listOptions.get(x).toLowerCase().equals(listOptions.get(i).toLowerCase()))
+					 {
+						showRepeatedMayRel=true; 
+					 }
+						 
+				 }
+			 }
 			 relativeMajority=new RelativeMajority(listOptions);
 		 }
 	 }
@@ -691,7 +827,7 @@ public class BallotWizzard {
 	 {
 		if(request.isXHR())
 		 {
-			 if(showErrorMayRel)
+			 if(showErrorMayRel || showRepeatedMayRel)
 			 {
 				 ajaxResponseRenderer.addRender("mayRelZone", mayRelZone);
 			 }
@@ -1642,7 +1778,7 @@ public class BallotWizzard {
 		newBallot.setName(ballotName);
 		newBallot.setDescription(description);
 		newBallot.setIdOwner(datasession.getId());
-		if(ballotKind==BallotKind.NORMAL)
+		if(ballotKind==BallotKind.PRIVADA)
 		{
 			newBallot.setNotStarted(true);
 			newBallot.setIdCensus(censusNormal.getId());

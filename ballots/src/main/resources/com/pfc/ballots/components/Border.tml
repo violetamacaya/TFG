@@ -8,10 +8,10 @@
 			<img id="banner" src="${asset:context:/layout/images/bannerPrueba.png}"/>
 			<!-- <p align="right"> -->
 		
-		<lenguages>
-			<img src="${asset:context:/layout/flag.gif}" />
-			<t:actionlink t:id="switchlocale">${message:localeLabel}</t:actionlink>
-		</lenguages>
+		<div id="lenguages">
+			
+			<t:actionlink t:id="switchlocale"><img src="${asset:context:/layout/flag.gif}" /><span>${message:localeLabel}</span></t:actionlink>
+		</div>
 			
 		<ul id="mainMenu">
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:index" ><plain>${message:home}</plain></t:eventlink></li>

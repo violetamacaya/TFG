@@ -4,7 +4,6 @@
 	<link rel="icon" href="/favicon2.ico" type="image/x-icon"/></head>
    
 	<t:border>
-	<div id="showprofileDiv">
 	
 	
 	<infouser>
@@ -16,7 +15,14 @@
 		<t:zone t:id="userDataZone" id="userDataZone" t:update="show">
 		
 			<t:if test="showData">
+			<div id="showProfile">
 			<h1>${message:my-profile}</h1><hr/>
+				
+				<t:if test="notOwner">
+					<t:actionlink t:id="deleteBut" t:zone="^"><img src="${asset:context:/layout/images/remove.png}" /></t:actionlink>
+				</t:if>
+				<t:actionlink t:id="updateProfile" zone="^"><img src="${asset:context:/layout/images/edit.png}" /></t:actionlink>
+				
 				<table>
 					<tr>
 						<td>${message:admin}:</td>
@@ -82,23 +88,15 @@
 						<td>${message:change-pass}</td>
 						<td><t:actionlink t:id="changePass" zone="^"><button>${message:change-but}</button></t:actionlink></td>
 					</tr>
-					<tr>
-						<td>${message:edit-profile}</td>
-						<td><t:actionlink t:id="updateProfile" zone="^"><button>${message:edit-but}</button></t:actionlink></td>
-					</tr>
+					
 					<t:if test="mainOwner">
 						<tr>
 							<td>${message:change-owner}</td>
 							<td><t:pageLink page="admin/changePrincipalOwner"><button>${message:change-but}</button></t:pageLink></td>
 						</tr>
 					</t:if>
-					<t:if test="notOwner">
-						<tr>
-							<td>${message:delete-account}</td>
-							<td><t:actionlink t:id="deleteBut" t:zone="^"> <button>${message:delete-but}</button></t:actionlink></td>
-						</tr>
-					</t:if>
 				</table>
+				</div>
 			</t:if>
 		</t:zone>
 	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,6 +226,6 @@
 	 		</t:if>
 	 	</t:zone>
 	</infouser>
-	</div>
+	
 	</t:border>
 </html>

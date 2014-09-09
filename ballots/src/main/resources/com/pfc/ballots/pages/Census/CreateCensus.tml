@@ -133,6 +133,39 @@
 										<p:addCell>
 											<t:checkbox t:id="add"/>
 										</p:addCell>
+											
+										<p:adminCell>
+											<t:if test="user.admin">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:adminCell>
+										<p:makerCell>
+											<t:if test="user.maker">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:makerCell>
+										<p:studentCell>
+											<t:if test="user.student">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:studentCell>
+										<p:ownerCell>
+											<t:if test="user.owner">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:ownerCell>
 									</t:grid>
 								</t:if>
 							</td></tr>
@@ -162,6 +195,39 @@
 								<p:removeCell>
 										<t:checkbox t:id="remove"/>						
 								</p:removeCell>
+								<p:adminCell>
+											<t:if test="user.admin">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:adminCell>
+										<p:makerCell>
+											<t:if test="user.maker">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:makerCell>
+										<p:studentCell>
+											<t:if test="user.student">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:studentCell>
+										<p:ownerCell>
+											<t:if test="user.owner">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:ownerCell>
+								
 							</t:grid>
 							</td></tr>
 							<tr><td>

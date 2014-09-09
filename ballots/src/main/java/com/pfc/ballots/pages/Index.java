@@ -1,5 +1,6 @@
 package com.pfc.ballots.pages;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -122,7 +123,7 @@ public class Index
 		{
 			if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
 			{
-				return "MAYORIA RELATIVA";
+				return "MAYORÍA RELATIVA";
 			}
 			else if(ballot.getMethod()==Method.KEMENY)
 			{
@@ -138,6 +139,21 @@ public class Index
 			}
 			return null;
 		}
+		
+		public String getStartDate()
+		{
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			return format.format(ballot.getStartDate());
+		}
+		public String getEndDate()
+		{
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			return format.format(ballot.getEndDate());
+		}
+		
+		
+		
+		
 		
 		public boolean isShowNotStarted()
 		{

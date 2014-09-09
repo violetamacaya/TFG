@@ -378,7 +378,7 @@ public class Border {
 			}
 		else if(section.equals("show-adminBallot"))
 			{
-			page=ShowBallotAdmin.class;
+			page=BallotList.class;
 			}
 		else							//This handle the upper menu
 		{

@@ -55,11 +55,11 @@
 					<table>
 						<tr>
 							<td><t:label for="methodSelect">${message:method}*</t:label></td>
-							<td><t:select t:type="select" t:id="methodSelect" value="method" t:blankLabel="Choose..." t:zone="^"/></td>
+							<td><t:select t:type="select" t:id="methodSelect" value="method" t:blankLabel="${message:choose}" t:zone="^"/></td>
 						</tr>
 						<tr>
 							<td><t:label for="ballotKindSelect">${message:Kind}*</t:label></td>
-							<td><t:select t:type="select" t:id="ballotKindSelect" value="ballotKind" t:blankLabel="Choose..." t:zone="^"/></td>
+							<td><t:select t:type="select" t:id="ballotKindSelect" value="ballotKind" t:blankLabel="${message:choose}" t:zone="^"/></td>
 						</tr>
 						<t:if test="showNormalCensus">
 							<t:if test="showExist">
@@ -71,7 +71,7 @@
 									<p:else>
 										<tr>
 											<td><t:label for="censusModel">${message:census}</t:label></td>
-											<td><t:select t:type="select" t:id="censusPublic" t:value="census" t:model="censusModel" t:blankOption="ALWAYS" t:blankLabel="Choose..."/></td>
+											<td><t:select t:type="select" t:id="censusPublic" t:value="census" t:model="censusModel" t:blankOption="ALWAYS" t:blankLabel="${message:choose}"/></td>
 										</tr>
 									</p:else>							
 								</t:if>
@@ -103,7 +103,7 @@
 							<p:else>
 								<tr>
 									<td><t:label for="censusModel">${message:census}*</t:label></td>
-									<td><t:select t:type="select" t:id="censusModel" t:value="census" t:model="censusModel" t:blankOption="ALWAYS" t:blankLabel="Choose..."/></td>
+									<td><t:select t:type="select" t:id="censusModel" t:value="census" t:model="censusModel" t:blankOption="ALWAYS" t:blankLabel="${message:choose}"/></td>
 								</tr>
 								<tr>
 									<td><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>${message:back-but}</button></t:eventlink></td>
@@ -128,7 +128,9 @@
 					<t:if test="showErrorMayRel">
 						<span class="error">${message:fill-fields}</span><br/>
 					</t:if>
-				
+					<t:if test="showRepeatedMayRel">
+						<span class="error">${message:repeated-fields}</span><br/>
+					</t:if>
 					<table>
 						<tr>
 							<td><t:label for="mayRelSel"/></td>
@@ -170,6 +172,54 @@
 							<tr>
 								<td><t:label for="mayRelOp7"/></td>
 								<td><t:textfield t:id="mayRelOp7"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay8">
+							<tr>
+								<td><t:label for="mayRelOp8"/></td>
+								<td><t:textfield t:id="mayRelOp8"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay9">
+							<tr>
+								<td><t:label for="mayRelOp9"/></td>
+								<td><t:textfield t:id="mayRelOp9"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay10">
+							<tr>
+								<td><t:label for="mayRelOp10"/></td>
+								<td><t:textfield t:id="mayRelOp10"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay11">
+							<tr>
+								<td><t:label for="mayRelOp11"/></td>
+								<td><t:textfield t:id="mayRelOp11"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay12">
+							<tr>
+								<td><t:label for="mayRelOp12"/></td>
+								<td><t:textfield t:id="mayRelOp12"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay13">
+							<tr>
+								<td><t:label for="mayRelOp13"/></td>
+								<td><t:textfield t:id="mayRelOp13"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay14">
+							<tr>
+								<td><t:label for="mayRelOp14"/></td>
+								<td><t:textfield t:id="mayRelOp14"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay15">
+							<tr>
+								<td><t:label for="mayRelOp15"/></td>
+								<td><t:textfield t:id="mayRelOp15"/></td>
 							</tr>
 						</t:if>
 					</table>

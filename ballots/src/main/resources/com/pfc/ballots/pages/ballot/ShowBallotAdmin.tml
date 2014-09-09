@@ -11,12 +11,34 @@
 		
 		<t:zone t:id="gridZone" id="gridZone" t:update="show">
 			<t:if test="showGrid">
-				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="addUsers,finish,delete,maker,census" reorder="maker,name,method,census" exclude="id,description,active,notstarted,counted,idOwner,idballotdata,idCensus">
+				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="kind,addUsers,finish,delete,maker,census" reorder="maker,name,method,census" exclude="teaching,publica,id,description,active,notstarted,counted,idOwner,idballotdata,idCensus">
 					<p:addusersCell>
 						<t:if test="showAdd">
 							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><button>${message:add-users}</button></t:actionlink>
 						</t:if>
 					</p:addusersCell>
+					<p:kindCell>
+						<t:if test="ballot.publica">
+							${message:public}
+							<p:else>
+								<t:if test="ballot.teaching">
+									${message:teaching}
+									<p:else>
+										{message:private}
+									</p:else>
+								</t:if>
+							</p:else>
+						</t:if>
+					</p:kindCell>
+					<p:endedCell>
+						<t:if test="ballot.ended">
+							<img src="${asset:context:/layout/locked.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/unlocked.png}" />
+						</p:else>
+						</t:if>
+						
+					</p:endedCell>
 					<p:makerCell>
 						${username}
 					</p:makerCell>

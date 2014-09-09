@@ -29,15 +29,17 @@
 						<table>
 						 	 <t:loop t:source="nonActiveBallots" t:value="ballot">
 						 	 	<div class="indexRow">
-									<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<span> ${ballot.name}</span>
 								
 									 <t:if test="ballot.teaching">
-											<span>Docente&nbsp;&nbsp;&nbsp;</span>
+											<span>${message:teaching}</span>
 											<p:else>
-												<span>Normal&nbsp;&nbsp;&nbsp;</span>
+												<span>${message:private}</span>
 											</p:else>
 									</t:if>
-									 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
+									 <span>${message:start}: ${startDate}</span>
+									<span>${message:end}: ${endDate}</span>
+									 <span>${metodo}</span>
 									 <br/>
 								 </div>
 						 	 </t:loop>
@@ -52,12 +54,14 @@
 								<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							
 								 <t:if test="ballot.teaching">
-										<span>Docente&nbsp;&nbsp;&nbsp;</span>
+										<span>${message:teaching}</span>
 										<p:else>
-											<span>Normal&nbsp;&nbsp;&nbsp;</span>
+											<span>${message:private}</span>
 										</p:else>
 								</t:if>
-								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
+								<span>${message:start}: ${startDate}</span>
+								<span>${message:end}: ${endDate}</span>
+								 <span>${metodo}</span>
 								 <br/>
 							 </div>
 							</t:loop>
@@ -69,15 +73,16 @@
 							 <h3>${message:ended}</h3><hr/>
 							 <t:loop t:source="endedBallots" t:value="ballot">
 							 	 <div t:type="actionlink" t:id="resultBallot" context="ballot.id" class="indexRow" >
-									<span>${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								
+									<span>${ballot.name}</span>
 								<t:if test="ballot.teaching">
-										<span>Docente&nbsp;&nbsp;&nbsp;</span>
+										<span>${message:teaching}</span>
 										<p:else>
-											<span>Normal&nbsp;&nbsp;&nbsp;</span>
+											<span>${message:private}</span>
 										</p:else>
 								</t:if>
-								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
+								<span>${message:start}: ${startDate}</span>
+								<span>${message:end}: ${endDate}</span>
+								 <span>${metodo}</span>
 								 <br/>
 								 </div>
 								</t:loop>
@@ -86,20 +91,11 @@
 						<h3>PUBLIC ${message:actives}</h3><hr/>
 							 <t:loop t:source="publicActiveBallots" t:value="ballot">
 							 <div t:type="actionlink" t:id="votePublicBallot" t:context="ballot.id" class="indexRow">
-								<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							
-								 <t:if test="ballot.teaching">
-										<span>Docente&nbsp;&nbsp;&nbsp;</span>
-										<p:else>
-											<t:if test="ballot.publica">
-												<span>Publica&nbsp;&nbsp;&nbsp;</span>
-												<p:else>
-													<span>Normal&nbsp;&nbsp;&nbsp;</span>
-												</p:else>
-											</t:if>
-										</p:else>
-								</t:if>
-								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
+								<span> ${ballot.name}</span>
+								<span>${message:public}</span>
+								<span>${message:start}: ${startDate}</span>
+								<span>${message:end}: ${endDate}</span>
+								 <span>${metodo}</span>
 								 <br/>
 							 </div>
 							</t:loop>
@@ -110,21 +106,11 @@
 							 <h3>PUBLIC ${message:ended}</h3><hr/>
 							 <t:loop t:source="publicEndedBallots" t:value="ballot">
 							 	 <div t:type="actionlink" t:id="resultPublicBallot" context="ballot.id" class="indexRow" >
-									<span>${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								
-								<t:if test="ballot.teaching">
-										<span>Docente&nbsp;&nbsp;&nbsp;</span>
-										<p:else>
-											<t:if test="ballot.publica">
-												<span>Publica&nbsp;&nbsp;&nbsp;</span>
-												<p:else>
-													<span>Normal&nbsp;&nbsp;&nbsp;</span>
-												</p:else>
-											</t:if>
-										</p:else>
-								</t:if>
-							
-								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
+									<span>${ballot.name}</span>
+									<span>${message:public}</span>
+									<span>${message:start}: ${startDate}</span>
+									<span>${message:end}: ${endDate}</span>
+									<span>${metodo}</span>
 								 <br/>
 								 </div>
 								</t:loop>

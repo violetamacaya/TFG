@@ -15,6 +15,31 @@
 		<t:zone t:id="userGridZone" id="userGridZone" t:update="show">	
 			<t:if test="!showSure">
 				<t:grid source="users" row="user" add="Edit,Delete,makeOwner" exclude="password,owner,lastlog">
+					<p:adminCell>
+						<t:if test="user.admin">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
+					</p:adminCell>
+					<p:makerCell>
+						<t:if test="user.maker">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
+					</p:makerCell>
+					<p:studentCell>
+						<t:if test="user.student">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
+					</p:studentCell>
+							
 					<p:deleteCell>
 						<t:if test="!editing">
 							<t:if test="!owner">
@@ -78,6 +103,14 @@
 						</td>
 						<td>
 							<t:checkbox t:id="makerbox" t:value="editprof.maker"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:label for="studentbox"/>
+						</td>
+						<td>
+							<t:checkbox t:id="studentbox" t:value="editprof.student"/>
 						</td>
 					</tr>
 						<tr>

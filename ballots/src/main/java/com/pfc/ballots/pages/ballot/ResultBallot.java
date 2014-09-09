@@ -104,7 +104,12 @@ public class ResultBallot {
 		{
 			relMayDao= DB4O.getRelativeMajorityDao(datasession.getDBName());
 			relMay=relMayDao.getByBallotId(ballot.getId());
-			//relMay.calcularMayoriaRelativa();
+			
+			
+			if(!ballot.isEnded())
+			{
+				relMay.calcularMayoriaRelativa();
+			}
 			if(ballot.isEnded()==true && ballot.isCounted()==false && relMay!=null)
 			{
 				relMay.calcularMayoriaRelativa();
@@ -117,7 +122,11 @@ public class ResultBallot {
 		{
 			kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 			kemeny=kemenyDao.getByBallotId(contextResultBallotId);
-			//kemeny.calcularKemeny();
+			
+			if(!ballot.isEnded())
+			{
+				kemeny.calcularKemeny();
+			}
 			if(ballot.isEnded()==true && ballot.isCounted()==false && kemeny!=null)
 			{
 				kemeny.calcularKemeny();
@@ -132,6 +141,10 @@ public class ResultBallot {
 			bordaDao=DB4O.getBordaDao(datasession.getDBName());
 			borda=bordaDao.getByBallotId(contextResultBallotId);
 			
+			if(!ballot.isEnded())
+			{
+				borda.calcularBorda();
+			}
 			if(ballot.isEnded()==true && ballot.isCounted()==false && borda!=null)
 			{
 				borda.calcularBorda();
@@ -145,6 +158,10 @@ public class ResultBallot {
 			rangeDao=DB4O.getRangeVotingDao();
 			range=rangeDao.getByBallotId(contextResultBallotId);
 			
+			if(!ballot.isEnded())
+			{
+				range.calcularRangeVoting();
+			}
 			if(ballot.isEnded()==true && ballot.isCounted()==false && range!=null)
 			{
 				range.calcularRangeVoting();

@@ -407,6 +407,40 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		
 	}
+	public List<Ballot> getByOwnerIdSorted(String idOwner)
+	{
+		open();
+		List<Ballot> list=new LinkedList<Ballot>();
+		try
+		{
+			
+			Query query=DB.query();
+			query.constrain(Ballot.class);
+			query.descend("endDate").orderDescending();
+			query.descend("idOwner").constrain(idOwner);
+			ObjectSet result = query.execute();
+			Ballot x;
+			while(result.hasNext())
+			{
+				x=(Ballot)result.next();
+				updateStateBallot(x);
+				list.add(x);
+			}
+			
+			return list;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			list.clear();
+			return list;
+		}
+		finally
+		{
+			close();
+		}
+		
+	}
 	
 	/**
 	 *  Retrieves a list of ballots from their idCensus

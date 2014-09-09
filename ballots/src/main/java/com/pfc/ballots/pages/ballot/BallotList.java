@@ -9,6 +9,7 @@ import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.Request;
@@ -58,7 +59,14 @@ public class BallotList {
 	
 	@InjectPage
 	private AddUsers addUsers;
-	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@SessionAttribute
+	private String contextResultBallotId;
+	@SessionAttribute
+	private String contextBallotId;
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,6 +87,9 @@ public class BallotList {
 	BordaDao bordaDao;
 	@Persist
 	RangeVotingDao rangeDao;
+	
+	
+	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,11 +101,24 @@ public class BallotList {
 	{
 		showAreuSure=false;
 		showGrid=true;
+		showMine=true;
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		voteDao=DB4O.getVoteDao(datasession.getDBName());
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
 		censusDao=DB4O.getCensusDao(datasession.getDBName());
-		ballots=ballotDao.getByOwnerId(datasession.getId());
+		
+		if(datasession.isAdmin())
+		{
+			System.out.println("ALL");
+			ballots=ballotDao.retrieveAllSort();
+		}
+		else
+		{
+			System.out.println("MINE");
+			ballots=ballotDao.getByOwnerId(datasession.getId());
+		}
+		
+		
 		kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 		relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 		bordaDao=DB4O.getBordaDao(datasession.getDBName());
@@ -132,19 +156,42 @@ public class BallotList {
 	@Property
 	private Ballot ballot;
 	
+	@Persist
+	@Property
+	private boolean showMine;
+	
+	public boolean getIsAdmin()
+	{
+		return datasession.isAdmin();
+	}
 
 	public String getUserName()
 	{
 		return userDao.getEmailById(ballot.getIdOwner());
 	}
 
-	
+	public boolean isCanVote()
+	{
+		if(ballot.isEnded())
+		{
+			return false;
+		}
+		if(ballot.isPublica())
+		{
+			return true;
+		}
+		if(voteDao.getVoteByIds(ballot.getId(), datasession.getId())!=null)
+		{
+			return true;
+		}
+		return false;
+	}
 	public String getCensusName()
 	{
 		Census temp=censusDao.getById(ballot.getIdCensus());
 		if(temp==null)
 		{
-			return "DOCENTE";
+			return"/";
 		}
 		else
 		{
@@ -173,7 +220,11 @@ public class BallotList {
 		addUsers.setup(idBallot,BallotList.class);
 		return addUsers;
 	}
-	
+	public Object onActionFromVoteBallot(String id)
+	{
+		contextBallotId=id;
+		return VoteBallot.class;
+	}
 	
 	/**
 	 * Delete a ballot 
@@ -218,6 +269,34 @@ public class BallotList {
 		{
 			return Index.class;
 		}
+	}
+	public void onActionFromMineBut()
+	{
+		if(request.isXHR())
+		{
+			showMine=false;
+			ballots=ballotDao.getByOwnerIdSorted(datasession.getId());
+			ajaxResponseRenderer.addRender("gridZone",gridZone );
+		}
+	}
+	public void onActionFromAllBut()
+	{
+		if(request.isXHR())
+		{
+			showMine=true;
+			ballots=ballotDao.retrieveAllSort();
+			ajaxResponseRenderer.addRender("gridZone",gridZone );
+		}
+	}
+	
+	public Object onActionFromResultBallot(String id)
+	{
+		contextResultBallotId=id;
+		return ResultBallot.class;
+	}
+	public Object onActionFromAddBallot()
+	{
+		return BallotWizzard.class;
 	}
 
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

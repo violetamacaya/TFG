@@ -20,6 +20,30 @@
 							<t:actionlink t:id="editnomail" zone="^" context="nomail.id"><button>${message:edit-but}</button></t:actionlink>
 						</t:if>
 					</p:editcell>
+					<p:adminCell>
+					<t:if test="user.admin">
+						<img src="${asset:context:/layout/tickv.png}" />
+					<p:else>
+						<img src="${asset:context:/layout/tickx.png}" />
+					</p:else>
+					</t:if>
+				</p:adminCell>
+				<p:makerCell>
+					<t:if test="user.maker">
+						<img src="${asset:context:/layout/tickv.png}" />
+					<p:else>
+						<img src="${asset:context:/layout/tickx.png}" />
+					</p:else>
+					</t:if>
+				</p:makerCell>
+				<p:studentCell>
+					<t:if test="user.student">
+						<img src="${asset:context:/layout/tickv.png}" />
+					<p:else>
+						<img src="${asset:context:/layout/tickx.png}" />
+					</p:else>
+					</t:if>
+				</p:studentCell>					
 					<p:empty>
 					</p:empty>
 				</t:grid>					
@@ -45,6 +69,39 @@
 				<p:idcell>
 					${user.id }
 				</p:idcell>
+				<p:adminCell>
+				<t:if test="user.admin">
+					<img src="${asset:context:/layout/tickv.png}" />
+				<p:else>
+					<img src="${asset:context:/layout/tickx.png}" />
+				</p:else>
+				</t:if>
+			</p:adminCell>
+			<p:makerCell>
+				<t:if test="user.maker">
+					<img src="${asset:context:/layout/tickv.png}" />
+				<p:else>
+					<img src="${asset:context:/layout/tickx.png}" />
+				</p:else>
+				</t:if>
+			</p:makerCell>
+			<p:studentCell>
+				<t:if test="user.student">
+					<img src="${asset:context:/layout/tickv.png}" />
+				<p:else>
+					<img src="${asset:context:/layout/tickx.png}" />
+				</p:else>
+				</t:if>
+			</p:studentCell>
+			<p:ownerCell>
+				<t:if test="user.owner">
+					<img src="${asset:context:/layout/tickv.png}" />
+				<p:else>
+					<img src="${asset:context:/layout/tickx.png}" />
+				</p:else>
+				</t:if>
+			</p:ownerCell>
+				
 				
 			</t:grid>
 		</t:zone>
