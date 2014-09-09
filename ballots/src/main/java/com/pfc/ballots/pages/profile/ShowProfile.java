@@ -217,20 +217,28 @@ public class ShowProfile {
 	private boolean showChange;
 	
 	@Property
-	@Validate("required,minLength=5")
+	@Validate("required")
 	private String pass;
 	@Property
-	@Validate("required,minLength=5")
+	@Validate("required,minLength=8")
 	private String newPass1;
 	@Property
-	@Validate("required,minLength=5")
+	@Validate("required,minLength=8")
 	private String newPass2;
 	
 	@Persist
 	@Property
+	private boolean samePass;
+	
+	@Persist
+	@Property
 	private boolean badPass;
+	@Persist
+	@Property
+	private boolean badSecurity;
 
 
+	final String [] caracteresEspeciales={"!","¡","@","|","#","$","%","&","/","(",")","=","¿","?","*","+","-","_"};
 	@Persist
 	@Property
 	private boolean badMatch;
@@ -241,8 +249,12 @@ public class ShowProfile {
 	{
 
 		if(request.isXHR())
-		{
+		{	//profile.setPassword(Encryption.getStringMessageDigest(newPass1, Encryption.SHA1));
+			//userDao.UpdateById(profile);
 			boolean success=true;
+			badPass=false;
+			badMatch=false;
+			samePass=false;
 			String temp=Encryption.getStringMessageDigest(pass, Encryption.SHA1);
 			if(!temp.equals(profile.getPassword()))
 			{
@@ -263,16 +275,34 @@ public class ShowProfile {
 			{
 				badMatch=false;
 			}
-			if(success)
+			badSecurity=true;
+			for(String car:caracteresEspeciales)
 			{
-				profile.setPassword(Encryption.getStringMessageDigest(newPass1, Encryption.SHA1));
-				userDao.UpdateById(profile);
-				showData=true;
-				showChange=false;
-				ajaxResponseRenderer.addRender("userDataZone", userDataZone).addRender("changePassZone", changePassZone);
+				if(newPass1.contains(car))
+				{
+					badSecurity=false;
+				}
+			}
+			
+			if(success && !badSecurity)
+			{
+				if(profile.getPassword().equals(newPass1))
+				{
+					samePass=false;
+					ajaxResponseRenderer.addRender("changePassZone", changePassZone);
+				}
+				else
+				{
+					profile.setPassword(Encryption.getStringMessageDigest(newPass1, Encryption.SHA1));
+					userDao.UpdateById(profile);
+					showData=true;
+					showChange=false;
+					ajaxResponseRenderer.addRender("userDataZone", userDataZone).addRender("changePassZone", changePassZone);
+				}
 			}
 			else
 			{
+				System.out.println("CHECk");
 				ajaxResponseRenderer.addRender("changePassZone", changePassZone);
 			}
 		}
@@ -315,15 +345,17 @@ public class ShowProfile {
 	 */
 	public void onSuccessFromUpdateForm()
 	{
-		boolean changed=false;
+		boolean igual=false;
 		boolean emailChanged=false;
 		if(request.isXHR())
 		{
 			
-			changed=update.equals(profile);
+			igual=update.equals(profile);
 			
-			if(changed)
+			if(!igual)
 			{
+				System.out.println("CHANGED");
+				
 				if(!update.getEmail().equals(profile.getEmail()))
 				{
 					if(userDao.isProfileRegistred(update.getEmail()))
@@ -350,7 +382,7 @@ public class ShowProfile {
 			}
 			else
 			{
-				if(changed)
+				if(!igual)
 				{
 					if(emailChanged)
 					{

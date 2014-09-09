@@ -79,9 +79,19 @@ public class Profile {
 	private String firstName;
 	@Validate("required")
 	private String lastName;
+	@NonVisual
 	private String university;
 	private String city;
 	private String country;
+	private String direction;
+	private String phone;
+	private Date fechaNac;
+	private String DNI;
+	private String carrera;
+	private String centro;
+	
+	public boolean student;
+	
 	
 	private Date regDate;
 	
@@ -157,6 +167,14 @@ public class Profile {
 		this.lastName = lastName;
 	}
 
+	public boolean isStudent()
+	{
+		return this.student;
+	}
+	public void setStudent(boolean student)
+	{
+		this.student=student;
+	}
 	
 	
 	public String getUniversity(){
@@ -220,6 +238,15 @@ public class Profile {
 		this.city=old.getCity();
 		this.country=old.getCountry();
 		this.regDate=old.getRegDate();
+		
+		this.direction=old.getDirection();
+		this.DNI=old.getDNI();
+		this.phone=old.getPhone();
+		this.student=old.student;
+		this.fechaNac=old.getFechaNac();
+		this.centro=old.getCentro();
+		this.carrera=old.getCarrera();
+		
 	}
 	public boolean isOwner() {
 		return owner;
@@ -245,7 +272,10 @@ public class Profile {
 		{
 			return false;
 		}
-		
+		if(this.student!=profile.isStudent())
+		{
+			return false;
+		}
 		if(this.isMaker()!=profile.isMaker())
 		{
 			return false;
@@ -268,7 +298,7 @@ public class Profile {
 		//University Check
 		if(this.getUniversity()==null && profile.getUniversity()==null)
 		{
-			//Must be empty, its a check to avoid not null exception
+			
 		}			
 		else if(this.getUniversity()==null && profile.getUniversity()!=null)
 		{
@@ -287,7 +317,7 @@ public class Profile {
 		
 		if(this.getCity()==null && profile.getCity()==null)
 		{
-			//Must be empty, its a check to avoid not null exception
+			
 		}			
 		else if(this.getCity()==null && profile.getCity()!=null)
 		{
@@ -305,7 +335,7 @@ public class Profile {
 		//Country check
 		if(this.getCountry()==null && profile.getCountry()==null)
 		{
-			//Must be empty, its a check to avoid not null exception
+			
 		}			
 		else if(this.getCountry()==null && profile.getCountry()!=null)
 		{
@@ -320,6 +350,128 @@ public class Profile {
 			return false;
 		}
 		
+		//direction check
+		if(this.getDirection()==null && profile.getDirection()==null)
+		{
+			
+		}			
+		else if(this.getDirection()==null && profile.getDirection()!=null)
+		{
+			return false;
+		}
+		else if(this.getDirection()!=null && profile.getDirection()==null)
+		{
+			return false;
+		}
+		else if(!this.getDirection().equals(profile.getDirection()))
+		{
+			return false;
+		}
+		//Phone
+		if(this.getPhone()==null && profile.getPhone()==null)
+		{
+			
+		}			
+		else if(this.getPhone()==null && profile.getPhone()!=null)
+		{
+			return false;
+		}
+		else if(this.getPhone()!=null && profile.getPhone()==null)
+		{
+			return false;
+		}
+		else if(!this.getPhone().equals(profile.getPhone()))
+		{
+			return false;
+		}
+		
+		//Carrera
+		if(this.getCarrera()==null && profile.getCarrera()==null)
+		{
+			
+		}			
+		else if(this.getCarrera()==null && profile.getCarrera()!=null)
+		{
+			return false;
+		}
+		else if(this.getCarrera()!=null && profile.getCarrera()==null)
+		{
+			return false;
+		}
+		else if(!this.getCarrera().equals(profile.getCarrera()))
+		{
+			return false;
+		}
+		//DNI
+			if(this.getDNI()==null && profile.getDNI()==null)
+			{
+				
+			}			
+			else if(this.getDNI()==null && profile.getDNI()!=null)
+			{
+				return false;
+			}
+			else if(this.getDNI()!=null && profile.getDNI()==null)
+			{
+				return false;
+			}
+			else if(!this.getDNI().equals(profile.getDNI()))
+			{
+				return false;
+			}
+			//Carrera
+			if(this.getCentro()==null && profile.getCentro()==null)
+			{
+				
+			}			
+			else if(this.getCentro()==null && profile.getCentro()!=null)
+			{
+				return false;
+			}
+			else if(this.getCentro()!=null && profile.getCentro()==null)
+			{
+				return false;
+			}
+			else if(!this.getCentro().equals(profile.getCentro()))
+			{
+				return false;
+			}
 		return true;
+	}
+	public Date getFechaNac() {
+		return fechaNac;
+	}
+	public void setFechaNac(Date fechaNac) {
+		this.fechaNac = fechaNac;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public String getDNI() {
+		return DNI;
+	}
+	public void setDNI(String dNI) {
+		DNI = dNI;
+	}
+	public String getCarrera() {
+		return carrera;
+	}
+	public void setCarrera(String carrera) {
+		this.carrera = carrera;
+	}
+	public String getCentro() {
+		return centro;
+	}
+	public void setCentro(String centro) {
+		this.centro = centro;
 	}
 }

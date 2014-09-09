@@ -132,8 +132,7 @@ public class UserDaoDB4O implements UserDao{
 			
 			if(example.getLastName()!=null)
 				{query.descend("lastName").constrain(example.getLastName()).endsWith(false);}
-			if(example.getUniversity()!=null)
-				{query.descend("university").constrain(example.getUniversity()).endsWith(false);}
+
 			if(example.getCity()!=null)
 				{query.descend("city").constrain(example.getCity()).endsWith(false);}
 			if(example.getCountry()!=null)

@@ -30,7 +30,7 @@ public class AdminCreateProfile {
 	@Inject
     private ComponentResources componentResources;
 
-	
+	final String [] caracteresEspeciales={"!","¡","@","|","#","$","%","&","/","(",")","=","¿","?","*","+","-","_"};
 	//****************************************Initialize DAO****************************//
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	@Persist
@@ -78,6 +78,9 @@ public class AdminCreateProfile {
 	@Property
 	@Persist(PersistenceConstants.FLASH)
 	private boolean isnotAvalible;
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private boolean badSecurity;
 	
 	@Persist
 	private boolean isnotFirstTime;
@@ -88,6 +91,7 @@ public class AdminCreateProfile {
 	 */
 	Object onSuccess()
 	{
+		dao=DB4O.getUsuarioDao(datasession.getDBName());
 		if(!password.equals(repeat))
 		{
 			isnotPassOk=true;
@@ -96,8 +100,15 @@ public class AdminCreateProfile {
 		{
 			isnotAvalible=true;
 		}
-		
-		if(!isnotPassOk && !isnotAvalible)
+		badSecurity=true;
+		for(String car:caracteresEspeciales)
+		{
+			if(password.contains(car))
+			{
+				badSecurity=false;
+			}
+		}
+		if(!isnotPassOk && !isnotAvalible && !badSecurity)
 		{
 			
 			//Encryption password,and store in database
@@ -111,6 +122,10 @@ public class AdminCreateProfile {
 			censedInDao.store(censedIn);
 			dao.store(profile);
 			componentResources.discardPersistentFieldChanges();
+		}
+		else
+		{
+			return null;
 		}
 		
 		return UserList.class;

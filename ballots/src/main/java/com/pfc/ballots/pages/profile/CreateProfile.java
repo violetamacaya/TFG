@@ -1,5 +1,7 @@
 package com.pfc.ballots.pages.profile;
 
+import java.util.Random;
+
 import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
@@ -40,6 +42,21 @@ public class CreateProfile {
 	@Inject
     private ComponentResources componentResources;
 
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private String captcha1;
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private String captcha2;
+	@Property 
+	@Persist(PersistenceConstants.FLASH)
+	private String captchaValue;
+	
+	@Property 
+	@Persist(PersistenceConstants.FLASH)
+	private boolean badSecurity;
+	
+	final String [] caracteresEspeciales={"!","¡","@","|","#","$","%","&","/","(",")","=","¿","?","*","+","-","_"};
 	
 	//****************************************Initialize DAO****************************//
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
@@ -65,7 +82,10 @@ public class CreateProfile {
 			componentResources.discardPersistentFieldChanges();
 			profile=new Profile();
 		}
-		
+		Random r=new Random();
+		captcha1=String.valueOf(r.nextInt(101));
+		r=new Random();
+		captcha2=String.valueOf(r.nextInt(101));
 		
 	}
 	//////////////////////////////////////////////////////// PAGE STUFF /////////////////////////////////////
@@ -84,6 +104,9 @@ public class CreateProfile {
 	@Property
 	@Persist(PersistenceConstants.FLASH)
 	private boolean isnotPassOk;
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private boolean badCaptcha;
 
 	@Property
 	@Persist(PersistenceConstants.FLASH)
@@ -98,16 +121,45 @@ public class CreateProfile {
 	 */
 	Object onSuccess()
 	{
-		if(!password.equals(repeat))
+		dao=DB4O.getUsuarioDao(datasession.getDBName());
+		
+		if(isNumeric(captchaValue))
+		{
+			if(Integer.parseInt(captchaValue)!=Integer.parseInt(captcha1)+Integer.parseInt(captcha2))
+			{
+				badCaptcha=true;
+			}
+			else
+			{
+				badCaptcha=false;
+			}
+		}
+		else
+		{
+			badCaptcha=true;
+		}
+		if(password==null || repeat==null)
+		{
+			
+		}
+		else if(!password.equals(repeat))
 		{
 			isnotPassOk=true;
 		}
+		
 		if(dao.isProfileRegistred(profile.getEmail()))
 		{
 			isnotAvalible=true;
 		}
-		
-		if(!isnotPassOk && !isnotAvalible)
+		badSecurity=true;
+		for(String car:caracteresEspeciales)
+		{
+			if(password.contains(car))
+			{
+				badSecurity=false;
+			}
+		}
+		if(!isnotPassOk && !isnotAvalible && !badCaptcha && !badSecurity)
 		{
 			
 			//Encryption password,and store in database
@@ -120,10 +172,24 @@ public class CreateProfile {
 			ProfileCensedIn censedIn=new ProfileCensedIn(profile.getId());
 			censedInDao.store(censedIn);
 			dao.store(profile);
+			System.out.println("Nonull");
 			componentResources.discardPersistentFieldChanges();
-		}
-		return Index.class;
 			
+			return Index.class;
+		}
+		System.out.println("null");
+		return null;
+		
+			
+	}
+	private boolean isNumeric(String cadena)
+	{
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
 	}
 
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

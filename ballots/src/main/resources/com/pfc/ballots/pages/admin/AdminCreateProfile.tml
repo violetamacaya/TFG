@@ -8,26 +8,30 @@
 	
 		<h1>${message:create-profile}</h1><hr/>
 		<infouser>
-			
-				<t:beaneditform t:id="form" submitlabel="${message:send-but}" object="profile" add="repeat" reorder="email,password,repeat" exclude="owner">
+					<t:if test="badSecurity">
+	   					<span class="error">${message:bad-security}</span>
+	   				</t:if>
+					<t:if test="isnotAvalible">
+						<span class="error">${message:non-available-email}</span>
+					</t:if>
+					<t:if test="isnotPassOk">
+						<span class="error">${message:pass-not-match}</span>
+					</t:if>
+				<t:beaneditform t:id="form" submitlabel="${message:send-but}" object="profile" add="repeat" reorder="admin,maker,email,password,repeat" exclude="owner">
 					
 					<p:email>
 						<t:label for="email"/>
 						<t:textfield t:id="email" value="profile.email" />
-						<t:if test="isnotAvalible">
-							<span class="error">${message:non-available-email}</span>
-						</t:if>
+						
 					</p:email>
 					<p:password>
 						<t:label for="password"/>
-						<t:passwordfield t:id="password" value="password" validate="required,minLength=6"/>
-						<t:if test="isnotPassOk">
-							<span class="error">${message:pass-not-match}</span>
-						</t:if>
+						<t:passwordfield t:id="password" value="password" validate="required,minLength=8"/>
+						
 					</p:password>
 					<p:repeat>
 						<t:label for="repeat"/>
-						<t:passwordfield t:id="repeat" value="repeat" validate="required,minLength=6"/>
+						<t:passwordfield t:id="repeat" value="repeat" validate="required,minLength=8"/>
 					</p:repeat>
 				</t:beaneditform>
 				

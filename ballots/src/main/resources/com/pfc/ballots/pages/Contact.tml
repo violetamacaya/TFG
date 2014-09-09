@@ -20,6 +20,12 @@
 				<t:form t:id="contact">
 					${message:our-email} ${emailAccount.email}<br/><br/>
 					<table>
+						<t:if test="badCaptcha">
+							<tr>
+								<td></td>
+								<td><span class="error">${message:bad-captcha}</span></td>
+							</tr>
+						</t:if>
 						<tr>
 							<td><t:Label t:for="remitente"/></td>
 							<td><t:textfield t:id="remitente"/></td>
@@ -29,7 +35,10 @@
 							<td><t:Label t:for="text"/></td>
 							<td><t:TextArea t:id="text"></t:TextArea></td>
 						</tr>
-						
+						<tr>
+							<td><label>${message:captcha-text} ${captcha1}+${captcha2}=</label></td>
+							<td><t:textfield t:id="captchaValue"/></td>
+						</tr>
 					
 						<tr>
 							<td><input t:type="submit" value="${message:send}"/></td>

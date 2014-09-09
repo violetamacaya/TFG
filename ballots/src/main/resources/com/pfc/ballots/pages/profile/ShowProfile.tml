@@ -5,7 +5,7 @@
    
 	<t:border>
 	<div id="showprofileDiv">
-	<h1>${message:my-profile}</h1><hr/>
+	
 	
 	<infouser>
 	
@@ -14,7 +14,9 @@
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	  -->
 		<t:zone t:id="userDataZone" id="userDataZone" t:update="show">
+		
 			<t:if test="showData">
+			<h1>${message:my-profile}</h1><hr/>
 				<table>
 					<tr>
 						<td>${message:admin}:</td>
@@ -43,10 +45,6 @@
 						<td>${profile.lastname }</td>
 					</tr>
 					<tr>
-						<td>${message:university}:</td>
-						<td>${profile.university }</td>
-					</tr>
-					<tr>
 						<td>${message:city}:</td>
 						<td>${profile.city }</td>
 					</tr>
@@ -54,6 +52,32 @@
 						<td>${message:country}:</td>
 						<td>${profile.country }</td>
 					</tr>
+					
+					<tr>
+						<td>${message:dni-label}:</td>
+						<td>${profile.DNI}</td>
+					</tr>
+					<tr>
+						<td>${message:phone-label}:</td>
+						<td>${profile.phone}</td>
+					</tr>
+					<tr>
+						<td>${message:fechaNac-label}:</td>
+						<td>${profile.fechaNac}</td>
+					</tr>
+					<tr>
+						<td>${message:direction-label}:</td>
+						<td>${profile.direction}</td>
+					</tr>
+					<tr>
+						<td>${message:carrera-label}:</td>
+						<td>${profile.carrera}</td>
+					</tr>
+					<tr>
+						<td>${message:centro-label}:</td>
+						<td>${profile.centro}</td>
+					</tr>
+					
 					<tr>
 						<td>${message:change-pass}</td>
 						<td><t:actionlink t:id="changePass" zone="^"><button>${message:change-but}</button></t:actionlink></td>
@@ -84,7 +108,8 @@
 		
 	<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 		<t:if test="showSure">
-			${message:areuSure}
+		<h1>${message:delete-profile}</h1><hr/>
+			${message:areuSure}<br/><br/>
 			<t:actionlink t:id="yesSureBut"><button>${message:yesSure}</button></t:actionlink>
 			<t:actionlink t:id="notSureBut" t:zone="^"><button>No</button></t:actionlink>
 		</t:if>
@@ -98,7 +123,14 @@
 	  -->		
 	   <t:zone t:id="changePassZone" id="changePassZone" t:update="show">
 	   		<t:if test="showChange">
+	   			<h1>${message:change-pass}</h1><hr/>
 	   			<t:form t:id="changePassForm" zone="^">
+	   				<t:if test="samePass">
+	   					<span class="error">${message:same-pass}</span>
+	   				</t:if>
+	   				<t:if test="badSecurity">
+	   					<span class="error">${message:bad-security}</span>
+	   				</t:if>
 	   				<table>
 	   					<tr>
 	   						<td><t:label for="pass"/></td>
@@ -129,7 +161,9 @@
 	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 -->
 	 	<t:zone t:id="updateProfileZone" id="updateProfileZone" t:update="show">
+	 		
 	 		<t:if test="showUpdate">
+	 		<h1>${message:update-profile}</h1><hr/>
 	 			<t:form t:id="updateForm" zone="^">
 	 				<table>
 	 					<tr>
@@ -146,10 +180,6 @@
 	 						<td><t:textfield t:id="lastField" value="update.lastname"/></td>
 	 					</tr>
 	 					<tr>
-	 						<td><t:label for="universityfield"/></td>
-	 						<td><t:textfield t:id="universityField" value="update.university"/></td>
-	 					</tr>
-	 					<tr>
 	 						<td><t:label for="cityfield"/></td>
 	 						<td><t:textfield t:id="cityField" value="update.city"/></td>
 	 					</tr>
@@ -157,6 +187,35 @@
 	 						<td><t:label for="countryfield"/></td>
 	 						<td><t:textfield t:id="countryField" value="update.country"/></td>
 	 					</tr>
+	 											<tr>
+						<td><label>${message:fechaNac-label}</label></td>
+						<td><t:DateField t:id="nacField" t:value="update.fechaNac"/></td>
+					</tr>
+					<tr>
+						<td><label>${message:phone-label}</label></td>
+						<td><t:textfield t:id="phonefield" t:value="update.phone"/></td>
+					</tr>
+					<tr>
+						<td>
+							<label>${message:direction-label}</label>
+						</td>
+						<td>
+							<t:textfield t:id="directionfield" t:value="update.direction"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label>${message:DNI-label}</label></td>
+						<td><t:textfield t:id="dniField" t:value="update.DNI"/></td>
+					</tr>
+					
+					<tr>
+						<td><label>${message:carrera-label}</label></td>
+						<td><t:textfield t:id="carreraField" t:value="update.carrera"/></td>
+					</tr>
+					<tr>
+						<td><label>${message:centro-label}</label></td>
+						<td><t:textfield t:id="centroField" t:value="update.centro"/></td>
+					</tr>
 	 					<tr>
 	 						<td></td>
 	 						<td>

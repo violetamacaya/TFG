@@ -65,9 +65,9 @@
 		<t:if test="loged">
 			<li><t:actionlink t:id="logout"><plain>${message:log-out}</plain></t:actionlink></li>
 		</t:if>
-		
-		<br/><br/><h2>${message:administration-menu}</h2><br/>
-		
+		<t:if test="admin">
+		<br/><br/><br/><h2>${message:administration-menu}</h2><br/>
+		</t:if>
 		<t:if test="admin">
 				<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-admincensus"><plain>${message:census-admin}</plain></t:eventlink></li>
 		</t:if>

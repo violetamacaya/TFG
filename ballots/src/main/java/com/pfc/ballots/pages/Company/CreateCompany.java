@@ -36,6 +36,8 @@ public class CreateCompany {
 	@Inject
     private ComponentResources componentResources;
 
+	
+	final String [] caracteresEspeciales={"!","¡","@","|","#","$","%","&","/","(",")","=","¿","?","*","+","-","_"};
 	//****************************************Initialize DAO****************************//
 		FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 		CompanyDao companyDao= DB4O.getCompanyDao();
@@ -93,6 +95,10 @@ public class CreateCompany {
 		@Persist(PersistenceConstants.FLASH)
 		private boolean isBadName;
 		
+		@Property 
+		@Persist(PersistenceConstants.FLASH)
+		private boolean badSecurity;
+		
 		//FirstTime enter in the page
 		private boolean isnotFirstTime;
 		
@@ -128,9 +134,17 @@ public class CreateCompany {
 			isBadChar=true;
 		}
 		
+		badSecurity=true;
+		for(String car:caracteresEspeciales)
+		{
+			if(password.contains(car))
+			{
+				badSecurity=false;
+			}
+		}
 		
 		//If all data are correct, store them in database
-		if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible && !isBadChar && !isBadName)
+		if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible && !isBadChar && !isBadName && !badSecurity)
 		{
 			userDao=DB4O.getUsuarioDao(company.getDBName());
 			company.setId(UUID.generate());
