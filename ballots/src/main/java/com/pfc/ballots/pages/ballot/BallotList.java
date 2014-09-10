@@ -65,6 +65,8 @@ public class BallotList {
 	@SessionAttribute
 	private String contextBallotId;
 	
+	@Persist
+	private List<Ballot> allBallots;
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 ////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
@@ -109,13 +111,18 @@ public class BallotList {
 		
 		if(datasession.isAdmin())
 		{
-			System.out.println("ALL");
+			
 			ballots=ballotDao.retrieveAllSort();
 		}
 		else
 		{
-			System.out.println("MINE");
-			ballots=ballotDao.getByOwnerId(datasession.getId());
+			ballots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()));
+			allBallots=ballotDao.getPublics();
+			for(Ballot temp:allBallots)
+			{
+				ballots.add(temp);
+			}
+			//ballots=ballotDao.getByOwnerId(datasession.getId());
 		}
 		
 		
@@ -170,6 +177,18 @@ public class BallotList {
 		return userDao.getEmailById(ballot.getIdOwner());
 	}
 
+	public boolean isMyBallot()
+	{
+		if(datasession.isAdmin())
+		{
+			return true;
+		}
+		if(ballot.getId()==datasession.getId())
+		{
+			return true;
+		}
+		return false;
+	}
 	public boolean isCanVote()
 	{
 		if(ballot.isEnded())
@@ -284,7 +303,19 @@ public class BallotList {
 		if(request.isXHR())
 		{
 			showMine=true;
-			ballots=ballotDao.retrieveAllSort();
+			if(datasession.isAdmin())
+			{
+				ballots=ballotDao.retrieveAllSort();
+			}
+			else
+			{
+				ballots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()));
+				allBallots=ballotDao.getPublics();
+				for(Ballot temp:allBallots)
+				{
+					ballots.add(temp);
+				}
+			}
 			ajaxResponseRenderer.addRender("gridZone",gridZone );
 		}
 	}

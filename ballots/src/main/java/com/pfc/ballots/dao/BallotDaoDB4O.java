@@ -134,7 +134,7 @@ public class BallotDaoDB4O implements BallotDao{
 		{
 			Ballot temp=new Ballot();
 			Ballot x;
-			for(int i=0;i<ids.size();i++)
+			for(int i=ids.size()-1;i>0;i--)
 			{
 				temp.setId(ids.get(i));
 				ObjectSet result=DB.queryByExample(temp);
@@ -175,7 +175,7 @@ public class BallotDaoDB4O implements BallotDao{
 		{
 			Ballot temp=new Ballot();
 			Ballot x;
-			for(int i=0;i<ids.size();i++)
+			for(int i=ids.size()-1;i>0;i--)
 			{
 				temp.setId(ids.get(i));
 				ObjectSet result=DB.queryByExample(temp);
@@ -216,14 +216,112 @@ public class BallotDaoDB4O implements BallotDao{
 		return list;
 	}
 	
-	 public List<Ballot> getPublics(List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended){
+	public List<Ballot> getById(List<String> ids,List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended,int num)
+	{
 		open();
 		List<Ballot> list=new LinkedList<Ballot>();
 		try
 		{
 			Ballot temp=new Ballot();
-			temp.setPublica(true);
-			ObjectSet result=DB.queryByExample(temp);
+			Ballot x;
+			int n=0;
+			int a=0;
+			int e=0;
+			for(int i=ids.size()-1;i>0;i--)
+			{
+				temp.setId(ids.get(i));
+				ObjectSet result=DB.queryByExample(temp);
+				if(result.hasNext())
+				{
+					x=(Ballot)result.next();
+					
+					switch(updateStateBallot(x))
+					{
+						case 0:
+							if(n<num)
+							{
+								n++;
+								nonActive.add(x);
+							}
+							break;
+						case 1:
+							if(a<num)
+							{
+								a++;
+								active.add(x);
+							}
+								
+							break;
+						case 2:
+							if(e<num)
+							{
+								e++;
+								ended.add(x);
+							}
+							break;
+						default:
+							break;
+							
+					}
+					list.add(x);
+				}
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			list.clear();
+			return list;
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	
+	}
+	 public List<Ballot> getPublics(){
+			open();
+			List<Ballot> list=new LinkedList<Ballot>();
+			try
+			{
+				Query query=DB.query();
+				query.constrain(Ballot.class);
+				query.descend("publica").constrain(true);
+				query.descend("endDate").orderDescending();
+				ObjectSet result=query.execute();
+				while(result.hasNext())
+				{
+					Ballot x=(Ballot)result.next();
+					updateStateBallot(x);
+					list.add(x);
+					
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				list.clear();
+				return list;
+			}
+			finally
+			{
+				close();
+			}
+			return list;
+		}
+	
+	 public List<Ballot> getPublics(List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended){
+		open();
+		List<Ballot> list=new LinkedList<Ballot>();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(Ballot.class);
+			query.descend("publica").constrain(true);
+			query.descend("endDate").orderDescending();
+			ObjectSet result=query.execute();
 			while(result.hasNext())
 			{
 				Ballot x=(Ballot)result.next();
@@ -256,7 +354,66 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return list;
 	}
-	
+	 public List<Ballot> getPublics(List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended,int num){
+			open();
+			List<Ballot> list=new LinkedList<Ballot>();
+			try
+			{
+				Ballot temp=new Ballot();
+				temp.setPublica(true);
+				int n=0;
+				int a=0;
+				int e=0;
+				Query query=DB.query();
+				query.constrain(Ballot.class);
+				query.descend("publica").constrain(true);
+				query.descend("endDate").orderDescending();
+				ObjectSet result=query.execute();
+				while(result.hasNext())
+				{
+					Ballot x=(Ballot)result.next();
+					list.add(x);
+					switch(updateStateBallot(x))
+					{
+					case 0:
+						if(n<num)
+						{
+							n++;
+							nonActive.add(x);
+						}
+						break;
+					case 1:
+						if(a<num)
+						{
+							a++;
+							active.add(x);
+						}
+							
+						break;
+					case 2:
+						if(e<num)
+						{
+							e++;
+							ended.add(x);
+						}
+						break;
+						default:
+							break;
+					}
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				list.clear();
+				return list;
+			}
+			finally
+			{
+				close();
+			}
+			return list;
+		}
 	/**
 	 * Retrieves all ballots 
 	 * @return List<Ballot> list of ballots returned

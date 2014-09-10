@@ -20,7 +20,10 @@ public interface BallotDao {
 
 	public List<Ballot> getById(List<String> ids);
 	public List<Ballot> getById(List<String> ids,List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended);
-    public List<Ballot> getPublics(List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended);
+	public List<Ballot> getById(List<String> ids,List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended,int num);
+	public List<Ballot> getPublics();
+	public List<Ballot> getPublics(List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended);
+    public List<Ballot> getPublics(List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended,int num);
 	public List<Ballot> getByOwnerId(String idOwner);
 	public List<Ballot> getByOwnerIdSorted(String idOwner);
 	

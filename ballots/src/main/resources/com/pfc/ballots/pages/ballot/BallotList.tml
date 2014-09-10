@@ -15,18 +15,17 @@
 		
 		<t:zone t:id="gridZone" id="gridZone" t:update="show">
 			<t:if test="showGrid">
-				<t:if test="isAdmin">
 					<t:if test="showMine">
 							<t:actionlink t:id="mineBut" t:zone="^">${message:mine-ballots}</t:actionlink>
 						<p:else>
 							<t:actionlink t:id="allBut" t:zone="^">${message:all-ballots}</t:actionlink>
 						</p:else>
-					</t:if>
 				</t:if>
 			
 			
 			
-				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="vote,result,kind,addusers,finish,delete,maker,census" reorder="maker,name,method,census" exclude="teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
+				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="vote,result,kind,addusers,finish,delete,maker,census"
+					rowsPerPage="15" inplace="true" reorder="maker,name,method,census" exclude="teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
 					<p:addusersCell>
 						<t:if test="showAdd">
 							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><button>${message:add-users}</button></t:actionlink>
@@ -66,12 +65,17 @@
 						${censusName}
 					</p:censusCell>
 					<p:deleteCell>
-						<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><button>${message:delete-but}</button></t:actionLink>
+						<t:if test="myBallot">
+							<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><button>${message:delete-but}</button></t:actionLink>
+						</t:if>
 					</p:deleteCell>
 					
 					<p:finishCell>
-						<t:if test="!ballot.ended">
-							<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><button>${message:finish-but}</button></t:actionLink>
+						<t:if test="myBallot">
+				
+							<t:if test="!ballot.ended">
+								<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><button>${message:finish-but}</button></t:actionLink>
+							</t:if>
 						</t:if>
 					</p:finishCell>
 					

@@ -74,8 +74,8 @@ public class Index
 				publicNonActiveBallots=new LinkedList<Ballot>();
 				publicActiveBallots=new LinkedList<Ballot>();
 				publicEndedBallots=new LinkedList<Ballot>();
-				currentBallots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()),nonActiveBallots,activeBallots,endedBallots);
-				publicCurrentBallots= ballotDao.getPublics(publicNonActiveBallots, publicActiveBallots, publicEndedBallots);
+				currentBallots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()),nonActiveBallots,activeBallots,endedBallots,5);
+				publicCurrentBallots= ballotDao.getPublics(publicNonActiveBallots, publicActiveBallots, publicEndedBallots,5);
 			}
 		}
 		
