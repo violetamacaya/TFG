@@ -94,6 +94,9 @@ public class ProfileByFile {
 	@Property
 	@Persist
 	private boolean editing;
+	@Property
+	@Persist
+	private boolean badFile;
 	@Persist
 	private boolean newuser;
 	
@@ -118,25 +121,28 @@ public class ProfileByFile {
 	 */
 	void setupRender()
 	{
-		
+		badFile=false;
 		if(!(lastaccess==null && access==null))
 		{
 			if(lastaccess==null && access!=null)
 			{
 				fileupload=false;
 				fileLoaded=false;
+				
 				lastaccess=access;
 			}
 			else if(lastaccess!=null && access==null)
 			{
 				fileupload=false;
 				fileLoaded=false;
+				
 				lastaccess=access;
 			}
 			else if(!lastaccess.equals(access))
 			{
 				fileupload=false;
 				fileLoaded=false;
+				
 				lastaccess=access;
 			}
 		}
@@ -145,6 +151,12 @@ public class ProfileByFile {
 		{
 			newuser=false;
 			editing=false;
+			if(!finalpath.toLowerCase().endsWith(".xml"))
+			{
+				badFile=true;
+				ManipulateFiles.deletefile(finalpath);
+				fileupload=false;				
+			}
 			if(!fileLoaded)
 			{
 				fileLoaded=true;
@@ -172,7 +184,6 @@ public class ProfileByFile {
 	                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 	                
 	                inputStream = classLoader.getResourceAsStream("com/pfc/ballots/util/examples/example.xml");
-	               
 	                try {
 	                    response.setHeader("Content-Length", "" + inputStream.available());
 	                }
@@ -216,7 +227,7 @@ public class ProfileByFile {
 			while(isOk==false)
 			{
 				person.setEmail(person.getFirstName()+i+"@nomail.com");
-				person.setPassword(person.getFirstName()+i+"@nomail.com");
+				//person.setPassword(person.getFirstName()+i+"@nomail.com");
 
 				i++;
 				if(!userDao.isNoMailRegistred(person.getEmail()))
@@ -398,7 +409,7 @@ public class ProfileByFile {
 	{
 		if(person.getEmail()==null)
 			return false;
-		Pattern pat = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		 Pattern pat = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 	     Matcher mat = pat.matcher(person.getEmail());
 	     if(mat.find())
 	     {

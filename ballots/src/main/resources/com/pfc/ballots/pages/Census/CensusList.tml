@@ -9,11 +9,11 @@
 		<h1>${message:my-census}</h1><hr/>
 		<t:grid source="censuses" row="census" add="remove,details" exclude="id,idowner" reorder="email">
 			<p:removecell>
-				<t:actionlink t:id="removebut" context="census.id"><button>${message:remove-but}</button></t:actionlink>
+				<t:actionlink t:id="removebut" context="census.id"><img src="${asset:context:/layout/tickx.png}"/></t:actionlink>
 			</p:removecell>
 	
 			<p:detailscell>
-				<t:actionlink t:id="detailsbut" context="census.id"><button>${message:details-but}</button></t:actionlink>
+				<t:actionlink t:id="detailsbut" context="census.id"><img src="${asset:context:/layout/images/ojo.png}"/></t:actionlink>
 			</p:detailscell>
 			<p:else>
 				<h4>${message:no-census}</h4>

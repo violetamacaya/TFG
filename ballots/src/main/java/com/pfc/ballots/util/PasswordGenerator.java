@@ -12,6 +12,8 @@ public class PasswordGenerator {
 	public static String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
  
 	public static String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+	
+	public static String SPECIAL = "¿?!¡|@#$%&/()=*-";
  
  
 	public static String getPinNumber() {
@@ -23,15 +25,18 @@ public class PasswordGenerator {
 	}
  
 	public static String getPassword(int length) {
-		return getPassword(NUMBERS + UPPERCASE + LOWERCASE, length);
+		return getPassword(NUMBERS + UPPERCASE + LOWERCASE + SPECIAL, length);
 	}
  
 	public static String getPassword(String key, int length) {
 		String pswd = "";
  
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < length-1; i++) {
 			pswd+=(key.charAt((int)(Math.random() * key.length())));
 		}
+		
+		
+		pswd+=(SPECIAL.charAt((int)(Math.random() * SPECIAL.length())));
  
 		return pswd;
 	}

@@ -155,6 +155,11 @@ public class DB4OFactoryDao extends FactoryDao{
 		return new RangeVotingDaoDB4O(DBName);
 	}
 
+	@Override
+	public AboutTextDao getAboutTextDao()
+	{
+		return new AboutTextDaoDB4O();
+	}
 
 	 
 	

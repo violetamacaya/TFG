@@ -1,5 +1,6 @@
 package com.pfc.ballots.pages.ballot;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
+import com.pfc.ballots.data.BallotKind;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
@@ -104,6 +106,8 @@ public class BallotList {
 		showAreuSure=false;
 		showGrid=true;
 		showMine=true;
+		showBasic=true;
+		email=null;
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		voteDao=DB4O.getVoteDao(datasession.getDBName());
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
@@ -167,6 +171,10 @@ public class BallotList {
 	@Property
 	private boolean showMine;
 	
+	@Property
+	@Persist
+	private BallotKind kind;
+	
 	public boolean getIsAdmin()
 	{
 		return datasession.isAdmin();
@@ -218,7 +226,18 @@ public class BallotList {
 		}
 			
 	}
-	
+	public boolean isNotemptyBallots()
+	{
+		if(ballots==null)
+		{
+			return false;
+		}
+		if(ballots.size()==0)
+		{
+			return false;
+		}
+		return true;
+	}
 	public boolean isShowAdd()
 	{
 		if(ballot.isEnded())
@@ -258,7 +277,7 @@ public class BallotList {
 			showAreuSure=true;
 			optionDelete=true;
 			ballotSure=ballotDao.getById(idBallot);
-			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone);
+			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone).addRender("searchZone",searchZone);
 			return null;
 		}
 		else
@@ -395,7 +414,7 @@ public class BallotList {
 			
 			showGrid=true;
 			showAreuSure=false;
-			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone);
+			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone).addRender("searchZone",searchZone);
 		}
 		
 	}
@@ -408,9 +427,165 @@ public class BallotList {
 		{
 			showGrid=true;
 			showAreuSure=false;
-			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone);			
+			ajaxResponseRenderer.addRender("gridZone",gridZone ).addRender("areuSureZone",areuSureZone).addRender("searchZone",searchZone);			
 		}
 	}
+	
+	  	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		 //////////////////////////////////////////////////// SEARCH ZONE ////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@InjectComponent
+	private Zone searchZone;
+	@Persist
+	@Property
+	private String email;
+	@Persist
+	@Property
+	private Method method;
+	
+	@Persist
+	@Property
+	private String name;
+	
+	@Persist
+	@Property
+	private Date startDate;
+	
+	@Persist
+	@Property
+	private Date endDate;
+	
+	
+	@Persist
+	@Property
+	private boolean showBasic;
+	
+	public boolean isShowSearch()
+	{
+		if(showAreuSure)
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	public void onActionFromAdvancedBut()
+	{
+		if(request.isXHR())
+		{
+			showBasic=false;
+			email=null;
+			kind=null;
+			method=null;
+			name=null;
+			startDate=null;
+			endDate=null;
+			ajaxResponseRenderer.addRender("searchZone",searchZone);
+		}
+	}
+	public void onActionFromBasicBut()
+	{
+		if(request.isXHR())
+		{
+			showBasic=true;
+			email=null;
+			kind=null;
+			method=null;
+			name=null;
+			startDate=null;
+			endDate=null;
+			ajaxResponseRenderer.addRender("searchZone",searchZone);
+		}
+	}
+	
+	public void onSuccessFromBasicForm()
+	{
+		if(request.isXHR())
+		{
+			if(email==null)
+			{
+				ballots=null;
+			}
+			else
+			{
+				String id=userDao.getIdByEmail(email);
+				if(id==null)
+				{
+					ballots=null;
+				}
+				else
+				{
+					Ballot x=new Ballot();
+					x.setIdOwner(id);
+					if(datasession.isAdmin())
+					{
+						ballots=ballotDao.getByExample(x);
+					}
+					else
+					{
+						ballots=ballotDao.getByExample(voteDao.getBallotsWithParticipation(datasession.getId()), x);
+					}
+				}
+			}
+			ajaxResponseRenderer.addRender("gridZone",gridZone);
+		}
+	}
+	public void onSuccessFromAdvancedForm()
+	{
+		if(request.isXHR())
+		{
+			Ballot x=new Ballot();
+			if(email!=null)
+			{
+				x.setIdOwner(userDao.getIdByEmail(email));
+			}
+			if(name!=null)
+			{
+				x.setName(name);
+			}
+			if(kind==BallotKind.DOCENTE)
+			{
+				x.setTeaching(true);
+			}
+			else if (kind==BallotKind.PRIVADA)
+			{
+				x.setPrivat(true);
+			}
+			else if(kind==BallotKind.PUBLICA)
+			{
+				x.setPublica(true);
+			}
+			
+			if(method!=null)
+			{
+				System.out.println("Metodo"+method);
+				x.setMethod(method);
+			}
+			if(startDate!=null)
+			{
+				x.setStartDate(startDate);
+			}
+			if(endDate!=null)
+			{
+				x.setEndDate(endDate);
+			}
+			
+			
+			///BUSQUEDA
+			if(datasession.isAdmin())
+			{
+				ballots=ballotDao.getByExample(x);
+			}
+			else
+			{
+				ballots=ballotDao.getByExample(voteDao.getBallotsWithParticipation(datasession.getId()), x);
+			}
+			ajaxResponseRenderer.addRender("gridZone",gridZone);
+		}
+	}
+	
+	
 	
 	  ////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 

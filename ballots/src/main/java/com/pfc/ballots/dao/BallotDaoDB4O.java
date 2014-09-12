@@ -1,5 +1,6 @@
 package com.pfc.ballots.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -159,6 +160,160 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 	}
 	
+	
+	public List<Ballot> getByExample(Ballot example)
+	{
+		open();
+		List<Ballot> list=new LinkedList<Ballot>();
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		try
+		{
+
+			Query query =DB.query();
+			query.constrain(Ballot.class);
+			if(example.getName()!=null)
+				{query.descend("name").constrain(example.getName()).endsWith(false);}
+			if(example.getId()!=null)
+				{query.descend("id").constrain(example.getId()).endsWith(false);}
+			if(example.getIdOwner()!=null)
+			{query.descend("idOwner").constrain(example.getIdOwner()).endsWith(false);}
+			
+			if(example.getMethod()!=null)
+			{query.descend("method").constrain(example.getMethod());}
+			if(example.isEnded())
+			{query.descend("ended").constrain(example.isEnded());}
+			if(example.isActive())
+			{query.descend("active").constrain(example.isActive());}
+			if(example.isNotStarted())
+			{query.descend("notStarted").constrain(example.isActive());}
+			if(example.isPrivat())
+			{query.descend("privat").constrain(example.isPrivat());}
+			if(example.isPublica())
+			{query.descend("publica").constrain(example.isPublica());}
+			if(example.isTeaching())
+			{query.descend("teaching").constrain(example.isTeaching());}
+			ObjectSet result=query.execute();
+			while(result.hasNext())
+			{
+				Ballot x=(Ballot) result.next();
+				boolean dateOk=true;
+				if(example.getEndDate()!=null)
+				{
+					if(!format.format(example.getEndDate()).equals(format.format(x.getEndDate())))
+					{
+						dateOk=false;
+					}
+				}
+				if(example.getStartDate()!=null)
+				{
+					if(!format.format(example.getStartDate()).equals(format.format(x.getStartDate())))
+					{
+						dateOk=false;
+					}
+				}
+				if(dateOk)
+				{
+					list.add(x);
+				}
+				
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	}
+	public List<Ballot> getByExample(List<String> ids,Ballot example)
+	{
+		
+		open();
+		List<Ballot> list=new LinkedList<Ballot>();
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		try
+		{
+
+			Query query =DB.query();
+			query.constrain(Ballot.class);
+			if(example.getName()!=null)
+				{query.descend("name").constrain(example.getName()).endsWith(false);}
+			if(example.getId()!=null)
+				{query.descend("id").constrain(example.getId()).endsWith(false);}
+			if(example.getIdOwner()!=null)
+			{query.descend("idOwner").constrain(example.getIdOwner()).endsWith(false);}
+			if(example.getIdCensus()!=null)
+			{query.descend("idOwner").constrain(example.getIdCensus()).endsWith(false);}
+			if(example.isEnded())
+			{query.descend("ended").constrain(example.isEnded());}
+			if(example.isActive())
+			{query.descend("active").constrain(example.isActive());}
+			if(example.isNotStarted())
+			{query.descend("notStarted").constrain(example.isActive());}
+			if(example.isPrivat())
+			{query.descend("privat").constrain(example.isPrivat());}
+			if(example.isPublica())
+			{query.descend("publica").constrain(example.isPublica());}
+			if(example.isTeaching())
+			{query.descend("teaching").constrain(example.isTeaching());}
+			if(example.getMethod()!=null)
+			{
+				query.descend("method").constrain(example.getMethod());
+			}
+			ObjectSet result=query.execute();
+			while(result.hasNext())
+			{
+				Ballot x=(Ballot) result.next();
+				boolean idOk=false;
+				for(String id:ids)
+				{
+					if(example.getId().equals(x.getId()))
+					{
+						idOk=true;
+					}
+				}
+				if(idOk)
+				{
+					boolean dateOk=true;
+					if(example.getEndDate()!=null)
+					{
+						if(!format.format(example.getEndDate()).equals(format.format(x.getEndDate())))
+						{
+							dateOk=false;
+						}
+					}
+					if(example.getStartDate()!=null)
+					{
+						if(!format.format(example.getStartDate()).equals(format.format(x.getStartDate())))
+						{
+							dateOk=false;
+						}
+					}
+					if(dateOk)
+					{
+						list.add(x);
+					}
+				}
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return list;
+	}
+	
+	
+	
 	/**
 	 * Retrieves all ballots from their ids
 	 * 
@@ -175,7 +330,7 @@ public class BallotDaoDB4O implements BallotDao{
 		{
 			Ballot temp=new Ballot();
 			Ballot x;
-			for(int i=ids.size()-1;i>0;i--)
+			for(int i=ids.size()-1;i>=0;i--)
 			{
 				temp.setId(ids.get(i));
 				ObjectSet result=DB.queryByExample(temp);
@@ -227,8 +382,10 @@ public class BallotDaoDB4O implements BallotDao{
 			int n=0;
 			int a=0;
 			int e=0;
-			for(int i=ids.size()-1;i>0;i--)
+			System.out.println("ids SIZE"+ids.size());
+			for(int i=ids.size()-1;i>=0;i--)
 			{
+				System.out.println("I="+i);
 				temp.setId(ids.get(i));
 				ObjectSet result=DB.queryByExample(temp);
 				if(result.hasNext())
@@ -808,6 +965,9 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return false;
 	}
+	
+	
+	
 	/**
 	 * Checks if a ballot name is in use
 	 * @param ballotName to check

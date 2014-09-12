@@ -1,24 +1,17 @@
+<?xml version="1.0"?>
 <uploadUsers>
 
 	<user>
 		<firstName></firstName>
 		<lastName></lastName>
+		<dni></dni>
 		<email></email>
-		<password></password>
-		<university></university>
 		<country></country>		
 		<city></city>
-	</user>
-	<user>
-		<firstName>Mario</firstName>
-		<lastName>Temprano</lastName>
-		<email>mario@email.com</email>
-		<password>XXXXXXXXXXX</password>
-		<university>Usal</university>
-		<country>España</country>		
-		<city>Salamanca</city>
-		
-		
+		<address></address>
+		<phone></phone>
+		<center></center>
+		<studies></studies>
 	</user>
 		
 

@@ -46,6 +46,13 @@ public class Profile {
 		this.city=old.getCity();
 		this.country=old.getCountry();
 		this.regDate=old.getRegDate();
+		this.address=old.getAddress();
+		this.DNI=old.getDNI();
+		this.phone=old.getPhone();
+		this.student=old.student;
+		this.fechaNac=old.getFechaNac();
+		this.centro=old.getCentro();
+		this.carrera=old.getCarrera();
 	}
 	
 	/*********************************************** Profile fields **************************************************************/
@@ -83,14 +90,14 @@ public class Profile {
 	private String university;
 	private String city;
 	private String country;
-	private String direction;
+	private String address;
 	private String phone;
 	private Date fechaNac;
 	private String DNI;
 	private String carrera;
 	private String centro;
 	
-	public boolean student;
+	private boolean student;
 	
 	
 	private Date regDate;
@@ -239,7 +246,7 @@ public class Profile {
 		this.country=old.getCountry();
 		this.regDate=old.getRegDate();
 		
-		this.direction=old.getDirection();
+		this.address=old.getAddress();
 		this.DNI=old.getDNI();
 		this.phone=old.getPhone();
 		this.student=old.student;
@@ -351,19 +358,19 @@ public class Profile {
 		}
 		
 		//direction check
-		if(this.getDirection()==null && profile.getDirection()==null)
+		if(this.getAddress()==null && profile.getAddress()==null)
 		{
 			
 		}			
-		else if(this.getDirection()==null && profile.getDirection()!=null)
+		else if(this.getAddress()==null && profile.getAddress()!=null)
 		{
 			return false;
 		}
-		else if(this.getDirection()!=null && profile.getDirection()==null)
+		else if(this.getAddress()!=null && profile.getAddress()==null)
 		{
 			return false;
 		}
-		else if(!this.getDirection().equals(profile.getDirection()))
+		else if(!this.getAddress().equals(profile.getAddress()))
 		{
 			return false;
 		}
@@ -450,11 +457,11 @@ public class Profile {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getDirection() {
-		return direction;
+	public String getAddress() {
+		return address;
 	}
-	public void setDirection(String direction) {
-		this.direction = direction;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getDNI() {
 		return DNI;

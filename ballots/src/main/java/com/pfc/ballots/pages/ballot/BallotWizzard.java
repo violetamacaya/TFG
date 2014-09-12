@@ -475,6 +475,7 @@ public class BallotWizzard {
 			startDate=new Date();
 			endDate=new Date();
 		}
+	
 		
 	}
 	
@@ -494,7 +495,11 @@ public class BallotWizzard {
 	{
 		if(request.isXHR())
 		{
-			if(showErrorType||showBadDate)
+			if(ballotKind==BallotKind.SENSIBLE)
+			{
+				ajaxResponseRenderer.addRender("typeZone", typeZone);
+			}
+			else if(showErrorType||showBadDate)
 				ajaxResponseRenderer.addRender("typeZone", typeZone);
 			else
 			{
@@ -521,6 +526,7 @@ public class BallotWizzard {
 					showRange=true;
 					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("rangeZone",rangeZone);
 				}
+				
 				
 			}
 		}

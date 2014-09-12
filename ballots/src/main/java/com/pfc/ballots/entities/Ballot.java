@@ -2,6 +2,8 @@ package com.pfc.ballots.entities;
 
 import java.util.Date;
 
+import org.apache.tapestry5.beaneditor.NonVisual;
+
 import com.pfc.ballots.data.Method;
 /**
  * Ballot entity that contains the general information of a ballot
@@ -20,7 +22,11 @@ public class Ballot {
 	private String idCensus;
 	private Method method;
 	private String idBallotData;
+	@NonVisual
 	private boolean teaching;
+	@NonVisual
+	private boolean privat;
+	@NonVisual
 	private boolean publica;
 	private Date startDate;
 	private Date endDate;
@@ -119,6 +125,12 @@ public class Ballot {
 		}
 		public void setNotStarted(boolean notStarted) {
 			this.notStarted = notStarted;
+		}
+		public boolean isPrivat() {
+			return privat;
+		}
+		public void setPrivat(boolean privat) {
+			this.privat = privat;
 		}
 	
 }

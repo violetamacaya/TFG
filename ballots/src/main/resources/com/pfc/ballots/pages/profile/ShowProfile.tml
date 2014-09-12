@@ -72,8 +72,8 @@
 						<td>${profile.fechaNac}</td>
 					</tr>
 					<tr>
-						<td>${message:direction-label}:</td>
-						<td>${profile.direction}</td>
+						<td>${message:address-label}:</td>
+						<td>${profile.address}</td>
 					</tr>
 					<tr>
 						<td>${message:carrera-label}:</td>
@@ -185,7 +185,7 @@
 	 						<td><t:label for="countryfield"/></td>
 	 						<td><t:textfield t:id="countryField" value="update.country"/></td>
 	 					</tr>
-	 											<tr>
+	 				<tr>
 						<td><label>${message:fechaNac-label}</label></td>
 						<td><t:DateField t:id="nacField" t:value="update.fechaNac"/></td>
 					</tr>
@@ -195,10 +195,10 @@
 					</tr>
 					<tr>
 						<td>
-							<label>${message:direction-label}</label>
+							<label>${message:address-label}</label>
 						</td>
 						<td>
-							<t:textfield t:id="directionfield" t:value="update.direction"/>
+							<t:textfield t:id="directionfield" t:value="update.address"/>
 						</td>
 					</tr>
 					<tr>

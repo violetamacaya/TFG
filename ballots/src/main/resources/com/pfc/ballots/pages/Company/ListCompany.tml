@@ -24,19 +24,19 @@
 						</t:if>
 					</p:activeCell>
 					<p:editCell>
-						<t:actionlink t:id="editbut" context="company.CompanyName"><button>${message:edit-but}</button></t:actionlink>
+						<t:actionlink t:id="editbut" context="company.CompanyName">	<img src="${asset:context:/layout/images/editp.png}"/> </t:actionlink>
 					</p:editCell>
 					<p:addusersfilecell>
-							<t:actionlink t:id="addbyfile" context="company.DBName"><button>${message:addfile-but}</button></t:actionlink>
+							<t:actionlink t:id="addbyfile" context="company.DBName"><img src="${asset:context:/layout/images/file.png}"/></t:actionlink>
 					</p:addusersfilecell>
 					<p:seeusersCell>
-							<t:actionlink t:id="ver" context="[company.CompanyName,company.DBName]"><button>${message:see-but}</button></t:actionlink>
+							<t:actionlink t:id="ver" context="[company.CompanyName,company.DBName]"><img src="${asset:context:/layout/images/ojo.png}"/></t:actionlink>
 					</p:seeusersCell>
 					<p:addusersCell>
-							<t:actionlink t:id="addusers" context="[company.CompanyName,company.DBName]"><button>${message:add-but}</button></t:actionlink>
+							<t:actionlink t:id="addusers" context="[company.CompanyName,company.DBName]"><img src="${asset:context:/layout/images/plusp.png}"/></t:actionlink>
 					</p:addusersCell>
 					<p:deletecompanyCell>
-							<t:actionlink t:id="delete" context="company.CompanyName" zone="^"><button>${message:delete-but}</button></t:actionlink>
+							<t:actionlink t:id="delete" context="company.CompanyName" zone="^"><img src="${asset:context:/layout/tickx.png}"/></t:actionlink>
 					</p:deletecompanyCell>
 					<p:changeActiveCell>
 							<t:if test="company.active">

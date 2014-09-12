@@ -13,6 +13,9 @@
 		
 		<t:form t:id="uploadForm">
 			<t:errors/>
+			<t:if test="badFile">
+				<span class="error">${message:bad-file}</span>
+			</t:if>
 			<input t:type="upload" t:id="file" t:value="file" validate="required"/><br/>
 			<input type="submit" value="${message:upload}"/>		
 		</t:form>
@@ -20,85 +23,83 @@
 			
 		<t:zone t:id="gridZone" id="gridZone" t:update="show">
 			<t:if test="fileupload">
-				<t:grid source="persons" row="person" add="ID,Edit,Avalible,Add" exclude="owner,lastLog,regDate" reorder="ID,Avalible" rowsperpage="10" inplace="true">
-					<p:idcell>
-						${person.id }
-					</p:idcell>
-					<p:avaliblecell>
-						<t:if test="avalible">
+				<t:if test="!badFile">
+					<t:grid source="persons" row="person" add="ID,Edit,Avalible,Add" exclude="password,sex,owner,lastLog,regDate" reorder="ID,Avalible" rowsperpage="10" inplace="true">
+						<p:idcell>
+							${person.id }
+						</p:idcell>
+						<p:avaliblecell>
+							<t:if test="avalible">
+								<img src="${asset:context:/layout/tickv.png}" />
+							<p:else>
+								<img src="${asset:context:/layout/tickx.png}" />
+							</p:else>
+							</t:if>
+						</p:avaliblecell>
+						<p:emailcell>
+							${person.email }
+							<t:if test="!okemail"><br/><font color="red">${message:bad-email}</font> </t:if>
+						</p:emailcell>
+						<p:firstnamecell>
+							${person.firstname}
+							<t:if test="!okfirstname"><br/><font color="red">${message:required}</font></t:if>
+						</p:firstnamecell>
+						<p:lastnamecell>
+							${person.lastname }
+							<t:if test="!oklastname"><br/><font color="red">${message:required}</font></t:if>
+						</p:lastnamecell>
+						<p:editcell>
+							<t:if test="!editing">
+								<t:actionlink t:id="editBut" context="person.id" zone="^"><button>${message:edit-but}</button></t:actionlink>
+							</t:if>
+						</p:editcell>  
+						<p:addcell>
+							<t:if test="avalible">
+								<t:if test="complete">
+									<t:actionlink t:id="addbut" context="person.id" zone="^"><button>${message:add-but}</button></t:actionlink>
+								</t:if>
+							</t:if>
+						</p:addcell>
+						<p:adminCell>
+						<t:if test="person.admin">
 							<img src="${asset:context:/layout/tickv.png}" />
 						<p:else>
 							<img src="${asset:context:/layout/tickx.png}" />
 						</p:else>
 						</t:if>
-					</p:avaliblecell>
-					<p:emailcell>
-						${person.email }
-						<t:if test="!okemail"><br/><font color="red">${message:non-available-email}</font> </t:if>
-					</p:emailcell>
-					<p:passwordcell>
-						${person.password }
-						<t:if test="!okpass"><br/><font color="red">${message:min-6}</font> </t:if>
-					</p:passwordcell>
-					<p:firstnamecell>
-						${person.firstname}
-						<t:if test="!okfirstname"><br/><font color="red">${message:required}</font></t:if>
-					</p:firstnamecell>
-					<p:lastnamecell>
-						${person.lastname }
-						<t:if test="!oklastname"><br/><font color="red">${message:required}</font></t:if>
-					</p:lastnamecell>
-					<p:editcell>
-						<t:if test="!editing">
-							<t:actionlink t:id="editBut" context="person.id" zone="^"><button>${message:edit-but}</button></t:actionlink>
+					</p:adminCell>
+					<p:makerCell>
+						<t:if test="person.maker">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
 						</t:if>
-					</p:editcell>  
-					<p:addcell>
-						<t:if test="avalible">
-							<t:if test="complete">
-								<t:actionlink t:id="addbut" context="person.id" zone="^"><button>${message:add-but}</button></t:actionlink>
-							</t:if>
+					</p:makerCell>
+					<p:studentCell>
+						<t:if test="person.student">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
 						</t:if>
-					</p:addcell>
-					<p:adminCell>
-					<t:if test="person.admin">
-						<img src="${asset:context:/layout/tickv.png}" />
-					<p:else>
-						<img src="${asset:context:/layout/tickx.png}" />
-					</p:else>
-					</t:if>
-				</p:adminCell>
-				<p:makerCell>
-					<t:if test="person.maker">
-						<img src="${asset:context:/layout/tickv.png}" />
-					<p:else>
-						<img src="${asset:context:/layout/tickx.png}" />
-					</p:else>
-					</t:if>
-				</p:makerCell>
-				<p:studentCell>
-					<t:if test="person.student">
-						<img src="${asset:context:/layout/tickv.png}" />
-					<p:else>
-						<img src="${asset:context:/layout/tickx.png}" />
-					</p:else>
-					</t:if>
-				</p:studentCell>
-				<p:ownerCell>
-					<t:if test="person.owner">
-						<img src="${asset:context:/layout/tickv.png}" />
-					<p:else>
-						<img src="${asset:context:/layout/tickx.png}" />
-					</p:else>
-					</t:if>
-				</p:ownerCell>
-					 
-					<p:empty>
-					</p:empty>     
-				</t:grid>
-				<t:actionlink t:id="endBut"><button>${message:finish-but}</button></t:actionlink>
-				<t:actionlink t:id="addRowBut" zone="^"><button>${message:addrow-but}</button></t:actionlink>
-				<t:actionlink t:id="addavaliblesBut" zone="^"><button>${message:addavailable-but}</button></t:actionlink>
+					</p:studentCell>
+					<p:ownerCell>
+						<t:if test="person.owner">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
+					</p:ownerCell>
+						 
+						<p:empty>
+						</p:empty>     
+					</t:grid>
+					<t:actionlink t:id="endBut"><button>${message:finish-but}</button></t:actionlink>
+					<t:actionlink t:id="addRowBut" zone="^"><button>${message:addrow-but}</button></t:actionlink>
+					<t:actionlink t:id="addavaliblesBut" zone="^"><button>${message:addavailable-but}</button></t:actionlink>
+				</t:if>
 			</t:if>
 		</t:zone>
 		<t:zone t:id="editZone" id="editZone" t:update="show">
@@ -195,10 +196,10 @@
 					</tr>
 					<tr>
 						<td>
-							<label>${message:direction-label}</label>
+							<label>${message:address-label}</label>
 						</td>
 						<td>
-							<t:textfield t:id="directionfield" t:value="profile.direction"/>
+							<t:textfield t:id="addressfield" t:value="profile.address"/>
 						</td>
 					</tr>
 					<tr>

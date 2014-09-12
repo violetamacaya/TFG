@@ -69,23 +69,53 @@ public class ManipulateFiles {
 					{
 						temp.setFirstName(eElement.getElementsByTagName("firstName").item(0).getTextContent());
 						temp.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
-						
+						temp.setPassword(PasswordGenerator.getPassword());
 						if(eElement.getElementsByTagName("email").getLength()!=0)
-							{temp.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
-							 temp.setPassword(eElement.getElementsByTagName("email").item(0).getTextContent());}
+							{
+								temp.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+							}
 						else 
 						{
-								temp.setEmail(eElement.getElementsByTagName("firstName").item(0).getTextContent()+"0@nomail.com");
-								temp.setPassword(eElement.getElementsByTagName("firstName").item(0).getTextContent()+"0@nomail.com");	
+								temp.setEmail(eElement.getElementsByTagName("firstName").item(0).getTextContent()+"0@nomail.com");	
 						}
-						if(eElement.getElementsByTagName("password").getLength()!=0)
-							{temp.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());}
 						if(eElement.getElementsByTagName("university").getLength()!=0)
 							{temp.setUniversity(eElement.getElementsByTagName("university").item(0).getTextContent());}
 						if(eElement.getElementsByTagName("city").getLength()!=0)
 							{temp.setCity(eElement.getElementsByTagName("city").item(0).getTextContent());}
 						if(eElement.getElementsByTagName("country").getLength()!=0)
 							{temp.setCountry(eElement.getElementsByTagName("country").item(0).getTextContent());}
+						if(eElement.getElementsByTagName("address").getLength()!=0)
+						{
+							temp.setAddress(eElement.getElementsByTagName("address").item(0).getTextContent());
+						}
+						if(eElement.getElementsByTagName("phone").getLength()!=0)
+						{
+							temp.setPhone(eElement.getElementsByTagName("phone").item(0).getTextContent());
+						}
+						if(eElement.getElementsByTagName("center").getLength()!=0)
+						{
+							temp.setCentro(eElement.getElementsByTagName("center").item(0).getTextContent());
+						}
+						if(eElement.getElementsByTagName("studies").getLength()!=0)
+						{
+							temp.setCarrera(eElement.getElementsByTagName("studies").item(0).getTextContent());
+						}
+						if(eElement.getElementsByTagName("dni").getLength()!=0)
+						{
+							temp.setDNI(eElement.getElementsByTagName("dni").item(0).getTextContent());
+						}
+						if(eElement.getElementsByTagName("Student").getLength()!=0)
+						{
+							String t=eElement.getElementsByTagName("address").item(0).getTextContent();
+							if(t.toLowerCase().equals("true") || t.toLowerCase().equals("si") || t.toLowerCase().equals("sí")|| t.toLowerCase().equals("yes"))
+							{
+								temp.setStudent(true);
+							}
+							else if(t.toLowerCase().equals("false") || t.toLowerCase().equals("no"))
+							{
+								temp.setStudent(false);
+							}
+						}
 						
 						
 						list.add(temp);

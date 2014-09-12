@@ -35,6 +35,9 @@ public interface BallotDao {
 	public void deleteBallotById(String id);
 	public void updateBallot(Ballot UpdatedBallot);
 	
+	public List<Ballot> getByExample(Ballot example);
+	public List<Ballot> getByExample(List<String> ids,Ballot example);
+	
 	public List<Ballot> getByIdCensus(String idCensus);
 	/*
 	public List<Ballot> getNotStartedBallots();

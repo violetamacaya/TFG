@@ -26,6 +26,8 @@
 											</t:if>
 										</p:else>
 								</t:if>
+								<span>${startDate}</span>
+								<span>${endDate}</span>
 								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
 								 <br/>
 							 </div>
@@ -50,7 +52,8 @@
 												</t:if>
 											</p:else>
 									</t:if>
-							
+								 <span>${startDate}</span>
+								 <span>${endDate}</span>
 								 <span>${metodo}&nbsp;&nbsp;&nbsp;</span><br/></div>	 
 							</t:loop>
 					</t:if>

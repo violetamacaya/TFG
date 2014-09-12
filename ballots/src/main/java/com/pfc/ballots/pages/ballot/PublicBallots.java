@@ -1,5 +1,6 @@
 package com.pfc.ballots.pages.ballot;
 
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -105,6 +106,16 @@ public class PublicBallots {
 			return "RANGE VOTING";
 		}
 		return null;
+	}
+	public String getStartDate()
+	{
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		return format.format(ballot.getStartDate());
+	}
+	public String getEndDate()
+	{
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		return format.format(ballot.getEndDate());
 	}
 	
 

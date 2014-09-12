@@ -191,10 +191,10 @@
 					</tr>
 					<tr>
 						<td>
-							<label>${message:direction-label}</label>
+							<label>${message:address-label}</label>
 						</td>
 						<td>
-							<t:textfield t:id="directionfield" t:value="editprof.direction"/>
+							<t:textfield t:id="addresssField" t:value="editprof.address"/>
 						</td>
 					</tr>
 					<tr>

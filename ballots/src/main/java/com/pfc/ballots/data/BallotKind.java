@@ -8,5 +8,5 @@ package com.pfc.ballots.data;
  */
 public enum BallotKind {
 
-	PUBLICA,PRIVADA,DOCENTE
+	PUBLICA,PRIVADA,SENSIBLE,DOCENTE
 }

@@ -14,7 +14,7 @@
 		
 		<t:zone t:id="userGridZone" id="userGridZone" t:update="show">	
 			<t:if test="!showSure">
-				<t:grid source="users" row="user" add="Edit,Delete,makeOwner" exclude="password,owner,lastlog">
+				<t:grid source="users" row="user" add="Edit,Delete,makeOwner" rowsperpage="15" inplace="true" exclude="password,owner,lastlog">
 					<p:adminCell>
 						<t:if test="user.admin">
 							<img src="${asset:context:/layout/tickv.png}" />
@@ -177,10 +177,10 @@
 					</tr>
 					<tr>
 						<td>
-							<label>${message:direction-label}</label>
+							<label>${message:address-label}</label>
 						</td>
 						<td>
-							<t:textfield t:id="directionfield" t:value="editprof.direction"/>
+							<t:textfield t:id="addressfield" t:value="editprof.address"/>
 						</td>
 					</tr>
 					<tr>

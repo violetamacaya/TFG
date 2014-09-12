@@ -73,10 +73,6 @@
 					 					<td><t:label for="lastName"/></td>
 					 					<td><t:textfield t:id="lastName"></t:textfield></td>
 					 			</tr>
-					 			<tr>
-					 					<td><t:label for="university"/></td>
-					 					<td><t:textfield t:id="university" value="profile.university"/></td>
-					 			</tr>
 						 		<tr>
 							 			<td><t:label for="city"/></td>
 							 			<td><t:textfield t:id="city" value="profile.city"/></td>

@@ -29,11 +29,11 @@
 				<tr><td>
 					<t:grid source="censuses" row="census" exclude="id,idowner" reorder="email" add="details,remove">
 						<p:detailscell>
-							<t:actionlink t:id="detailsbut" context="census.id"><button>${message:details-but}</button></t:actionlink>
+							<t:actionlink t:id="detailsbut" context="census.id"><img src="${asset:context:/layout/images/ojo.png}"/></t:actionlink>
 						</p:detailscell>
 						
 						<p:removecell>
-							<t:actionlink t:id="removebut" context="census.id" zone="^"><button>${message:remove-but}</button></t:actionlink>
+							<t:actionlink t:id="removebut" context="census.id" zone="^"><img src="${asset:context:/layout/tickx.png}"/></t:actionlink>
 						</p:removecell>
 						<p:empty>
 						</p:empty>

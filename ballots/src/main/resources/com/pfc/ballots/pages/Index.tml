@@ -89,7 +89,7 @@
 								</t:loop>
 					</t:if>
 					<t:if test="showPublicActive">
-						<h3>PUBLIC ${message:actives}</h3><hr/>
+						<h3>${message:public} ${message:actives}</h3><hr/>
 							 <t:loop t:source="publicActiveBallots" t:value="ballot">
 							 <div t:type="actionlink" t:id="votePublicBallot" t:context="ballot.id" class="indexRow">
 								<span> ${ballot.name}</span>
@@ -104,7 +104,7 @@
 					</t:if>
 					<t:if test="showPublicEnded">
 							
-							 <h3>PUBLIC ${message:ended}</h3><hr/>
+							 <h3>${message:public} ${message:ended}</h3><hr/>
 							 <t:loop t:source="publicEndedBallots" t:value="ballot">
 							 	 <div t:type="actionlink" t:id="resultPublicBallot" context="ballot.id" class="indexRow" >
 									<span>${ballot.name}</span>

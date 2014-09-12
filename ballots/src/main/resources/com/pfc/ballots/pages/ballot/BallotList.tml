@@ -13,22 +13,84 @@
 		</t:if>
 		
 		
-		<t:zone t:id="gridZone" id="gridZone" t:update="show">
-			<t:if test="showGrid">
+		<t:zone t:id="searchZone" id="searchZone" t:update="show">
+			<t:if test="showSearch">
+				<t:if test="showBasic">
+					<t:actionlink t:id="advancedBut" t:zone="^">${message:advanced}</t:actionlink>
+					<t:form t:id="basicForm" t:zone="^">
+						<table>
+							<tr>
+								<td><t:label for="emailf1"/></td>
+								<td><t:textfield t:id="emailf1" t:value="email"/></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input t:type="submit" value="${message:submit-but}"/></td>
+							</tr>
+						</table>
+						
+					</t:form>
+					
+					
+					<p:else>
+						<t:actionlink t:id="basicBut" t:zone="^">${message:basic}</t:actionlink>
+						<t:form t:id="advancedForm" t:zone="^">
+						<table>
+							<tr>
+								<td><t:label for="emailf2"/></td>
+								<td><t:textfield t:id="emailf2" t:value="email"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="namef"/></td>
+								<td><t:textfield t:id="namef" t:value="name"/></td>
+							</tr>
+							
+							<tr>
+								<td><t:label for="ballotKindSelect"/></td>
+								<td><t:select t:type="select" t:id="ballotKindSelect" value="kind" exclude="sensible" t:blankLabel="${message:choose}" t:zone="^"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="methodSelect"/></td>
+								<td><t:select t:type="select" t:id="methodSelect" value="method" t:blankLabel="${message:choose}" t:zone="^"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="startD"/></td>
+								<td><t:DateField t:id="startD" t:value="startDate"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="endD"/></td>
+								<td><t:DateField t:id="endD" t:value="endDate"/></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input t:type="submit" value="${message:submit-but}"/></td>
+							</tr>
+						</table>
+						
+					</t:form>
+					</p:else>
+				</t:if>
+			</t:if>
+		<hr/>
+		</t:zone>
+		
+		<t:zone t:id="gridZone" id="gridZone">
+			<t:if test="notemptyBallots">
+				<t:if test="showGrid">
 					<t:if test="showMine">
 							<t:actionlink t:id="mineBut" t:zone="^">${message:mine-ballots}</t:actionlink>
 						<p:else>
 							<t:actionlink t:id="allBut" t:zone="^">${message:all-ballots}</t:actionlink>
 						</p:else>
+					</t:if>
 				</t:if>
-			
-			
-			
+			</t:if>
+			<t:if test="showGrid">
 				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="vote,result,kind,addusers,finish,delete,maker,census"
 					rowsPerPage="15" inplace="true" reorder="maker,name,method,census" exclude="teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
 					<p:addusersCell>
 						<t:if test="showAdd">
-							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><button>${message:add-users}</button></t:actionlink>
+							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><img src="${asset:context:/layout/images/plusp.png}" /></t:actionlink>
 						</t:if>
 					</p:addusersCell>
 					<p:kindCell>
@@ -66,7 +128,7 @@
 					</p:censusCell>
 					<p:deleteCell>
 						<t:if test="myBallot">
-							<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><button>${message:delete-but}</button></t:actionLink>
+							<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><img src="${asset:context:/layout/tickx.png}" /></t:actionLink>
 						</t:if>
 					</p:deleteCell>
 					
@@ -74,22 +136,22 @@
 						<t:if test="myBallot">
 				
 							<t:if test="!ballot.ended">
-								<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><button>${message:finish-but}</button></t:actionLink>
+								<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><img src="${asset:context:/layout/images/finish.png}" /></t:actionLink>
 							</t:if>
 						</t:if>
 					</p:finishCell>
 					
 					<p:resultCell>
-						<t:actionlink t:id="resultBallot" t:context="ballot.id"><button>${message:result}</button></t:actionlink>
+						<t:actionlink t:id="resultBallot" t:context="ballot.id"><img src="${asset:context:/layout/images/results.png}" /></t:actionlink>
 					</p:resultCell>
 					<p:empty>
 					</p:empty>
 				</t:grid>
-				<t:actionlink t:id="addBallot"><img src="${asset:context:/layout/images/plus.png}" /></t:actionlink>
 				
+				
+			
+			<t:actionlink t:id="addBallot"><img src="${asset:context:/layout/images/plus.png}" /></t:actionlink>
 			</t:if>
-			
-			
 			
 		</t:zone>
 		

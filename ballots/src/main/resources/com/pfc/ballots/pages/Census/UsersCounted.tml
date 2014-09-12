@@ -46,7 +46,7 @@
 						</t:if>
 					</p:ownerCell>
 				</t:grid>
-				<t:actionlink t:id="editbut" t:zone="^"><button>${message:edit-but}</button></t:actionlink>
+				<t:actionlink t:id="editbut" t:zone="^"><img src="${asset:context:/layout/images/edit.png}"/></t:actionlink>
 			</t:if>
 		</t:zone>
 		<t:zone t:id="upperBackZone" id="upperBackZone" t:update="show">
@@ -143,10 +143,6 @@
 						<tr>
 			 					<td><t:label for="lastName"/></td>
 			 					<td><t:textfield t:id="lastName"></t:textfield></td>
-			 			</tr>
-			 			<tr>
-			 					<td><t:label for="university"/></td>
-			 					<td><t:textfield t:id="university" value="profile.university"/></td>
 			 			</tr>
 				 		<tr>
 					 			<td><t:label for="city"/></td>
