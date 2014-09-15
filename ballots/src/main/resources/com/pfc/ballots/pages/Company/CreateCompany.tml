@@ -15,13 +15,16 @@
 	   				<span class="error">${message:bad-security}</span>
 	   		</t:if>
 	   		<t:if test="isnotPassOk" >
-						<span class="error">${message:pass-not-match}</span>
-					</t:if>
-					<t:if test="isnotDBNameAvalible" >
-						<span class="error">${message:non-available-db}</span>	
-					</t:if>
+					<span class="error">${message:pass-not-match}</span>
+			</t:if>
+			<t:if test="isnotDBNameAvalible" >
+				<span class="error">${message:non-available-db}</span>	
+			</t:if>
+			<t:if test="badAlias">
+			  	<span class="error">${message:bad-alias}</span>
+			  </t:if>		
 		   
-	       <t:beaneditform t:id="form" submitlabel="${message:create-but}" object="company" reorder="active" add="password,repeat,firstName,LastName">
+	       <t:beaneditform t:id="form" submitlabel="${message:create-but}" object="company" reorder="active,companyName,DBName,alias" add="password,repeat,firstName,LastName">
 		       <p:CompanyName>
 		       		<t:label for="CompanyName"/>
 		       		<t:textfield t:id="CompanyName" value="company.CompanyName"/>
@@ -32,6 +35,7 @@
 						<t:if test="isBadName">
 			   				${message:badName}
 			  			</t:if>
+			  			
 		  			</span>
 		       </p:CompanyName>
 		       <p:DBName>

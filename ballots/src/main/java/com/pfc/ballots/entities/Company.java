@@ -24,6 +24,8 @@ public class Company {
 	private String idAdmin;
 	@Validate("required,minLength=5")
 	private String CompanyName;
+	@Validate("required,minLength=5")
+	private String alias;
 	@Validate("required,minLength=6")
 	private String DBName;
 	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
@@ -93,5 +95,11 @@ public class Company {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }

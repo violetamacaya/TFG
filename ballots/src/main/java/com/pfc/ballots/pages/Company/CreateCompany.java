@@ -55,7 +55,7 @@ public class CreateCompany {
 			company.setActive(true);
 			isnotFirstTime=true;
 		}
-		else if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible)
+		else if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible && !badAlias)
 		{
 			componentResources.discardPersistentFieldChanges();
 			profile=new Profile();
@@ -98,6 +98,9 @@ public class CreateCompany {
 		@Property 
 		@Persist(PersistenceConstants.FLASH)
 		private boolean badSecurity;
+		@Property 
+		@Persist(PersistenceConstants.FLASH)
+		private boolean badAlias;
 		
 		//FirstTime enter in the page
 		private boolean isnotFirstTime;
@@ -118,6 +121,10 @@ public class CreateCompany {
 		if(companyDao.isCompanyRegistred(company.getCompanyName()))
 		{
 			isnotCompanyNameAvalible=true;
+		}
+		if(companyDao.isAliasRegistred(company.getAlias()))
+		{
+			badAlias=true;
 		}
 		company.setDBName(company.getDBName()+".dat");
 		if(companyDao.isDBNameRegistred(company.getDBName()))
@@ -144,7 +151,7 @@ public class CreateCompany {
 		}
 		
 		//If all data are correct, store them in database
-		if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible && !isBadChar && !isBadName && !badSecurity)
+		if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible && !isBadChar && !isBadName && !badSecurity && !badAlias)
 		{
 			userDao=DB4O.getUsuarioDao(company.getDBName());
 			company.setId(UUID.generate());

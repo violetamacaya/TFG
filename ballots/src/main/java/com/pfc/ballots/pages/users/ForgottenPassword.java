@@ -72,9 +72,9 @@ public class ForgottenPassword {
 		String DBName=null;
 		if(!temp[temp.length-1].toLowerCase().equals("forgottenpassword"))
 		{
-			String companyName=temp[temp.length-1];
+			String alias=temp[temp.length-1];
 			companyDao=DB4O.getCompanyDao();
-			Company company=companyDao.getCompanyByName(companyName);
+			Company company=companyDao.getCompanyByAlias(alias);
 			if(company!=null)
 			{
 				DBName=company.getDBName();

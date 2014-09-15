@@ -59,7 +59,7 @@ public class LogIn {
 	private ComponentResources componentResources;
 	
 	@Persist
-	private String companyName;
+	private String alias;
 	
 	@Inject
 	PageRenderLinkSource linkSource;
@@ -87,16 +87,16 @@ public class LogIn {
 		String DBName=null;
 		if(!temp[temp.length-1].toLowerCase().equals("login"))
 		{
-			companyName=temp[temp.length-1];
+			alias=temp[temp.length-1];
 			companyDao=DB4O.getCompanyDao();
-			company=companyDao.getCompanyByName(companyName);
+			company=companyDao.getCompanyByAlias(alias);
 			if(company==null)
 			{
-				//System.out.println("NO EXISTE");
+				System.out.println("NO EXISTE");
 			}
 			else
 			{
-				//System.out.println("EXISTE");
+				System.out.println("EXISTE");
 				DBName=company.getDBName();
 				//System.out.println("DBName->"+DBName);
 			}
@@ -104,7 +104,7 @@ public class LogIn {
 		}
 		else
 		{
-			companyName=null;
+			alias=null;
 		}
 		userDao=DB4O.getUsuarioDao(DBName);
 		logDao=DB4O.getLogDao();
@@ -197,13 +197,13 @@ public class LogIn {
 		//Sin .toString() pasa la direccion, no la cadena
 		
 		Link link;
-		if(companyName==null)
+		if(alias==null)
 		{
 			link= linkSource.createPageRenderLink(ForgottenPassword.class);
 		}
 		else
 		{
-			link= linkSource.createPageRenderLinkWithContext(ForgottenPassword.class,companyName.toString());
+			link= linkSource.createPageRenderLinkWithContext(ForgottenPassword.class,alias.toString());
 		}
 		
 	    return link;

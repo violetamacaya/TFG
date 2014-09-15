@@ -138,6 +138,32 @@ public class CompanyDaoDB4O implements CompanyDao {
 		return list;
 		
 	}
+
+	public Company getCompanyByAlias(String alias)
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(Company.class);
+			query.descend("alias").constrain(alias).endsWith(false);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				return (Company)result.next();
+			}
+			return null;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return null;
+	}
 	//*************************************** Update  ******************************************//
 	/**
 	 * Updates a company
@@ -307,6 +333,32 @@ public class CompanyDaoDB4O implements CompanyDao {
 		}
 		return false;
 	}
+	public boolean isAliasRegistred(String alias)
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(Company.class);
+			query.descend("alias").constrain(alias).endsWith(false);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				return true;
+			}
+			return false;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return false;
+	}
+	
 	//*************************************Util (without open or close DB*************************//
 	/**
 	 * Checks if a companyName is in use

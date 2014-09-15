@@ -14,7 +14,7 @@
 		
 		<t:zone t:id="companyGridZone" id="companyGridZone" t:update="show">
 			<t:if test="!showMain">
-				<t:grid source="companies" row="company" add="edit,seeusers,addusers,deletecompany,addusersfile,ChangeActive" reorder="active">
+				<t:grid source="companies" row="company" add="edit,seeusers,addusers,deletecompany,addusersfile,ChangeActive" reorder="active,companyName,alias">
 					<p:activeCell>
 						<t:if test="company.active">
 							<img src="${asset:context:/layout/tickv.png}" />
@@ -46,9 +46,9 @@
 								<t:actionlink t:id="activateBut" context="company.companyName" zone="^"><button>${message:activate-but}</button></t:actionlink>
 							</t:if>
 					</p:changeActiveCell>
-					<p:else>
+					<p:empty>
 						<h4>${message:no-companies}</h4>
-					</p:else>
+					</p:empty>
 				</t:grid>
 			</t:if>
 		</t:zone>

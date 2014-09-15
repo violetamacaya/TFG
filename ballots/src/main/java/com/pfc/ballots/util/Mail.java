@@ -38,14 +38,35 @@ public class Mail {
 	{
 		 Properties props=new Properties();
 		 
+		String [] temp=emailEmisor.split("@");
+		String user;
+		
+		if(temp[1].equals("gmail.com"))
+		{	
 			// Nombre del host de correo, en este caso smtp.gmail.com
 			props.setProperty("mail.smtp.host", "smtp.gmail.com");
 
+			// Puerto de gmail para el envío de correos
+			props.setProperty("mail.smtp.port", "587");
+			
+			user=emailEmisor;
+		}
+		else
+		{
+			// Nombre del host de correo, en este caso smtp.gmail.com
+			props.setProperty("mail.smtp.host", "aida.usal.es");
+
+			// Puerto de gmail para el envío de correos
+			props.setProperty("mail.smtp.port", "25");
+			user=temp[0];
+			
+		}
+			
+			
 			// true or false si TLS está disponible
 			props.setProperty("mail.smtp.starttls.enable", "true");
 
-			// Puerto de gmail para el envío de correos
-			props.setProperty("mail.smtp.port", "587");
+			
 
 			// correo del emisor
 			props.setProperty("mail.smtp.user", emailEmisor);
@@ -58,6 +79,7 @@ public class Mail {
 			{
 				// Creamos nuestra sesión del correo
 				Session session = Session.getDefaultInstance(props);
+				//session.setDebug(true);
 
 				// Construimos el mensaje
 				MimeMessage message = new MimeMessage(session);
@@ -80,7 +102,7 @@ public class Mail {
 				Transport t = session.getTransport("smtp");
 	 
 				// Credenciales email emisor
-				t.connect(emailEmisor,passEmisor);
+				t.connect(user,passEmisor);
 				
 				// Enviamos el mensaje
 				t.sendMessage(message, message.getAllRecipients());
@@ -98,19 +120,28 @@ public class Mail {
 			
 		}
 		/**
-		 * Checks if is a gmail account
+		 * Checks if is a usal or gmail account
 		 * @param email to check
-		 * @return true if is a gmail account anf false if it isn't
+		 * @return true if is a usal or gmail account and false if it isn't
 		 */
 		public static boolean isValidEmail(String email)
 		{
-			String [] temp=email.split("@");
-			if(temp[1].equals("gmail.com"))
+			try
 			{
-				return true;
+				String [] temp=email.split("@");
+				if(temp[1].equals("gmail.com")|| temp[1].equals("usal.es")||temp[1].equals("inpo.usal.es"))
+				{
+					System.out.println("true");
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
-			else
+			catch(Exception e)
 			{
+				e.printStackTrace();
 				return false;
 			}
 		}
@@ -124,16 +155,36 @@ public class Mail {
 		{
 			if(isValidEmail(email))
 			{
+				System.out.println(email);
 				Properties properties=new Properties();
-				
-				// Nombre del host de correo, en este caso smtp.gmail.com
-				properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+				String [] temp=email.split("@");
+				String user;
+				if(temp[1].equals("gmail.com"))
+				{
+					System.out.println("GMAIL");
+					// Nombre del host de correo, en este caso smtp.gmail.com
+					properties.setProperty("mail.smtp.host", "smtp.gmail.com");
 
+					// Puerto de gmail para el envío de correos
+					properties.setProperty("mail.smtp.port", "587");
+					
+					user=email;
+				}
+				else
+				{
+					System.out.println("USAL");
+
+					// Nombre del host de correo, en este caso smtp.gmail.com
+					properties.setProperty("mail.smtp.host", "aida.usal.es");
+
+					// Puerto de gmail para el envío de correos
+					properties.setProperty("mail.smtp.port", "25");
+					user=temp[0];
+					
+				}
 				// true or false si TLS está disponible
 				properties.setProperty("mail.smtp.starttls.enable", "true");
 
-				// Puerto de gmail para el envío de correos
-				properties.setProperty("mail.smtp.port", "587");
 
 				// correo del emisor
 				properties.setProperty("mail.smtp.user", email);
@@ -144,20 +195,23 @@ public class Mail {
 
 					// Creamos nuestra sesión del correo
 					Session session = Session.getDefaultInstance(properties);
-
+					//session.setDebug(true);
 					// Para enviar el mensaje
 					Transport t = session.getTransport("smtp");
 		 
 					// Credenciales email emisor
-					t.connect(email,pass);
+					System.out.println("User->"+user+" pass->"+pass);
+					t.connect(user,pass);
 
 					// Cerramos la conexión
 					t.close();
 
 				} catch (Exception e) {
-					
+					System.out.println("INVALIDO");
 					return false;
+					
 				}
+				System.out.println("VALIDO");
 				return true;
 			}
 			else
@@ -177,16 +231,40 @@ public class Mail {
 			}
 			if(isValidEmail(emailAccount.getEmail()))
 			{
+				System.out.println(emailAccount.getEmail());
+				String [] temp=emailAccount.getEmail().split("@");
+				String user;
 				Properties properties=new Properties();
 				
-				// Nombre del host de correo, en este caso smtp.gmail.com
-				properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+				if(temp[1].equals("gmail.com"))
+				{	
+					System.out.println("GMAIL");
+
+					// Nombre del host de correo, en este caso smtp.gmail.com
+					properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+					// Puerto de gmail para el envío de correos
+					properties.setProperty("mail.smtp.port", "587");
+					
+					user=emailAccount.getEmail();
+				}
+				else
+				{
+					System.out.println("USAL");
+
+					// Nombre del host de correo, en este caso smtp.gmail.com
+					properties.setProperty("mail.smtp.host", "aida.usal.es");
+
+					// Puerto de gmail para el envío de correos
+					properties.setProperty("mail.smtp.port", "25");
+					user=temp[0];
+					
+				}
 
 				// true or false si TLS está disponible
 				properties.setProperty("mail.smtp.starttls.enable", "true");
 
-				// Puerto de gmail para el envío de correos
-				properties.setProperty("mail.smtp.port", "587");
+				
 
 				// correo del emisor
 				properties.setProperty("mail.smtp.user", emailAccount.getEmail());
@@ -197,25 +275,28 @@ public class Mail {
 
 					// Creamos nuestra sesión del correo
 					Session session = Session.getDefaultInstance(properties);
-
+					session.setDebug(true);
 					// Para enviar el mensaje
 					Transport t = session.getTransport("smtp");
 		 
 					// Credenciales email emisor
-					t.connect(emailAccount.getEmail(),emailAccount.getPassword());
+					System.out.println("User->"+user+" pass->"+emailAccount.getPassword());
+					t.connect(user,emailAccount.getPassword());
 
 					// Cerramos la conexión
 					t.close();
+					System.out.println("VALIDO");
 					return true;
 					
 				} catch (Exception e) {
-					
+					System.out.println("INVALIDO");
 					return false;
 				}
 			
 			}
 			else
 			{
+				System.out.println("INVALIDO");
 				return false;
 			}
 		}
