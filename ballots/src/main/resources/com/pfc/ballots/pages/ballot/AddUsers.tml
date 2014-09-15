@@ -198,9 +198,9 @@
 							<p:ownerCell>
 								<t:if test="user.owner">
 									<img src="${asset:context:/layout/tickv.png}" />
-								<p:else>
-									<img src="${asset:context:/layout/tickx.png}" />
-								</p:else>
+									<p:else>
+										<img src="${asset:context:/layout/tickx.png}" />
+									</p:else>
 								</t:if>
 							</p:ownerCell>
 							
@@ -212,7 +212,7 @@
 				</t:if>
 			
 			</t:zone>
-			<t:zone t:id="buttonsZone" id="buttonsZone"t:update="show">
+			<t:zone t:id="buttonsZone" id="buttonsZone" t:update="show">
 				<t:actionlink t:id="cancelBut"><button>${message:cancel-but}</button></t:actionlink>
 				<t:if test="showVoters">
 					<t:actionlink t:id="endBut"><button>${message:add-to-ballot}</button></t:actionlink>

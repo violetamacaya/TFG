@@ -935,7 +935,7 @@ public class CreateBallot {
 				 
 				 relativeMajorityDao.store(relativeMajority);
 				 ballotDao.store(ballot);
-				 return Index.class;
+				 return BallotWasCreated.class;
 			 }
 		 }
 		return null;
@@ -1104,7 +1104,7 @@ public class CreateBallot {
 			 
 			 kemenyDao.store(kemeny);
 			 ballotDao.store(ballot);
-			 return Index.class;
+			 return BallotWasCreated.class;
 			
 		}
 		return null;
@@ -1496,7 +1496,7 @@ public class CreateBallot {
 				 
 				 bordaDao.store(borda);
 				 ballotDao.store(ballot);
-				 return Index.class;
+				 return BallotWasCreated.class;
 				
 			}
 					
@@ -1775,7 +1775,7 @@ public class CreateBallot {
 			 
 			 rangeDao.store(range);
 			 ballotDao.store(ballot);
-			 return Index.class;
+			 return BallotWasCreated.class;
 		}
 		return null;
 	}

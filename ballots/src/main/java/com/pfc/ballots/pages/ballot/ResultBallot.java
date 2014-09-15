@@ -1,5 +1,8 @@
 package com.pfc.ballots.pages.ballot;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
@@ -190,8 +193,8 @@ public class ResultBallot {
 	
 		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
 		{
-			
-			for(String option:relMay.getOptions())
+			List<String> options=getRelMayOptions();
+			for(String option:options)
 			{
 				obj=new JSONObject();
 				obj.put("option", option);
@@ -204,7 +207,8 @@ public class ResultBallot {
 		}
 		if(ballot.getMethod()==Method.KEMENY)
 		{
-			for(String permutation:kemeny.getPermutations())
+			List<String> permutations=getKemenyPermutations();
+			for(String permutation:permutations)
 			{
 				obj=new JSONObject();
 				obj.put("option", permutation);
@@ -215,7 +219,8 @@ public class ResultBallot {
 		}
 		if(ballot.getMethod()==Method.BORDA)
 		{
-			for(String bordOpt:borda.getBordaOptions())
+			List<String> bordaOptions=getBordaOptions();
+			for(String bordOpt:bordaOptions)
 			{
 				obj=new JSONObject();
 				obj.put("option", bordOpt);
@@ -227,7 +232,8 @@ public class ResultBallot {
 		}
 		if(ballot.getMethod()==Method.RANGE_VOTING)
 		{
-			for(String rangeOption:range.getOptions())
+			List<String> rangeOptions=getRangeOptions();
+			for(String rangeOption:rangeOptions)
 			{
 				obj=new JSONObject();
 				obj.put("option", rangeOption);
@@ -257,6 +263,27 @@ public class ResultBallot {
 	{
 		return String.valueOf(relMay.getResultOption(option));
 	}
+	
+	public List<String> getRelMayOptions()
+	{
+		List<String> lista=relMay.getOptions();
+		
+		for(int i=0;i<lista.size()-1;i++)
+		{
+			for(int j=0;j<lista.size()-i-1;j++)
+			{
+				if(relMay.getResultOption(lista.get(j+1))>relMay.getResultOption(lista.get(j)))
+				{
+					String aux=lista.get(j+1);
+					lista.set(j+1, lista.get(j));
+					lista.set(j, aux);
+				}
+			}
+		}
+		
+		return lista;
+	}
+	
 	public boolean getShowRelMay()
 	{
 		if(ballot!=null && ballot.getMethod()==Method.MAYORIA_RELATIVA)
@@ -288,6 +315,27 @@ public class ResultBallot {
 			{return true;}
 		return false;
 	}
+	
+	public List<String> getKemenyPermutations()
+	{
+		List<String> lista=kemeny.getPermutations();
+	
+		for(int i=0;i<lista.size()-1;i++)
+		{
+			for(int j=0;j<lista.size()-i-1;j++)
+			{
+				if(kemeny.getResult(lista.get(j+1))>kemeny.getResult(lista.get(j)))
+				{
+					String aux=lista.get(j+1);
+					lista.set(j+1, lista.get(j));
+					lista.set(j, aux);
+				}
+			}
+		}
+		
+		return lista;
+	}
+	
 	public String getKemenyVote()
 	{
 		return String.valueOf(kemeny.getResult(permutation));
@@ -315,6 +363,27 @@ public class ResultBallot {
 			{return true;}
 		return false;
 	}
+	
+	public List<String> getBordaOptions()
+	{
+		List<String> lista=borda.getBordaOptions();
+		
+		for(int i=0;i<lista.size()-1;i++)
+		{
+			for(int j=0;j<lista.size()-i-1;j++)
+			{
+				if(borda.getResult(lista.get(j+1))>borda.getResult(lista.get(j)))
+				{
+					String aux=lista.get(j+1);
+					lista.set(j+1, lista.get(j));
+					lista.set(j, aux);
+				}
+			}
+		}
+		return lista;
+	}
+	
+	
 	public String getBordaVote()
 	{
 		return String.valueOf(borda.getResult(bordaOpt));
@@ -342,6 +411,27 @@ public class ResultBallot {
 			{return true;}
 		return false;
 	}
+	
+	
+	public List<String> getRangeOptions()
+	{
+		List<String> lista=range.getOptions();
+		for(int i=0;i<lista.size()-1;i++)
+		{
+			for(int j=0;j<lista.size()-i-1;j++)
+			{
+				if(range.getResult(lista.get(j+1))>range.getResult(lista.get(j)))
+				{
+					String aux=lista.get(j+1);
+					lista.set(j+1, lista.get(j));
+					lista.set(j, aux);
+				}
+			}
+		}
+		return lista;
+	}
+	
+	
 	public String getRangeVote()
 	{
 		return String.valueOf(range.getResult(rangeOpt));

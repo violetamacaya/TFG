@@ -39,7 +39,7 @@
 			</table>
 			<table border="1px">
 				<tr><th>${message:option}</th><th>${message:votes}</th></tr>
-				<t:loop t:source="relMay.options" t:value="option">
+				<t:loop t:source="relMayOptions" t:value="option">
 					<tr>
 						<td>${option}</td><td>${relMayVote}</td>
 					</tr>
@@ -57,7 +57,7 @@
 			</table>
 			<table border="1px">
 				<tr><th>${message:permutation}</th><th>${message:score}</th></tr>
-				<t:loop t:source="kemeny.permutations" t:value="permutation">
+				<t:loop t:source="kemenypermutations" t:value="permutation">
 					<tr>
 						<td>${permutation}</td><td>${kemenyVote}</td>
 					</tr>
@@ -74,7 +74,7 @@
 			</table>
 			<table border="1px">
 				<tr><th>${message:option}</th><th>${message:score}</th></tr>
-				<t:loop t:source="borda.bordaOptions" t:value="bordaOpt">
+				<t:loop t:source="bordaOptions" t:value="bordaOpt">
 					<tr>
 						<td>${bordaOpt}</td><td>${bordaVote}</td>
 					</tr>

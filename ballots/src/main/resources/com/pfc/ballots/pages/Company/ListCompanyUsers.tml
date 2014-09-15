@@ -49,9 +49,9 @@
 					</p:deleteCell>
 					<p:editCell>
 						<t:if test="!editing">
-							<t:if test="!owner">
+							
 								<t:actionlink t:id="editbut" context="user.id" zone="^"><button>${message:edit-but}</button></t:actionlink>
-							</t:if>
+							
 						</t:if>
 					</p:editCell>
 					<p:makeOwnercell>

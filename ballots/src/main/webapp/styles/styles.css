@@ -11,6 +11,10 @@ pagehead
 	padding: 2px;
 }
 
+TABLE.t-data-grid
+{
+	 overflow: scroll;
+}
 
 TABLE.t-data-grid THEAD TR TH
 {

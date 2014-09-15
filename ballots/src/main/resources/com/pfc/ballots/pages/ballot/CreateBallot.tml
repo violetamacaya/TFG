@@ -93,7 +93,7 @@
 									<td><t:textfield t:id="endHour"/>(hh:mm:ss)</td>
 								</tr>
 								<tr>
-									<td><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>${message:back-but}</button></t:eventlink></td>
+									<td></td>
 									<td><input t:type="submit" t:value="${message:next-but}"/></td>
 								</tr>
 								<p:else>
