@@ -78,7 +78,7 @@
 			<!-- ///////////////////////////////////////// RANGE VOTING /////////////////////////////////////////////// -->
 			
 			<t:if test="ShowRange">
-				${message:values-between} ${range.minValue} ${message:and} ${range.MaxValue} ${message:included} <br/>
+				${message:values-betwen} ${range.minValue} ${message:and} ${range.MaxValue} ${message:included} <br/>
 				<t:zone t:id="rangeZone">
 					
 					<t:form t:id="rangeForm" t:zone="^">

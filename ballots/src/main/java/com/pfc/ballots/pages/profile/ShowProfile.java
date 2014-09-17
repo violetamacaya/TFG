@@ -178,6 +178,10 @@ public class ShowProfile {
 	}
 	public String getFechaNac()
 	{
+		if(profile.getFechaNac()==null)
+		{
+			return "";
+		}
 		DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		return format.format(profile.getFechaNac());
 	}

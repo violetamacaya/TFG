@@ -484,6 +484,7 @@ public class CreateBallot {
 	 */
 	public void onSuccessFromTypeForm()
 	{
+		showBadName=false;
 		if(request.isXHR())
 		{
 			if(ballotName==null|| description==null)
@@ -927,8 +928,8 @@ public class CreateBallot {
 					 }
 					 if(!creatorInCensus)
 					 {
-						 voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-						 this.sendMail(datasession.getId(), ballot);
+						// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+						 //this.sendMail(datasession.getId(), ballot);
 					 }
 					 
 				 }
@@ -1096,8 +1097,8 @@ public class CreateBallot {
 				 }
 				 if(!creatorInCensus)
 				 {
-					 voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-					 this.sendMail(datasession.getId(),ballot);
+					// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+					// this.sendMail(datasession.getId(),ballot);
 				 }
 				 
 			 }
@@ -1488,8 +1489,8 @@ public class CreateBallot {
 					 }
 					 if(!creatorInCensus)
 					 {
-						 voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-						 this.sendMail(datasession.getId(),ballot);
+						// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+						 //this.sendMail(datasession.getId(),ballot);
 					 }
 					 
 				 }
@@ -1767,8 +1768,8 @@ public class CreateBallot {
 				 }
 				 if(!creatorInCensus)
 				 {
-					 voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-					 this.sendMail(datasession.getId(),ballot);
+					// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+					// this.sendMail(datasession.getId(),ballot);
 				 }
 				 
 			 }

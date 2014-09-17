@@ -7,8 +7,11 @@ import java.util.Map;
 import com.Calculo.CalcKemeny;
 import com.Calculo.CalcRangeVoting;
 /**
+ * RangeVoting entity that contains the information of specific information
+ * for a Range Voting ballot
  * 
- * @author mario
+ * @author Mario Temprano Martin
+ * @version 1.0 SEP-2014
  *
  */
 public class RangeVoting {
@@ -135,7 +138,7 @@ public class RangeVoting {
 	}
 	/**
 	 * if a ballot is counted, retrieve the result
-	 * @param permutation
+	 * @param option
 	 * @return
 	 */
 	public int getResult(String option)

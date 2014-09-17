@@ -555,6 +555,7 @@ div .row
 
 div .indexRow
 {
+	text-align: center;
 	display: block;
 	background-color: white;
 	min-height: 30px;
@@ -575,6 +576,22 @@ div .indexRow:hover
 display: inline-block;
 width: 20%;
 color: black;
+}
+
+div .indexHead
+{
+	display: block;
+	text-align: center;
+	margin-bottom: 4px;
+	margin-top: -15px;
+	
+}
+div .indexHead>span
+{
+display: inline-block;
+width: 20%;
+color: #B91A1F;
+	
 }
 
 div .row span

@@ -11,6 +11,13 @@
 				</t:if>
 				<t:if test="showPublicActive">
 						<h3>${message:actives}</h3><hr/>
+						<div class="indexHead">
+							<span>${message:title}</span>
+							<span>${message:kind}</span>
+							<span>${message:startDate}</span>
+							<span>${message:endDate}</span>
+							<span>${message:method}</span>
+						</div>
 							 <t:loop t:source="publicActiveBallots" t:value="ballot">
 							 <div t:type="actionlink" t:id="votePublicBallot" t:context="ballot.id" class="indexRow">
 								<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -37,6 +44,13 @@
 					<t:if test="showPublicEnded">
 							
 							 <h3>${message:ended}</h3><hr/>
+							 <div class="indexHead">
+							<span>${message:title}</span>
+							<span>${message:kind}</span>
+							<span>${message:startDate}</span>
+							<span>${message:endDate}</span>
+							<span>${message:method}</span>
+						</div>
 							 <t:loop t:source="publicEndedBallots" t:value="ballot">
 							 	 <div t:type="actionlink" t:id="resultPublicBallot" context="ballot.id" class="indexRow" >
 									<span>${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>

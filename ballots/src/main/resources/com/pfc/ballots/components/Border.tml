@@ -33,7 +33,7 @@
 			 -->
 			<t:if test="!loged">		
 				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:LogIn" ><plain>${message:login}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>${message:company-login}</plain></t:eventlink></li>
+				<!-- <li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>${message:company-login}</plain></t:eventlink></li> -->
 			</t:if>
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:contact" ><plain>${message:contact}</plain></t:eventlink></li>	
 			
@@ -50,9 +50,8 @@
 	<ul class="leftcolumn" id="myMenu">
 		<h2>${message:my-menu}</h2><br/>
 		<li><t:eventlink t:event="menu" t:context="literal:my-profile"><plain>${message:my-profile}</plain></t:eventlink></li>
-		
+		<li><t:eventlink t:event="menu" t:context="literal:my-ballots"><plain>${message:ballots-by-me}</plain></t:eventlink></li>
 		<t:if test="maker">
-			<li><t:eventlink t:event="menu" t:context="literal:my-ballots"><plain>${message:ballots-by-me}</plain></t:eventlink></li>
 			<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:censusz"><plain>${message:census}</plain></t:eventlink></li>
 		</t:if>
 		
@@ -87,7 +86,7 @@
 				</t:if>
 			</t:zone>
 			
-		<t:if test="maker">
+		<t:if test="admin">
 			<li><t:eventlink t:event="menu" t:context="literal:ballotz" t:zone="ballotZone"><plain>${message:ballot-admin}</plain></t:eventlink></li>
 		</t:if>
 		

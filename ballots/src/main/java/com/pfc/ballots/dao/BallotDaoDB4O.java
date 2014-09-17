@@ -120,7 +120,10 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return null;
 	}
-
+    /**
+     * Returns the ballot with the idCensus param
+     * @param String idCensus
+     */
 	public List<String> getIdByCensusId(String idCensus)
 	{
 		List<String> list=new LinkedList<String>();
@@ -190,7 +193,10 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 	}
 	
-	
+	/**
+	 * Retrieves the ballots that match with the param example
+	 * @param Ballot example
+	 */
 	public List<Ballot> getByExample(Ballot example)
 	{
 		open();
@@ -260,6 +266,11 @@ public class BallotDaoDB4O implements BallotDao{
 		}
 		return list;
 	}
+	/**
+	 * Retrieves the ballots whose ids are in the list and match the example
+	 * @param List<String> ids
+	 * @param Ballot example
+	 */
 	public List<Ballot> getByExample(List<String> ids,Ballot example)
 	{
 		
@@ -402,6 +413,7 @@ public class BallotDaoDB4O implements BallotDao{
 		return list;
 	}
 	
+	
 	public List<Ballot> getById(List<String> ids,List<Ballot> nonActive,List<Ballot> active,List<Ballot> ended,int num)
 	{
 		open();
@@ -413,10 +425,10 @@ public class BallotDaoDB4O implements BallotDao{
 			int n=0;
 			int a=0;
 			int e=0;
-			System.out.println("ids SIZE"+ids.size());
+			
 			for(int i=ids.size()-1;i>=0;i--)
 			{
-				System.out.println("I="+i);
+				
 				temp.setId(ids.get(i));
 				ObjectSet result=DB.queryByExample(temp);
 				if(result.hasNext())
@@ -469,6 +481,9 @@ public class BallotDaoDB4O implements BallotDao{
 		return list;
 	
 	}
+	/**
+	 * Retrieves the public ballots
+	 */
 	 public List<Ballot> getPublics(){
 			open();
 			List<Ballot> list=new LinkedList<Ballot>();

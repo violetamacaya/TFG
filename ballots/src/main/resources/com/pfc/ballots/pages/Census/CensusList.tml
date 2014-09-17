@@ -15,9 +15,9 @@
 			<p:detailscell>
 				<t:actionlink t:id="detailsbut" context="census.id"><img src="${asset:context:/layout/images/ojo.png}"/></t:actionlink>
 			</p:detailscell>
-			<p:else>
+			<p:empty>
 				<h4>${message:no-census}</h4>
-			</p:else>
+			</p:empty>
 		</t:grid>
 		
 	</div></t:border>

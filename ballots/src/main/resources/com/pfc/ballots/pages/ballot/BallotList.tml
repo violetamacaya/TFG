@@ -148,9 +148,9 @@
 					</p:empty>
 				</t:grid>
 				
-				
-			<t:actionlink t:id="addBallot"><img src="${asset:context:/layout/images/plus.png}" /></t:actionlink>
-			
+			<t:if test="canMake">
+				<t:actionlink t:id="addBallot"><img src="${asset:context:/layout/images/plus.png}" /></t:actionlink>
+			</t:if>
 			</t:if>
 			
 		</t:zone>

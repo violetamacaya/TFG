@@ -25,10 +25,10 @@ public class Mail {
 	
 	
 	/**
-	 * Sends an email with an gmail account
+	 * Sends an email with an usal account
 	 * 
-	 * @param emailEmisor of the gmail account
-	 * @param passEmisor of the gmail account
+	 * @param emailEmisor of the usal account
+	 * @param passEmisor of the usal account
 	 * @param emailReceptor of the receptor of the mail
 	 * @param asunto subject of the mail
 	 * @param mensaje message of the mail
@@ -39,37 +39,21 @@ public class Mail {
 		 Properties props=new Properties();
 		 
 		String [] temp=emailEmisor.split("@");
-		String user;
+		String user=temp[0];
 		
-		if(temp[1].equals("gmail.com"))
-		{	
-			// Nombre del host de correo, en este caso smtp.gmail.com
-			props.setProperty("mail.smtp.host", "smtp.gmail.com");
-
-			// Puerto de gmail para el envío de correos
-			props.setProperty("mail.smtp.port", "587");
-			
-			user=emailEmisor;
-		}
-		else
-		{
-			// Nombre del host de correo, en este caso smtp.gmail.com
+		
+			// Nombre del host de correo, en este caso aida.usal.es
 			props.setProperty("mail.smtp.host", "aida.usal.es");
-
-			// Puerto de gmail para el envío de correos
+			// true or false si TLS está disponible
+			
+			props.setProperty("mail.smtp.starttls.enable", "true");
+			// Puerto de usal para el envío de correos
+			
 			props.setProperty("mail.smtp.port", "25");
 			user=temp[0];
 			
-		}
-			
-			
-			// true or false si TLS está disponible
-			props.setProperty("mail.smtp.starttls.enable", "true");
-
-			
-
 			// correo del emisor
-			props.setProperty("mail.smtp.user", emailEmisor);
+			props.setProperty("mail.smtp.user", user);
 
 			// Si requiere o no usuario y password para conectarse.
 			props.setProperty("mail.smtp.auth", "true");
@@ -85,8 +69,8 @@ public class Mail {
 				MimeMessage message = new MimeMessage(session);
 
 				// Emisor
-				message.setFrom(new InternetAddress(emailEmisor));
-
+				message.setFrom(new InternetAddress(user));
+                System.out.println("EMAIL RECEPTOR->"+emailReceptor);
 				// Receptor
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailReceptor));
 
@@ -113,23 +97,24 @@ public class Mail {
 			}
 			catch (Exception e)
 			{	
+				System.out.println("NO SE PUDO");
 				return false;
 			}
-
+			System.out.println("SI");
 			return true;	
 			
 		}
 		/**
-		 * Checks if is a usal or gmail account
+		 * Checks if is a usal or usal account
 		 * @param email to check
-		 * @return true if is a usal or gmail account and false if it isn't
+		 * @return true if is a usal  account and false if it isn't
 		 */
 		public static boolean isValidEmail(String email)
 		{
 			try
 			{
 				String [] temp=email.split("@");
-				if(temp[1].equals("gmail.com")|| temp[1].equals("usal.es")||temp[1].equals("inpo.usal.es"))
+				if(temp[1].equals("usal.es")||temp[1].equals("inpo.usal.es"))
 				{
 					System.out.println("true");
 					return true;
@@ -159,29 +144,16 @@ public class Mail {
 				Properties properties=new Properties();
 				String [] temp=email.split("@");
 				String user;
-				if(temp[1].equals("gmail.com"))
-				{
-					System.out.println("GMAIL");
-					// Nombre del host de correo, en este caso smtp.gmail.com
-					properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+				
 
-					// Puerto de gmail para el envío de correos
-					properties.setProperty("mail.smtp.port", "587");
-					
-					user=email;
-				}
-				else
-				{
-					System.out.println("USAL");
-
-					// Nombre del host de correo, en este caso smtp.gmail.com
+					// Nombre del host de correo, en este caso aida.usal.es
 					properties.setProperty("mail.smtp.host", "aida.usal.es");
 
-					// Puerto de gmail para el envío de correos
+					// Puerto de usal para el envío de correos
 					properties.setProperty("mail.smtp.port", "25");
 					user=temp[0];
 					
-				}
+				
 				// true or false si TLS está disponible
 				properties.setProperty("mail.smtp.starttls.enable", "true");
 
@@ -236,30 +208,14 @@ public class Mail {
 				String user;
 				Properties properties=new Properties();
 				
-				if(temp[1].equals("gmail.com"))
-				{	
-					System.out.println("GMAIL");
 
-					// Nombre del host de correo, en este caso smtp.gmail.com
-					properties.setProperty("mail.smtp.host", "smtp.gmail.com");
-
-					// Puerto de gmail para el envío de correos
-					properties.setProperty("mail.smtp.port", "587");
-					
-					user=emailAccount.getEmail();
-				}
-				else
-				{
-					System.out.println("USAL");
-
-					// Nombre del host de correo, en este caso smtp.gmail.com
 					properties.setProperty("mail.smtp.host", "aida.usal.es");
 
-					// Puerto de gmail para el envío de correos
+					// Puerto de usal para el envío de correos
 					properties.setProperty("mail.smtp.port", "25");
-					user=temp[0];
 					
-				}
+					user=temp[0];
+			
 
 				// true or false si TLS está disponible
 				properties.setProperty("mail.smtp.starttls.enable", "true");
