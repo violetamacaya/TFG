@@ -56,8 +56,8 @@ public class Profile {
 	@Validate("required")
 	private String lastName;
 	private String university;
-	private String city;
-	private String country;
+	//private String city;
+	//private String country;
 	
 	
 	public String getId()
