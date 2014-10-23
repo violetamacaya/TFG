@@ -11,7 +11,7 @@
 		
 		<div id="lenguages">
 			
-			<t:actionlink t:id="switchlocale"><img src="${asset:context:/layout/flag.gif}" /><span>${message:localeLabel}</span></t:actionlink>
+			<t:actionlink t:id="switchlocale"><img src="${asset:context:/layout/flag.gif}" /></t:actionlink>
 		</div>
 			
 		<ul id="mainMenu">

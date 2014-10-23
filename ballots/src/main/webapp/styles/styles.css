@@ -1,9 +1,9 @@
 pagehead
 {
 	display: block;
-	/*width:99%;*/
-	background: repeat-x, #B91A1F;
+	background: #729fcf;
 	height: 168px;
+	color: black;
 	margin-top: -8px;
 	margin-right: -8px;
 	margin-left: 2px;
@@ -18,7 +18,7 @@ TABLE.t-data-grid
 
 TABLE.t-data-grid THEAD TR TH
 {
-	background: #8c1116;
+	background: #204a87;
 	
 }
 TABLE.t-data-grid TD
@@ -58,7 +58,6 @@ label .contactrow
 #contact
 {
 	margin-top: 10px;
-	
 }
 
 
@@ -86,12 +85,10 @@ boldstuff
 	
 }
 
-
 div#lenguages
 {
 	display: inline;
 	padding: 2px 6px 2px;
-	border: solid 1px #8c1116;
 	margin-right:3px;
 	margin-top: -2px;
 	margin-bottom: 4px;
@@ -140,7 +137,7 @@ div#lenguages>a{
 	/*width: 900px;*/
 	height: 35px;
 	padding: 0px;
-	margin-left: auto;
+	margin-left: -100px;
 	margin-right:auto;
 	
 	min-width: 900px;
@@ -162,25 +159,27 @@ div#lenguages>a{
 
 #mainmenu li a plain
 {
-	display: inline;
-	font-family: Arial;
-	font-size:11px;
+	-webkit-box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
+	box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
+	border-radius: 8px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	padding: 8px 22px;
 	text-decoration: none;
-	padding: 10px;
-	background-color: #8c1116;
-	color: #fff;
-	border: solid #F5F5F5 1px;
-	margin-top: 20px;
+	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
+	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
 	/*max-width: 20%;*/
 }
 
 #mainmenu li a:hover plain
 {
-	background-color: #F5F5F5;
+	background-color: #09c0e2;
 	color: black;
 	margin-top:-2px;
 	padding-bottom:12px;
-	border: solid #B91A1F 1px;
+	border: solid #204a87 1px;
 }
 
 #mainmenu li plain
@@ -244,7 +243,7 @@ text-decoration: none;
 	text-decoration: none;
 	float:left;
 	padding: 10px;
-	background-color: #8c1116;
+	background-color: #204a87;
 	color: #fff;
 	margin-top: none;
 	margin-bottom: none;
@@ -396,7 +395,7 @@ infoUser
 }
 infoUser>h1
 {
-color:#8c1116;
+color:#204a87;
 }
 notbeandisplay left
 {
@@ -497,7 +496,7 @@ h1
 
 h2
 {
-	color: #8c1116;
+	color: #204a87;
 	margin-top: 10px;
 	margin-bottom:-3px;
 	text-align: center;
@@ -639,17 +638,17 @@ div.outtst div.t-zone
 
 #CreateCensusDiv>h1
 {
-	color:#8c1116;
+	color:#204a87;
 	margin-left:0px;
 }
 #CreateCensusDiv>h2
 {
-	color:#8c1116;
+	color:#204a87;
 	margin-left:0px;
 }
 #CreateCensusDiv>h3
 {
-	color:#8c1116;
+	color:#204a87;
 	margin-left:0px;
 }
 
@@ -661,12 +660,12 @@ div.outtst div.t-zone
 
 #CreateballotDiv>h1
 {
-	color:#8c1116;
+	color:#204a87;
 	margin-left:0px;
 }
 #CreateballotDiv>h4
 {
-	color:#8c1116;
+	color:#204a87;
 	margin-left:0px;
 }
 
@@ -712,16 +711,16 @@ div.outtst div.t-zone
 
 #resultballotDiv h1 
 {
-	color: #8c1116;
+	color: #204a87;
 }
 #showprofileDiv h1
 {
-	color: #8c1116;
+	color: #204a87;
 }
 
 #ballotlistDiv h1
 {
-	color: #8c1116;
+	color: #204a87;
 }
 hr
 {
@@ -729,61 +728,61 @@ hr
 }
 #censuslistDiv h1
 {
-	color: #8c1116;
+	color: #204a87;
 }
 #userlistDiv h1
 {
-	color:#8c1116; 
+	color:#204a87; 
 }
 #companyDiv h1
 {
-	color:#8c1116; 
+	color:#204a87; 
 }
 #adminmailDiv h1
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 #contactDiv h1
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 #indexDiv h1 
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 #indexDiv h3 
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 
 #addToBallotDiv h1
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 #addToBallotDiv h2
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 #addToBallotDiv h3
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 #voteDiv h1
 {
 	margin-left:0px;
-	color:#8c1116;	
+	color:#204a87;	
 }
 #voteDiv h2
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 #voteDiv h3
 {
-	color:#8c1116;	
+	color:#204a87;	
 }
 div#showProfile h1 
 {
-	color:#8c1116;
+	color:#204a87;
 }
 div#showProfile img
 {
