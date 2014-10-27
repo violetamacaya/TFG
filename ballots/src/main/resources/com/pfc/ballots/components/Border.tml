@@ -109,7 +109,7 @@
 				</t:zone>
 		
 		<t:if test="mainAdmin">
-			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>${message:email-admin}</plain></t:eventLink></li>
+			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>${message:configure}</plain></t:eventLink></li>
 		</t:if>	
 		
 		
