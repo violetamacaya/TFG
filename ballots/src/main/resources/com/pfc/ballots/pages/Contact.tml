@@ -40,8 +40,8 @@
 							<td><t:textfield t:id="captchaValue"/></td>
 						</tr>
 					
-						<tr>
-							<td><input t:type="submit" value="${message:send}"/></td>
+						<tr id="boton-enviar">
+							<td><input t:type="submit" value="${message:send}" class="boton"/></td>
 						</tr>
 					
 					</table>

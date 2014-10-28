@@ -41,7 +41,13 @@ div .textarea
 	width: 500px;
 	height: 200px;
 }
-
+#administration-menu{
+	
+	float: inherit;
+	padding-bottom: 10;
+	margin-left: 8;
+	
+}
 #publicballotszoneid
 {
 	margin-top: 20px;
@@ -58,8 +64,13 @@ label .contactrow
 #contact
 {
 	margin-top: 10px;
+	padding-left: 20px;
 }
-
+#boton-enviar{
+	left: 100px;
+	position: absolute;
+	
+}
 
 #footer {
  clear: both;
@@ -237,30 +248,27 @@ body .leftcolumn
 
 #mymenu li a plain
 {
-text-decoration: none;
-	font-family: Arial;
-	font-size:11px;
+	border-radius: 8px;
+	border: solid #ffffff 1px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	padding: 8px 10px;
 	text-decoration: none;
-	float:left;
-	padding: 10px;
-	background-color: #204a87;
-	color: #fff;
-	margin-top: none;
-	margin-bottom: none;
-	width: 100%;
-	border: solid #D9DADB 1px;
+	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
+	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
+	font-family: Arial;
+    font-size: 11px;
 }
 
 #mymenu li a:hover plain
 {
-text-decoration: none;
-	background-color: #B91A1F;
-	padding-bottom:12px;
-	margin-top: none;
-	margin-bottom: none;
-	width: 100%;
-	float: left;
-	border: solid #B91A1F 1px;
+	background-color: #09c0e2;
+	color: black;
+	margin-top:-2px;
+	padding-bottom:10px;
+	border: solid #204a87 1px;
 }
 
 #mymenu li a
@@ -270,16 +278,8 @@ text-decoration: none;
 
 #mymenu plain
 {
-text-decoration: none;
-	font-family: Arial;
-	font-size:11px;
-	text-decoration: none;
-	float:left;
-	padding: 10px;
-	background-color: #B91A1F;
-	color: #fff;
 	width: 100%;
-	border: solid #F5F5F5 1px;
+
 }
 
 /**********************************************/
@@ -291,44 +291,33 @@ text-decoration: none;
 }
 #mymenu li a plain2
 {
+	
+	border-radius: 8px;
+	border: solid #ffffff 1px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	padding: 8px 10px;
 	text-decoration: none;
+	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
+	background: linear-gradient(#729fcf 10%, #1675D4 80%) rgb(115, 218, 255);
 	font-family: Arial;
-	font-size:11px;
-	text-decoration: none;
-	float:left;
-	padding: 10px;
+    font-size: 11px;
+	margin-left:10px;
 	background-color: #1675D4;
-	color: #fff;
-	margin-top: none;
-	margin-bottom: none;
-	width: 100%;
-	border: solid #D9DADB 1px;
+	width: 126px;
+
 }
 #mymenu li a:hover plain2
 {
-	text-decoration: none;
-	background-color: #0B4885;
-	padding-bottom:12px;
-	margin-top: none;
-	margin-bottom: none;
-	width: 100%;
-	float: left;
-	border: solid #B91A1F 1px;
+	background-color: #09c0e2;
+	color: black;
+	margin-top:-2px;
+	padding-bottom:10px;
+	border: solid #204a87 1px;
 }
 
-#mymenu plain2
-{
-	
-	font-family: Arial;
-	font-size:11px;
-	text-decoration: none;
-	float:left;
-	padding: 10px;
-	background-color: #1675D4;
-	color: #fff;
-	width: 100%;
-	border: solid #F5F5F5 1px;
-}
 
 
 /***************************************/
@@ -336,18 +325,13 @@ text-decoration: none;
 mainposition
 {
 	display: block;
-	width: 80%;
-	/*float: right;*/
-	float: left;
+	width: 100%;
 	position: absolute;
-	left: 240px;
-	
-	margin-left: 10px;
-	margin-right: 10px;
+	left: 180px;	
 	margin-top: 50px;
 	padding-top: 10px;
 	padding-bottom: 100px;
-	padding-left: 19px;
+	padding-left: 30px;
 }
 
 
@@ -393,9 +377,14 @@ infoUser
 	padding-bottom: 4px;
 	width: 83%;
 }
+
 infoUser>h1
 {
 color:#204a87;
+}
+#userDataZone, #changePassZone, #areuSureZone, #updateProfileZone{
+	padding-left: 20px;
+	padding-right: 20px;
 }
 notbeandisplay left
 {
@@ -486,13 +475,10 @@ body
 h1
 {
 	margin-top: 10px;
-	margin-left: 27px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 20pt;
 	font-weight: bold;
-	/*color: #204060;*/
-	color: black;
-}
+	color: rgb(32, 74, 135);}
 
 h2
 {
@@ -789,4 +775,81 @@ div#showProfile img
 	float: right;
 	margin-top: -22px;
 	margin-right: 6px
+}
+.boton{
+	-webkit-box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
+	border-radius: 8px;
+	border: solid #ffffff 1px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	padding: 8px 10px;
+	text-decoration: none;
+	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
+	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
+	font-family: Arial;
+    font-size: 11px;
+}
+
+.boton:hover
+{
+	background-color: #09c0e2;
+	color: black;
+	margin-top:-2px;
+	padding-bottom:10px;
+	border: solid #204a87 1px;
+}
+
+.boton:active {
+	position:relative;
+}
+button{
+	-webkit-box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
+	border-radius: 8px;
+	border: solid #ffffff 1px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	padding: 8px 10px;
+	text-decoration: none;
+	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
+	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
+	font-family: Arial;
+    font-size: 11px;
+}
+
+button:hover
+{
+	background-color: #09c0e2;
+	color: black;
+	margin-top:-2px;
+	padding-bottom:10px;
+	border: solid #204a87 1px;
+}
+
+button:active {
+	position:relative;
+}	
+.editar{
+	position: absolute;
+}
+#cambioPass{
+	height: 30px;
+}
+#searchZone a, #mostrarVotaciones a{
+	color: rgb(32, 74, 135);
+	text-decoration: underline;
+	font-size: 14pt;
+	
+}
+#searchZone, #gridZone, #areuSureZone{
+	margin-left: 20px;
+	margin-right:20px;
+	width: 1050px;
+}
+#ballotlistDiv{
+	width:1070px;
+	margin-left: 20px;
 }

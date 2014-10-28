@@ -16,7 +16,7 @@
 		<t:zone t:id="searchZone" id="searchZone" t:update="show">
 			<t:if test="showSearch">
 				<t:if test="showBasic">
-					<t:actionlink t:id="advancedBut" t:zone="^">${message:advanced}</t:actionlink>
+					<t:actionlink t:id="advancedBut" t:zone="^">${message:advanced}</t:actionlink> <br/><br/>
 					<t:form t:id="basicForm" t:zone="^">
 						<table>
 							<tr>
@@ -25,7 +25,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><input t:type="submit" value="${message:submit-but}"/></td>
+								<td><input class="boton" t:type="submit" value="${message:submit-but}"/></td>
 							</tr>
 						</table>
 						
@@ -63,7 +63,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><input t:type="submit" value="${message:submit-but}"/></td>
+								<td><input t:type="submit" class="boton" value="${message:submit-but}"/></td>
 							</tr>
 						</table>
 						
@@ -77,12 +77,14 @@
 		<t:zone t:id="gridZone" id="gridZone">
 			<t:if test="notemptyBallots">
 				<t:if test="showGrid">
+					<div id="mostrarVotaciones">
 					<t:if test="showMine">
-							<t:actionlink t:id="mineBut" t:zone="^">${message:mine-ballots}</t:actionlink>
+							<t:actionlink t:id="mineBut" t:zone="^">${message:mine-ballots}</t:actionlink><br/><br/>
 						<p:else>
-							<t:actionlink t:id="allBut" t:zone="^">${message:all-ballots}</t:actionlink>
+							<t:actionlink t:id="allBut" t:zone="^">${message:all-ballots}</t:actionlink><br/><br/>
 						</p:else>
 					</t:if>
+					</div>
 				</t:if>
 			</t:if>
 			<t:if test="showGrid">
@@ -150,6 +152,7 @@
 				
 			<t:if test="canMake">
 				<t:actionlink t:id="addBallot"><img src="${asset:context:/layout/images/plus.png}" /></t:actionlink>
+				${message:newBallot}
 			</t:if>
 			</t:if>
 			

@@ -88,15 +88,15 @@
 						<td>${profile.centro}</td>
 					</tr>
 					
-					<tr>
+					<tr id="cambioPass">
 						<td>${message:change-pass}</td>
-						<td><t:actionlink t:id="changePass" zone="^"><button>${message:change-but}</button></t:actionlink></td>
+						<td><t:actionlink t:id="changePass" zone="^"><img src="${asset:context:/layout/images/edit.png}" class="editar"  /></t:actionlink></td>
 					</tr>
 					
 					<t:if test="mainOwner">
-						<tr>
+						<tr id="cambioPass">
 							<td>${message:change-owner}</td>
-							<td><t:pageLink page="admin/changePrincipalOwner"><button>${message:change-but}</button></t:pageLink></td>
+							<td><t:pageLink page="admin/changePrincipalOwner"><img src="${asset:context:/layout/images/edit.png}" class="editar" /></t:pageLink></td>
 						</tr>
 					</t:if>
 				</table>
@@ -112,8 +112,8 @@
 		<t:if test="showSure">
 		<h1>${message:delete-profile}</h1><hr/>
 			${message:areuSure}<br/><br/>
-			<t:actionlink t:id="yesSureBut"><button>${message:yesSure}</button></t:actionlink>
-			<t:actionlink t:id="notSureBut" t:zone="^"><button>No</button></t:actionlink>
+			<t:actionlink t:id="yesSureBut" class="boton"><button>${message:yesSure}</button></t:actionlink>
+			<t:actionlink t:id="notSureBut" t:zone="^" class="boton"><button>No</button></t:actionlink>
 		</t:if>
 	</t:zone>		
 		
@@ -150,7 +150,7 @@
 	   					</tr>
 	   					<tr>
 	   						<td></td>
-	   						<td><input t:type="submit" value="${message:save-but}"/>
+	   						<td><input t:type="submit" class="boton" value="${message:save-but}"/>
 	   						<t:actionlink t:id="cancelChangePass" t:zone="^"><button>${message:cancel-but}</button></t:actionlink></td>
 	   					</tr>
 	   				</table>
@@ -225,7 +225,7 @@
 	 					<tr>
 	 						<td></td>
 	 						<td>
-	 							<input t:type="submit" value="${message:save-but}"/>
+	 							<input t:type="submit" class="boton" value="${message:save-but}"/>
 	 							<t:actionlink t:id="cancelUpdate" zone="^"><button>${message:cancel-but}</button></t:actionlink>
 	 						</td>
 	 					</tr>
