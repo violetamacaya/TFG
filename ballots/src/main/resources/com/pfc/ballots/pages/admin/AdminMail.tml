@@ -37,7 +37,7 @@
 						</tr>
 						<tr>
 							<td></td>
-							<td><input t:type="submit" value="${message:submit-but}"/></td>
+							<td><input t:type="submit" class="boton" value="${message:submit-but}"/></td>
 						</tr>	
 					</table>
 				</t:form>
@@ -52,33 +52,28 @@
 		<t:zone t:id="emailSettingsZone" id="emailSettingsZone" t:update="show">
 			<t:if test="showSettings">
 			<infouser>
+			<div id="adminMailZone">
 				<h3>${message:admin-mail}</h3><hr/>
 				<table>
 					<tr>
 						<td><label>${message:email-account}:</label> </td>
-						<td>${emailAccount.email}</td>
-					</tr>
-					<tr>
-						<td><label>${message:epass}:</label></td>
-						<td>${emailAccount.password}</td>
-					</tr>
-					<tr>
-						<td><label>${message:valid-convination}:</label></td>
-						<td>${validCombination}</td>
-					</tr>
-					
-				</table>
+						<td>${emailAccount.email}</td> 
+					</tr> 		
+				</table><br/><br/>
 				<t:actionlink t:id="changeAccount" t:zone="^"><button>${message:change-account}</button></t:actionlink>
 				<t:actionlink t:id="changePass" t:zone="^"><button>${message:change-pass}</button></t:actionlink>
 				<t:actionlink t:id="deleteAccount" t:zone="^"><button>${message:delete-account}</button></t:actionlink>
+			</div>
 			</infouser>
 			
 				<br/>
 	   			<br/>
 	   			<infouser>
+	   				<div id="adminAboutUs">
 	   				<h3>${message:about-us}</h3><hr/>
 	   				${message:change-about}: <t:actionlink t:id="editAboutBut" t:zone="^"><img src="${asset:context:/layout/images/edit.png}" /></t:actionlink><br/>
 	   				${message:default-about}:<t:actionlink t:id="defaultText"><button>${message:default-but}</button></t:actionlink><br/>
+	   			</div>
 	   			</infouser>
 			</t:if>
 		</t:zone>
@@ -112,7 +107,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input t:type="submit" t:value="${message:submit-but}"/>
+								<input t:type="submit" class="boton" t:value="${message:submit-but}"/>
  								<t:actionlink t:id="cancelChangePass" zone="^"><button>${message:cancel-but}</button></t:actionlink>
 							</td>
 						</tr>
@@ -157,7 +152,7 @@
 	   					</tr>
 	   					<tr>
 							<td>
-								<input t:type="submit" t:value="${message:submit-but}"/>
+								<input t:type="submit" class="boton" t:value="${message:submit-but}"/>
 								<t:actionlink t:id="cancelChangeAccount" zone="^"><button>${message:cancel-but}</button></t:actionlink>
 							</td>
 						</tr>
@@ -197,7 +192,7 @@
 				</tr>
 				<tr>
 					<td><label><t:actionlink t:id="backBut" t:zone="^"><button>${message:cancel}</button></t:actionlink></label></td>
-					<td><input t:type="submit" t:value="${message:submit-but}"/></td>
+					<td><input t:type="submit" class="boton" t:value="${message:submit-but}"/></td>
 				</tr>
 			</table>
 			</t:form>

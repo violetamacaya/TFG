@@ -29,7 +29,7 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="${message:send}"/></td>
+						<td><input type="submit" class="boton" value="${message:send}"/></td>
 					</tr>
 				</table>
 				<br/>

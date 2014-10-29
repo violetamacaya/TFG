@@ -33,6 +33,8 @@ import com.pfc.ballots.util.Mail;
  * 
  * @author Mario Temprano Martin
  * @version 1.0 JUN-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 OCT-2014
  */
 
 @Secure
@@ -71,6 +73,10 @@ public class AdminMail {
 	@Property
 	private EmailAccount emailAccount;
 	
+	@Persist
+	@Property
+	private Profile profile;
+	
 	@Property
 	@Persist
 	private boolean badPass;
@@ -103,6 +109,8 @@ public class AdminMail {
 		changeAccount=false;
 		showAbout=false;
 		badCombination=false;
+		profile=userDao.getProfileById(datasession.getId());
+
 	}
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

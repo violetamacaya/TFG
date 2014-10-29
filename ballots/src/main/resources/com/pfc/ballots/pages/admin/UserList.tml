@@ -51,21 +51,22 @@
 		</t:zone>
 		
 		<t:zone t:id="usergrid" id="usergrid" t:update="show">	
-			<t:grid source="users" reorder="email,owner,admin,maker" row="user" add="Edit,Delete" exclude="password">
+			<t:grid source="users" reorder="email,owner,admin,maker" row="user" add="Details,Edit,Delete" exclude="password,regDate,lastLog,phone,centro,carrera,sex,address,fechaNac">
 				<p:editcell>
-					<t:if test="!editing">
-						<t:if test="!owner">
-							<t:actionlink t:id="editbut" zone="^" context="user.id"><button>${message:edit-but}</button></t:actionlink>
-						</t:if>
+					<t:if test="notMaker">
+						<t:actionlink t:id="editbut" zone="^" context="user.id"><img src="${asset:context:/layout/images/edit.png}" /></t:actionlink>
 					</t:if>
 				</p:editcell>
 				<p:deleteCell>
-					<t:if test="!editing">
-						<t:if test="!owner">
-							<t:actionlink t:id="deleteuser" context="user.id" zone="^"><button>${message:delete-but}</button></t:actionlink>
-						</t:if>
+					<t:if test="notMaker">
+						<t:actionlink t:id="deleteuser" context="user.id" zone="^"><img src="${asset:context:/layout/tickx.png}"/></t:actionlink>
 					</t:if>
 				</p:deleteCell>
+				<p:detailscell>
+					<t:if test="notMaker">
+						<t:actionlink t:id="details" zone="^" context="user.id"><img src="${asset:context:/layout/images/ojo.png}"/></t:actionlink>
+					</t:if>
+				</p:detailscell>
 				<p:idcell>
 					${user.id }
 				</p:idcell>
@@ -212,10 +213,10 @@
 					</tr>
 					<tr>
 						<td>
-							<label><input t:type="submit" t:id="save" value="${message:save}"/></label>
+							<label><input t:type="submit" class="boton" t:id="save" value="${message:save}"/></label>
 						</td>
 						<td>
-							<input t:type="submit" t:id="cancel" value="${message:cancel}" t:mode="cancel"/>
+							<input t:type="submit" t:id="cancel" class="boton" value="${message:cancel}" t:mode="cancel"/>
 						</td>
 					</tr>
 				</table>
@@ -225,8 +226,81 @@
 				
 			</t:if>
 		</t:zone>
+		<t:zone t:id="detailsZone" id="detailsZone" t:update="show">
+
 		
+		<t:if test="details"> 
+			<br/><br/>
+			<table>
+					<tr>
+						<td>${message:email}:</td>
+						<td>${user.email }</td>
+					</tr>
+					<tr>
+						<td>${message:admin}:</td>
+						<td><t:if test="user.admin">${message:yes}<p:else>No</p:else></t:if></td>
+					</tr>
+					<tr>
+						<td>${message:maker}:</td>
+						<td><t:if test="user.maker">${message:yes}<p:else>No</p:else></t:if></td>
+					</tr>
+
+					<tr>
+						<td>${message:firstname}:</td>
+						<td>${user.firstname }</td>
+					</tr>
+					<tr>
+						<td>${message:lastname}:</td>
+						<td>${user.lastname }</td>
+					</tr>
+					<tr>
+						<td>${message:sex}:</td>
+						<td>${user.sex}</td>
+					</tr>
+					<tr>
+						<td>${message:city}:</td>
+						<td>${user.city }</td>
+					</tr>
+					<tr>
+						<td>${message:country}:</td>
+						<td>${user.country }</td>
+					</tr>
+					
+					<tr>
+						<td>${message:dni-label}:</td>
+						<td>${user.DNI}</td>
+					</tr>
+					<tr>
+						<td>${message:phone-label}:</td>
+						<td>${user.phone}</td>
+					</tr>
+					<tr>
+						<td>${message:fechaNac-label}:</td>
+						<td>${user.fechaNac}</td>
+					</tr>
+					<tr>
+						<td>${message:address-label}:</td>
+						<td>${user.address}</td>
+					</tr>
+					<tr>
+						<td>${message:carrera-label}:</td>
+						<td>${user.carrera}</td>
+					</tr>
+					<tr>
+						<td>${message:centro-label}:</td>
+						<td>${user.centro}</td>
+					</tr>
+					<t:if test="notMaker">
+						<tr>
+							<td>
+							<t:actionlink t:id="less" zone="^" context="user.id">${message:lessdetail}</t:actionlink>
+							</td>
+						</tr>
+					</t:if>
+					</table>
+		</t:if>
 		
+		</t:zone>
 	</div></t:border>
 	
 		

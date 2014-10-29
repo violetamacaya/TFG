@@ -94,7 +94,7 @@
 								</tr>
 								<tr>
 									<td></td>
-									<td><input t:type="submit" t:value="${message:next-but}"/></td>
+									<td><input t:type="submit" class="boton" t:value="${message:next-but}"/></td>
 								</tr>
 								<p:else>
 									<tr><td></td>
@@ -117,7 +117,7 @@
 								</t:if>
 									<tr>
 										<td></td>
-										<td><input t:type="submit" value="${message:next-but}"/></td>
+										<td><input t:type="submit" class="boton" value="${message:next-but}"/></td>
 									</tr>
 							</p:else>
 						</t:if>
@@ -234,7 +234,7 @@
 						</t:if>
 					</table>
 					
-          			<input t:type="submit" t:value="${message:create}"/>
+          			<input t:type="submit" class="boton"  t:value="${message:create}"/>
 				</t:form>
 				<br/><t:eventlink t:event="back" t:context="prop:['fromMayRel','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
 			</t:if>
@@ -280,7 +280,7 @@
 						
 					</table>
 					<br/>
-					<input t:type="submit" t:value="${message:create}"/>
+					<input t:type="submit" class="boton" t:value="${message:create}"/>
 					</t:form>
 				<br/><t:eventlink t:event="back" t:context="prop:['fromKemeny','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
 			</t:if>
@@ -411,7 +411,7 @@
 							</t:if>
 						</table>
 					</t:zone>
-					<input t:type="submit" t:value="${message:create}"/>
+					<input t:type="submit" class="boton" t:value="${message:create}"/>
 					
 				</t:form>
 				<br/><t:eventlink t:event="back" t:context="prop:['fromBorda','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
@@ -499,7 +499,7 @@
 									</tr>
 								</t:if>								
 						</table>
-						<input t:type="submit" t:value="${message:create}"/>
+						<input t:type="submit" class="boton"  t:value="${message:create}"/>
 					</t:form>
 				<br/><t:eventlink t:event="back" t:context="prop:['fromRange','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
 			</t:if>

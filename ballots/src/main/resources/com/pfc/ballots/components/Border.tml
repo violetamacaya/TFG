@@ -63,9 +63,11 @@
 					
 				</t:if>
 			</t:zone>
-		<t:if test="loged">
+			
+		<!--  <t:if test="loged">
 			<li><t:actionlink t:id="logout"><plain>${message:log-out}</plain></t:actionlink></li>
-		</t:if>
+		</t:if> -->
+		
 		<t:if test="admin">
 		<div id="administration-menu"><h2>${message:administration-menu}</h2></div>
 		</t:if>

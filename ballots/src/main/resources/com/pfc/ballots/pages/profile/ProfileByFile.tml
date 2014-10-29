@@ -16,7 +16,12 @@
 			<t:if test="badFile">
 				<span class="error">${message:bad-file}</span>
 			</t:if>
-			<input t:type="upload" t:id="file" class="boton" t:value="file" validate="required"/><br/>
+
+			<div class="fileUpload btn btn-primary">
+
+    			<input type="file" validate="required" />
+			</div>
+			<br/><br/>
 			<input type="submit" class="boton" value="${message:upload}"/>		
 		</t:form>
 			

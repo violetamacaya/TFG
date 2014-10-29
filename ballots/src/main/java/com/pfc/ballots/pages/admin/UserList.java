@@ -34,6 +34,8 @@ import com.pfc.ballots.pages.UnauthorizedAttempt;
  * 
  * @author Mario Temprano Martin
  * @version 1.0 MAY-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 OCT-2014
  */
 public class UserList {
    ///////////////////////////////////////////////// GENERAL ///////////////////////////////////////////////
@@ -92,6 +94,8 @@ public class UserList {
 	private Zone usergrid;
 	@InjectComponent
 	private Zone editZone;
+	@InjectComponent
+	private Zone detailsZone;
 	
 	@InjectComponent
 	private Form editForm;
@@ -114,6 +118,9 @@ public class UserList {
 	@Persist
 	@Property
 	private boolean editing;
+	@Persist
+	@Property	
+	private boolean details;
 	@Property
 	private boolean nonavalible;
 	@Persist
@@ -260,6 +267,30 @@ public class UserList {
 	}
 	
 	/**
+	 * Show the details for the user with the corresponding id
+	 * @param id
+	 */
+	public void onActionFromDetails(String id){
+		
+		details=false;
+		if(request.isXHR())
+		{
+			details=true;
+			user=lookforid(id);
+			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("nomailgrid",nomailgrid).addRender("detailsZone", detailsZone);
+		}
+	}
+	public void onActionFromLess(){
+		
+		if(request.isXHR())
+		{
+			details=false;
+			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("nomailgrid",nomailgrid).addRender("detailsZone", detailsZone);
+
+		}
+	}
+	
+	/**
 	 * Show a edition form for the user with the corresponding id
 	 * @param id
 	 */
@@ -395,5 +426,13 @@ public class UserList {
 				return Index.class;
 		}
 	}
-		
+	public boolean isNotMaker()
+	{
+		if(datasession.isMaker())
+		{
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -25,12 +25,16 @@
 				
 				<table>
 					<tr>
+						<td>${message:email}:</td>
+						<td>${profile.email }</td>
+					</tr>
+					<tr>
 						<td>${message:admin}:</td>
-						<td><t:if test="profile.admin">Yes<p:else>No</p:else></t:if></td>
+						<td><t:if test="profile.admin">${message:yes}<p:else>No</p:else></t:if></td>
 					</tr>
 					<tr>
 						<td>${message:maker}:</td>
-						<td><t:if test="profile.maker">Yes<p:else>No</p:else></t:if></td>
+						<td><t:if test="profile.maker">${message:yes}<p:else>No</p:else></t:if></td>
 					</tr>
 					<t:if test="companyUser">
 						<tr>
@@ -38,10 +42,7 @@
 							<td>${company.companyname }</td>
 						</tr>
 					</t:if>
-					<tr>
-						<td>${message:email}:</td>
-						<td>${profile.email }</td>
-					</tr>
+
 					<tr>
 						<td>${message:firstname}:</td>
 						<td>${profile.firstname }</td>

@@ -11,8 +11,9 @@
 	   /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		<t:zone t:id="usersCountedZone" id="usersCountedZone" t:update="show">
 			<t:if test="!showUsersCountedZone">
-				<h1>${censusName}</h1>
-				<t:grid source="users" row="user" exclude="regdate,password,id,lastlog">
+				<h1>${censusName}<t:actionlink t:id="editbut" t:zone="^"><img src="${asset:context:/layout/images/edit.png}"/></t:actionlink></h1>
+				
+				<t:grid source="users" row="user" exclude="regdate,password,id,lastlog, sex, phone, address, carrera, centro">
 					<p:adminCell>
 						<t:if test="user.admin">
 							<img src="${asset:context:/layout/tickv.png}" />
@@ -46,7 +47,6 @@
 						</t:if>
 					</p:ownerCell>
 				</t:grid>
-				<t:actionlink t:id="editbut" t:zone="^"><img src="${asset:context:/layout/images/edit.png}"/></t:actionlink>
 			</t:if>
 		</t:zone>
 		<t:zone t:id="upperBackZone" id="upperBackZone" t:update="show">
@@ -75,7 +75,7 @@
 						</tr>
 						<tr>
 							<td></td>
-							<td><input t:type="submit" value="${message:update-but}"/>
+							<td><input t:type="submit" class="boton" value="${message:update-but}"/>
 							<t:actionLink t:id="cancelNameBut" zone="^"><button>${message:restore-but}</button></t:actionLink></td>
 						</tr>
 					</table>
@@ -90,9 +90,9 @@
 	   <t:zone t:id="searchTypeZone" id="searchTypeZone" t:update="show">
 	   		<t:if test="showSearchType">
 	   			<t:if test="showBasicSearch">
-	   				<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search}</t:eventlink>
+	   				<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search}</t:eventlink><br/><br/>
 	   				<p:else>
-	   					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink>
+	   					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink><br/><br/>
 	   				</p:else>
 	   			</t:if>
 	   		</t:if>
@@ -113,7 +113,7 @@
 	   					</tr>
 	   					<tr>
 	   						<td></td>
-	   						<td><p style="text-align:center;"><input t:type="submit" value="${message:search-but}"/></p></td>
+	   						<td><p style="text-align:center;"><input class="boton" t:type="submit" value="${message:search-but}"/></p></td>
 	   					</tr>
 	   					
 	   				</table>
@@ -154,7 +154,7 @@
 				 		</tr>					 	
 					 	<tr>
 					 		<td></td>
-							<td><p style="text-align:center;"><input t:type="submit" value="${message:search-but}"/>
+							<td><p style="text-align:center;"><input t:type="submit" class="boton" value="${message:search-but}"/>
 								<t:actionlink t:id="reset" t:zone="^"><button>${message:reset-but}</button></t:actionlink>
 							</p></td>
 									
@@ -172,10 +172,10 @@
 			<t:if test="showSearchType">
 				<t:form t:id="addForm" zone="^">
 					<table>
-						<tr><td><t:actionlink t:id="showAll" t:zone="^">${message:showall-users}</t:actionlink></td></tr>
+						<tr id="showUsers"><td><t:actionlink t:id="showAll" t:zone="^">${message:showall-users}</t:actionlink></td></tr>
 						<tr><td>
 							<t:if test="showSearchList">
-								<t:grid source="searchList" row="user" add="add" reorder="add" exclude="regdate,password,id,lastlog">
+								<t:grid source="searchList" row="user" add="add" reorder="add" exclude="regdate,password,id,lastlog,sex,address,carrera, centro, phone">
 									<p:addCell>
 										<t:checkbox t:id="add"/>
 									</p:addCell>
@@ -217,7 +217,7 @@
 						</td></tr>
 						<tr><td>
 							<t:if test="showSearchList">
-								<input t:type="submit" value="${message:add-but}"/><t:actionlink t:id="addAll" t:zone="^"><button>${message:addall-but}</button></t:actionlink>
+								<input t:type="submit" class="boton" value="${message:add-but}"/><t:actionlink t:id="addAll" t:zone="^"><button>${message:addall-but}</button></t:actionlink>
 							</t:if>
 						</td></tr>
 					</table>
@@ -237,7 +237,7 @@
 				<t:form t:id="removeForm" t:zone="^">
 					<table>
 						<tr><td>
-							<t:grid source="editUsers" row="user" add="remove" reorder="remove" exclude="regdate,password,id,lastlog">
+							<t:grid source="editUsers" row="user" add="remove" reorder="remove" exclude="regdate,password,id,lastlog,sex,address,carrera, centro, phone">
 								<p:removeCell>
 									<t:checkbox t:id="remove"/>	
 								</p:removeCell>
@@ -277,7 +277,7 @@
 							</t:grid>
 						</td></tr>
 						<tr><td>
-							<input t:type="submit" value="${message:remove-but}"/><t:actionlink t:id="removeAll" t:zone="^"><button>${message:removeall-but}</button></t:actionlink>
+							<input t:type="submit" class="boton" value="${message:remove-but}"/><t:actionlink t:id="removeAll" t:zone="^"><button>${message:removeall-but}</button></t:actionlink>
 						</td></tr>
 					</table>
 				</t:form>

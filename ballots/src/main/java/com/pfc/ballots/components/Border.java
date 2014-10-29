@@ -227,7 +227,7 @@ public class Border {
 	
 	/**
 	 * Logout(lateral menu) the user from DB and clear session data
-	 */
+	 
 	public Object onActionFromLogout()
 	{
 		logedDao=DB4O.getUserLogedDao(datasession.getDBName());
@@ -240,7 +240,7 @@ public class Border {
 		request.getSession(true).invalidate();
 		restoreBorder();
 		return Index.class;
-	}
+	} */
 	/**
 	 * Logout(upper menu) the user from DB and clear session data
 	 */

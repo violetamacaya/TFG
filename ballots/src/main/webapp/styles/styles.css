@@ -86,9 +86,10 @@ label .contactrow
  font-weight: bold;
 }
 
-
-html, body, #container { height: 100%; }
-body > #container { height: auto; min-height: 100%; }
+body > #container { 
+	height: auto; 
+	min-height: 100%; 
+}
 
 boldstuff
 {
@@ -204,19 +205,6 @@ div#lenguages>a{
 	border: solid #F5F5F5 1px;
 }
 
-
-body .leftcolumn
-{
-	position: absolute;
-	/*background-color: #F5F5F5;*/
-	width:180px;
-	padding-top: 21px;
-	padding-right: 26px;
-	padding-bottom: 30px;
-	border-right: solid white;
-	height: 100%
-}
-
 /* my menu (user or admin menu) */
 #mymenu
 {
@@ -325,7 +313,7 @@ body .leftcolumn
 mainposition
 {
 	display: block;
-	width: 100%;
+	width: auto;
 	position: absolute;
 	left: 180px;	
 	margin-top: 50px;
@@ -375,7 +363,7 @@ infoUser
 	margin-bottom: 10px;
 	border: 1px solid;
 	padding-bottom: 4px;
-	width: 83%;
+	width: 1100px;
 }
 
 infoUser>h1
@@ -546,15 +534,14 @@ div .indexRow
 	min-height: 30px;
 	width: 100%;
 	margin-bottom: 10px;
-	box-shadow: 2px 2px 4px darkred;
-	border: 1px solid rgb(236, 202, 202);
+	box-shadow: 2px 2px 2px rgb(0, 39, 139);
+	border: 1px solid rgb(132, 184, 186);
 	padding: 5px;
 }
 
 div .indexRow:hover
 {
-	/*background-color: rgba(219, 154, 154,0.7);*/
-	background-color: rgba(255,0,0,0.1);
+	background-color: rgba(45, 0, 255, 0.1);
 }
 
 .indexRow>span {
@@ -575,8 +562,7 @@ div .indexHead>span
 {
 display: inline-block;
 width: 20%;
-color: #B91A1F;
-	
+color: #204A9F;	
 }
 
 div .row span
@@ -776,7 +762,7 @@ div#showProfile img
 	margin-top: -22px;
 	margin-right: 6px
 }
-.boton{
+.boton, .t-beaneditor-submit{
 	-webkit-box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
 	border-radius: 8px;
 	border: solid #ffffff 1px;
@@ -792,7 +778,7 @@ div#showProfile img
     font-size: 11px;
 }
 
-.boton:hover
+.boton:hover, .t-beaneditor-submit:hover
 {
 	background-color: #09c0e2;
 	color: black;
@@ -801,7 +787,7 @@ div#showProfile img
 	border: solid #204a87 1px;
 }
 
-.boton:active {
+.boton:active, .t-beaneditor-submit:active{
 	position:relative;
 }
 button{
@@ -838,7 +824,7 @@ button:active {
 #cambioPass{
 	height: 30px;
 }
-#searchZone a, #mostrarVotaciones a{
+#searchZone a, #mostrarVotaciones a, #searchTypeZone a, #showUsers a{
 	color: rgb(32, 74, 135);
 	text-decoration: underline;
 	font-size: 14pt;
@@ -853,3 +839,11 @@ button:active {
 	width:1070px;
 	margin-left: 20px;
 }
+#indexDiv{
+	width:1070px;
+}
+#adminAboutUs, #adminMailZone{
+	margin-left:20px;
+	margin-bottom: 5px;
+}
+
