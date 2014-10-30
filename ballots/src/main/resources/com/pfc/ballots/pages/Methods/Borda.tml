@@ -1,0 +1,27 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <head><title>${message:page-title}</title>
+    <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/></head>
+	<t:border>
+	
+		<body>
+			<titlelist><h1>${message:method-name}</h1></titlelist>
+			
+			<div class="descripcionMetodo">
+			<p id="descripcionBorda"><hr/>
+			${message:line1}<br/>
+			${message:line2}<br/>
+			${message:line3}<br/><br/>
+			${message:line4}<br/>
+			${message:line5}<br/>
+			${message:line6}<br/>
+			${message:line7}<br/>
+			
+			
+			</p><br/>	
+			</div>
+		</body>
+	</t:border>
+
+</html>
