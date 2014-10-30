@@ -43,7 +43,15 @@
 						<img src="${asset:context:/layout/tickx.png}" />
 					</p:else>
 					</t:if>
-				</p:studentCell>					
+				</p:studentCell>		
+					<p:teacherCell>
+					<t:if test="user.teacher">
+						<img src="${asset:context:/layout/tickv.png}" />
+					<p:else>
+						<img src="${asset:context:/layout/tickx.png}" />
+					</p:else>
+					</t:if>
+				</p:teacherCell>				
 					<p:empty>
 					</p:empty>
 				</t:grid>					
@@ -93,7 +101,15 @@
 					<img src="${asset:context:/layout/tickx.png}" />
 				</p:else>
 				</t:if>
-			</p:studentCell>
+			</p:studentCell>	
+			<p:teacherCell>
+				<t:if test="user.teacher">
+					<img src="${asset:context:/layout/tickv.png}" />
+				<p:else>
+					<img src="${asset:context:/layout/tickx.png}" />
+				</p:else>
+				</t:if>
+			</p:teacherCell>
 			<p:ownerCell>
 				<t:if test="user.owner">
 					<img src="${asset:context:/layout/tickv.png}" />

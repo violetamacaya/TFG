@@ -23,6 +23,8 @@ import com.pfc.ballots.util.UUID;
  * 
  * @author Mario Temprano Martin
  * @version 1.0 MAY-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 OCT-2014
  */
 public class DataSession {
 	
@@ -38,6 +40,7 @@ public class DataSession {
 	private boolean admin;
 	private boolean maker;
 	private boolean loged;
+	private boolean teacher;
 	private FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 	private CompanyDao companyDao=DB4O.getCompanyDao();
 	private EmailAccountDao emailDao=null;
@@ -132,7 +135,13 @@ public class DataSession {
 	public void setOwner(boolean owner) {
 		this.owner = owner;
 	}
-	
+	public boolean isTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(boolean teacher) {
+		this.teacher = teacher;
+	}
 
 	 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////// LOGIN UTILITY /////////////////////////////////////////////
@@ -153,6 +162,7 @@ public class DataSession {
 		email=profile.getEmail();
 		maker=profile.isMaker();
 		admin=profile.isAdmin();
+		teacher=profile.isTeacher();
 		this.DBName=null;//This means that is main database
 		logDate=new Date();
 		loged=true;
@@ -180,6 +190,7 @@ public class DataSession {
 		email=profile.getEmail();
 		maker=profile.isMaker();
 		admin=profile.isAdmin();
+		teacher=profile.isTeacher();
 		logDate=new Date();
 		loged=true;
 		lgdDao=DB4O.getUserLogedDao(DBName);
@@ -197,6 +208,7 @@ public class DataSession {
 		company=null;
 		maker=false;
 		admin=false;
+		teacher=false;
 		DBName=null;
 		logDate=null;
 		email=null;
@@ -216,6 +228,7 @@ public class DataSession {
 	 * 		1->Normal user(loged)
 	 * 		2->Admin  user(loged)
 	 * 		3->Session expired/kicked from server
+	 * 		4->Teacher
 	 */
 	
 	
@@ -254,8 +267,11 @@ public class DataSession {
 					{
 						return 2;
 					}
-					else
+					else if(isTeacher())
 					{
+						return 4;
+					}
+					else{
 						return 1;
 					}
 				

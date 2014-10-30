@@ -846,4 +846,9 @@ button:active {
 	margin-left:20px;
 	margin-bottom: 5px;
 }
+.descripcionMetodo{
+	text-align:justify;
+	padding-right: 30px;
+	font-size:11pt;
+}
 

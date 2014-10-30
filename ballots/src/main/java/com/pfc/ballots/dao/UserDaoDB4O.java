@@ -768,7 +768,10 @@ public class UserDaoDB4O implements UserDao{
 		}
 		catch(Exception e)
 		{
-			System.out.println("[DB4O]ERROR:Database could not be open");
+			System.out.println("[DB4O]ERROR:Database could not be open (1)");
+			System.out.println("[DB4O]ERROR:Database could not be open (1)");
+
+			System.out.println(config);
 			e.printStackTrace();
 		}
 	}

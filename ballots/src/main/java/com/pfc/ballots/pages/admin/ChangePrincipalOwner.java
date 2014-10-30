@@ -104,11 +104,15 @@ public class ChangePrincipalOwner {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@InjectComponent
 	private Zone areuSureZone;
+	@InjectComponent
+	private Zone detailsZone;
 
 	@Property
 	@Persist
 	private boolean showSure;
-	
+	@Persist
+	@Property	
+	private boolean details;
 	@Persist
 	@Property
 	private Profile newOwner;
@@ -189,5 +193,28 @@ public class ChangePrincipalOwner {
 		}
 			
 	}
+	
+	/**
+	 * Show the details for the user with the corresponding id
+	 * @param id
+	 */
+	public void onActionFromDetails(String id){
+		
+		details=false;
+		if(request.isXHR())
+		{
+			details=true;
+			user=lookforid(id);
+			ajaxResponseRenderer.addRender("detailsZone", detailsZone).addRender("areuSureZone", areuSureZone);
+		}
+	}
+	public void onActionFromLess(){
+		
+		if(request.isXHR())
+		{
+			details=false;
+			ajaxResponseRenderer.addRender("detailsZone", detailsZone).addRender("areuSureZone", areuSureZone);
 
+		}
+	}
 }

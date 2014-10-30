@@ -36,6 +36,10 @@
 						<td>${message:maker}:</td>
 						<td><t:if test="profile.maker">${message:yes}<p:else>No</p:else></t:if></td>
 					</tr>
+					<tr>
+					<td>${message:teacher}:</td>
+						<td><t:if test="profile.teacher">${message:yes}<p:else>No</p:else></t:if></td>
+					</tr>
 					<t:if test="companyUser">
 						<tr>
 							<td>${message:company}:</td>

@@ -26,6 +26,7 @@ import com.pfc.ballots.pages.About;
 import com.pfc.ballots.pages.Contact;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.MethodsInfo;
+import com.pfc.ballots.pages.RangeVoting;
 import com.pfc.ballots.pages.Census.AdminCensus;
 import com.pfc.ballots.pages.Census.CensusList;
 import com.pfc.ballots.pages.Census.CreateCensus;
@@ -45,11 +46,16 @@ import com.pfc.ballots.pages.profile.ProfileByFile;
 import com.pfc.ballots.pages.profile.ShowProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
+import com.pfc.ballots.pages.Methods.Borda;
+import com.pfc.ballots.pages.Methods.Kemeny;
+import com.pfc.ballots.pages.Methods.Majory;
 /**
  * Border class is a component that provides the menu interface for all the application
  * 
  * @author Mario Temprano Martín
- * @version 2.0 FEB-2014
+ * @version 1.0 FEB-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 OCT-2014
  *
  */
 public class Border {
@@ -60,6 +66,7 @@ public class Border {
 	
 	@SessionState
 	private DataSession datasession;
+	
 	@InjectComponent
 	private Zone censusZone;
 	@InjectComponent
@@ -68,6 +75,8 @@ public class Border {
 	private Zone ballotZone;
 	@InjectComponent
 	private Zone companyZone;
+	@InjectComponent
+	private Zone editZone;
 	
 	
 	@InjectPage
@@ -76,7 +85,9 @@ public class Border {
 	@SessionAttribute
 	@Property
 	private Boolean visibilityUser;
-	
+	@SessionAttribute
+	@Property
+	private Boolean visibilityEdit;
 	@SessionAttribute
 	@Property
 	private Boolean visibilityBallot;
@@ -86,6 +97,8 @@ public class Border {
 	@SessionAttribute
 	@Property
 	private Boolean visibilityCensus;
+	
+	
     @Inject
     private ComponentResources componentResources;
 
@@ -100,12 +113,13 @@ public class Border {
 	/****************************************  Constructor **********************************************************************/
 	public Border()
 	{
-		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null || visibilityCensus==null)
+		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null || visibilityCensus==null || visibilityEdit==null )
 		{
 			visibilityUser=new Boolean("false");
 			visibilityBallot=new Boolean("false");
 			visibilityCompany=new Boolean("false");
 			visibilityCensus=new Boolean("false");
+			visibilityEdit=new Boolean("false");
 		}
 		if(datasession==null)
 		{
@@ -118,14 +132,16 @@ public class Border {
 	/**
 	 * Initialize border values to avoid errors
 	 */
+	
 	public void restoreBorder()
 	{
-		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null || visibilityCensus==null)
+		if(visibilityUser==null || visibilityBallot==null || visibilityCompany==null || visibilityCensus==null || visibilityEdit==null)
 		{
 			visibilityUser=new Boolean("false");
 			visibilityBallot=new Boolean("false");
 			visibilityCompany=new Boolean("false");
 			visibilityCensus=new Boolean("false");
+			visibilityEdit=new Boolean("false");
 		}
 		if(datasession==null)
 		{
@@ -204,7 +220,10 @@ public class Border {
 	{
 		return datasession.isAdmin();
 	}
-	
+	public boolean isTeacher()
+	{
+		return datasession.isTeacher();
+	}
 	/**
 	 * 
 	 * @return if the user is an admin of the main application
@@ -225,22 +244,7 @@ public class Border {
 			return datasession.isLoged();
 	}
 	
-	/**
-	 * Logout(lateral menu) the user from DB and clear session data
-	 
-	public Object onActionFromLogout()
-	{
-		logedDao=DB4O.getUserLogedDao(datasession.getDBName());
-		logedDao.delete(datasession.getIdSession());
-		datasession.logout();
-		visibilityCompany=false;
-		visibilityUser=false;
-		visibilityBallot=false;
-		componentResources.discardPersistentFieldChanges();
-		request.getSession(true).invalidate();
-		restoreBorder();
-		return Index.class;
-	} */
+
 	/**
 	 * Logout(upper menu) the user from DB and clear session data
 	 */
@@ -280,6 +284,7 @@ public class Border {
 			visibilityBallot=false;
 			visibilityCompany=false;
 			visibilityCensus=false;
+			visibilityEdit=false;
 			page=BallotList.class;
 		}
 		else if(section.equals("admin-mail"))
@@ -288,6 +293,7 @@ public class Border {
 			visibilityBallot=false;
 			visibilityCompany=false;
 			visibilityCensus=false;
+			visibilityEdit=false;
 			page=AdminMail.class;
 		}
 		else if(section.equals("censusz"))		
@@ -381,12 +387,30 @@ public class Border {
 			{
 			page=BallotList.class;
 			}
+		else if(section.equals("majory"))
+			{
+			page=Majory.class;
+			}
+		else if(section.equals("kemeny"))
+			{
+			page=Kemeny.class;
+			}
+		else if(section.equals("borda"))
+		{
+			page=Borda.class;
+		}
+		else if(section.equals("rangeVoting"))
+		{
+			page=RangeVoting.class;
+		}
 		else							//This handle the upper menu
 		{
 			visibilityCompany=false;
 			visibilityUser=false;
 			visibilityBallot=false;
 			visibilityCensus=false;
+			visibilityEdit=false;
+			
 			if(section.equals("index"))
 				{page=Index.class;}
 			else if(section.equals("about"))
@@ -419,7 +443,7 @@ public class Border {
 		}
 		if(request.isXHR())
 		{
-			ajaxResponseRenderer.addRender("censusZone",censusZone).addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
+			ajaxResponseRenderer.addRender("censusZone",censusZone).addRender("editZone",editZone).addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
 		}
 		return page;
 	}

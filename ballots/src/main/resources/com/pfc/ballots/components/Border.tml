@@ -16,24 +16,13 @@
 			
 		<ul id="mainMenu">
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:index" ><plain>${message:home}</plain></t:eventlink></li>
-			<!-- 
-			<t:if test="!loged">
-				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:new-user1" ><plain>${message:new-user}</plain></t:eventlink></li>
-			</t:if>
-			 
-			<t:if test="maker">
-				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:new-ballot" ><plain>${message:new-ballot}</plain></t:eventlink></li>
-			</t:if>
-			-->
+
 			<t:if test="!loged">
 				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:publics" ><plain>${message:publics}</plain></t:eventlink></li>
 			</t:if>
-			<!-- 		
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:methods" ><plain>${message:methods}</plain></t:eventlink></li>	
-			 -->
+
 			<t:if test="!loged">		
 				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:LogIn" ><plain>${message:login}</plain></t:eventlink></li>
-				<!-- <li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:company-login" ><plain>${message:company-login}</plain></t:eventlink></li> -->
 			</t:if>
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:contact" ><plain>${message:contact}</plain></t:eventlink></li>	
 			
@@ -51,26 +40,24 @@
 		<h2>${message:my-menu}</h2><br/>
 		<li><t:eventlink t:event="menu" t:context="literal:my-profile"><plain>${message:my-profile}</plain></t:eventlink></li>
 		<li><t:eventlink t:event="menu" t:context="literal:my-ballots"><plain>${message:ballots-by-me}</plain></t:eventlink></li>
+		
 		<t:if test="maker">
 			<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:censusz"><plain>${message:census}</plain></t:eventlink></li>
 		</t:if>
 		
-			<t:zone t:id="censusZone" id="censusZone">
-				<t:if test="visibilityCensus">
+		<t:zone t:id="censusZone" id="censusZone">
+			<t:if test="visibilityCensus">
 							
-					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:new-census"><plain2>${message:new-census}</plain2></t:eventlink></li>
-					<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-census"><plain2>${message:my-census}</plain2></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:new-census"><plain2>${message:new-census}</plain2></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-census"><plain2>${message:my-census}</plain2></t:eventlink></li>
 					
-				</t:if>
-			</t:zone>
+			</t:if>
+		</t:zone>
 			
-		<!--  <t:if test="loged">
-			<li><t:actionlink t:id="logout"><plain>${message:log-out}</plain></t:actionlink></li>
-		</t:if> -->
-		
 		<t:if test="admin">
-		<div id="administration-menu"><h2>${message:administration-menu}</h2></div>
-		</t:if>
+			<div id="administration-menu"><h2>${message:administration-menu}</h2></div>		
+		</t:if>		
+		
 		<t:if test="admin">
 				<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-admincensus"><plain>${message:census-admin}</plain></t:eventlink></li>
 		</t:if>
@@ -110,11 +97,30 @@
 					</t:if>
 				</t:zone>
 		
-		<t:if test="mainAdmin">
 			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>${message:configure}</plain></t:eventLink></li>
-		</t:if>	
+			
+		<t:if test="teacher">
+			<div id="edit-menu"><h2>${message:edit-menu}</h2><br/></div>
+		</t:if>
 		
+		<t:if test="admin">
+			<div id="edit-menu"><h2>${message:edit-menu}</h2><br/></div>
+		</t:if>
 		
+		<t:zone t:id="editZone" id="editZone">
+		<t:if test="teacher">
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:borda"><plain>${message:edit-borda}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:kemeny"><plain>${message:edit-kemeny}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:majory"><plain>${message:edit-majory}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:rangeVoting"><plain>${message:edit-rangeVoting}</plain></t:eventlink></li>
+		</t:if>
+		<t:if test="admin">
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:borda"><plain>${message:edit-borda}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:kemeny"><plain>${message:edit-kemeny}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:majory"><plain>${message:edit-majory}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:rangeVoting"><plain>${message:edit-rangeVoting}</plain></t:eventlink></li>
+		</t:if>
+		</t:zone>
 		
 	</ul>
 	</t:zone>

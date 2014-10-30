@@ -20,6 +20,8 @@ import com.pfc.ballots.data.Sex;
  * @author Irene Grande Hernández
  * @version 2.0 FEB-2014
  * @author Mario Temprano Martin
+ * @version 3.0 OCT-2014
+ * @author	Violeta Macaya Sánchez
  */
 
 public class Profile {
@@ -38,6 +40,7 @@ public class Profile {
 		this.admin=old.isAdmin();
 		this.maker=old.isMaker();
 		this.owner=old.isOwner();
+		this.teacher=old.isTeacher();
 		this.id=old.getId();
 		this.email=old.email;
 		this.password=old.getPassword();
@@ -55,6 +58,7 @@ public class Profile {
 		this.fechaNac=old.getFechaNac();
 		this.centro=old.getCentro();
 		this.carrera=old.getCarrera();
+
 	}
 	
 	/*********************************************** Profile fields **************************************************************/
@@ -67,7 +71,7 @@ public class Profile {
 	private boolean admin;
 	
 	private boolean maker;
-	
+	private boolean teacher;
 	@NonVisual
 	private String id;
 	//@NonVIsual
@@ -118,9 +122,16 @@ public class Profile {
 		
 		return admin;
 	}
+	public boolean isTeacher() {
+		return teacher;
+	}
 	public void setAdmin(boolean admin){
 		
 		this.admin = admin;
+	}
+	public void setTeacher(boolean teacher){
+		
+		this.teacher = teacher;
 	}
 	public boolean isMaker() {
 		return maker;
@@ -237,6 +248,7 @@ public class Profile {
 	{
 		this.admin=old.isAdmin();
 		this.maker=old.isMaker();
+		this.teacher=old.isTeacher();
 		this.id=old.getId();
 		this.email=old.email;
 		this.password=old.getPassword();
@@ -289,7 +301,10 @@ public class Profile {
 		{
 			return false;
 		}
-		
+		if(this.isTeacher()!=profile.isTeacher())
+		{
+			return false;
+		}
 		if(!this.getEmail().equals(profile.getEmail()))
 		{
 			return false;
@@ -464,7 +479,7 @@ public class Profile {
 				return false;
 			}
 			
-			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 			
 			
 			if(this.getFechaNac()==null && profile.getFechaNac()==null)
