@@ -46,7 +46,7 @@ import com.pfc.ballots.pages.profile.ProfileByFile;
 import com.pfc.ballots.pages.profile.ShowProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
-import com.pfc.ballots.pages.Methods.Borda;
+import com.pfc.ballots.pages.Methods.BordaMethod;
 import com.pfc.ballots.pages.Methods.Kemeny;
 import com.pfc.ballots.pages.Methods.Majory;
 /**
@@ -397,7 +397,7 @@ public class Border {
 			}
 		else if(section.equals("borda"))
 		{
-			page=Borda.class;
+			page=BordaMethod.class;
 		}
 		else if(section.equals("rangeVoting"))
 		{

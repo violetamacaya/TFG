@@ -1,0 +1,63 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+<t:border>
+
+	<body>
+		<t:zone t:id="methodZone" id="methodZone" t:update="show">
+			<titlelist>
+			<h1>${message:method-name}</h1>
+			</titlelist>
+
+			<div class="descripcionMetodo">
+				<p id="descripcionBorda">
+				<hr />
+				<t:OutputRaw t:value="${message:content}"/>
+				</p>
+				
+			</div>
+		</t:zone>
+		<t:zone t:id="editZone" id="editZone" t:update="show">
+			<t:if test="admin">
+				<h3>${message:about-us}</h3>
+				<hr />
+				<t:form t:id="editForm" t:zone="^">
+					<table>
+
+						<tr>
+							<td><t:label for="BordaText" /></td>
+							<td><t:textArea t:id="BordaText" class="areaText" /></td>
+						</tr>
+						<tr>
+							<td><input t:type="submit" class="boton"
+								t:value="${message:submit-but}" /></td>
+						</tr>
+					</table>
+				</t:form>
+			</t:if>
+			<t:if test="teacher">
+				<h3>${message:about-us}</h3>
+				<hr />
+				<t:form t:id="editForm2" t:zone="^">
+					<table>
+						<tr>
+							<td><t:label for="BordaText2" /></td>
+							<td><t:textArea t:id="BordaText2" class="areaText" /></td>
+						</tr>
+						<tr>
+							<td><input t:type="submit" class="boton"
+								t:value="${message:submit-but}" /></td>
+						</tr>
+					</table>
+				</t:form>
+			</t:if>
+		</t:zone>
+
+	</body>
+</t:border>
+</html>

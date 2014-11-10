@@ -8,6 +8,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
+import com.pfc.ballots.entities.AboutText;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
@@ -315,6 +316,31 @@ public class BordaDaoDB4O implements BordaDao {
 	{
 		DB.close();
 		System.out.println("[DB4O]Database was closed");
+	}
+
+	//*******************************************Get actual description of the method******************/
+	public Borda getBordaText() {
+
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(Borda.class);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				return (Borda)result.next();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return null;
 	}
 
 
