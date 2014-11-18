@@ -15,7 +15,7 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.data.DataSession;
-import com.pfc.ballots.entities.AboutText;
+import com.pfc.ballots.entities.BordaText;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.dao.*;
 
@@ -40,20 +40,11 @@ public class BordaMethod {
 	private boolean showText;
 	
 	@Persist 
-	BordaDao BordaDao;
+	BordaDaoDB4O bordaDao;
 	
 	@Persist
 	@Property
-	private String BordaText;
-	@Persist
-	@Property
-	private String BordaText2;
-	
-	
-	
-	@Persist
-	@Property
-	private String head;
+	private String bordaText;
 	
 	@Inject
 	private ComponentResources componentResources;
@@ -63,17 +54,17 @@ public class BordaMethod {
 	
 	@Inject
 	private Request request;
+	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+
+	
+	public BordaMethod(){
+		
+	}
 	public void setupRender()
 	{
-		BordaText= "A cada votante se le pide que exprese un orden completo de preferencias,jerarquizando la alternativa más preferida (que se sitúa en primer lugar), a la menos preferida,(que se colca en último lugar)."+
-	"Dentro de cada orden individual de preferencias, se adjudica un puntaje a las alternativas situadas en cada nivel dentro del orden. "+
-				"La alternativa situada en el nivel más alto, recibe el puntaje N-1 (es decir, el número de alternativas jerarquizadas, menos uno). "+
-
-					"Si existen cuatro alternativas, la alternativa de la primera preferencia recibirá un puntaje de 3. La alternativa situada en segundo nivel recibirá un puntaje equivalente a N-2, y así hasta la última alternativa, que recibirá el puntaje N-N, esto es, un puntaje de 0."+ 
-					"Se pasan a sumar los puntajes que reciben las alternativas en cada orden individual. "+
-					"La opción ganadora es aquella que obtiene el mayor puntaje, que es la ganadora Borda. "+
-					"En caso de empate entre dos alternativas ganadoras, se escoge una de las dos alternativas al azar.";
-		BordaText2="Asdasd";
+		componentResources.discardPersistentFieldChanges();		
+		bordaDao = new BordaDaoDB4O(null);
+		bordaText= DB4O.getBordaTextDao().getBordaText().getBordaText();	
 	}
 	
 	public boolean isTeacher()
@@ -84,25 +75,21 @@ public class BordaMethod {
 	{
 		return datasession.isAdmin();
 	}
+	public boolean isAdminOrTeacher()
+	{
+		return datasession.isAdmin() || datasession.isTeacher();
+	}
 	
 	public Object onSuccessFromEditForm()
 	{
-		if(request.isXHR())
-		{	
-			Borda temp=BordaDao.getBordaText();
-			if(temp!=null)
-			{
-				BordaText=temp.getBordaText();
-				head=temp.getBordaHead();
-			}
-			
-			temp.setBordaText(BordaText);
-			temp.setBordaHead(head);
-
+		//if(request.isXHR())
+	//	{
+			BordaText temp = new BordaText();
+			temp.setBordaText(request.getParameter("bordaText"));
+			bordaDao.updateBordaText(temp);
 			return BordaMethod.class;
-		}
-		return null;
+		//}
+		//return null;
 	}
-
 	
 }

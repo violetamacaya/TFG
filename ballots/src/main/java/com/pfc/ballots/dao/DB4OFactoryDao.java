@@ -160,6 +160,11 @@ public class DB4OFactoryDao extends FactoryDao{
 	{
 		return new AboutTextDaoDB4O();
 	}
+	@Override
+	public BordaDao getBordaTextDao()
+	{
+		return new BordaDaoDB4O(null);
+	}
 
 	 
 	

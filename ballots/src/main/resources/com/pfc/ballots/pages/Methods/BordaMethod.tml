@@ -17,21 +17,22 @@
 			<div class="descripcionMetodo">
 				<p id="descripcionBorda">
 				<hr />
-				<t:OutputRaw t:value="${message:content}"/>
+				<t:OutputRaw t:value="${bordaText}"/>
 				</p>
 				
 			</div>
 		</t:zone>
+		
 		<t:zone t:id="editZone" id="editZone" t:update="show">
-			<t:if test="admin">
+			<t:if test="adminorteacher">
 				<h3>${message:about-us}</h3>
 				<hr />
 				<t:form t:id="editForm" t:zone="^">
 					<table>
 
 						<tr>
-							<td><t:label for="BordaText" /></td>
-							<td><t:textArea t:id="BordaText" class="areaText" /></td>
+							<td><t:label for="bordaText" /></td>
+							<td><t:textArea t:id="bordaText" class="areaText" /></td>
 						</tr>
 						<tr>
 							<td><input t:type="submit" class="boton"
@@ -40,22 +41,7 @@
 					</table>
 				</t:form>
 			</t:if>
-			<t:if test="teacher">
-				<h3>${message:about-us}</h3>
-				<hr />
-				<t:form t:id="editForm2" t:zone="^">
-					<table>
-						<tr>
-							<td><t:label for="BordaText2" /></td>
-							<td><t:textArea t:id="BordaText2" class="areaText" /></td>
-						</tr>
-						<tr>
-							<td><input t:type="submit" class="boton"
-								t:value="${message:submit-but}" /></td>
-						</tr>
-					</table>
-				</t:form>
-			</t:if>
+			
 		</t:zone>
 
 	</body>

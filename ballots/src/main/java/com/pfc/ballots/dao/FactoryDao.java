@@ -72,5 +72,6 @@ public abstract class FactoryDao {
 				throw new IllegalArgumentException();
 		}
 	}
+	public abstract BordaDao getBordaTextDao();
 	
 }

@@ -9,9 +9,11 @@ import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.AboutText;
+import com.pfc.ballots.entities.BordaText;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
+import com.pfc.ballots.pages.Methods.BordaMethod;
 
 
 public class BordaDaoDB4O implements BordaDao {
@@ -319,17 +321,17 @@ public class BordaDaoDB4O implements BordaDao {
 	}
 
 	//*******************************************Get actual description of the method******************/
-	public Borda getBordaText() {
+	public BordaText getBordaText() {
 
 		open();
 		try
 		{
 			Query query=DB.query();
-			query.constrain(Borda.class);
+			query.constrain(BordaText.class);
 			ObjectSet result=query.execute();
 			if(result.hasNext())
 			{
-				return (Borda)result.next();
+				return (BordaText)result.next();
 			}
 		}
 		catch(Exception e)
@@ -343,7 +345,58 @@ public class BordaDaoDB4O implements BordaDao {
 		return null;
 	}
 
+	public void deleteBordaText()
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(BordaText.class);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
 
+	}
+	
+	/**
+	 * Updates the BORDA text
+	 * @param about
+	 */
+	public void updateBordaText(BordaText text)
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(BordaText.class);
+			ObjectSet result=query.execute();
+			while(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+			DB.store(text);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
+	}
 
 
 }
