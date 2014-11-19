@@ -14,12 +14,12 @@
 			<h1>${message:method-name}</h1>
 			</titlelist>
 
+			
 			<div class="descripcionMetodo">
 				<p id="descripcionBorda">
 				<hr />
-				<t:OutputRaw t:value="${bordaText}"/>
+					<t:OutputRaw t:value="${bordaText}"/>
 				</p>
-				
 			</div>
 		</t:zone>
 		
@@ -37,6 +37,10 @@
 						<tr>
 							<td><input t:type="submit" class="boton"
 								t:value="${message:submit-but}" /></td>
+
+							<td><label><t:actionlink t:id="setDefault" t:zone="^">
+								<button>${message:set-but}</button>
+								</t:actionlink></label></td>
 						</tr>
 					</table>
 				</t:form>

@@ -11,6 +11,7 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
@@ -25,7 +26,8 @@ import com.pfc.ballots.dao.*;
  */
 public class BordaMethod {
 
-
+	@Inject
+	private Messages messages;
 	@SessionState
 	private DataSession datasession;
 
@@ -38,6 +40,7 @@ public class BordaMethod {
 	@Persist
 	@Property
 	private boolean showText;
+
 	
 	@Persist 
 	BordaDaoDB4O bordaDao;
@@ -58,6 +61,7 @@ public class BordaMethod {
 
 	
 	public BordaMethod(){
+
 		
 	}
 	public void setupRender()
@@ -79,17 +83,28 @@ public class BordaMethod {
 	{
 		return datasession.isAdmin() || datasession.isTeacher();
 	}
+
 	
 	public Object onSuccessFromEditForm()
 	{
-		//if(request.isXHR())
-	//	{
+		if(request.isXHR())
+		{
 			BordaText temp = new BordaText();
 			temp.setBordaText(request.getParameter("bordaText"));
 			bordaDao.updateBordaText(temp);
 			return BordaMethod.class;
-		//}
-		//return null;
+		}
+		return null;
 	}
+	
+	public Object onActionFromsetDefault(){
+		String texto = messages.get("content");
+		BordaText temp = new BordaText();
+		temp.setBordaText(texto);
+		bordaDao.updateBordaText(temp);
+		return BordaMethod.class;
+	}
+
+	
 	
 }
