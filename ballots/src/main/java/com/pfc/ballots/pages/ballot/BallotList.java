@@ -37,7 +37,7 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 /**
  *  BallotList class is the controller for the BallotList page that
- * 	provides a list of the bllotats created by the current user
+ * 	provides a list of the ballots created by the current user
  * 
  * @author Mario Temprano Martin
  * @version 2.0 JUL-2014
