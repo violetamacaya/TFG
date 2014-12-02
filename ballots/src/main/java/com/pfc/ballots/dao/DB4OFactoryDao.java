@@ -165,7 +165,11 @@ public class DB4OFactoryDao extends FactoryDao{
 	{
 		return new BordaDaoDB4O(null);
 	}
-
+	@Override
+	public KemenyDao getKemenyTextDao()
+	{
+		return new KemenyDaoDB4O(null);
+	}
 	 
 	
 	 

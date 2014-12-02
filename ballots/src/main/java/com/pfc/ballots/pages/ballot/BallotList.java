@@ -33,6 +33,7 @@ import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
+import com.pfc.ballots.pages.ballot.EditBallot;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 /**
@@ -166,6 +167,7 @@ public class BallotList {
 	
 	@InjectComponent
 	private Zone gridZone;
+
 	
 	@Property
 	@Persist
@@ -264,6 +266,13 @@ public class BallotList {
 	 * @param idBallot
 	 * @return 
 	 */
+	
+	public Object onActionFromEditBallot(String idBallot){
+		contextBallotId=idBallot;
+		return EditBallot.class;
+		
+	}
+	
 	public Object onActionFromAddUsersBut(String idBallot)
 	{
 		addUsers.setup(idBallot,BallotList.class);

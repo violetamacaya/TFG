@@ -8,6 +8,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
+import com.pfc.ballots.entities.KemenyText;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 /**
  * 
@@ -311,6 +312,83 @@ public class KemenyDaoDB4O implements KemenyDao
 	{
 		DB.close();
 		System.out.println("[DB4O]Database was closed");
+	}
+
+	public KemenyText getKemenyText() {
+
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(KemenyText.class);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				return (KemenyText)result.next();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return null;
+	}
+
+	public void deleteKemenyText()
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(KemenyText.class);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
+	}
+	
+	/**
+	 * Updates the BORDA text
+	 * @param about
+	 */
+	public void updateKemenyText(KemenyText text)
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(KemenyText.class);
+			ObjectSet result=query.execute();
+			while(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+			DB.store(text);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
 	}
 
 

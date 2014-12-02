@@ -7,6 +7,6 @@ package com.pfc.ballots.pages.Methods;
  * @author violeta
  *
  */
-public class Kemeny {
+public class MajoryMethod {
 
 }

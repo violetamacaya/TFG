@@ -73,5 +73,6 @@ public abstract class FactoryDao {
 		}
 	}
 	public abstract BordaDao getBordaTextDao();
+	public abstract KemenyDao getKemenyTextDao();
 	
 }

@@ -93,7 +93,7 @@ public class UserList {
 	@InjectComponent
 	private Zone usergrid;
 	@InjectComponent
-	private Zone editZone;
+	private Zone editUserZone;
 	@InjectComponent
 	private Zone detailsZone;
 	
@@ -229,7 +229,7 @@ public class UserList {
 			}
 			
 			
-			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("editZone",editZone).addRender("nomailgrid",nomailgrid);
+			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("editUserZone",editUserZone).addRender("nomailgrid",nomailgrid);
 			System.out.println("SUCCESS");
 		}
 	}
@@ -242,7 +242,7 @@ public class UserList {
 			if(action==Actions.CANCEL)
 			{
 			editing=false;
-			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("editZone",editZone);
+			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("editUserZone",editUserZone);
 			}
 			System.out.println("FAILURE");
 		}
@@ -262,7 +262,7 @@ public class UserList {
 			nonavalible=false;
 			user=lookforid(id);
 			editprof=new Profile(user);
-			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("nomailgrid",nomailgrid).addRender("editZone",editZone);
+			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("nomailgrid",nomailgrid).addRender("editUserZone",editUserZone).addRender("detailsZone", detailsZone);
 		}
 	}
 	
@@ -303,7 +303,7 @@ public class UserList {
 			nonavalible=false;
 			user=lookforid(id);
 			editprof=new Profile(user);
-			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("nomailgrid",nomailgrid).addRender("editZone",editZone);
+			ajaxResponseRenderer.addRender("usergrid",usergrid).addRender("nomailgrid",nomailgrid).addRender("editUserZone",editUserZone);
 		}
 	}
 	/**

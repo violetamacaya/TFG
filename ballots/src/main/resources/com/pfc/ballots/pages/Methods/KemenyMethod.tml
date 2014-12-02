@@ -23,9 +23,9 @@
 
 			
 			<div class="descripcionMetodo">
-				<p id="descripcionBorda">
+				<p id="descripcionKemeny">
 				<hr />
-					<t:OutputRaw t:value="${bordaText}"/>
+					<t:OutputRaw t:value="${kemenyText}"/>
 				</p>
 			</div>
 		</t:zone>
@@ -38,7 +38,7 @@
 					<table>
 
 						<tr>
-							<td><t:textArea t:id="bordaText" class="areaText" /></td>
+							<td><t:textArea t:id="kemenyText" class="areaText" /></td>
 						</tr>
 						<tr>
 							<td><input t:type="submit" class="boton"

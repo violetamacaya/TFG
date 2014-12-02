@@ -2,6 +2,7 @@ package com.pfc.ballots.dao;
 
 import java.util.List;
 
+import com.pfc.ballots.entities.KemenyText;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 
 /**
@@ -9,6 +10,8 @@ import com.pfc.ballots.entities.ballotdata.Kemeny;
  * 
  * @author Mario Temprano Martin
  * @version 1.0 JUL-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 DIC-2014
  *
  */
 public interface KemenyDao {
@@ -22,4 +25,9 @@ public interface KemenyDao {
 	public void deleteAll();
 	public List<Kemeny> retrieveAll();
 	public void update(Kemeny updated);
+	
+	public KemenyText getKemenyText();
+	public void deleteKemenyText();
+	public void updateKemenyText(KemenyText text);
+	
 }

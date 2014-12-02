@@ -10,15 +10,10 @@
 		<t:zone t:id="generalZone" id="generalZone" t:update="show">
 			<t:if test="showGeneral">
 				
-				
-					
-					
-				
 			</t:if>
 		</t:zone>
 		
-		
-		
+			
 		<t:zone t:id="typeZone" id="typeZone" t:update="show">
 			<t:if test="showtype">
 				<t:form t:id="typeForm" zone="^">

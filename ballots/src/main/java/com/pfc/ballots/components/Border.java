@@ -47,8 +47,8 @@ import com.pfc.ballots.pages.profile.ShowProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
 import com.pfc.ballots.pages.Methods.BordaMethod;
-import com.pfc.ballots.pages.Methods.Kemeny;
-import com.pfc.ballots.pages.Methods.Majory;
+import com.pfc.ballots.pages.Methods.KemenyMethod;
+import com.pfc.ballots.pages.Methods.MajoryMethod;
 /**
  * Border class is a component that provides the menu interface for all the application
  * 
@@ -389,11 +389,11 @@ public class Border {
 			}
 		else if(section.equals("majory"))
 			{
-			page=Majory.class;
+			page=MajoryMethod.class;
 			}
 		else if(section.equals("kemeny"))
 			{
-			page=Kemeny.class;
+			page=KemenyMethod.class;
 			}
 		else if(section.equals("borda"))
 		{
