@@ -55,20 +55,7 @@ que cuente con una mayoría absoluta de votos. Si en el proceso nos encontramos 
 más alternativas que cuentan con una mayoría de votos, se desempata en el nivel subsiguiente
 tomando en cuenta sólo las alternativas empatadas.
 			</p><br/>
-			<h2>Método Borda</h2><br/>
-			<p class="methodtext">
-			A los votantes se les pide que expresen, cada uno de ellos, un orden completo de preferencias,
-jerarquizando la alternativa más preferida, que se sitúa en primer lugar, a la menos preferida,
-que se colca en último lugar. Dentro de cada orden individual de preferencias, se adjudica
-un puntaje a las alternativas situadas en cada nivel dentro del orden. La alternativa situada
-en el nivel más alto, recibe el puntaje N-1 (es decir, el número de alternativas jerarquizadas,
-menos uno). Si existen cuatro alternativas, la alternativa de la primera preferencia recibirá un
-puntaje de 3. La alternativa situada en segundo nivel recibirá un puntaje equivalente a N-2, y
-así hasta la última alternativa, que recibirá el puntaje N-N, esto es, un puntaje de 0. Se pasan a
-sumar los puntajes que reciben las alternativas en cada orden individual. La opción ganadora
-es aquella que obtiene el mayor puntaje, que es la ganadora Borda. En caso de empate entre
-dos alternativas ganadoras, se escoge una de las dos alternativas al azar.
-			</p><br/>
+
 			<h2>Método Condorcet</h2><br/>
 			<p class="methodtext">
 			Este método consiste en confrontar cada alternativa con las demás, una por una (poniendo
@@ -108,27 +95,7 @@ de preferencias, y se vuelve a aplicar el mismo método. Así hasta conseguir un
 que será el ganador Nanson. Si existe un ganador Condorcet, el método Nanson garantiza que
 saldrá escogido.
 			</p><br/>
-			<h2>Método Kemeny-Young</h2><br/>
-			<p class="methodtext">Normalmente a los votantes se les pide que expresen, cada uno de ellos, un orden completo
-de preferencias, jerarquizando la alternativa más preferida, que se sitúa en primer lugar, a
-la menos preferida, que se colca en último lugar. No obstante, el método también admite la
-expresión de órdenes incompletos de preferencias. Se evalúa, en comparaciones por pares,
-los votos que recibe cada alternativa frente a las demás, obteniendo de este modo la tabla de
-comparaciones por pares. Acto seguido, se calculan y extraen todas las permutaciones posibles
-entre las alternativas. Si existen cuatro alternativas, el número total de permutaciones posibles
-equivale a 4 x 3 x 2 x 1 = 24. Si existen cinco, el número total equivale a 5 x 4 x 3 x 2 x 1= 120.
-En cada una de las permutaciones, se adjudican los votos que recibe cada alternativa frente a
-las demás en la tabla de comparaciones por pares, pero respetando el orden que tenga cada
-alternativa frente a las demás en la permutación. Por ejemplo: la permutación es A>B>C, y en
-la tabla de comparaciones por pares tenemos que A obtiene 10 votos frente a B, y 10 frente
-a C; B en cambio obtiene 8 votos frente a A, y 8 frente a C; y C finalmente obtiene 8 frente
-a A, y 10 frente a B. Entonces, adjudicamos los votos recibidos por A frente a B (10), por A
-frente a C (10), y por B frente a C (8). El puntaje total de la permutación es 28. Se procede
-del mismo modo en todas las permutaciones posibles, y aquella permutación que obtenga el
-mayor puntaje, es la secuencia ganadora Kemeny, y la primera alternativa de la secuencia es la
-ganadora Kemeny. En caso de existir un ganador Condorcet, el método Kemeny asegura que
-éste salga ganador. En caso de empate entre dos secuencias, se escoge al azar una de ellas.
-			</p><br/>
+
 			<h2>Método Schulze</h2><br/>
 			<p class="methodtext">
 			Los votantes pueden expresar un orden incompleto de preferencias, jerarquizando la

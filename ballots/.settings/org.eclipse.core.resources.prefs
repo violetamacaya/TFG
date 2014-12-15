@@ -29,6 +29,7 @@ encoding//src/main/resources/com/pfc/ballots/pages/Index_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/BordaMethod.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/BordaMethod.tml=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/KemenyMethod.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/Methods/MajoryMethod.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/MethodsInfo.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/MethodsInfo_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/admin/AdminCreateProfile.properties=UTF-8

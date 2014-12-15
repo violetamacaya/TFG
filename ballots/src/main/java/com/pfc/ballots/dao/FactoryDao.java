@@ -9,6 +9,8 @@ import com.pfc.ballots.dao.UserDao;
  * 
  * @version 2.0, FEB-2014
  * @author Mario Temprano Martin
+ * @version 3.0 NOV-2014
+ * @author Violeta Macaya Sánchez
  */
 public abstract class FactoryDao {
 
@@ -74,5 +76,6 @@ public abstract class FactoryDao {
 	}
 	public abstract BordaDao getBordaTextDao();
 	public abstract KemenyDao getKemenyTextDao();
+	public abstract MajoryDao getMajoryTextDao();
 	
 }

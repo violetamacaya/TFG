@@ -170,7 +170,12 @@ public class DB4OFactoryDao extends FactoryDao{
 	{
 		return new KemenyDaoDB4O(null);
 	}
-	 
+	@Override
+	public MajoryDao getMajoryTextDao()
+	{
+		return new MajoryDaoDB4O(null);
+	}
+	 	 
 	
 	 
 
