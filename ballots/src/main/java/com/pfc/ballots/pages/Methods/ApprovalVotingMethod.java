@@ -13,7 +13,7 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.data.DataSession;
-import com.pfc.ballots.entities.MajoryText;
+import com.pfc.ballots.entities.ApprovalVotingText;
 import com.pfc.ballots.dao.*;
 
 /**
@@ -21,7 +21,7 @@ import com.pfc.ballots.dao.*;
  * @version 1.0 DIC-2014
  *
  */
-public class MajoryMethod {
+public class ApprovalVotingMethod {
 
 	@Inject
 	private Messages messages;
@@ -40,11 +40,11 @@ public class MajoryMethod {
 
 	
 	@Persist 
-	MajoryDaoDB4O majoryDao;
+	ApprovalVotingDaoDB4O approvalVotingDao;
 	
 	@Persist
 	@Property
-	private String majoryText;
+	private String approvalVotingText;
 	
 	@Inject
 	private ComponentResources componentResources;
@@ -57,15 +57,15 @@ public class MajoryMethod {
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 
 	
-	public MajoryMethod(){
+	public ApprovalVotingMethod(){
 
 		
 	}
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();		
-		majoryDao = new MajoryDaoDB4O(null);
-		majoryText= DB4O.getMajoryTextDao().getMajoryText().getMajoryText();	
+		approvalVotingDao = new ApprovalVotingDaoDB4O(null);
+		approvalVotingText= DB4O.getApprovalVotingTextDao().getApprovalVotingText().getApprovalVotingText();	
 	}
 	
 	public boolean isTeacher()
@@ -86,20 +86,20 @@ public class MajoryMethod {
 	{
 		if(request.isXHR())
 		{
-			MajoryText temp = new MajoryText();
-			temp.setMajoryText(request.getParameter("majoryText"));
-			majoryDao.updateMajoryText(temp);
-			return MajoryMethod.class;
+			ApprovalVotingText temp = new ApprovalVotingText();
+			temp.setApprovalVotingText(request.getParameter("approvalVotingText"));
+			approvalVotingDao.updateApprovalVotingText(temp);
+			return ApprovalVotingMethod.class;
 		}
 		return null;
 	}
 	
 	public Object onActionFromsetDefault(){
 		String texto = messages.get("content");
-		MajoryText temp = new MajoryText();
-		temp.setMajoryText(texto);
-		majoryDao.updateMajoryText(temp);
-		return MajoryMethod.class;
+		ApprovalVotingText temp = new ApprovalVotingText();
+		temp.setApprovalVotingText(texto);
+		approvalVotingDao.updateApprovalVotingText(temp);
+		return ApprovalVotingMethod.class;
 	}
 
 	

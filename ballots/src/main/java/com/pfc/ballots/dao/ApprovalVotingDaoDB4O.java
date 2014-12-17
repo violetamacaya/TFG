@@ -7,17 +7,17 @@ import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.RangeVotingText;
-import com.pfc.ballots.entities.MajoryText;
+import com.pfc.ballots.entities.ApprovalVotingText;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 /**
  * 
- * Implementation of the interface MajoryDao for the DB4O database
+ * Implementation of the interface ApprovalVotingDao for the DB4O database
  * 
  * @author Violeta Macaya Sánchez
  * @version 1.0 DIC-2014
  *
  */
-public class MajoryDaoDB4O implements MajoryDao 
+public class ApprovalVotingDaoDB4O implements ApprovalVotingDao 
 {
 	String sep=System.getProperty("file.separator");
 	String PATH;
@@ -26,7 +26,7 @@ public class MajoryDaoDB4O implements MajoryDao
 	ObjectContainer DB=null;
 	
 	
-	public MajoryDaoDB4O(String DBName)
+	public ApprovalVotingDaoDB4O(String DBName)
 	{
 		if(DBName==null)
 		{
@@ -67,17 +67,17 @@ public class MajoryDaoDB4O implements MajoryDao
 			DB.close();
 			System.out.println("[DB4O]Database was closed");
 		}
-	public MajoryText getMajoryText() {
+	public ApprovalVotingText getApprovalVotingText() {
 
 		open();
 		try
 		{
 			Query query=DB.query();
-			query.constrain(MajoryText.class);
+			query.constrain(ApprovalVotingText.class);
 			ObjectSet result=query.execute();
 			if(result.hasNext())
 			{
-				return (MajoryText)result.next();
+				return (ApprovalVotingText)result.next();
 			}
 		}
 		catch(Exception e)
@@ -91,13 +91,13 @@ public class MajoryDaoDB4O implements MajoryDao
 		return null;
 	}
 
-	public void deleteMajoryText()
+	public void deleteApprovalVotingText()
 	{
 		open();
 		try
 		{
 			Query query=DB.query();
-			query.constrain(MajoryText.class);
+			query.constrain(ApprovalVotingText.class);
 			ObjectSet result=query.execute();
 			if(result.hasNext())
 			{
@@ -119,13 +119,13 @@ public class MajoryDaoDB4O implements MajoryDao
 	 * Updates the BORDA text
 	 * @param about
 	 */
-	public void updateMajoryText(MajoryText text)
+	public void updateApprovalVotingText(ApprovalVotingText text)
 	{
 		open();
 		try
 		{
 			Query query=DB.query();
-			query.constrain(MajoryText.class);
+			query.constrain(ApprovalVotingText.class);
 			ObjectSet result=query.execute();
 			while(result.hasNext())
 			{

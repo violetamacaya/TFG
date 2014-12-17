@@ -8,6 +8,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
+import com.pfc.ballots.entities.RangeVotingText;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 
@@ -316,5 +317,87 @@ public class RangeVotingDaoDB4O implements RangeVotingDao{
 		DB.close();
 		System.out.println("[DB4O]Database was closed");
 	}
+
+	
+
+	public RangeVotingText getRangeVotingText() {
+
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(RangeVotingText.class);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				return (RangeVotingText)result.next();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return null;
+	}
+
+	public void deleteRangeVotingText()
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(RangeVotingText.class);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
+	}
+	
+	/**
+	 * Updates the BORDA text
+	 * @param about
+	 */
+	public void updateRangeVotingText(RangeVotingText text)
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(RangeVotingText.class);
+			ObjectSet result=query.execute();
+			while(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+			DB.store(text);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
+	}
+
+
+
 
 }

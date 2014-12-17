@@ -23,9 +23,9 @@
 
 			
 			<div class="descripcionMetodo">
-				<p id="descripcionRangeVoting">
+				<p id="descripcionApprovalVoting">
 				<hr />
-					<t:OutputRaw t:value="${rangeVotingText}"/>
+					<t:OutputRaw t:value="${approvalVotingText}"/>
 				</p>
 			</div>
 		</t:zone>
@@ -38,7 +38,7 @@
 					<table>
 
 						<tr>
-							<td><t:textArea t:id="rangeVotingText" class="areaText" /></td>
+							<td><t:textArea t:id="approvalVotingText" class="areaText" /></td>
 						</tr>
 						<tr>
 							<td><input t:type="submit" class="boton"

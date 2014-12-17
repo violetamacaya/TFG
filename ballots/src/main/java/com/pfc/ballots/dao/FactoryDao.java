@@ -77,5 +77,7 @@ public abstract class FactoryDao {
 	public abstract BordaDao getBordaTextDao();
 	public abstract KemenyDao getKemenyTextDao();
 	public abstract MajoryDao getMajoryTextDao();
+	public abstract ApprovalVotingDao getApprovalVotingTextDao();
+	public abstract RangeVotingDao getRangeVotingTextDao();
 	
 }

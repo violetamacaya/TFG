@@ -175,6 +175,16 @@ public class DB4OFactoryDao extends FactoryDao{
 	{
 		return new MajoryDaoDB4O(null);
 	}
+	@Override
+	public RangeVotingDao getRangeVotingTextDao()
+	{
+		return new RangeVotingDaoDB4O(null);
+	}
+	@Override
+	public ApprovalVotingDao getApprovalVotingTextDao()
+	{
+		return new ApprovalVotingDaoDB4O(null);
+	}
 	 	 
 	
 	 

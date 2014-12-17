@@ -16,7 +16,8 @@
 			
 		<ul id="mainMenu">
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:index" ><plain>${message:home}</plain></t:eventlink></li>
-
+			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:methods" ><plain>${message:methods}</plain></t:eventlink></li>
+			
 			<t:if test="!loged">
 				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:publics" ><plain>${message:publics}</plain></t:eventlink></li>
 			</t:if>
@@ -99,26 +100,35 @@
 		
 			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>${message:configure}</plain></t:eventLink></li>
 			
-		<t:if test="teacher">
+		<t:if test="adminorteacher">
 			<div id="edit-menu"><h2>${message:edit-menu}</h2><br/></div>
 		</t:if>
 		
-		<t:if test="admin">
-			<div id="edit-menu"><h2>${message:edit-menu}</h2><br/></div>
-		</t:if>
 		
 		<t:zone t:id="editZone" id="editZone">
-		<t:if test="teacher">
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:borda"><plain>${message:edit-borda}</plain></t:eventlink></li>
+
+		<t:if test="adminorteacher">
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:approvalVoting"><plain>${message:edit-approvalVoting}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:black"><plain>${message:edit-black}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:borda"><plain>${message:edit-borda}</plain></t:eventlink></li>				
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:brams"><plain>${message:edit-brams}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:bucklin"><plain>${message:edit-bucklin}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:condorcet"><plain>${message:edit-condorcet}</plain></t:eventlink></li>			
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:coombs"><plain>${message:edit-coombs}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:copeland"><plain>${message:edit-copeland}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:dodgson"><plain>${message:edit-dodgson}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:hare"><plain>${message:edit-hare}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:jucioMayoritario"><plain>${message:edit-juicioMayoritario}</plain></t:eventlink></li>				
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:kemeny"><plain>${message:edit-kemeny}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:majory"><plain>${message:edit-majory}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:mejorPeor"><plain>${message:edit-mejorPeor}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:nanson"><plain>${message:edit-nanson}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:rangeVoting"><plain>${message:edit-rangeVoting}</plain></t:eventlink></li>
-		</t:if>
-		<t:if test="admin">
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:borda"><plain>${message:edit-borda}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:kemeny"><plain>${message:edit-kemeny}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:majory"><plain>${message:edit-majory}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:rangeVoting"><plain>${message:edit-rangeVoting}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:schulze"><plain>${message:edit-schulze}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:approvalVoting"><plain>${message:edit-approvalVoting}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:small"><plain>${message:edit-small}</plain></t:eventlink></li>				
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:votoAcumulativo"><plain>${message:edit-votoAcumulativo}</plain></t:eventlink></li>
+
 		</t:if>
 		</t:zone>
 		

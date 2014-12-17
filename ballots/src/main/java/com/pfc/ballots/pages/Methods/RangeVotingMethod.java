@@ -13,7 +13,7 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.data.DataSession;
-import com.pfc.ballots.entities.MajoryText;
+import com.pfc.ballots.entities.RangeVotingText;
 import com.pfc.ballots.dao.*;
 
 /**
@@ -21,7 +21,7 @@ import com.pfc.ballots.dao.*;
  * @version 1.0 DIC-2014
  *
  */
-public class MajoryMethod {
+public class RangeVotingMethod {
 
 	@Inject
 	private Messages messages;
@@ -40,11 +40,11 @@ public class MajoryMethod {
 
 	
 	@Persist 
-	MajoryDaoDB4O majoryDao;
+	RangeVotingDaoDB4O rangeVotingDao;
 	
 	@Persist
 	@Property
-	private String majoryText;
+	private String rangeVotingText;
 	
 	@Inject
 	private ComponentResources componentResources;
@@ -57,15 +57,15 @@ public class MajoryMethod {
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 
 	
-	public MajoryMethod(){
+	public RangeVotingMethod(){
 
 		
 	}
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();		
-		majoryDao = new MajoryDaoDB4O(null);
-		majoryText= DB4O.getMajoryTextDao().getMajoryText().getMajoryText();	
+		rangeVotingDao = new RangeVotingDaoDB4O(null);
+		rangeVotingText= DB4O.getRangeVotingTextDao().getRangeVotingText().getRangeVotingText();	
 	}
 	
 	public boolean isTeacher()
@@ -86,20 +86,20 @@ public class MajoryMethod {
 	{
 		if(request.isXHR())
 		{
-			MajoryText temp = new MajoryText();
-			temp.setMajoryText(request.getParameter("majoryText"));
-			majoryDao.updateMajoryText(temp);
-			return MajoryMethod.class;
+			RangeVotingText temp = new RangeVotingText();
+			temp.setRangeVotingText(request.getParameter("rangeVotingText"));
+			rangeVotingDao.updateRangeVotingText(temp);
+			return RangeVotingMethod.class;
 		}
 		return null;
 	}
 	
 	public Object onActionFromsetDefault(){
 		String texto = messages.get("content");
-		MajoryText temp = new MajoryText();
-		temp.setMajoryText(texto);
-		majoryDao.updateMajoryText(temp);
-		return MajoryMethod.class;
+		RangeVotingText temp = new RangeVotingText();
+		temp.setRangeVotingText(texto);
+		rangeVotingDao.updateRangeVotingText(temp);
+		return RangeVotingMethod.class;
 	}
 
 	

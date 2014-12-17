@@ -26,7 +26,6 @@ import com.pfc.ballots.pages.About;
 import com.pfc.ballots.pages.Contact;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.MethodsInfo;
-import com.pfc.ballots.pages.RangeVoting;
 import com.pfc.ballots.pages.Census.AdminCensus;
 import com.pfc.ballots.pages.Census.CensusList;
 import com.pfc.ballots.pages.Census.CreateCensus;
@@ -46,9 +45,11 @@ import com.pfc.ballots.pages.profile.ProfileByFile;
 import com.pfc.ballots.pages.profile.ShowProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
+import com.pfc.ballots.pages.Methods.ApprovalVotingMethod;
 import com.pfc.ballots.pages.Methods.BordaMethod;
 import com.pfc.ballots.pages.Methods.KemenyMethod;
 import com.pfc.ballots.pages.Methods.MajoryMethod;
+import com.pfc.ballots.pages.Methods.RangeVotingMethod;
 /**
  * Border class is a component that provides the menu interface for all the application
  * 
@@ -224,6 +225,9 @@ public class Border {
 	{
 		return datasession.isTeacher();
 	}
+	public boolean isAdminorteacher(){
+		return isTeacher() || isAdmin();
+	}
 	/**
 	 * 
 	 * @return if the user is an admin of the main application
@@ -388,20 +392,24 @@ public class Border {
 			page=BallotList.class;
 			}
 		else if(section.equals("majory"))
-			{
+		{
 			page=MajoryMethod.class;
-			}
+		}
 		else if(section.equals("kemeny"))
-			{
+		{
 			page=KemenyMethod.class;
-			}
+		}
 		else if(section.equals("borda"))
 		{
 			page=BordaMethod.class;
 		}
 		else if(section.equals("rangeVoting"))
 		{
-			page=RangeVoting.class;
+			page=RangeVotingMethod.class;
+		}
+		else if(section.equals("approvalVoting"))
+		{
+			page=ApprovalVotingMethod.class;
 		}
 		else							//This handle the upper menu
 		{
@@ -419,6 +427,8 @@ public class Border {
 				{page=PublicBallots.class;}
 			else if(section.equals("new-ballot"))
 				{page=BallotWizzard.class;}
+			else if(section.equals("methods"))
+				{page=MethodsInfo.class;}
 			else if(section.equals("new-user1"))
 			{
 				if(datasession.isAdmin())
