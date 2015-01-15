@@ -118,7 +118,7 @@
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:copeland"><plain>${message:edit-copeland}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:dodgson"><plain>${message:edit-dodgson}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:hare"><plain>${message:edit-hare}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:jucioMayoritario"><plain>${message:edit-juicioMayoritario}</plain></t:eventlink></li>				
+				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:juiciomayoritario"><plain>${message:edit-juicioMayoritario}</plain></t:eventlink></li>				
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:kemeny"><plain>${message:edit-kemeny}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:majory"><plain>${message:edit-majory}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:mejorPeor"><plain>${message:edit-mejorPeor}</plain></t:eventlink></li>

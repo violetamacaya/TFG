@@ -79,5 +79,21 @@ public abstract class FactoryDao {
 	public abstract MajoryDao getMajoryTextDao();
 	public abstract ApprovalVotingDao getApprovalVotingTextDao();
 	public abstract RangeVotingDao getRangeVotingTextDao();
+	public abstract BlackDao getBlackTextDao();
+	public abstract BramsDao getBramsTextDao();
+	public abstract BucklinDao getBucklinTextDao();
+	public abstract CondorcetDao getCondorcetTextDao();
+	public abstract CoombsDao getCoombsTextDao();
+	public abstract CopelandDao getCopelandTextDao();
+	public abstract DodgsonDao getDodgsonTextDao();
+	
+	public abstract HareDao getHareTextDao();
+	public abstract JuicioMayoritarioDao getJuicioMayoritarioTextDao();
+	public abstract MejorPeorDao getMejorPeorTextDao();
+	public abstract NansonDao getNansonTextDao();
+	public abstract SchulzeDao getSchulzeTextDao();
+	public abstract SmallDao getSmallTextDao();
+	public abstract VotoAcumulativoDao getVotoAcumulativoTextDao();
+	
 	
 }

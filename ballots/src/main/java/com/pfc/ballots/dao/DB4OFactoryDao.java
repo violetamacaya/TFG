@@ -5,6 +5,8 @@ package com.pfc.ballots.dao;
  * 
  * @author Mario Temprnano Martin
  * @version 2.0 FEB-2014
+ * @author Violeta Macaya Sánchez
+ * @version	3.0 ENE-2015
  *
  */
 
@@ -185,8 +187,76 @@ public class DB4OFactoryDao extends FactoryDao{
 	{
 		return new ApprovalVotingDaoDB4O(null);
 	}
-	 	 
+	@Override
+	public BlackDao getBlackTextDao()
+	{
+		return new BlackDaoDB4O(null);
+	} 	 
+	@Override
+	public BramsDao getBramsTextDao()
+	{
+		return new BramsDaoDB4O(null);
+	} 	 
+	@Override
+	public BucklinDao getBucklinTextDao()
+	{
+		return new BucklinDaoDB4O(null);
+	} 	
+	@Override
+	public CondorcetDao getCondorcetTextDao()
+	{
+		return new CondorcetDaoDB4O(null);
+	} 	
+	@Override
+	public CoombsDao getCoombsTextDao()
+	{
+		return new CoombsDaoDB4O(null);
+	} 	
+	@Override
+	public CopelandDao getCopelandTextDao()
+	{
+		return new CopelandDaoDB4O(null);
+	} 
 	
-	 
+	@Override
+	public SchulzeDao getSchulzeTextDao()
+	{
+		return new SchulzeDaoDB4O(null);
+	} 
+	@Override
+	public SmallDao getSmallTextDao()
+	{
+		return new SmallDaoDB4O(null);
+	} 
+	@Override
+	public NansonDao getNansonTextDao()
+	{
+		return new NansonDaoDB4O(null);
+	} 
+	@Override
+	public MejorPeorDao getMejorPeorTextDao()
+	{
+		return new MejorPeorDaoDB4O(null);
+	} 
+	@Override
+	public JuicioMayoritarioDao getJuicioMayoritarioTextDao()
+	{
+		return new JuicioMayoritarioDaoDB4O(null);
+	} 
+	@Override
+	public HareDao getHareTextDao()
+	{
+		return new HareDaoDB4O(null);
+	} 
+	@Override
+	public VotoAcumulativoDao getVotoAcumulativoTextDao()
+	{
+		return new VotoAcumulativoDaoDB4O(null);
+	} 
+	@Override
+	public DodgsonDao getDodgsonTextDao()
+	{
+		return new DodgsonDaoDB4O(null);
+	} 
 
 }

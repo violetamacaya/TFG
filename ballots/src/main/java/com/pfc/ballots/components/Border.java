@@ -17,10 +17,18 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Session;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.DodgsonDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.LogDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
+import com.pfc.ballots.dao.HareDao;
+/*import com.pfc.ballots.dao.JuicioMayoritarioDao;
+import com.pfc.ballots.dao.MejorPeorDao;
+import com.pfc.ballots.dao.NansonDao;
+import com.pfc.ballots.dao.SchulzeDao;
+import com.pfc.ballots.dao.SmallDao;
+import com.pfc.ballots.dao.VotoAcumulativoDao;*/
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.pages.About;
 import com.pfc.ballots.pages.Contact;
@@ -46,10 +54,24 @@ import com.pfc.ballots.pages.profile.ShowProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
 import com.pfc.ballots.pages.Methods.ApprovalVotingMethod;
+import com.pfc.ballots.pages.Methods.BlackMethod;
 import com.pfc.ballots.pages.Methods.BordaMethod;
+import com.pfc.ballots.pages.Methods.CondorcetMethod;
+import com.pfc.ballots.pages.Methods.CoombsMethod;
+import com.pfc.ballots.pages.Methods.DodgsonMethod;
+import com.pfc.ballots.pages.Methods.HareMethod;
+import com.pfc.ballots.pages.Methods.JuicioMayoritarioMethod;
 import com.pfc.ballots.pages.Methods.KemenyMethod;
 import com.pfc.ballots.pages.Methods.MajoryMethod;
+import com.pfc.ballots.pages.Methods.MejorPeorMethod;
+import com.pfc.ballots.pages.Methods.NansonMethod;
 import com.pfc.ballots.pages.Methods.RangeVotingMethod;
+import com.pfc.ballots.pages.Methods.BramsMethod;
+import com.pfc.ballots.pages.Methods.BucklinMethod;
+import com.pfc.ballots.pages.Methods.CopelandMethod;
+import com.pfc.ballots.pages.Methods.SchulzeMethod;
+import com.pfc.ballots.pages.Methods.SmallMethod;
+import com.pfc.ballots.pages.Methods.VotoAcumulativoMethod;
 /**
  * Border class is a component that provides the menu interface for all the application
  * 
@@ -411,6 +433,63 @@ public class Border {
 		{
 			page=ApprovalVotingMethod.class;
 		}
+		else if(section.equals("black"))
+		{
+			page=BlackMethod.class;
+		}
+		else if(section.equals("brams"))
+		{
+			page=BramsMethod.class;
+		}
+		else if(section.equals("bucklin"))
+		{
+			page=BucklinMethod.class;
+		}
+		else if(section.equals("condorcet"))
+		{
+			page=CondorcetMethod.class;
+		}
+		else if(section.equals("coombs"))
+		{
+			page=CoombsMethod.class;
+		}
+		else if(section.equals("copeland"))
+		{
+			page=CopelandMethod.class;
+		}
+		else if(section.equals("dodgson"))
+		{
+			page=DodgsonMethod.class;
+		}
+		else if(section.equals("hare"))
+		{
+			page=HareMethod.class;
+		}
+		else if(section.equals("juiciomayoritario"))
+		{
+			page=JuicioMayoritarioMethod.class;
+		}
+		else if(section.equals("mejorPeor"))
+		{
+			page=MejorPeorMethod.class;
+		}
+		else if(section.equals("nanson"))
+		{
+			page=NansonMethod.class;
+		}
+		else if(section.equals("schulze"))
+		{
+			page=SchulzeMethod.class;
+		}
+		else if(section.equals("small"))
+		{
+			page=SmallMethod.class;
+		}
+		else if(section.equals("votoAcumulativo"))
+		{
+			page=VotoAcumulativoMethod.class;
+		}
+	
 		else							//This handle the upper menu
 		{
 			visibilityCompany=false;
