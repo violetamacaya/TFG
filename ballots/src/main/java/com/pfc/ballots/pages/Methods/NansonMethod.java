@@ -50,9 +50,6 @@ public class NansonMethod {
 	private ComponentResources componentResources;
 	
 	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	
-	@Inject
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 
@@ -100,6 +97,21 @@ public class NansonMethod {
 		temp.setNansonText(texto);
 		nansonDao.updateNansonText(temp);
 		return NansonMethod.class;
+	}
+	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("mejorpeor"))
+		{
+			page=MejorPeorMethod.class;
+		}
+		else if(section.equals("rangevoting"))
+		{
+			page=RangeVotingMethod.class;
+		}
+
+		return page;
 	}
 
 	

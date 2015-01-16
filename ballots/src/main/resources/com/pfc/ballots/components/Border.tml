@@ -125,7 +125,6 @@
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:nanson"><plain>${message:edit-nanson}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:rangeVoting"><plain>${message:edit-rangeVoting}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:schulze"><plain>${message:edit-schulze}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:approvalVoting"><plain>${message:edit-approvalVoting}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:small"><plain>${message:edit-small}</plain></t:eventlink></li>				
 				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:votoAcumulativo"><plain>${message:edit-votoAcumulativo}</plain></t:eventlink></li>
 

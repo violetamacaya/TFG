@@ -48,10 +48,7 @@ public class MajoryMethod {
 	
 	@Inject
 	private ComponentResources componentResources;
-	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	
+
 	@Inject
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
@@ -102,6 +99,19 @@ public class MajoryMethod {
 		return MajoryMethod.class;
 	}
 
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("kemeny"))
+		{
+			page=KemenyMethod.class;
+		}
+		else if(section.equals("mejorpeor"))
+		{
+			page=MejorPeorMethod.class;
+		}
+
+		return page;
+	}
 	
 }

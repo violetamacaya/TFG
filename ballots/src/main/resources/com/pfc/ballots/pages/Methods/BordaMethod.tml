@@ -29,6 +29,14 @@
 				</p>
 			</div>
 		</t:zone>
+				
+		<div id="previousMethod">
+		<t:eventlink t:event="menu"  t:context="literal:black"><plain>${message:previous}</plain></t:eventlink>
+		</div>
+		
+		<div id="nextMethod">
+		<t:eventlink t:event="menu"  t:context="literal:brams"><plain>${message:next}</plain></t:eventlink>
+		</div>
 		
 		<t:zone t:id="editZone" id="editZone" t:update="show">
 			<t:if test="adminorteacher">

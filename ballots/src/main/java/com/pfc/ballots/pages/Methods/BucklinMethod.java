@@ -48,9 +48,7 @@ public class BucklinMethod {
 	
 	@Inject
 	private ComponentResources componentResources;
-	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
+
 	
 	@Inject
 	private Request request;
@@ -102,6 +100,20 @@ public class BucklinMethod {
 		return BucklinMethod.class;
 	}
 
-	
+
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("brams"))
+		{
+			page=BramsMethod.class;
+		}
+		else if(section.equals("condorcet"))
+		{
+			page=CondorcetMethod.class;
+		}
+
+		return page;
+	}
 	
 }

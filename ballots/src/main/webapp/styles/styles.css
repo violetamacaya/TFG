@@ -852,3 +852,13 @@ button:active {
 	font-size:11pt;
 }
 
+#nextMethod{
+	text-align: right;
+	padding-right: 35px;
+	font-size: 12pt;
+}
+#previousMethod{
+	text-align: left;
+	font-size: 12pt;
+}
+

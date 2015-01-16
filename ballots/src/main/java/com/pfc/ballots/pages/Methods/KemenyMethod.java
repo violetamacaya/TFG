@@ -51,9 +51,6 @@ public class KemenyMethod {
 	private ComponentResources componentResources;
 	
 	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	
-	@Inject
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 
@@ -103,6 +100,20 @@ public class KemenyMethod {
 		return KemenyMethod.class;
 	}
 
-	
+
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("juiciomayoritario"))
+		{
+			page=JuicioMayoritarioMethod.class;
+		}
+		else if(section.equals("majory"))
+		{
+			page=MajoryMethod.class;
+		}
+
+		return page;
+	}
 	
 }

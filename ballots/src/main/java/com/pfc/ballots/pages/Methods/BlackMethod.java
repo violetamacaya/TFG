@@ -101,7 +101,20 @@ public class BlackMethod {
 		blackDao.updateBlackText(temp);
 		return BlackMethod.class;
 	}
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("approvalVoting"))
+		{
+			page=ApprovalVotingMethod.class;
+		}
+		else if(section.equals("borda"))
+		{
+			page=BordaMethod.class;
+		}
 
-	
+		return page;
+	}
+
 	
 }

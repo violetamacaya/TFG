@@ -50,9 +50,6 @@ public class JuicioMayoritarioMethod {
 	private ComponentResources componentResources;
 	
 	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	
-	@Inject
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 
@@ -102,6 +99,20 @@ public class JuicioMayoritarioMethod {
 		return JuicioMayoritarioMethod.class;
 	}
 
-	
+
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("hare"))
+		{
+			page=HareMethod.class;
+		}
+		else if(section.equals("kemeny"))
+		{
+			page=KemenyMethod.class;
+		}
+
+		return page;
+	}
 	
 }

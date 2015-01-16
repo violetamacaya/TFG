@@ -102,6 +102,20 @@ public class CondorcetMethod {
 		return CondorcetMethod.class;
 	}
 
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("coombs"))
+		{
+			page=CoombsMethod.class;
+		}
+		else if(section.equals("bucklin"))
+		{
+			page=BucklinMethod.class;
+		}
+
+		return page;
+	}
 	
 	
 }

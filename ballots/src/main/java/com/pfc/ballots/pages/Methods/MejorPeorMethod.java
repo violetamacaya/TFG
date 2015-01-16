@@ -48,10 +48,7 @@ public class MejorPeorMethod {
 	
 	@Inject
 	private ComponentResources componentResources;
-	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	
+
 	@Inject
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
@@ -102,6 +99,19 @@ public class MejorPeorMethod {
 		return MejorPeorMethod.class;
 	}
 
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("majory"))
+		{
+			page=MajoryMethod.class;
+		}
+		else if(section.equals("nanson"))
+		{
+			page=NansonMethod.class;
+		}
+
+		return page;
+	}
 	
 }

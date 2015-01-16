@@ -102,6 +102,19 @@ public class CopelandMethod {
 		return CopelandMethod.class;
 	}
 
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("coombs"))
+		{
+			page=CoombsMethod.class;
+		}
+		else if(section.equals("dodgson"))
+		{
+			page=DodgsonMethod.class;
+		}
+
+		return page;
+	}
 	
 }

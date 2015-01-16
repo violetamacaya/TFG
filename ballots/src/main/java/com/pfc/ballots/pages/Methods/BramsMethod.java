@@ -48,9 +48,7 @@ public class BramsMethod {
 	
 	@Inject
 	private ComponentResources componentResources;
-	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
+
 	
 	@Inject
 	private Request request;
@@ -102,6 +100,19 @@ public class BramsMethod {
 		return BramsMethod.class;
 	}
 
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("borda"))
+		{
+			page=BordaMethod.class;
+		}
+		else if(section.equals("bucklin"))
+		{
+			page=BucklinMethod.class;
+		}
+
+		return page;
+	}
 	
 }

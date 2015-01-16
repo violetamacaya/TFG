@@ -49,8 +49,6 @@ public class HareMethod {
 	@Inject
 	private ComponentResources componentResources;
 	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
 	
 	@Inject
 	private Request request;
@@ -102,6 +100,20 @@ public class HareMethod {
 		return HareMethod.class;
 	}
 
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("dodgson"))
+		{
+			page=DodgsonMethod.class;
+		}
+		else if(section.equals("juiciomayoritario"))
+		{
+			page=JuicioMayoritarioMethod.class;
+		}
+
+		return page;
+	}
+
 	
 }

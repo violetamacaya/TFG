@@ -48,9 +48,7 @@ public class DodgsonMethod {
 	
 	@Inject
 	private ComponentResources componentResources;
-	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
+
 	
 	@Inject
 	private Request request;
@@ -102,6 +100,20 @@ public class DodgsonMethod {
 		return DodgsonMethod.class;
 	}
 
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("copeland"))
+		{
+			page=CopelandMethod.class;
+		}
+		else if(section.equals("hare"))
+		{
+			page=HareMethod.class;
+		}
+
+		return page;
+	}
+
 	
 }

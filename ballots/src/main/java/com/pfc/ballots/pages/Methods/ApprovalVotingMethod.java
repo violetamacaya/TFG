@@ -10,7 +10,6 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.Request;
-import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.ApprovalVotingText;
@@ -49,8 +48,6 @@ public class ApprovalVotingMethod {
 	@Inject
 	private ComponentResources componentResources;
 	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
 	
 	@Inject
 	private Request request;
@@ -101,7 +98,15 @@ public class ApprovalVotingMethod {
 		approvalVotingDao.updateApprovalVotingText(temp);
 		return ApprovalVotingMethod.class;
 	}
-
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		
+		if(section.equals("black"))
+		{
+			page=BlackMethod.class;
+		}
+	return page;
+	}
 	
 }

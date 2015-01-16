@@ -52,9 +52,7 @@ public class BordaMethod {
 	@Inject
 	private ComponentResources componentResources;
 	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	
+
 	@Inject
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
@@ -105,6 +103,19 @@ public class BordaMethod {
 		return BordaMethod.class;
 	}
 
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("black"))
+		{
+			page=BlackMethod.class;
+		}
+		else if(section.equals("brams"))
+		{
+			page=BramsMethod.class;
+		}
+
+		return page;
+	}
 	
 }

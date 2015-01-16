@@ -49,8 +49,6 @@ public class CoombsMethod {
 	@Inject
 	private ComponentResources componentResources;
 	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
 	
 	@Inject
 	private Request request;
@@ -101,7 +99,20 @@ public class CoombsMethod {
 		coombsDao.updateCoombsText(temp);
 		return CoombsMethod.class;
 	}
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("condorcet"))
+		{
+			page=CondorcetMethod.class;
+		}
+		else if(section.equals("copeland"))
+		{
+			page=CopelandMethod.class;
+		}
 
+		return page;
+	}
 	
 	
 }

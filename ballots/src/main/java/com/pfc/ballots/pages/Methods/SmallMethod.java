@@ -50,9 +50,6 @@ public class SmallMethod {
 	private ComponentResources componentResources;
 	
 	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
-	
-	@Inject
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 
@@ -102,6 +99,19 @@ public class SmallMethod {
 		return SmallMethod.class;
 	}
 
-	
+	Object onMenu(String section)
+	{
+		Object page=null;
+		if(section.equals("votoacumulativo"))
+		{
+			page=VotoAcumulativoMethod.class;
+		}
+		else if(section.equals("schulze"))
+		{
+			page=SchulzeMethod.class;
+		}
+
+		return page;
+	}
 	
 }
