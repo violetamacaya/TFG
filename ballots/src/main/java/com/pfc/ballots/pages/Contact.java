@@ -1,6 +1,5 @@
 package com.pfc.ballots.pages;
 
-import java.util.Random;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.PersistenceConstants;
@@ -24,19 +23,9 @@ public class Contact
 	EmailAccountDao emailAccountDao=null;
 	@Inject
     private ComponentResources componentResources;
-	@Property
-	@Persist(PersistenceConstants.FLASH)
-	private boolean badCaptcha;
+
+
 	
-	@Property
-	@Persist
-	private String captcha1;
-	@Property
-	@Persist
-	private String captcha2;
-	@Property
-	@Persist
-	private String captchaValue;
 	
 	////////////////////////////////////////////////////////// INTIALIZE //////////////////////////////////////////////////////////////
 	
@@ -51,10 +40,7 @@ public class Contact
 			showEmailProblem=true;
 			System.out.println("--------------------\nHOLA");
 		}
-		Random r=new Random();
-		captcha1=String.valueOf(r.nextInt(101));
-		r=new Random();
-		captcha2=String.valueOf(r.nextInt(101));
+
 		
 	}
 	
@@ -76,24 +62,9 @@ public class Contact
 	@Persist(PersistenceConstants.FLASH)
 	private String text;
 	
-	public Object onSuccessFromContact()
+	public void onSuccessFromContact()
 	{
-		badCaptcha=false;
-		if(isNumeric(captchaValue))
-		{
-			if(Integer.parseInt(captchaValue)!=Integer.parseInt(captcha1)+Integer.parseInt(captcha2))
-			{
-				badCaptcha=true;
-				captchaValue=null;
-				return null;
-			}
-		}
-		else
-		{
-			captchaValue=null;
-			badCaptcha=true;
-			return null;
-		}
+
 		String asunto="Contact: "+remitente;
 		String asuntoRemit="NoReply-copia: "+emailAccount.getEmail();
 		if(Mail.sendMail(emailAccount.getEmail(), emailAccount.getPassword(), emailAccount.getEmail(), asunto, text))
@@ -106,19 +77,7 @@ public class Contact
 			System.out.println("ERROR AL ENVIAR");
 		}
 		componentResources.discardPersistentFieldChanges();
-		return Index.class;
+		
 		
 	}
-	
-	private boolean isNumeric(String cadena)
-	{
-		try {
-			Integer.parseInt(cadena);
-			return true;
-		} catch (NumberFormatException nfe){
-			return false;
-		}
-	}
-	
-	
 }

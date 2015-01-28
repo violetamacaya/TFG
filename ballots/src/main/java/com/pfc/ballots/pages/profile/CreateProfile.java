@@ -1,6 +1,5 @@
 package com.pfc.ballots.pages.profile;
 
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -20,8 +19,6 @@ import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.ProfileCensedIn;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
-import com.pfc.ballots.pages.UnauthorizedAttempt;
-import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
 
@@ -32,6 +29,8 @@ import com.pfc.ballots.util.UUID;
  * 
  * @author Mario Temprano Martin
  * @version 1.0 FEB-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 ENE-2015
  */
 @Secure
 public class CreateProfile {
@@ -42,21 +41,18 @@ public class CreateProfile {
 	@Inject
     private ComponentResources componentResources;
 
-	@Property
-	@Persist(PersistenceConstants.FLASH)
-	private String captcha1;
-	@Property
-	@Persist(PersistenceConstants.FLASH)
-	private String captcha2;
-	@Property 
-	@Persist(PersistenceConstants.FLASH)
-	private String captchaValue;
 	
 	@Property 
 	@Persist(PersistenceConstants.FLASH)
 	private boolean badSecurity;
 	
 	final String [] caracteresEspeciales={"!","¡","@","|","#","$","%","&","/","(",")","=","¿","?","*","+","-","_"};
+	
+	@Property 
+	@Persist(PersistenceConstants.FLASH)
+	private boolean numbersInPass;
+	
+	final String[] numbers={"1","2","3","4","5","6","7","8","9","0"};
 	
 	//****************************************Initialize DAO****************************//
 	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
@@ -85,13 +81,8 @@ public class CreateProfile {
 		}
 		if(profile==null || !badCaptcha || isnotPassOk || isnotAvalible)
 		{
-			System.out.println("ALALAL");
 			profile=new Profile();
 		}
-		Random r=new Random();
-		captcha1=String.valueOf(r.nextInt(101));
-		r=new Random();
-		captcha2=String.valueOf(r.nextInt(101));
 		
 	}
 	//////////////////////////////////////////////////////// PAGE STUFF /////////////////////////////////////
@@ -129,21 +120,7 @@ public class CreateProfile {
 	{
 		dao=DB4O.getUsuarioDao(datasession.getDBName());
 		
-		if(isNumeric(captchaValue))
-		{
-			if(Integer.parseInt(captchaValue)!=Integer.parseInt(captcha1)+Integer.parseInt(captcha2))
-			{
-				badCaptcha=true;
-			}
-			else
-			{
-				badCaptcha=false;
-			}
-		}
-		else
-		{
-			badCaptcha=true;
-		}
+
 		if(password==null || repeat==null)
 		{
 			
@@ -165,7 +142,17 @@ public class CreateProfile {
 				badSecurity=false;
 			}
 		}
-		if(!isnotPassOk && !isnotAvalible && !badCaptcha && !badSecurity)
+		
+		numbersInPass=true;
+		for(String numbs:numbers)
+		{
+			if(password.contains(numbs))
+			{
+				numbersInPass=false;
+			}
+		}
+		
+		if(!isnotPassOk && !isnotAvalible && !badSecurity && !numbersInPass)
 		{
 			
 			//Encryption password,and store in database
@@ -187,15 +174,6 @@ public class CreateProfile {
 		return null;
 		
 			
-	}
-	private boolean isNumeric(String cadena)
-	{
-		try {
-			Integer.parseInt(cadena);
-			return true;
-		} catch (NumberFormatException nfe){
-			return false;
-		}
 	}
 
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

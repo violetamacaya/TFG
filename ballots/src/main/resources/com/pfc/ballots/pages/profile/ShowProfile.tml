@@ -117,8 +117,8 @@
 		<t:if test="showSure">
 		<h1>${message:delete-profile}</h1><hr/>
 			${message:areuSure}<br/><br/>
-			<t:actionlink t:id="yesSureBut" class="boton"><button>${message:yesSure}</button></t:actionlink>
-			<t:actionlink t:id="notSureBut" t:zone="^" class="boton"><button>No</button></t:actionlink>
+			<t:actionlink t:id="yesSureBut" class="butonclass"><button>${message:yesSure}</button></t:actionlink>
+			<t:actionlink t:id="notSureBut" t:zone="^" class="butonclass"><button>No</button></t:actionlink>
 		</t:if>
 	</t:zone>		
 		

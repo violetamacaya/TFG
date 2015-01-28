@@ -15,9 +15,7 @@
 				${message:line2} <t:pagelink page="Contact">${message:line2-link}</t:pagelink> ${message:line2-next}
 			
 			</h3>	
-			
-			
-			
+
 			<p:else>
 				<div class="ballotsList">
 					
@@ -156,10 +154,5 @@
 		</t:if>
 	
 	</div></t:border>
-	
-		
-			
-	
-
 
 </html>

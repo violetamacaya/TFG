@@ -487,13 +487,6 @@ titleList
 }
 
 
-/*form
-{
-	background: white;
-	border: 2px solid navy;
-	margin: 10px;
-}*/
-
 form div
 {
 	display: block;
@@ -861,4 +854,6 @@ button:active {
 	text-align: left;
 	font-size: 12pt;
 }
-
+#kaptcha{
+	margin-left:150px;
+}

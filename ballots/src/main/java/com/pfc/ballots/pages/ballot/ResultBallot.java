@@ -1,6 +1,5 @@
 package com.pfc.ballots.pages.ballot;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,8 +12,6 @@ import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
-import org.apache.tapestry5.services.Request;
-import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 import com.pfc.ballots.dao.BallotDao;
@@ -50,14 +47,11 @@ public class ResultBallot {
 	@Inject
 	private ComponentResources componentResources;
 	
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
 	
 	@SessionAttribute
 	private String contextResultBallotId;
 	
-	@Inject
-	private Request request;
+
 	
 	@Persist
 	@Property
@@ -301,7 +295,7 @@ public class ResultBallot {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Kemeney Data
+	 * Kemeny Data
 	 */
 	@Property
 	@Persist

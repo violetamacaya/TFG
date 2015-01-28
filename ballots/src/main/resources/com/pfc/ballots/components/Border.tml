@@ -97,9 +97,9 @@
 						<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:new-company"><plain2>${message:create-company}</plain2></t:eventlink></li>
 					</t:if>
 				</t:zone>
-		
+		<t:if test="admin">
 			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>${message:configure}</plain></t:eventLink></li>
-			
+		</t:if>
 		<t:if test="adminorteacher">
 			<div id="edit-menu"><h2>${message:edit-menu}</h2><br/></div>
 		</t:if>

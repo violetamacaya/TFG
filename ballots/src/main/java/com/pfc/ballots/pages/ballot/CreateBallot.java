@@ -122,8 +122,8 @@ public class CreateBallot {
 		
 		initializeBooleans();
 		
-		cal3=new GregorianCalendar();
-		cal3.setTime(new Date());
+		cal_actual=new GregorianCalendar();
+		cal_actual.setTime(new Date());
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		censusDao=DB4O.getCensusDao(datasession.getDBName());
 		voteDao=DB4O.getVoteDao(datasession.getDBName());
@@ -317,19 +317,19 @@ public class CreateBallot {
 	
 
 	@Persist
-	private Calendar cal1;
+	private Calendar cal_inicio;
 	@Persist
-	private Calendar cal2;
+	private Calendar cal_final;
 	@Persist
-	private Calendar cal3;
+	private Calendar cal_actual;
 	
 	/**
 	 * Checks if the data of the ballot are correct
 	 */
 	public void onValidateFromTypeForm()
 	{
-		cal1=new GregorianCalendar();
-		cal2=new GregorianCalendar();
+		cal_inicio=new GregorianCalendar();
+		cal_final=new GregorianCalendar();
 		
 		
 		showErrorType=false;
@@ -351,7 +351,7 @@ public class CreateBallot {
 			{
 				System.out.println("START DATE NULL");
 				Date date=new Date();
-				cal1.setTime(date);
+				cal_inicio.setTime(date);
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy "); // Set your date format
 				String currentData = sdf.format(date);
 				try
@@ -366,19 +366,19 @@ public class CreateBallot {
 				
 				if(startHour==null)
 				{
-					String hour=String.valueOf(cal1.get(Calendar.HOUR_OF_DAY));
+					String hour=String.valueOf(cal_inicio.get(Calendar.HOUR_OF_DAY));
 					System.out.println(hour);
 					if(Integer.parseInt(hour)<10)
 					{
 						hour="0"+hour;
 					}
-					String min=String.valueOf(cal1.get(Calendar.MINUTE));
+					String min=String.valueOf(cal_inicio.get(Calendar.MINUTE));
 					System.out.println(min);
 					if(Integer.parseInt(min)<10)
 					{
 						min="0"+min;
 					}
-					String sec=String.valueOf(cal1.get(Calendar.SECOND));
+					String sec=String.valueOf(cal_inicio.get(Calendar.SECOND));
 					System.out.println(sec);
 					if(Integer.parseInt(sec)<10)
 					{
@@ -390,18 +390,18 @@ public class CreateBallot {
 			else
 			{
 				System.out.println(startDate);
-				cal1.setTime(startDate);
+				cal_inicio.setTime(startDate);
 			}
 			
 			if(startHour!=null)
 			{
-				cal1.setTime(startDate);
+				cal_inicio.setTime(startDate);
 				System.out.println("START HOUR");
 				String [] temp= startHour.split(":");
 				
-				cal1.set(Calendar.HOUR_OF_DAY, Integer.parseInt(temp[0]));
-				cal1.set(Calendar.MINUTE, Integer.parseInt(temp[1]));
-				cal1.set(Calendar.SECOND, Integer.parseInt(temp[2]));
+				cal_inicio.set(Calendar.HOUR_OF_DAY, Integer.parseInt(temp[0]));
+				cal_inicio.set(Calendar.MINUTE, Integer.parseInt(temp[1]));
+				cal_inicio.set(Calendar.SECOND, Integer.parseInt(temp[2]));
 				
 			}
 			
@@ -413,34 +413,34 @@ public class CreateBallot {
 			}
 			else
 			{
-				cal2.setTime(endDate);
+				cal_final.setTime(endDate);
 				if(endHour!=null)
 				{
 					String temp[] =endHour.split(":");
-					cal2.set(Calendar.HOUR_OF_DAY, Integer.parseInt(temp[0]));
-					cal2.set(Calendar.MINUTE, Integer.parseInt(temp[1]));
-					cal2.set(Calendar.SECOND, Integer.parseInt(temp[2]));
+					cal_final.set(Calendar.HOUR_OF_DAY, Integer.parseInt(temp[0]));
+					cal_final.set(Calendar.MINUTE, Integer.parseInt(temp[1]));
+					cal_final.set(Calendar.SECOND, Integer.parseInt(temp[2]));
 				}
 			}
 			
 			if(!showBadDate)
 			{
 				
-				System.out.println("start-->"+cal1.getTimeInMillis());
-				System.out.println("end---->"+cal2.getTimeInMillis());
-				System.out.println("actual->"+cal3.getTimeInMillis());
-				if(cal1.getTimeInMillis()<cal3.getTimeInMillis())
+				System.out.println("start-->"+cal_inicio.getTimeInMillis());
+				System.out.println("end---->"+cal_final.getTimeInMillis());
+				System.out.println("actual->"+cal_actual.getTimeInMillis());
+				if(cal_inicio.getTimeInMillis()<cal_actual.getTimeInMillis())
 				{
 					System.out.println("start < actual");
 					showBadDate=true;
 				}
-				if(cal2.getTimeInMillis()<cal1.getTimeInMillis())
+				if(cal_final.getTimeInMillis()<cal_inicio.getTimeInMillis())
 				{
 					System.out.println("end < start");
 					showBadDate=true;
 				}
-				System.out.println(cal1.getTime());
-				System.out.println(cal2.getTime());
+				System.out.println(cal_inicio.getTime());
+				System.out.println(cal_final.getTime());
 			}
 		
 		
@@ -1851,8 +1851,8 @@ public class CreateBallot {
 			newBallot.setPublica(true);
 		}
 		newBallot.setMethod(method);
-		newBallot.setStartDate(cal1.getTime());
-		newBallot.setEndDate(cal2.getTime());
+		newBallot.setStartDate(cal_inicio.getTime());
+		newBallot.setEndDate(cal_final.getTime());
 		return newBallot;
 	}
 	
