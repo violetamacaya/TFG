@@ -20,22 +20,22 @@ charts= Class.create( {
             if(type=="MAY")
             {
             	data.addColumn('string', 'Option');
-                data.addColumn('number', 'Vote');
+                data.addColumn('number', 'Votos');
             }
             if(type=="KEM")
             {
             	data.addColumn('string', 'Kemeny Option');
-                data.addColumn('number', 'Vote');
+                data.addColumn('number', 'Votos');
             }
             if(type=="BOR")
             {
             	data.addColumn('string', 'Option');
-                data.addColumn('number', 'Vote');
+                data.addColumn('number', 'Votos');
             }
             if(type=="RANGE")
             {
             	data.addColumn('string', 'Option');
-                data.addColumn('number', 'Vote');
+                data.addColumn('number', 'Votos');
             }
             var firstItem=true;
           

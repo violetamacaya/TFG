@@ -23,7 +23,6 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.apache.tapestry5.StreamResponse;
 import org.apache.tapestry5.services.Response;
-
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.ProfileCensedInDao;
@@ -41,20 +40,12 @@ import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.ManipulateFiles;
 import com.pfc.ballots.util.UUID;
 
-
-
-
-
-
-
-
 /**
- * 
- * CreateProfile class is the controller for the CreateProfile page that
- * allows to create a new user
  * 
  * @author Mario Temprano Martin
  * @version 1.0 FEB-2014
+ * @author Violeta Macaya Sánchez
+ * @version 1.0 FEB-2015
  */
 
 
@@ -265,25 +256,29 @@ public class ProfileByFile {
 	private Zone editZone;
 	@InjectComponent
 	private Form editForm;
-	
-	
-	
-	
-	
+
 	/**
 	 * Upload the file
 	 */
 	public void onSuccessFromUploadForm()
 	{
-		System.out.println("SUCCESSS");
-		String[] namef=file.getFileName().split("\\.");
+		System.out.println("SUCCESSS en subir"+file);
+		
+		String [] namef=file.getFileName().split("\\.");
+		System.out.print("antes de las comprobaciones");
+
 		if(datasession.isMainAdmin())
 		{
+			System.out.print(finalpath+"dentro del if");
+
 			finalpath=path+datasession.getEmail()+"."+namef[namef.length-1];
 		}
 		else
-		{
+		{			
+			System.out.print(finalpath+"en el else");
+
 			finalpath=path+datasession.getEmail()+"."+datasession.getDBName()+"."+namef[namef.length-1];
+
 		}
 		File copied= new File(finalpath);
 		fileupload=true;

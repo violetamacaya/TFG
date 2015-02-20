@@ -2,6 +2,9 @@ package com.pfc.ballots.pages.profile;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.tapestry5.ComponentResources;
@@ -77,6 +80,7 @@ public class ShowProfile {
 		showChange=false;
 		showUpdate=false;
 		badMail=false;
+		badDate = false;
 		showSure=false;
 		if(datasession.isMainUser())
 		{
@@ -99,13 +103,8 @@ public class ShowProfile {
 	@Persist
 	@Property
 	private Company company;
-
-
-	
 	@InjectComponent
 	private Zone userDataZone;
-	
-	
 	@Persist
 	@Property
 	private boolean companyUser;
@@ -182,7 +181,7 @@ public class ShowProfile {
 		{
 			return "";
 		}
-		DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(profile.getFechaNac());
 	}
 	
@@ -362,6 +361,9 @@ public class ShowProfile {
 	@Persist
 	@Property
 	private boolean badMail;
+	@Persist
+	@Property
+	private boolean badDate;
 	@Property
 	@Persist
 	private Profile update;
@@ -370,6 +372,7 @@ public class ShowProfile {
 	/**
 	 * Updates the profiles
 	 */
+	@SuppressWarnings("deprecation")
 	public void onSuccessFromUpdateForm()
 	{
 		boolean igual=false;
@@ -381,14 +384,11 @@ public class ShowProfile {
 			
 			if(!igual)
 			{
-				System.out.println("CHANGED");
-				
 				if(!update.getEmail().equals(profile.getEmail()))
 				{
 					if(userDao.isProfileRegistred(update.getEmail()))
 					{
 						badMail=true;
-					
 					}
 					else
 					{
@@ -400,10 +400,27 @@ public class ShowProfile {
 				{
 					badMail=false;
 				}
+				
+				if(update.getFechaNac() != null ){
+					
+					Calendar cal_actual;
+					cal_actual=new GregorianCalendar();
+					cal_actual.setTime(new Date());
+					
+					Date fecha_actual=cal_actual.getTime();
+					Date fecha_nueva=update.getFechaNac();
+					
+					if(fecha_actual.getDate()<fecha_nueva.getDate()){
+						badDate=true;
+					}
+					else
+						badDate=false;
+				}				
+				
 			}
 			
 			
-			if(badMail)
+			if(badMail || badDate)
 			{
 				ajaxResponseRenderer.addRender("updateProfileZone",updateProfileZone);
 			}

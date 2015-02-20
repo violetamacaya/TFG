@@ -26,9 +26,7 @@
 		<h2><small>${ballot.description}</small></h2>
 		
 		<div id="chart_div"></div>
-		
-		
-		
+
 		
 		<t:if test="showRelMay">
 			<table border="1px">

@@ -6,7 +6,7 @@
 	<t:border><div id="userlistdiv">
 	
 	<h1>${message:add-by-file}</h1><hr/>
-		
+		<t:OutputRaw  value="${message:explanation}"/>
 		${message:example-file}
 		<t:eventlink t:event="returnstreamresponse">${message:here}</t:eventlink><br/><br/>
 		
@@ -18,9 +18,9 @@
 			</t:if>
 
 			<div class="fileUpload btn btn-primary">
-
     			<input type="file" validate="required" />
 			</div>
+			
 			<br/><br/>
 			<input type="submit" class="boton" value="${message:upload}"/>		
 		</t:form>

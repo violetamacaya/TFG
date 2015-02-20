@@ -210,6 +210,7 @@ public class ResultBallot {
 				array.put(obj);
 			}
 			javaScriptSupport.addInitializerCall("charts_kem",array.toString());
+			
 		}
 		if(ballot.getMethod()==Method.BORDA)
 		{

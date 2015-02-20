@@ -1,158 +1,147 @@
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <head><title>${message:page-title}</title>
-  <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/> 
-  <link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
-  </head>
-  
-	<t:border><div id="indexDiv">
-	
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
+	<div id="indexDiv">
+
 		<t:if test="!showRegistred">
-			<h1>${message:ballots-web}</h1><hr/>
-			<h3>${message:welcome}</h3><br/>
-			
+			<h1>${message:ballots-web}</h1>
+			<hr />
+			<h3>${message:welcome}</h3>
+			<br />
+
 			<h3>
-				${message:line1} <t:pagelink page="MethodsInfo">${message:line1-link}</t:pagelink> ${message:line1-next}<br/>
-				${message:line2} <t:pagelink page="Contact">${message:line2-link}</t:pagelink> ${message:line2-next}
-			
-			</h3>	
+				${message:line1}
+				<t:pagelink page="MethodsInfo">${message:line1-link}</t:pagelink>
+				${message:line1-next}<br /> ${message:line2}
+				<t:pagelink page="Contact">${message:line2-link}</t:pagelink>
+				${message:line2-next}
+			</h3>
 
 			<p:else>
 				<div class="ballotsList">
-					
+
 					<t:if test="!showCurrent">
 						${message:no-ballots}
 					</t:if>
-				
+
 					<t:if test="showNotStarted">
-						<h3>${message:not-started}</h3><hr/>
+						<h3>${message:not-started}</h3>
+						<hr />
 						<div class="indexHead">
-							<span>${message:title}</span>
-							<span>${message:kind}</span>
-							<span>${message:startDate}</span>
-							<span>${message:endDate}</span>
-							<span>${message:method}</span>
+							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
+							<span>${message:endDate}</span> <span>${message:method}</span>
 						</div>
 						<table>
-						 	 <t:loop t:source="nonActiveBallots" t:value="ballot">
-						 	 	<div class="indexRow">
+							<t:loop t:source="nonActiveBallots" t:value="ballot">
+								<div class="indexRow">
 									<span> ${ballot.name}</span>
-								
-									 <t:if test="ballot.teaching">
-											<span>${message:teaching}</span>
-											<p:else>
-												<span>${message:private}</span>
-											</p:else>
+
+									<t:if test="ballot.teaching">
+										<span>${message:teaching}</span>
+										<p:else>
+											<span>${message:private}</span>
+										</p:else>
 									</t:if>
-									 <span>${startDate}</span>
-									<span>${endDate}</span>
-									 <span>${metodo}</span>
-									 <br/>
-								 </div>
-						 	 </t:loop>
-					 	</table>
-					</t:if>
-			
-					
-					<t:if test="showActive">
-						<h3>${message:actives}</h3><hr/>
-						<div class="indexHead">
-							<span>${message:title}</span>
-							<span>${message:kind}</span>
-							<span>${message:startDate}</span>
-							<span>${message:endDate}</span>
-							<span>${message:method}</span>
-						</div>
-							 <t:loop t:source="activeBallots" t:value="ballot">
-							 <div t:type="actionlink" t:id="voteBallot" t:context="ballot.id" class="indexRow">
-								<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							
-								 <t:if test="ballot.teaching">
-										<span>${message:teaching}</span>
-										<p:else>
-											<span>${message:private}</span>
-										</p:else>
-								</t:if>
-								<span>${startDate}</span>
-								<span>${endDate}</span>
-								 <span>${metodo}</span>
-								 <br/>
-							 </div>
+									<span>${startDate}</span> <span>${endDate}</span> <span>${metodo}</span>
+									<br />
+								</div>
 							</t:loop>
-						
+						</table>
 					</t:if>
-					
-					<t:if test="showEnded">
-							
-							 <h3>${message:ended}</h3><hr/>
-							 	<div class="indexHead">
-							<span>${message:title}</span>
-							<span>${message:kind}</span>
-							<span>${message:startDate}</span>
-							<span>${message:endDate}</span>
-							<span>${message:method}</span>
+
+
+					<t:if test="showActive">
+						<h3>${message:actives}</h3>
+						<hr />
+						<div class="indexHead">
+							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
+							<span>${message:endDate}</span> <span>${message:method}</span>
 						</div>
-							 <t:loop t:source="endedBallots" t:value="ballot">
-							 	 <div t:type="actionlink" t:id="resultBallot" context="ballot.id" class="indexRow" >
-									<span>${ballot.name}</span>
+						<t:loop t:source="activeBallots" t:value="ballot">
+							<div t:type="actionlink" t:id="voteBallot" t:context="ballot.id"
+								class="indexRow">
+								<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
 								<t:if test="ballot.teaching">
-										<span>${message:teaching}</span>
-										<p:else>
-											<span>${message:private}</span>
-										</p:else>
+									<span>${message:teaching}</span>
+									<p:else>
+										<span>${message:private}</span>
+									</p:else>
 								</t:if>
-								<span>${startDate}</span>
-								<span>${endDate}</span>
-								 <span>${metodo}</span>
-								 <br/>
-								 </div>
-								</t:loop>
+								<span>${startDate}</span> <span>${endDate}</span> <span>${metodo}</span>
+								<br />
+							</div>
+						</t:loop>
+
+					</t:if>
+
+					<t:if test="showEnded">
+
+						<h3>${message:ended}</h3>
+						<hr />
+						<div class="indexHead">
+							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
+							<span>${message:endDate}</span> <span>${message:method}</span>
+						</div>
+						<t:loop t:source="endedBallots" t:value="ballot">
+							<div t:type="actionlink" t:id="resultBallot" context="ballot.id"
+								class="indexRow">
+								<span>${ballot.name}</span>
+								<t:if test="ballot.teaching">
+									<span>${message:teaching}</span>
+									<p:else>
+										<span>${message:private}</span>
+									</p:else>
+								</t:if>
+								<span>${startDate}</span> <span>${endDate}</span> <span>${metodo}</span>
+								<br />
+							</div>
+						</t:loop>
 					</t:if>
 					<t:if test="showPublicActive">
-						<h3>${message:public-actives}</h3><hr/>
-							<div class="indexHead">
-							<span>${message:title}</span>
-							<span>${message:kind}</span>
-							<span>${message:startDate}</span>
-							<span>${message:endDate}</span>
-							<span>${message:method}</span>
+						<h3>${message:public-actives}</h3>
+						<hr />
+						<div class="indexHead">
+							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
+							<span>${message:endDate}</span> <span>${message:method}</span>
 						</div>
-							 <t:loop t:source="publicActiveBallots" t:value="ballot">
-							 <div t:type="actionlink" t:id="votePublicBallot" t:context="ballot.id" class="indexRow">
-								<span> ${ballot.name}</span>
-								<span>${message:public}</span>
-								<span>${startDate}</span>
-								<span>${endDate}</span>
-								 <span>${metodo}</span>
-								 <br/>
-							 </div>
-							</t:loop>
-						
+						<t:loop t:source="publicActiveBallots" t:value="ballot">
+							<div t:type="actionlink" t:id="votePublicBallot"
+								t:context="ballot.id" class="indexRow">
+								<span> ${ballot.name}</span> <span>${message:public}</span> <span>${startDate}</span>
+								<span>${endDate}</span> <span>${metodo}</span> <br />
+							</div>
+						</t:loop>
+
 					</t:if>
 					<t:if test="showPublicEnded">
-							
-							 <h3>${message:public-ended}</h3><hr/>
-							 	<div class="indexHead">
-							<span>${message:title}</span>
-							<span>${message:kind}</span>
-							<span>${message:startDate}</span>
-							<span>${message:endDate}</span>
-							<span>${message:method}</span>
+
+						<h3>${message:public-ended}</h3>
+						<hr />
+						<div class="indexHead">
+							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
+							<span>${message:endDate}</span> <span>${message:method}</span>
 						</div>
-							 <t:loop t:source="publicEndedBallots" t:value="ballot">
-							 	 <div t:type="actionlink" t:id="resultPublicBallot" context="ballot.id" class="indexRow" >
-									<span>${ballot.name}</span>
-									<span>${message:public}</span>
-									<span>${startDate}</span>
-									<span>${endDate}</span>
-									<span>${metodo}</span>
-								 <br/>
-								 </div>
-								</t:loop>
+						<t:loop t:source="publicEndedBallots" t:value="ballot">
+							<div t:type="actionlink" t:id="resultPublicBallot"
+								context="ballot.id" class="indexRow">
+								<span>${ballot.name}</span> <span>${message:public}</span> <span>${startDate}</span>
+								<span>${endDate}</span> <span>${metodo}</span> <br />
+							</div>
+						</t:loop>
 					</t:if>
 				</div>
 			</p:else>
 		</t:if>
-	
-	</div></t:border>
+
+	</div>
+</t:border>
 
 </html>

@@ -176,7 +176,7 @@
 	 					<tr>
 	 						<td><t:label for="emailfield"/></td>
 	 						<td><t:textfield t:id="emailField" value="update.email"/></td>
-	 						<td><t:if test="badMail">Email en uso</t:if></td>
+	 						<td><t:if test="badMail">${message:badMail}</t:if></td>
 	 					</tr>
 	 					<tr>
 	 						<td><t:label for="namefield"/></td>
@@ -201,6 +201,8 @@
 	 				<tr>
 						<td><label>${message:fechaNac-label}</label></td>
 						<td><t:DateField t:id="nacField" t:value="update.fechaNac"/></td>
+						<td><t:if test="badDate">${message:badDate}</t:if></td>
+						
 					</tr>
 					<tr>
 						<td><label>${message:phone-label}</label></td>
