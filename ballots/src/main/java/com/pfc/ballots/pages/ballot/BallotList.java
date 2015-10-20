@@ -16,15 +16,31 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.ApprovalVotingDao;
 import com.pfc.ballots.dao.BallotDao;
+import com.pfc.ballots.dao.BlackDao;
 import com.pfc.ballots.dao.BordaDao;
+import com.pfc.ballots.dao.BramsDao;
+import com.pfc.ballots.dao.BucklinDao;
 import com.pfc.ballots.dao.CensusDao;
+import com.pfc.ballots.dao.CondorcetDao;
+import com.pfc.ballots.dao.CoombsDao;
+import com.pfc.ballots.dao.CopelandDao;
+import com.pfc.ballots.dao.DodgsonDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.HareDao;
+import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
+import com.pfc.ballots.dao.MajoryDao;
+import com.pfc.ballots.dao.MejorPeorDao;
+import com.pfc.ballots.dao.NansonDao;
 import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
+import com.pfc.ballots.dao.SchulzeDao;
+import com.pfc.ballots.dao.SmallDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
+import com.pfc.ballots.dao.VotoAcumulativoDao;
 import com.pfc.ballots.data.BallotKind;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
@@ -42,6 +58,8 @@ import com.pfc.ballots.pages.UnauthorizedAttempt;
  * 
  * @author Mario Temprano Martin
  * @version 2.0 JUL-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 OCT-2015
  */
 public class BallotList {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,6 +110,38 @@ public class BallotList {
 	BordaDao bordaDao;
 	@Persist
 	RangeVotingDao rangeDao;
+	@Persist
+	ApprovalVotingDao approvalVotingDao;
+	@Persist
+	BlackDao blackDao;
+	@Persist
+	BramsDao bramsDao;
+	@Persist
+	BucklinDao bucklinDao;
+	@Persist
+	CondorcetDao condorcetDao;
+	@Persist
+	CoombsDao coombsDao;
+	@Persist
+	CopelandDao copelandDao;
+	@Persist
+	DodgsonDao dodgsonDao;
+	@Persist
+	HareDao hareDao;
+	@Persist
+	JuicioMayoritarioDao juicioMayoritarioDao;
+	@Persist
+	MajoryDao majoryDao;
+	@Persist
+	MejorPeorDao mejorpeorDao;
+	@Persist
+	NansonDao nansonDao;
+	@Persist
+	SchulzeDao schulzeDao;
+	@Persist
+	SmallDao smallDao;
+	@Persist
+	VotoAcumulativoDao votoAcumulativoDao;	
 	
 	
 	
@@ -135,6 +185,23 @@ public class BallotList {
 		relMayDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
 		bordaDao=DB4O.getBordaDao(datasession.getDBName());
 		rangeDao=DB4O.getRangeVotingDao(datasession.getDBName());
+		
+		approvalVotingDao=DB4O.getApprovalVotingDao(datasession.getDBName());
+		blackDao=DB4O.getBlackDao(datasession.getDBName());
+		bramsDao=DB4O.getBramsDao(datasession.getDBName());
+		bucklinDao=DB4O.getBucklinDao(datasession.getDBName());
+		condorcetDao=DB4O.getCondorcetDao(datasession.getDBName());
+		coombsDao=DB4O.getCoombsDao(datasession.getDBName());
+		copelandDao=DB4O.getCopelandDao(datasession.getDBName());
+		dodgsonDao=DB4O.getDodgsonDao(datasession.getDBName());
+		hareDao=DB4O.getHareDao(datasession.getDBName());
+		juicioMayoritarioDao=DB4O.getJuicioMayoritarioDao(datasession.getDBName());
+		majoryDao=DB4O.getMajoryDao(datasession.getDBName());
+		mejorpeorDao=DB4O.getMejorPeorDao(datasession.getDBName());
+		nansonDao=DB4O.getNansonDao(datasession.getDBName());
+		schulzeDao=DB4O.getSchulzeDao(datasession.getDBName());
+		smallDao=DB4O.getSmallDao(datasession.getDBName());
+		votoAcumulativoDao=DB4O.getVotoAcumulativoDao(datasession.getDBName());
 		
 	}
 	
@@ -420,6 +487,74 @@ public class BallotList {
 				{
 					rangeDao.deleteByBallotId(ballotSure.getId());
 				}
+				if(ballotSure.getMethod()==Method.APPROVAL_VOTING)
+				{
+					approvalVotingDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.BLACK)
+				{
+					blackDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.BRAMS)
+				{
+					bramsDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.BUCKLIN)
+				{
+					bucklinDao.deleteByBallotId(ballotSure.getId());
+				}		
+				
+				if(ballotSure.getMethod()==Method.CONDORCET)
+				{
+					condorcetDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.COOMBS)
+				{
+					coombsDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.COPELAND)
+				{
+					copelandDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.DODGSON)
+				{
+					dodgsonDao.deleteByBallotId(ballotSure.getId());
+				}		
+				if(ballotSure.getMethod()==Method.HARE)
+				{
+					hareDao.deleteByBallotId(ballotSure.getId());
+					//relMays=relMayDao.retrieveAll();
+				}
+				if(ballotSure.getMethod()==Method.JUICIO_MAYORITARIO)
+				{
+					juicioMayoritarioDao.deleteByBallotId(ballotSure.getId());
+					//kemenys=kemenyDao.retrieveAll();
+				}
+				if(ballotSure.getMethod()==Method.MEJOR_PEOR)
+				{
+					mejorpeorDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.NANSON)
+				{
+					nansonDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.MAJORY)
+				{
+					majoryDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.SCHULZE)
+				{
+					schulzeDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.SMALL)
+				{
+					smallDao.deleteByBallotId(ballotSure.getId());
+				}
+				if(ballotSure.getMethod()==Method.VOTO_ACUMULATIVO)
+				{
+					votoAcumulativoDao.deleteByBallotId(ballotSure.getId());
+				}		
+				
 				ballots=ballotDao.retrieveAll();
 			}
 			else

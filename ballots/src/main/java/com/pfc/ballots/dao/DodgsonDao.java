@@ -14,4 +14,8 @@ public interface DodgsonDao {
 	public void deleteDodgsonText();
 	public void updateDodgsonText(DodgsonText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

@@ -1,21 +1,20 @@
 package com.pfc.ballots.entities.ballotdata;
 
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.Calculo.CalcMayoriaRelativa;
+import com.Calculo.CalcApprovalVoting;
 /**
  * RelativeMajority entity that contains the information of specific information
  * for a relative majority ballot
  * 
- * @author Mario Temprano Martin
- * @version 1.0 JUL-2014
+ * @author Violeta Macaya Sánchez
+ * @version 1.0 OCT-2015
  *
  */
 
-public class RelativeMajority {
+public class ApprovalVoting {
 
 	private String id;
 	private String ballotId;
@@ -25,11 +24,11 @@ public class RelativeMajority {
 	private Map<String,Integer> results;
 	
 	///////////////////////////////////////////// Constructors//////////////////////////////
-	public RelativeMajority()
+	public ApprovalVoting()
 	{
 		
 	}
-	public RelativeMajority(String nulltoinitialize)
+	public ApprovalVoting(String nulltoinitialize)
 	{
 		setOptions(new LinkedList<String>());
 		setVotes(new LinkedList<String>());
@@ -37,7 +36,7 @@ public class RelativeMajority {
 
 	
 	}
-	public RelativeMajority(List<String> options)
+	public ApprovalVoting(List<String> options)
 	{
 		this.setOptions(options);
 		setVotes(new LinkedList<String>());
@@ -125,7 +124,7 @@ public class RelativeMajority {
 	/**
 	 * Calculate the result of the ballot(the calc method is in a external jar)
 	 */
-	public boolean calcularMayoriaRelativa()
+	public boolean calcularApprovalVoting()
 	{
 		if(votes==null ||options==null)
 		{
@@ -135,7 +134,7 @@ public class RelativeMajority {
 		else
 		{
 			this.winners=new LinkedList<String>();
-			this.results=CalcMayoriaRelativa.CalculateMayoriaRelativa(options, votes, winners);
+			this.results=CalcApprovalVoting.CalculateApprovalVoting(options, votes, winners);
 			return true;
 		}
 	}

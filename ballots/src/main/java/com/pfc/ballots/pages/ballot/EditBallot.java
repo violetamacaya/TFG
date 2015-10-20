@@ -56,8 +56,7 @@ import com.pfc.ballots.util.UUID;
 
 /**
  * 
- * BallotWizzard class is the controller for the BallotWizzard page that
- * allow to create a new ballot
+ * EditBallot is the class to controll how to edit existing ballots.
  * 
  * @author Violeta Macaya Sánchez
  * @version 1.0 NOV-2014

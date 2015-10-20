@@ -14,4 +14,8 @@ public interface HareDao {
 	public void deleteHareText();
 	public void updateHareText(HareText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

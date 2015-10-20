@@ -14,4 +14,8 @@ public interface NansonDao {
 	public void deleteNansonText();
 	public void updateNansonText(NansonText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

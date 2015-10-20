@@ -145,4 +145,37 @@ public class GenerateDocentVotes {
 		return votes;
 		
 	}
+
+	/**
+	 * Generates a list of random votes for a Approval voting ballot
+	 * 
+	 * @param options options of the ballot
+	 * @param numVotes number of votes to generate
+	 * @return List<String> a list of random votes
+	 */
+	static public List<String> generateApprovalVoting(List<String> options,int numVotes)
+	{
+		List<String> votes=new LinkedList<String>();
+		
+		//Cada uno de los usuarios puede votar el numero de opciones que quiera, entre una y todas. 
+		for(int i=0; i<numVotes; i++){
+			System.out.println("burlando la ley");
+			int[] votospersona = new int[options.size()];
+			int numuservotes = 1 + (int)(Math.random() * ((options.size() - 1) + 1));
+			for (int j = 0; j<numuservotes; j++){
+				System.out.println("numvotos por persona " +j );
+
+				int posvoto = 0 + (int)(Math.random() * ((votospersona.length - 1) + 1));
+				if(votospersona[posvoto] == 0){
+					votospersona[posvoto] = 1;
+					votes.add(options.get(posvoto));
+				}
+				else {
+					j--;
+				}
+			}	
+		}
+		
+		return votes;
+	}
 }

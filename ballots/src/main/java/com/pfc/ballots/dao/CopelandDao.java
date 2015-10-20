@@ -14,4 +14,8 @@ public interface CopelandDao {
 	public void deleteCopelandText();
 	public void updateCopelandText(CopelandText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

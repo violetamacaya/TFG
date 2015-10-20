@@ -14,4 +14,8 @@ public interface CondorcetDao {
 	public void deleteCondorcetText();
 	public void updateCondorcetText(CondorcetText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

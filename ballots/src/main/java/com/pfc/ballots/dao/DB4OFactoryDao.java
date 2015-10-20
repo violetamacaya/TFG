@@ -257,6 +257,191 @@ public class DB4OFactoryDao extends FactoryDao{
 	public DodgsonDao getDodgsonTextDao()
 	{
 		return new DodgsonDaoDB4O(null);
+	}
+
+	@Override
+	public ApprovalVotingDao getApprovalVotingDao() {
+		return new ApprovalVotingDaoDB4O(null);
+	}
+
+	@Override
+	public ApprovalVotingDao getApprovalVotingDao(String DBName) {
+		return new ApprovalVotingDaoDB4O(DBName);
+	}
+
+	@Override
+	public BlackDao getBlackDao() {
+		return new BlackDaoDB4O(null);
+	}
+
+	@Override
+	public BlackDao getBlackDao(String DBName) {
+		return new BlackDaoDB4O(DBName);
+	}
+
+	@Override
+	public BramsDao getBramsDao() {
+		return new BramsDaoDB4O(null);
+
+	}
+
+	@Override
+	public BramsDao getBramsDao(String DBName) {
+		return new BramsDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public BucklinDao getBucklinDao() {
+		return new BucklinDaoDB4O(null);
+
+	}
+
+	@Override
+	public BucklinDao getBucklinDao(String DBName) {
+		return new BucklinDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public CondorcetDao getCondorcetDao() {
+		return new CondorcetDaoDB4O(null);
+
+	}
+
+	@Override
+	public CondorcetDao getCondorcetDao(String DBName) {
+		return new CondorcetDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public CoombsDao getCoombsDao() {
+		return new CoombsDaoDB4O(null);
+
+	}
+
+	@Override
+	public CoombsDao getCoombsDao(String DBName) {
+		return new CoombsDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public CopelandDao getCopelandDao() {
+		return new CopelandDaoDB4O(null);
+	}
+
+	@Override
+	public CopelandDao getCopelandDao(String DBName) {
+		return new CopelandDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public DodgsonDao getDodgsonDao() {
+		return new DodgsonDaoDB4O(null);
+
+	}
+
+	@Override
+	public DodgsonDao getDodgsonDao(String DBName) {
+		return new DodgsonDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public HareDao getHareDao() {
+		return new HareDaoDB4O(null);
+
+	}
+
+	@Override
+	public HareDao getHareDao(String DBName) {
+		return new HareDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public JuicioMayoritarioDao getJuicioMayoritarioDao() {
+		return new JuicioMayoritarioDaoDB4O(null);
+
+	}
+
+	@Override
+	public JuicioMayoritarioDao getJuicioMayoritarioDao(String DBName) {
+		return new JuicioMayoritarioDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public MejorPeorDao getMejorPeorDao() {
+		return new MejorPeorDaoDB4O(null);
+
+	}
+
+	@Override
+	public MejorPeorDao getMejorPeorDao(String DBName) {
+		return new MejorPeorDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public NansonDao getNansonDao() {
+		return new NansonDaoDB4O(null);
+	}
+
+	@Override
+	public NansonDao getNansonDao(String DBName) {
+		return new NansonDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public SchulzeDao getSchulzeDao() {
+		return new SchulzeDaoDB4O(null);
+	}
+
+	@Override
+	public SchulzeDao getSchulzeDao(String DBName) {
+		return new SchulzeDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public SmallDao getSmallDao() {
+		return new SmallDaoDB4O(null);
+
+	}
+
+	@Override
+	public SmallDao getSmallDao(String DBName) {
+		return new SmallDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public VotoAcumulativoDao getVotoAcumulativoDao() {
+		return new VotoAcumulativoDaoDB4O(null);
+
+	}
+
+	@Override
+	public VotoAcumulativoDao getVotoAcumulativoDao(String DBName) {
+		return new VotoAcumulativoDaoDB4O(DBName);
+
+	}
+
+	@Override
+	public MajoryDao getMajoryDao() {
+		return new MajoryDaoDB4O(null);
+
+	}
+
+	@Override
+	public MajoryDao getMajoryDao(String DBName) {
+		return new MajoryDaoDB4O(DBName);
+
 	} 
 
 }

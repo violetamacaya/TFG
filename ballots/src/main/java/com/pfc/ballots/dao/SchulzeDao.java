@@ -14,4 +14,8 @@ public interface SchulzeDao {
 	public void deleteSchulzeText();
 	public void updateSchulzeText(SchulzeText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

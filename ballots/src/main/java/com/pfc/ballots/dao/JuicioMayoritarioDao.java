@@ -14,4 +14,8 @@ public interface JuicioMayoritarioDao {
 	public void deleteJuicioMayoritarioText();
 	public void updateJuicioMayoritarioText(JuicioMayoritarioText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

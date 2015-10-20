@@ -8,6 +8,7 @@
    
 	<t:border><div id="voteDiv">
 				<p><h3>${message:created-Ballot}</h3></p>
+				<a t:type="pagelink" t:page="Index" href="#">${message:back}</a><br/><br/>				
 	
 	
 	</div></t:border>

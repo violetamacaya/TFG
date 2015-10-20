@@ -6,7 +6,7 @@
 </head>
 <body>
 	<pagehead>
-			<img id="banner" src="${asset:context:/layout/images/bannerPrueba.png}"/>
+			<img id="banner" src="${asset:context:/layout/images/banner.jpg}"/>
 			<!-- <p align="right"> -->
 		
 		<div id="lenguages">
@@ -100,36 +100,7 @@
 		<t:if test="admin">
 			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>${message:configure}</plain></t:eventLink></li>
 		</t:if>
-		<t:if test="adminorteacher">
-			<div id="edit-menu"><h2>${message:edit-menu}</h2><br/></div>
-		</t:if>
 		
-		
-		<t:zone t:id="editZone" id="editZone">
-
-		<t:if test="adminorteacher">
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:approvalVoting"><plain>${message:edit-approvalVoting}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:black"><plain>${message:edit-black}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:borda"><plain>${message:edit-borda}</plain></t:eventlink></li>				
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:brams"><plain>${message:edit-brams}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:bucklin"><plain>${message:edit-bucklin}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:condorcet"><plain>${message:edit-condorcet}</plain></t:eventlink></li>			
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:coombs"><plain>${message:edit-coombs}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:copeland"><plain>${message:edit-copeland}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:dodgson"><plain>${message:edit-dodgson}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:hare"><plain>${message:edit-hare}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:juiciomayoritario"><plain>${message:edit-juicioMayoritario}</plain></t:eventlink></li>				
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:kemeny"><plain>${message:edit-kemeny}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:majory"><plain>${message:edit-majory}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:mejorPeor"><plain>${message:edit-mejorPeor}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:nanson"><plain>${message:edit-nanson}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:rangeVoting"><plain>${message:edit-rangeVoting}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:schulze"><plain>${message:edit-schulze}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:small"><plain>${message:edit-small}</plain></t:eventlink></li>				
-				<li><t:eventlink t:event="menu" t:zone="editZone" t:context="literal:votoAcumulativo"><plain>${message:edit-votoAcumulativo}</plain></t:eventlink></li>
-
-		</t:if>
-		</t:zone>
 		
 	</ul>
 	</t:zone>

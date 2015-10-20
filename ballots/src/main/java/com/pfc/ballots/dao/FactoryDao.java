@@ -55,6 +55,57 @@ public abstract class FactoryDao {
 	public abstract RangeVotingDao getRangeVotingDao();
 	public abstract RangeVotingDao getRangeVotingDao(String DBName);
 	
+	public abstract ApprovalVotingDao getApprovalVotingDao();
+	public abstract ApprovalVotingDao getApprovalVotingDao(String DBName);
+	
+	public abstract BlackDao getBlackDao();
+	public abstract BlackDao getBlackDao(String DBName);
+	
+	public abstract BramsDao getBramsDao();
+	public abstract BramsDao getBramsDao(String DBName);
+	
+	public abstract BucklinDao getBucklinDao();
+	public abstract BucklinDao getBucklinDao(String DBName);	
+	
+	public abstract CondorcetDao getCondorcetDao();
+	public abstract CondorcetDao getCondorcetDao(String DBName);
+	
+	public abstract CoombsDao getCoombsDao();
+	public abstract CoombsDao getCoombsDao(String DBName);
+	
+	public abstract CopelandDao getCopelandDao();
+	public abstract CopelandDao getCopelandDao(String DBName);
+	
+	public abstract DodgsonDao getDodgsonDao();
+	public abstract DodgsonDao getDodgsonDao(String DBName);
+	
+	public abstract HareDao getHareDao();
+	public abstract HareDao getHareDao(String DBName);
+	
+	public abstract JuicioMayoritarioDao getJuicioMayoritarioDao();
+	public abstract JuicioMayoritarioDao getJuicioMayoritarioDao(String DBName);
+	
+	public abstract MejorPeorDao getMejorPeorDao();
+	public abstract MejorPeorDao getMejorPeorDao(String DBName);
+	
+	public abstract NansonDao getNansonDao();
+	public abstract NansonDao getNansonDao(String DBName);	
+	
+	public abstract SchulzeDao getSchulzeDao();
+	public abstract SchulzeDao getSchulzeDao(String DBName);
+	
+	public abstract SmallDao getSmallDao();
+	public abstract SmallDao getSmallDao(String DBName);
+	
+	public abstract VotoAcumulativoDao getVotoAcumulativoDao();
+	public abstract VotoAcumulativoDao getVotoAcumulativoDao(String DBName);
+	
+	public abstract MajoryDao getMajoryDao();
+	public abstract MajoryDao getMajoryDao(String DBName);
+	
+	
+	
+	
 	public abstract AboutTextDao getAboutTextDao();
 	
 	
@@ -86,7 +137,6 @@ public abstract class FactoryDao {
 	public abstract CoombsDao getCoombsTextDao();
 	public abstract CopelandDao getCopelandTextDao();
 	public abstract DodgsonDao getDodgsonTextDao();
-	
 	public abstract HareDao getHareTextDao();
 	public abstract JuicioMayoritarioDao getJuicioMayoritarioTextDao();
 	public abstract MejorPeorDao getMejorPeorTextDao();

@@ -37,6 +37,11 @@ charts= Class.create( {
             	data.addColumn('string', 'Option');
                 data.addColumn('number', 'Votos');
             }
+            if(type=="APPROVAL")
+            {
+            	data.addColumn('string', 'Option');
+                data.addColumn('number', 'Votos');
+            }
             var firstItem=true;
           
             array.forEach(function(obj)
@@ -76,7 +81,10 @@ charts= Class.create( {
             {
             	chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             }
-            
+            if(type=="APPROVAL")
+            {
+            	chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            }           
             chart.draw(data, options);
            
           }
@@ -106,4 +114,9 @@ Tapestry.Initializer.charts_range = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("RANGE",array);
+}
+Tapestry.Initializer.charts_approval = function(spec) {
+	
+	var array=JSON.parse(spec);
+	new charts("APPROVAL",array);
 }

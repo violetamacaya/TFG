@@ -98,8 +98,7 @@ public class Border {
 	private Zone ballotZone;
 	@InjectComponent
 	private Zone companyZone;
-	@InjectComponent
-	private Zone editZone;
+
 	
 	
 	@InjectPage
@@ -413,82 +412,7 @@ public class Border {
 			{
 			page=BallotList.class;
 			}
-		else if(section.equals("majory"))
-		{
-			page=MajoryMethod.class;
-		}
-		else if(section.equals("kemeny"))
-		{
-			page=KemenyMethod.class;
-		}
-		else if(section.equals("borda"))
-		{
-			page=BordaMethod.class;
-		}
-		else if(section.equals("rangeVoting"))
-		{
-			page=RangeVotingMethod.class;
-		}
-		else if(section.equals("approvalVoting"))
-		{
-			page=ApprovalVotingMethod.class;
-		}
-		else if(section.equals("black"))
-		{
-			page=BlackMethod.class;
-		}
-		else if(section.equals("brams"))
-		{
-			page=BramsMethod.class;
-		}
-		else if(section.equals("bucklin"))
-		{
-			page=BucklinMethod.class;
-		}
-		else if(section.equals("condorcet"))
-		{
-			page=CondorcetMethod.class;
-		}
-		else if(section.equals("coombs"))
-		{
-			page=CoombsMethod.class;
-		}
-		else if(section.equals("copeland"))
-		{
-			page=CopelandMethod.class;
-		}
-		else if(section.equals("dodgson"))
-		{
-			page=DodgsonMethod.class;
-		}
-		else if(section.equals("hare"))
-		{
-			page=HareMethod.class;
-		}
-		else if(section.equals("juiciomayoritario"))
-		{
-			page=JuicioMayoritarioMethod.class;
-		}
-		else if(section.equals("mejorPeor"))
-		{
-			page=MejorPeorMethod.class;
-		}
-		else if(section.equals("nanson"))
-		{
-			page=NansonMethod.class;
-		}
-		else if(section.equals("schulze"))
-		{
-			page=SchulzeMethod.class;
-		}
-		else if(section.equals("small"))
-		{
-			page=SmallMethod.class;
-		}
-		else if(section.equals("votoAcumulativo"))
-		{
-			page=VotoAcumulativoMethod.class;
-		}
+		
 	
 		else							//This handle the upper menu
 		{
@@ -532,7 +456,7 @@ public class Border {
 		}
 		if(request.isXHR())
 		{
-			ajaxResponseRenderer.addRender("censusZone",censusZone).addRender("editZone",editZone).addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
+			ajaxResponseRenderer.addRender("censusZone",censusZone).addRender("userZone", userZone).addRender("ballotZone", ballotZone).addRender("companyZone", companyZone);
 		}
 		return page;
 	}

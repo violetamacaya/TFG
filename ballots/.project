@@ -3,6 +3,7 @@
 	<name>ballots</name>
 	<comment></comment>
 	<projects>
+		<project>Calculo</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

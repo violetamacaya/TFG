@@ -262,7 +262,7 @@ public class ProfileByFile {
 	 */
 	public void onSuccessFromUploadForm()
 	{
-		System.out.println("SUCCESSS en subir"+file);
+		System.out.println("SUCCESSS en subir "+file);
 		
 		String [] namef=file.getFileName().split("\\.");
 		System.out.print("antes de las comprobaciones");

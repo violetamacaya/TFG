@@ -14,4 +14,8 @@ public interface SmallDao {
 	public void deleteSmallText();
 	public void updateSmallText(SmallText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

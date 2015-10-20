@@ -105,6 +105,70 @@ public class PublicBallots {
 		{
 			return "RANGE VOTING";
 		}
+		else if(ballot.getMethod()==Method.APPROVAL_VOTING)
+		{
+			return "APPROVAL VOTING";
+		}
+		else if(ballot.getMethod()==Method.BLACK)
+		{
+			return "BLACK";
+		}
+		else if(ballot.getMethod()==Method.BRAMS)
+		{
+			return "BRAMS";
+		}
+		else if(ballot.getMethod()==Method.BUCKLIN)
+		{
+			return "BUCKLIN";
+		}
+		else if(ballot.getMethod()==Method.CONDORCET)
+		{
+			return "CONDORCET";
+		}
+		else if(ballot.getMethod()==Method.COOMBS)
+		{
+			return "COOMBS";
+		}
+		else if(ballot.getMethod()==Method.COPELAND)
+		{
+			return "COPELAND";
+		}
+		else if(ballot.getMethod()==Method.DODGSON)
+		{
+			return "DODGSON";
+		}
+		else if(ballot.getMethod()==Method.HARE)
+		{
+			return "HARE";
+		}
+		else if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
+		{
+			return "JUICIO MAYORITARIO";
+		}
+		else if(ballot.getMethod()==Method.MAJORY)
+		{
+			return "MAJORY";
+		}
+		else if(ballot.getMethod()==Method.MEJOR_PEOR)
+		{
+			return "MEJOR PEOR";
+		}
+		else if(ballot.getMethod()==Method.NANSON)
+		{
+			return "NANSON";
+		}
+		else if(ballot.getMethod()==Method.SCHULZE)
+		{
+			return "SCHULZE";
+		}
+		else if(ballot.getMethod()==Method.SMALL)
+		{
+			return "SMALL";
+		}
+		else if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{
+			return "VOTO ACUMULATIVO";
+		}
 		return null;
 	}
 	public String getStartDate()

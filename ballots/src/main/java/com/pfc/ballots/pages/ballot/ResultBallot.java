@@ -14,6 +14,7 @@ import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
+import com.pfc.ballots.dao.ApprovalVotingDao;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
@@ -26,6 +27,7 @@ import com.pfc.ballots.dao.VoteDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
+import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
@@ -80,6 +82,10 @@ public class ResultBallot {
 	KemenyDao kemenyDao;
 	BordaDao bordaDao;
 	RangeVotingDao rangeDao;
+	ApprovalVotingDao approvalVotingDao;
+	@Persist
+	@Property
+	ApprovalVoting approvalVoting;
 	
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
@@ -167,6 +173,24 @@ public class ResultBallot {
 				ballotDao.updateBallot(ballot);
 			}
 		}
+		else if(ballot.getMethod()==Method.APPROVAL_VOTING)
+		{
+			approvalVotingDao= DB4O.getApprovalVotingDao(datasession.getDBName());
+			approvalVoting=approvalVotingDao.getByBallotId(ballot.getId());
+			
+			
+			if(!ballot.isEnded())
+			{
+				approvalVoting.calcularApprovalVoting();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && approvalVoting!=null)
+			{
+				approvalVoting.calcularApprovalVoting();
+				ballot.setCounted(true);
+				approvalVotingDao.update(approvalVoting);
+				ballotDao.updateBallot(ballot);
+			}
+		}
 		
 		
 		
@@ -237,6 +261,20 @@ public class ResultBallot {
 			}
 			System.out.println("tamaño->"+array.toString());
 			javaScriptSupport.addInitializerCall("charts_range",array.toString());
+		}
+		if(ballot.getMethod()==Method.APPROVAL_VOTING)
+		{
+			List<String> options=getApprovalVotingOptions();
+			for(String option:options)
+			{
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", approvalVoting.getResultOption(option));
+				array.put(obj);
+			}
+			
+			System.out.println("tamaño->"+array.toString());
+			javaScriptSupport.addInitializerCall("charts_approval",array.toString());
 		}
 		
 	}
@@ -443,7 +481,52 @@ public class ResultBallot {
 	{
 		return String.valueOf(range.getMinValue());
 	}
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////// APPROVAL VOTING //////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Approval voting Data
+	 */
 	
+	@Property
+	private String optionApproval;
+	
+	public String getApprovalVotingVote()
+	{
+		return String.valueOf(approvalVoting.getResultOption(option));
+	}
+	
+	public List<String> getApprovalVotingOptions()
+	{
+		List<String> lista=approvalVoting.getOptions();
+		
+		for(int i=0;i<lista.size()-1;i++)
+		{
+			for(int j=0;j<lista.size()-i-1;j++)
+			{
+				if(approvalVoting.getResultOption(lista.get(j+1))>approvalVoting.getResultOption(lista.get(j)))
+				{
+					String aux=lista.get(j+1);
+					lista.set(j+1, lista.get(j));
+					lista.set(j, aux);
+				}
+			}
+		}
+		
+		return lista;
+	}
+	
+	public boolean getShowApprovalVoting()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.APPROVAL_VOTING)
+			{return true;}
+		return false;
+	}
+
+	public String getApprovalVotingNum()
+	{
+		return String.valueOf(approvalVoting.getVotes().size());
+	}
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

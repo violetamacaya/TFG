@@ -1,14 +1,15 @@
 pagehead
 {
 	display: block;
-	background: #729fcf;
-	height: 168px;
+	background: #6aa9bd;
+	height: 188px;
 	color: black;
 	margin-top: -8px;
 	margin-right: -8px;
 	margin-left: 2px;
 	margin-bottom: -55px;
 	padding: 2px;
+	width:100%;
 }
 
 TABLE.t-data-grid
@@ -18,7 +19,7 @@ TABLE.t-data-grid
 
 TABLE.t-data-grid THEAD TR TH
 {
-	background: #204a87;
+	background: #333333;
 	
 }
 TABLE.t-data-grid TD
@@ -88,7 +89,8 @@ label .contactrow
 
 body > #container { 
 	height: auto; 
-	min-height: 100%; 
+	min-height: 100%;
+	width:100%;
 }
 
 boldstuff
@@ -102,8 +104,7 @@ div#lenguages
 	display: inline;
 	padding: 2px 6px 2px;
 	margin-right:3px;
-	margin-top: -2px;
-	margin-bottom: 4px;
+	margin-top: -10px;
 	float: right;
 }
 div#lenguages>a>img {
@@ -151,7 +152,7 @@ div#lenguages>a{
 	padding: 0px;
 	margin-left: -100px;
 	margin-right:auto;
-	
+	margin-top:-13px;
 	min-width: 900px;
 	position: absolute;
 	left: 36%;
@@ -171,33 +172,25 @@ div#lenguages>a{
 
 #mainmenu li a plain
 {
-	-webkit-box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
-	box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
-	border-radius: 8px;
 	display: inline-block;
 	cursor: pointer;
 	color: white;
-	font-weight: bold;
 	padding: 8px 22px;
 	text-decoration: none;
-	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
-	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
-	/*max-width: 20%;*/
+	background: #6aa9bd;
 }
 
 #mainmenu li a:hover plain
 {
-	background-color: #09c0e2;
-	color: black;
+	background-color: #6aa9bd;
+	color: #333333;
 	margin-top:-2px;
-	padding-bottom:12px;
-	border: solid #204a87 1px;
 }
 
 #mainmenu li plain
 {
-	font-family: Arial;
-	font-size:11px;
+	font-family: sans-serif;
+	font-size:1.1em;
 	text-decoration: none;
 	padding: 10px;
 	background-color: #F5F5F5;
@@ -219,9 +212,9 @@ div#lenguages>a{
 
 #mymenu ul li
 {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:11px;
-	color:#FFFFFF;
+	font-family:sans-serif;
+	font-size:1em;
+	color:white;
 	line-height:32px;
 	list-style-type:none;
 	text-indent:8px;
@@ -236,27 +229,23 @@ div#lenguages>a{
 
 #mymenu li a plain
 {
-	border-radius: 8px;
 	border: solid #ffffff 1px;
 	display: inline-block;
 	cursor: pointer;
 	color: white;
-	font-weight: bold;
 	padding: 8px 10px;
 	text-decoration: none;
-	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
-	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
-	font-family: Arial;
-    font-size: 11px;
+	background: #6aa8bd;
+	font-family: sans-serif;
+    font-size: 1em;
+    
 }
 
 #mymenu li a:hover plain
 {
-	background-color: #09c0e2;
-	color: black;
-	margin-top:-2px;
-	padding-bottom:10px;
-	border: solid #204a87 1px;
+	background-color: #6aa8bd;
+	color:#333333;
+	margin-bottom: -3px;
 }
 
 #mymenu li a
@@ -280,30 +269,26 @@ div#lenguages>a{
 #mymenu li a plain2
 {
 	
-	border-radius: 8px;
 	border: solid #ffffff 1px;
 	display: inline-block;
 	cursor: pointer;
 	color: white;
-	font-weight: bold;
 	padding: 8px 10px;
-	text-decoration: none;
-	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
-	background: linear-gradient(#729fcf 10%, #1675D4 80%) rgb(115, 218, 255);
+	text-decoration: none;	
+	background: #6aa9bd;
 	font-family: Arial;
-    font-size: 11px;
+    font-size: 1em;
 	margin-left:10px;
-	background-color: #1675D4;
+	background-color: #0185b9;
 	width: 126px;
 
 }
 #mymenu li a:hover plain2
 {
-	background-color: #09c0e2;
-	color: black;
+	background-color: #387ef9;
+	color:#333333;
 	margin-top:-2px;
 	padding-bottom:10px;
-	border: solid #204a87 1px;
 }
 
 
@@ -368,7 +353,7 @@ infoUser
 
 infoUser>h1
 {
-color:#204a87;
+color:#333333;
 }
 #userDataZone, #changePassZone, #areuSureZone, #updateProfileZone{
 	padding-left: 20px;
@@ -470,7 +455,7 @@ h1
 
 h2
 {
-	color: #204a87;
+	color: #333333;
 	margin-top: 10px;
 	margin-bottom:-3px;
 	text-align: center;
@@ -527,9 +512,9 @@ div .indexRow
 	min-height: 30px;
 	width: 100%;
 	margin-bottom: 10px;
-	box-shadow: 2px 2px 2px rgb(0, 39, 139);
-	border: 1px solid rgb(132, 184, 186);
-	padding: 5px;
+	box-shadow: 0px 2px 2px #4b8ba4;
+	padding-left:15px;
+	padding-top:15px;
 }
 
 div .indexRow:hover
@@ -549,6 +534,7 @@ div .indexHead
 	text-align: center;
 	margin-bottom: 4px;
 	margin-top: -15px;
+    padding-left: 15px;
 	
 }
 div .indexHead>span
@@ -603,17 +589,17 @@ div.outtst div.t-zone
 
 #CreateCensusDiv>h1
 {
-	color:#204a87;
+	color:#333333;
 	margin-left:0px;
 }
 #CreateCensusDiv>h2
 {
-	color:#204a87;
+	color:#333333;
 	margin-left:0px;
 }
 #CreateCensusDiv>h3
 {
-	color:#204a87;
+	color:#333333;
 	margin-left:0px;
 }
 
@@ -625,12 +611,12 @@ div.outtst div.t-zone
 
 #CreateballotDiv>h1
 {
-	color:#204a87;
+	color:#333333;
 	margin-left:0px;
 }
 #CreateballotDiv>h4
 {
-	color:#204a87;
+	color:#333333;
 	margin-left:0px;
 }
 
@@ -676,16 +662,16 @@ div.outtst div.t-zone
 
 #resultballotDiv h1 
 {
-	color: #204a87;
+	color: #333333;
 }
 #showprofileDiv h1
 {
-	color: #204a87;
+	color: #333333;
 }
 
 #ballotlistDiv h1
 {
-	color: #204a87;
+	color: #333333;
 }
 hr
 {
@@ -693,61 +679,63 @@ hr
 }
 #censuslistDiv h1
 {
-	color: #204a87;
+	color: #333333;
 }
 #userlistDiv h1
 {
-	color:#204a87; 
+	color:#333333; 
 }
 #companyDiv h1
 {
-	color:#204a87; 
+	color:#333333; 
 }
 #adminmailDiv h1
 {
-	color:#204a87;	
+	color:#333333;	
 }
 #contactDiv h1
 {
-	color:#204a87;	
+	color:#333333;	
 }
 #indexDiv h1 
 {
-	color:#204a87;	
+	color:#333333;	
 }
 #indexDiv h3 
 {
-	color:#204a87;	
+	color:#333333;	
+	padding-bottom: 15px;
+	padding-top: 15px;
 }
 
 #addToBallotDiv h1
 {
-	color:#204a87;	
+	color:#333333;	
 }
 #addToBallotDiv h2
 {
-	color:#204a87;	
+	color:#333333;	
 }
 #addToBallotDiv h3
 {
-	color:#204a87;	
+	color:#333333;	
 }
 #voteDiv h1
 {
 	margin-left:0px;
-	color:#204a87;	
+	color:#333333;	
 }
 #voteDiv h2
 {
-	color:#204a87;	
+	color:#333333;	
 }
 #voteDiv h3
 {
-	color:#204a87;	
+	color:#333333;	
 }
 div#showProfile h1 
 {
-	color:#204a87;
+	color:#333333;
 }
 div#showProfile img
 {
@@ -756,7 +744,6 @@ div#showProfile img
 	margin-right: 6px
 }
 .boton, .t-beaneditor-submit{
-	-webkit-box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
 	border-radius: 8px;
 	border: solid #ffffff 1px;
 	display: inline-block;
@@ -777,15 +764,13 @@ div#showProfile img
 	color: black;
 	margin-top:-2px;
 	padding-bottom:10px;
-	border: solid #204a87 1px;
+	border: solid #333333 1px;
 }
 
 .boton:active, .t-beaneditor-submit:active{
 	position:relative;
 }
 button{
-	-webkit-box-shadow: rgb(39, 104, 115) 0px 10px 14px -7px;
-	border-radius: 8px;
 	border: solid #ffffff 1px;
 	display: inline-block;
 	cursor: pointer;
@@ -793,7 +778,6 @@ button{
 	font-weight: bold;
 	padding: 8px 10px;
 	text-decoration: none;
-	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
 	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
 	font-family: Arial;
     font-size: 11px;
@@ -805,7 +789,7 @@ button:hover
 	color: black;
 	margin-top:-2px;
 	padding-bottom:10px;
-	border: solid #204a87 1px;
+	border: solid #333333 1px;
 }
 
 button:active {

@@ -14,4 +14,8 @@ public interface BucklinDao {
 	public void deleteBucklinText();
 	public void updateBucklinText(BucklinText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

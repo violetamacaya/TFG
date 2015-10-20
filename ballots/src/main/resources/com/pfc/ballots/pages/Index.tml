@@ -59,11 +59,12 @@
 
 					<t:if test="showActive">
 						<h3>${message:actives}</h3>
-						<hr />
+						
 						<div class="indexHead">
 							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
 							<span>${message:endDate}</span> <span>${message:method}</span>
 						</div>
+						<hr />
 						<t:loop t:source="activeBallots" t:value="ballot">
 							<div t:type="actionlink" t:id="voteBallot" t:context="ballot.id"
 								class="indexRow">
@@ -85,11 +86,12 @@
 					<t:if test="showEnded">
 
 						<h3>${message:ended}</h3>
-						<hr />
 						<div class="indexHead">
 							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
 							<span>${message:endDate}</span> <span>${message:method}</span>
 						</div>
+						<hr />
+						
 						<t:loop t:source="endedBallots" t:value="ballot">
 							<div t:type="actionlink" t:id="resultBallot" context="ballot.id"
 								class="indexRow">
@@ -107,11 +109,12 @@
 					</t:if>
 					<t:if test="showPublicActive">
 						<h3>${message:public-actives}</h3>
-						<hr />
 						<div class="indexHead">
 							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
 							<span>${message:endDate}</span> <span>${message:method}</span>
 						</div>
+						<hr />
+
 						<t:loop t:source="publicActiveBallots" t:value="ballot">
 							<div t:type="actionlink" t:id="votePublicBallot"
 								t:context="ballot.id" class="indexRow">
@@ -124,11 +127,12 @@
 					<t:if test="showPublicEnded">
 
 						<h3>${message:public-ended}</h3>
-						<hr />
+					
 						<div class="indexHead">
 							<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
 							<span>${message:endDate}</span> <span>${message:method}</span>
 						</div>
+						<hr />
 						<t:loop t:source="publicEndedBallots" t:value="ballot">
 							<div t:type="actionlink" t:id="resultPublicBallot"
 								context="ballot.id" class="indexRow">

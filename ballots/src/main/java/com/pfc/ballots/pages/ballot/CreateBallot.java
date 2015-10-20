@@ -1,7 +1,6 @@
 package com.pfc.ballots.pages.ballot;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -22,6 +21,7 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.SelectModelFactory;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.ApprovalVotingDao;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.CensusDao;
@@ -41,6 +41,7 @@ import com.pfc.ballots.entities.Census;
 import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.Vote;
+import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
@@ -48,7 +49,6 @@ import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
-import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.GenerateDocentVotes;
 import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.UUID;
@@ -97,6 +97,7 @@ public class CreateBallot {
 	BallotDao ballotDao;
 	VoteDao voteDao;
 	RelativeMajorityDao relativeMajorityDao;
+	ApprovalVotingDao approvalVotingDao;
 	KemenyDao kemenyDao;
 	BordaDao bordaDao;
 	RangeVotingDao rangeDao;
@@ -114,6 +115,8 @@ public class CreateBallot {
 
 
 		mayRelModel=NUMBERS2_15;
+		approvalModel=NUMBERS2_15;
+
 		bordaModel=NUMBERS2_7;
 		rangeModel=NUMBERS2_7;
 
@@ -156,6 +159,9 @@ public class CreateBallot {
 
 		showMayRel=false;
 		showErrorMayRel=false;
+
+		showApproval=false;
+		showErrorApproval=false;
 
 		showKemeny=false;
 		showErrorKemeny=false;
@@ -412,21 +418,21 @@ public class CreateBallot {
 
 				}
 				else{
-				
+
 					String hour=String.valueOf(cal_actual.get(Calendar.HOUR_OF_DAY));
 					String min=String.valueOf(cal_actual.get(Calendar.MINUTE));
 					String sec=String.valueOf(cal_actual.get(Calendar.SECOND));
-					
+
 					cal_inicio.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
 					cal_inicio.set(Calendar.MINUTE, Integer.parseInt(min));
 					cal_inicio.set(Calendar.SECOND, Integer.parseInt(sec));
-					
-					
-					
+
+
+
 					System.out.println(hour+"hour");
 					System.out.println(min+"min");
 					System.out.println(sec+"sec");
-					
+
 				}
 			}
 
@@ -570,7 +576,12 @@ public class CreateBallot {
 					showRange=true;
 					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("rangeZone",rangeZone);
 				}
-
+				else if(method==Method.APPROVAL_VOTING)
+				{
+					showType=false;
+					showApproval=true;
+					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("approvalZone",approvalZone);
+				}
 
 			}
 		}
@@ -695,7 +706,7 @@ public class CreateBallot {
 	}
 
 	/**
-	 * Controls the number of opitions for the relative majority
+	 * Controls the number of options for the relative majority
 	 * @param str
 	 */
 	public void  onValueChangedFromMayRelSel(String str)
@@ -1846,6 +1857,12 @@ public class CreateBallot {
 				showRange=false;
 				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("rangeZone",rangeZone);
 			}
+			if(from.equals("fromApproval"))
+			{
+				showType=true;
+				showApproval=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("approvalZone",approvalZone);
+			}			
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1980,7 +1997,359 @@ public class CreateBallot {
 			return false;
 		}
 	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////// Approval ZONE /////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	@InjectComponent
+	private Zone approvalZone;
+	@Property
+	@Persist
+	private boolean showApproval;
+	@Property
+	@Persist
+	private boolean showErrorApproval;
+	@Property
+	@Persist
+	private boolean showRepeatedApproval;
+	@Persist
+	private ApprovalVoting approvalVoting;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String approvalNumOp;
+	@Persist
+	private int numOptApproval;
+	@Property
+	@Persist 
+	private String [] approvalModel;
+
+	@Property
+	@Persist
+	private String approvalOp1;
+	@Property
+	@Persist
+	private String approvalOp2;
+	@Property
+	@Persist
+	private String approvalOp3;
+	@Property
+	@Persist
+	private String approvalOp4;
+	@Property
+	@Persist
+	private String approvalOp5;
+	@Property
+	@Persist
+	private String approvalOp6;
+	@Property
+	@Persist
+	private String approvalOp7;
+	@Property
+	@Persist
+	private String approvalOp8;
+	@Property
+	@Persist
+	private String approvalOp9;
+	@Property
+	@Persist
+	private String approvalOp10;
+	@Property
+	@Persist
+	private String approvalOp11;
+	@Property
+	@Persist
+	private String approvalOp12;
+	@Property
+	@Persist
+	private String approvalOp13;
+	@Property
+	@Persist
+	private String approvalOp14;
+	@Property
+	@Persist
+	private String approvalOp15;
+
+
+	private String optionApproval;
+	public String getOptionApproval() {
+		return optionApproval;
+	}
+	public void setOptionApproval(String optionApproval) {
+		this.optionApproval = optionApproval;
+	}
+
+	/**
+	 * Controls the number of options for the approval voting
+	 * @param str
+	 */
+	public void  onValueChangedFromApprovalSel(String str)
+	{
+		numOptApproval=Integer.parseInt(str);
+		ajaxResponseRenderer.addRender("approvalZone", approvalZone);
+	}
+
+
+	public boolean isShowApproval3()
+	{
+		if(numOptApproval>=3)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval4()
+	{
+		if(numOptApproval>=4)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval5()
+	{
+		if(numOptApproval>=5)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval6()
+	{
+		if(numOptApproval>=6)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval7()
+	{
+		if(numOptApproval>=7)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval8()
+	{
+		if(numOptApproval>=8)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval9()
+	{
+		if(numOptApproval>=9)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval10()
+	{
+		if(numOptApproval>=10)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval11()
+	{
+		if(numOptApproval>=11)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval12()
+	{
+		if(numOptApproval>=12)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval13()
+	{
+		if(numOptApproval>=13)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval14()
+	{
+		if(numOptApproval>=14)
+			return true;
+		return false;
+	}
+	public boolean isShowApproval15()
+	{
+		if(numOptApproval>=15)
+			return true;
+		return false;
+	}
+	/**
+	 * Checks the options of the approval voting
+	 */
+	public void onValidateFromApprovalForm()
+	{
+		showErrorApproval=false;
+		showRepeatedApproval=false;
+		if(approvalOp1==null || approvalOp2==null)
+		{
+
+			showErrorApproval=true;
+		}
+
+		System.out.println("NUMOP->"+numOptApproval);
+		switch(numOptApproval)
+		{
+		case 15:
+			if(approvalOp15==null){showErrorApproval=true;}
+		case 14:
+			if(approvalOp14==null){showErrorApproval=true;}
+		case 13:
+			if(approvalOp13==null){showErrorApproval=true;}
+		case 12:
+			if(approvalOp12==null){showErrorApproval=true;}
+		case 11:
+			if(approvalOp11==null){showErrorApproval=true;}
+		case 10:
+			if(approvalOp10==null){showErrorApproval=true;}
+		case 9:
+			if(approvalOp9==null){showErrorApproval=true;}
+		case 8:
+			if(approvalOp8==null){showErrorApproval=true;}
+		case 7:
+			if(approvalOp7==null){showErrorApproval=true;}
+		case 6:
+			if(approvalOp6==null){showErrorApproval=true;}
+		case 5:
+			if(approvalOp5==null){showErrorApproval=true;}
+		case 4:
+			if(approvalOp4==null){showErrorApproval=true;}
+		case 3:
+			if(approvalOp3==null){showErrorApproval=true;}
+			break;
+		default:
+			showErrorApproval=false;
+		}
+		if(!showErrorApproval)//añadir las opciones
+		{
+			List<String> listOptions=new LinkedList<String>();
+			listOptions.add(approvalOp1);
+			listOptions.add(approvalOp2);
+			if(numOptApproval>=3)
+			{
+				listOptions.add(approvalOp3);
+			}
+			if(numOptApproval>=4)
+			{
+				listOptions.add(approvalOp4);
+			}
+			if(numOptApproval>=5)
+			{
+				listOptions.add(approvalOp5);
+			}
+			if(numOptApproval>=6)
+			{
+				listOptions.add(approvalOp6);
+			}
+			if(numOptApproval>=7)
+			{
+				listOptions.add(approvalOp7);
+			}
+			if(numOptApproval>=8)
+			{
+				listOptions.add(approvalOp8);
+			}
+			if(numOptApproval>=9)
+			{
+				listOptions.add(approvalOp9);
+			}
+			if(numOptApproval>=10)
+			{
+				listOptions.add(approvalOp10);
+			}
+			if(numOptApproval>=11)
+			{
+				listOptions.add(approvalOp11);
+			}
+			if(numOptApproval>=12)
+			{
+				listOptions.add(approvalOp12);
+			}
+			if(numOptApproval>=13)
+			{
+				listOptions.add(approvalOp13);
+			}
+			if(numOptApproval>=14)
+			{
+				listOptions.add(approvalOp14);
+			}
+			if(numOptApproval>=15)
+			{
+				listOptions.add(approvalOp15);
+			}
+			for(int x=0;x<listOptions.size();x++)
+			{
+				for(int i=x+1;i<listOptions.size();i++)
+				{
+					if(listOptions.get(x).toLowerCase().equals(listOptions.get(i).toLowerCase()))
+					{
+						showRepeatedApproval=true; 
+					}
+
+				}
+			}
+			approvalVoting=new ApprovalVoting(listOptions);
+		}
+	}
+
+	/**
+	 * Stores all the necessary data of the ballot
+	 * @return
+	 */
+	public Object onSuccessFromApprovalForm()
+	{
+		if(request.isXHR())
+		{
+			if(showErrorApproval || showRepeatedApproval)
+			{
+				ajaxResponseRenderer.addRender("approvalZone", approvalZone);
+			}
+			else //No hay errores
+			{
+				ballot=setBallotData();
+				approvalVoting.setId(UUID.generate());
+				ballot.setIdBallotData(approvalVoting.getId());
+				approvalVoting.setBallotId(ballot.getId());
+
+				voteDao=DB4O.getVoteDao(datasession.getDBName());
+				approvalVotingDao=DB4O.getApprovalVotingDao(datasession.getDBName());
+
+				if(ballot.isTeaching())//Votacion Docente
+				{
+					//Genera votos aleatoriamente para la votacion docente
+					ballot.setIdCensus("none");
+					approvalVoting.setVotes(GenerateDocentVotes.generateApprovalVoting(approvalVoting.getOptions(), Integer.parseInt(census)));
+					//HACER RECUENTO VOTOS AQUI PARA DOCENTES
+					approvalVoting.calcularApprovalVoting();
+					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+					this.sendMail(datasession.getId(), ballot);
+					ballot.setEnded(true);
+					ballot.setCounted(true);
+					voteDao.store(vote);
+				}
+				else if(ballotKind==BallotKind.PUBLICA){
+					ballot.setIdCensus("none");
+				}
+				else
+				{
+					boolean creatorInCensus=false;
+					this.sendMail(censusNormal,ballot);
+					for(String idUser:censusNormal.getUsersCounted())
+					{
+						if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+
+						voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+					}
+					if(!creatorInCensus)
+					{
+						// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+						//this.sendMail(datasession.getId(), ballot);
+					}
+
+				}
+
+				approvalVotingDao.store(approvalVoting);
+				ballotDao.store(ballot);
+				return BallotWasCreated.class;
+			}
+		}
+		return null;
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
@@ -2005,6 +2374,11 @@ public class CreateBallot {
 			return null;
 		case 3:
 			return SessionExpired.class;
+		case 4: 
+			if(datasession.isTeacher()){
+				return null;
+			}
+			return UnauthorizedAttempt.class;
 		default:
 			return Index.class;
 		}

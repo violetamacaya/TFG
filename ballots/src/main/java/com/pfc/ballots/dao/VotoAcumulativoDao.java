@@ -14,4 +14,8 @@ public interface VotoAcumulativoDao {
 	public void deleteVotoAcumulativoText();
 	public void updateVotoAcumulativoText(VotoAcumulativoText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

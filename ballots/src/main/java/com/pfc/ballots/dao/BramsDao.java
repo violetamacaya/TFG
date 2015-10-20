@@ -14,4 +14,8 @@ public interface BramsDao {
 	public void deleteBramsText();
 	public void updateBramsText(BramsText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

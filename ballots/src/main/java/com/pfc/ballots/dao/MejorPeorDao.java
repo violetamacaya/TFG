@@ -14,4 +14,8 @@ public interface MejorPeorDao {
 	public void deleteMejorPeorText();
 	public void updateMejorPeorText(MejorPeorText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

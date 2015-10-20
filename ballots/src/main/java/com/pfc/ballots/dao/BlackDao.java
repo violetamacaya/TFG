@@ -14,4 +14,8 @@ public interface BlackDao {
 	public void deleteBlackText();
 	public void updateBlackText(BlackText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

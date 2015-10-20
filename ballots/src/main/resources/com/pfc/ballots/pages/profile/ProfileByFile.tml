@@ -18,7 +18,7 @@
 			</t:if>
 
 			<div class="fileUpload btn btn-primary">
-    			<input type="file" validate="required" />
+    			<input id="file" type="file" validate="required" />
 			</div>
 			
 			<br/><br/>

@@ -143,80 +143,17 @@ public class BramsDaoDB4O implements BramsDao
 		}
 
 	}
-	public RangeVotingText getRangeVotingText() {
-
-		open();
-		try
-		{
-			Query query=DB.query();
-			query.constrain(RangeVotingText.class);
-			ObjectSet result=query.execute();
-			if(result.hasNext())
-			{
-				return (RangeVotingText)result.next();
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			close();
-		}
-		return null;
+	public void deleteByBallotId(String ballotId) {
+		// TODO Auto-generated method stub
+		
 	}
-
-	public void deleteRangeVotingText()
-	{
-		open();
-		try
-		{
-			Query query=DB.query();
-			query.constrain(RangeVotingText.class);
-			ObjectSet result=query.execute();
-			if(result.hasNext())
-			{
-				DB.delete(result.next());
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			close();
-		}
-
+	public void deleteById(String id) {
+		// TODO Auto-generated method stub
+		
 	}
-	
-	/**
-	 * Updates the BORDA text
-	 * @param about
-	 */
-	public void updateRangeVotingText(RangeVotingText text)
-	{
-		open();
-		try
-		{
-			Query query=DB.query();
-			query.constrain(RangeVotingText.class);
-			ObjectSet result=query.execute();
-			while(result.hasNext())
-			{
-				DB.delete(result.next());
-			}
-			DB.store(text);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			close();
-		}
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

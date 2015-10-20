@@ -218,5 +218,17 @@ public class SchulzeDaoDB4O implements SchulzeDao
 			close();
 		}
 	}
+	public void deleteByBallotId(String ballotId) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void deleteById(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

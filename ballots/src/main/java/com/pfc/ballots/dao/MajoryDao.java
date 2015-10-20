@@ -14,4 +14,8 @@ public interface MajoryDao {
 	public void deleteMajoryText();
 	public void updateMajoryText(MajoryText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }

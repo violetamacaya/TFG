@@ -14,4 +14,8 @@ public interface CoombsDao {
 	public void deleteCoombsText();
 	public void updateCoombsText(CoombsText text);
 	
+	public void deleteByBallotId(String ballotId);
+	public void deleteById(String id);
+	public void deleteAll();
+	
 }
