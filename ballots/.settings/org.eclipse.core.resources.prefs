@@ -75,7 +75,7 @@ encoding//src/main/resources/com/pfc/ballots/pages/ballot/ResultBallot_en.proper
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/ShowBallotAdmin.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/ShowBallotAdmin_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/VoteBallot.properties=UTF-8
-encoding//src/main/resources/com/pfc/ballots/pages/ballot/VoteBallot_eng.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/ballot/VoteBallot_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/profile/CreateProfile.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/profile/CreateProfile_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/profile/ProfileByFile.properties=UTF-8

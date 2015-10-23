@@ -49,7 +49,7 @@
 											<span>${message:private}</span>
 										</p:else>
 									</t:if>
-									<span>${startDate}</span> <span>${endDate}</span> <span>${metodo}</span>
+									<span>${startDate}</span> <span>${endDate}</span> <span>${message:metodo}</span>
 									<br />
 								</div>
 							</t:loop>

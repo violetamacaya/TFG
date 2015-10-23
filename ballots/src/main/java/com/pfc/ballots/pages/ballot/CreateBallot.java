@@ -23,15 +23,30 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.ApprovalVotingDao;
 import com.pfc.ballots.dao.BallotDao;
+import com.pfc.ballots.dao.BlackDao;
 import com.pfc.ballots.dao.BordaDao;
+import com.pfc.ballots.dao.BramsDao;
+import com.pfc.ballots.dao.BucklinDao;
 import com.pfc.ballots.dao.CensusDao;
+import com.pfc.ballots.dao.CondorcetDao;
+import com.pfc.ballots.dao.CoombsDao;
+import com.pfc.ballots.dao.CopelandDao;
+import com.pfc.ballots.dao.DodgsonDao;
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.HareDao;
+import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
+import com.pfc.ballots.dao.MajoryDao;
+import com.pfc.ballots.dao.MejorPeorDao;
+import com.pfc.ballots.dao.NansonDao;
 import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
+import com.pfc.ballots.dao.SchulzeDao;
+import com.pfc.ballots.dao.SmallDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
+import com.pfc.ballots.dao.VotoAcumulativoDao;
 import com.pfc.ballots.data.BallotKind;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
@@ -43,6 +58,7 @@ import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
+import com.pfc.ballots.entities.ballotdata.Brams;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
@@ -61,7 +77,7 @@ import com.pfc.ballots.util.UUID;
  * @author Mario Temprano Martin
  * @version 1.0 JUN-2014
  * @author Violeta Macaya Sánchez
- * @version 1.0 JUN-2015
+ * @version 2.0 OCT-2015
  */
 
 public class CreateBallot {
@@ -85,6 +101,7 @@ public class CreateBallot {
 	private Ballot ballot;
 
 	static final private String[] NUMBERS2_7 = new String[] { "2", "3", "4","5","6","7" };
+	static final private String[] NUMBERS7_15 = new String[] {"7","8","9","10","11","12","13","14","15" };
 	static final private String[] NUMBERS2_15 = new String[] { "2", "3", "4","5","6","7","8","9","10","11","12","13","14","15" };
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
@@ -101,6 +118,21 @@ public class CreateBallot {
 	KemenyDao kemenyDao;
 	BordaDao bordaDao;
 	RangeVotingDao rangeDao;
+	BramsDao bramsDao;
+	BlackDao blackDao;
+	BucklinDao bucklinDao;
+	CondorcetDao condorcetDao;
+	CoombsDao coombsDao;
+	CopelandDao copelandDao;
+	DodgsonDao dodgsonDao;
+	HareDao hareDao;
+	JuicioMayoritarioDao juicioMayoritarioDao;
+	MajoryDao majoryDao;
+	MejorPeorDao mejorPeorDao;
+	NansonDao nansonDao;
+	SchulzeDao schulzeDao;
+	SmallDao smallDao;
+	VotoAcumulativoDao votoAcumulativoDao;
 	UserDao userDao;
 	EmailAccountDao emailAccountDao;
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -116,9 +148,9 @@ public class CreateBallot {
 
 		mayRelModel=NUMBERS2_15;
 		approvalModel=NUMBERS2_15;
-
 		bordaModel=NUMBERS2_7;
 		rangeModel=NUMBERS2_7;
+		bramsModel=NUMBERS7_15;
 
 		numOpt=2;
 		bordaOpt1=2;
@@ -162,7 +194,10 @@ public class CreateBallot {
 
 		showApproval=false;
 		showErrorApproval=false;
-
+		
+		showBrams=false;
+		showErrorBrams=false;
+		
 		showKemeny=false;
 		showErrorKemeny=false;
 		showBadCharKemeny=false;
@@ -582,7 +617,12 @@ public class CreateBallot {
 					showApproval=true;
 					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("approvalZone",approvalZone);
 				}
-
+				else if(method==Method.BRAMS)
+				{
+					showType=false;
+					showBrams=true;
+					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bramsZone",bramsZone);
+				}
 			}
 		}
 
@@ -2351,6 +2391,309 @@ public class CreateBallot {
 		return null;
 	}
 
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////// BRAMS ZONE /////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@InjectComponent
+	private Zone bramsZone;
+	@Property
+	@Persist
+	private boolean showBrams;
+	@Property
+	@Persist
+	private boolean showErrorBrams;
+	@Property
+	@Persist
+	private boolean showRepeatedBrams;
+	@Persist
+	private Brams brams;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String bramsNumOp;
+	@Persist
+	private int numOptBrams;
+	@Property
+	@Persist 
+	private String [] bramsModel;
+
+	@Property
+	@Persist
+	private String bramsOp1;
+	@Property
+	@Persist
+	private String bramsOp2;
+	@Property
+	@Persist
+	private String bramsOp3;
+	@Property
+	@Persist
+	private String bramsOp4;
+	@Property
+	@Persist
+	private String bramsOp5;
+	@Property
+	@Persist
+	private String bramsOp6;
+	@Property
+	@Persist
+	private String bramsOp7;
+	@Property
+	@Persist
+	private String bramsOp8;
+	@Property
+	@Persist
+	private String bramsOp9;
+	@Property
+	@Persist
+	private String bramsOp10;
+	@Property
+	@Persist
+	private String bramsOp11;
+	@Property
+	@Persist
+	private String bramsOp12;
+	@Property
+	@Persist
+	private String bramsOp13;
+	@Property
+	@Persist
+	private String bramsOp14;
+	@Property
+	@Persist
+	private String bramsOp15;
+
+
+	private String optionBrams;
+	public String getOptionBrams() {
+		return optionBrams;
+	}
+	public void setOptionBrams(String optionBrams) {
+		this.optionBrams = optionBrams;
+	}
+
+	/**
+	 * Controls the number of options for the brams voting
+	 * @param str
+	 */
+	public void  onValueChangedFromBramsSel(String str)
+	{
+		numOptBrams=Integer.parseInt(str);
+		ajaxResponseRenderer.addRender("bramsZone", bramsZone);
+	}
+
+	public boolean isShowBrams8()
+	{
+		if(numOptBrams>=8)
+			return true;
+		return false;
+	}
+	public boolean isShowBrams9()
+	{
+		if(numOptBrams>=9)
+			return true;
+		return false;
+	}
+	public boolean isShowBrams10()
+	{
+		if(numOptBrams>=10)
+			return true;
+		return false;
+	}
+	public boolean isShowBrams11()
+	{
+		if(numOptBrams>=11)
+			return true;
+		return false;
+	}
+	public boolean isShowBrams12()
+	{
+		if(numOptBrams>=12)
+			return true;
+		return false;
+	}
+	public boolean isShowBrams13()
+	{
+		if(numOptBrams>=13)
+			return true;
+		return false;
+	}
+	public boolean isShowBrams14()
+	{
+		if(numOptBrams>=14)
+			return true;
+		return false;
+	}
+	public boolean isShowBrams15()
+	{
+		if(numOptBrams>=15)
+			return true;
+		return false;
+	}
+	/**
+	 * Checks the options of the brams voting
+	 */
+	public void onValidateFromBramsForm()
+	{
+		showErrorBrams=false;
+		showRepeatedBrams=false;
+		if(bramsOp1==null || bramsOp2==null || bramsOp3==null || bramsOp4==null || bramsOp5==null || bramsOp6==null || bramsOp7==null)
+		{
+
+			showErrorBrams=true;
+		}
+
+		System.out.println("NUMOP->"+numOptBrams);
+		switch(numOptBrams)
+		{
+		case 15:
+			if(bramsOp15==null){showErrorBrams=true;}
+		case 14:
+			if(bramsOp14==null){showErrorBrams=true;}
+		case 13:
+			if(bramsOp13==null){showErrorBrams=true;}
+		case 12:
+			if(bramsOp12==null){showErrorBrams=true;}
+		case 11:
+			if(bramsOp11==null){showErrorBrams=true;}
+		case 10:
+			if(bramsOp10==null){showErrorBrams=true;}
+		case 9:
+			if(bramsOp9==null){showErrorBrams=true;}
+		case 8:
+			if(bramsOp8==null){showErrorBrams=true;}
+			break;
+		default:
+			showErrorBrams=false;
+		}
+		if(!showErrorBrams)//añadir las opciones
+		{
+			List<String> listOptions=new LinkedList<String>();
+			listOptions.add(bramsOp1);
+			listOptions.add(bramsOp2);
+			listOptions.add(bramsOp3);
+			listOptions.add(bramsOp4);
+			listOptions.add(bramsOp5);
+			listOptions.add(bramsOp6);
+			listOptions.add(bramsOp7);
+
+			if(numOptBrams>=8)
+			{
+				listOptions.add(bramsOp8);
+			}
+			if(numOptBrams>=9)
+			{
+				listOptions.add(bramsOp9);
+			}
+			if(numOptBrams>=10)
+			{
+				listOptions.add(bramsOp10);
+			}
+			if(numOptBrams>=11)
+			{
+				listOptions.add(bramsOp11);
+			}
+			if(numOptBrams>=12)
+			{
+				listOptions.add(bramsOp12);
+			}
+			if(numOptBrams>=13)
+			{
+				listOptions.add(bramsOp13);
+			}
+			if(numOptBrams>=14)
+			{
+				listOptions.add(bramsOp14);
+			}
+			if(numOptBrams>=15)
+			{
+				listOptions.add(bramsOp15);
+			}
+			for(int x=0;x<listOptions.size();x++)
+			{
+				for(int i=x+1;i<listOptions.size();i++)
+				{
+					if(listOptions.get(x).toLowerCase().equals(listOptions.get(i).toLowerCase()))
+					{
+						showRepeatedBrams=true; 
+					}
+
+				}
+			}
+			brams=new Brams(listOptions);
+		}
+	}
+
+	/**
+	 * Stores all the necessary data of the ballot
+	 * @return
+	 */
+	public Object onSuccessFromBramsForm()
+	{
+		if(request.isXHR())
+		{
+			if(showErrorBrams || showRepeatedBrams)
+			{
+				ajaxResponseRenderer.addRender("bramsZone", bramsZone);
+			}
+			else //No hay errores
+			{
+				ballot=setBallotData();
+				brams.setId(UUID.generate());
+				ballot.setIdBallotData(brams.getId());
+				brams.setBallotId(ballot.getId());
+
+				voteDao=DB4O.getVoteDao(datasession.getDBName());
+				bramsDao=DB4O.getBramsDao(datasession.getDBName());
+
+				if(ballot.isTeaching())//Votacion Docente
+				{
+					//Genera votos aleatoriamente para la votacion docente
+					ballot.setIdCensus("none");
+					List<String> votosdocentes;
+					System.out.println("Llamada a generar votos docentes con: "+Integer.parseInt(census)+" votos");
+
+					votosdocentes = GenerateDocentVotes.generateBrams(brams.getOptions(), Integer.parseInt(census));
+					brams.setVotes(votosdocentes);
+					brams.calcularBrams();
+					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);
+					//this.sendMail(datasession.getId(), ballot);
+					ballot.setEnded(true);
+					ballot.setCounted(true);
+					voteDao.store(vote);
+				}
+				else if(ballotKind==BallotKind.PUBLICA){
+					ballot.setIdCensus("none");
+				}
+				else
+				{
+					boolean creatorInCensus=false;
+					this.sendMail(censusNormal,ballot);
+					for(String idUser:censusNormal.getUsersCounted())
+					{
+						if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+
+						voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+					}
+					if(!creatorInCensus)
+					{
+						// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+						//this.sendMail(datasession.getId(), ballot);
+					}
+
+				}
+
+				bramsDao.store(brams);
+				ballotDao.store(ballot);
+				return BallotWasCreated.class;
+			}
+		}
+		return null;
+	}
 	////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////

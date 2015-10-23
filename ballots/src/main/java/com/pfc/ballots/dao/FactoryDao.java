@@ -9,7 +9,7 @@ import com.pfc.ballots.dao.UserDao;
  * 
  * @version 2.0, FEB-2014
  * @author Mario Temprano Martin
- * @version 3.0 NOV-2014
+ * @version 3.0 OCT-2015
  * @author Violeta Macaya Sánchez
  */
 public abstract class FactoryDao {

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import com.Calculo.CalcApprovalVoting;
 /**
- * RelativeMajority entity that contains the information of specific information
- * for a relative majority ballot
+ * ApprovalVoting entity that contains the information of specific information
+ * for a approval voting ballot
  * 
  * @author Violeta Macaya Sánchez
  * @version 1.0 OCT-2015

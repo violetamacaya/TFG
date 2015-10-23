@@ -1,51 +1,61 @@
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-     <head><title>${message:page-title}</title>
-     <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
 
-	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
-	</head>
-   
-	<t:border><div id="voteDiv">
-	
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
+	<div id="voteDiv">
+
 		<t:if test="!voteCounted">
-			<h1>${ballot.name}</h1><hr/>
-			<h3>${ballot.description}</h3><br/>
-			<!--///////////////////////////////////  MAYORIA RELATIVA /////////////////////////////////////////// -->			
+			<h1>${ballot.name}</h1>
+			<hr />
+			<h3>${ballot.description}</h3>
+			<br />
+			<!--///////////////////////////////////  MAYORIA RELATIVA /////////////////////////////////////////// -->
 			<t:if test="showRelativeMajority">
-				
-						 
-					 <t:form t:id="relativeMajorityForm" >
-					 	<t:radiogroup t:value="relMayVote" t:id="radioGroup" >
-					 		<table>
-							<tr t:type="Loop" t:source="relMay.options" t:value="relMayOption">
-								<td><input type="radio" t:type="radio" t:value="${relMayOption}" />${relMayoption}</td>
+
+
+				<t:form t:id="relativeMajorityForm">
+					<t:radiogroup t:value="relMayVote" t:id="radioGroup">
+						<table>
+							<tr t:type="Loop" t:source="relMay.options"
+								t:value="relMayOption">
+								<td><input type="radio" t:type="radio"
+									t:value="${relMayOption}" />${relMayoption}</td>
 							</tr>
-							</table>
-					 	</t:radiogroup>
-						<t:if test="ballot.publica">
-						 <table>
-						<tr>
-							<td></td>
-							<td><t:kaptchaimage t:id="kaptcha1" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><t:kaptchafield image="kaptcha1" type="text" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>${message:captcha}</td>
-						</tr>
 						</table>
-						</t:if>
-						
-					 	<tr><input t:type="submit" class="boton" value="${message:vote-but}"/></tr> 
-					 </t:form>
-				
-				 
-		
+					</t:radiogroup>
+					<t:if test="ballot.publica">
+						<table>
+							<tr>
+								<td></td>
+								<td><t:kaptchaimage t:id="kaptcha1" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><t:kaptchafield image="kaptcha1" type="text" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>${message:captcha}</td>
+							</tr>
+						</table>
+					</t:if>
+
+					<tr>
+						<input t:type="submit" class="boton" value="${message:vote-but}" />
+					</tr>
+				</t:form>
+
+
+
 			</t:if>
-			
+
 			<!-- ///////////////////////////////////////   KEMENY   ////////////////////////////////////////////// -->
 			<t:if test="showKemeny">
 				<t:zone t:id="kemenyZone" t:update="show">
@@ -55,26 +65,34 @@
 
 					<t:form t:id="kemenyForm" t:zone="^">
 						<table>
-				 			<tr><td><input t:type="Palette" t:id="paletteKem" t:reorder="true" t:model="kemeny.optionPairs" t:selected="kemenyVote" t:encoder="stringValueEncoder"/></td></tr>
-				 			<t:if test="ballot.publica">
-						<tr>
-							<td><t:kaptchaimage t:id="kaptcha2" /></td>
-						</tr>
-						<tr>
-							<td><t:kaptchafield image="kaptcha2" type="text" /></td>
-						</tr>
-						<tr>
-							<td>${message:captcha}</td>
-						</tr>					 		</t:if>
-				 			<tr><td><input t:type="submit" class="boton" value="${message:vote-but}"/></td></tr>
-				 		</table>
-				 	</t:form>
-				 </t:zone>
+							<tr>
+								<td><input t:type="Palette" t:id="paletteKem"
+									t:reorder="true" t:model="kemeny.optionPairs"
+									t:selected="kemenyVote" t:encoder="stringValueEncoder" /></td>
+							</tr>
+							<t:if test="ballot.publica">
+								<tr>
+									<td><t:kaptchaimage t:id="kaptcha2" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield image="kaptcha2" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+							</t:if>
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
 			</t:if>
-			
-			
-			
-			
+
+
+
+
 			<!-- ///////////////////////////////////////// BORDA  /////////////////////////////////////////////// -->
 			<t:if test="showBorda">
 				<t:zone t:id="bordaZone" t:update="show">
@@ -83,107 +101,188 @@
 					</t:if>
 
 					<t:form t:id="bordaForm" t:zone="^">
-			 			<input t:type="Palette" t:id="paletteBorda" t:reorder="true" t:model="borda.bordaOptions" t:selected="BordaVote" t:encoder="stringValueEncoder"/>
-			 			<t:if test="ballot.publica">
-			 			<table>
-						<tr>
-							<td></td>
-							<td><t:kaptchaimage t:id="kaptcha3" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><t:kaptchafield image="kaptcha3" type="text" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>${message:captcha}</td>
-						</tr>
-						</table>					 	
+						<input t:type="Palette" t:id="paletteBorda" t:reorder="true"
+							t:model="borda.bordaOptions" t:selected="BordaVote"
+							t:encoder="stringValueEncoder" />
+						<t:if test="ballot.publica">
+							<table>
+								<tr>
+									<td></td>
+									<td><t:kaptchaimage t:id="kaptcha3" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><t:kaptchafield image="kaptcha3" type="text" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>${message:captcha}</td>
+								</tr>
+							</table>
 						</t:if>
-			 			<input t:type="submit" class="boton" value="${message:vote-but}"/>
-			 		</t:form>
-			 	</t:zone>		
-				
+						<input t:type="submit" class="boton" value="${message:vote-but}" />
+					</t:form>
+				</t:zone>
+
+			</t:if>
+
+			<!--///////////////////////////////////  APPROVAL VOTING /////////////////////////////////////////// -->
+			<t:if test="showApprovalVoting">
+
+
+				<t:form t:id="approvalVotingForm">
+					${message:instructions}<br />
+					<br />
+					<tr>
+						<td><t:checklist t:id="selectedCheckListApproval"
+								encoder="stringEncoder" model="model" /></td>
+					</tr>
+					<br />
+					<t:if test="ballot.publica">
+						<table>
+							<tr>
+								<td></td>
+								<td><t:kaptchaimage t:id="kaptchaApproval" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><t:kaptchafield image="kaptchaApproval" type="text" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>${message:captcha}</td>
+							</tr>
+						</table>
+					</t:if>
+
+					<tr>
+						<input t:type="submit" class="boton" value="${message:vote-but}" />
+					</tr>
+				</t:form>
+
+
+
+
+			</t:if>
+			<!--/////////////////////////////////// Brams /////////////////////////////////////////// -->
+			<t:if test="showBrams">
+
+				<t:zone t:id="bramsZone" t:update="show">
+
+					<t:form t:id="bramsForm" t:zone="^">
+					<t:if test="showErrorBrams">
+						<span class="error">${message:brams-error}</span>
+					</t:if>
+					${message:instructions-brams}<br />
+						<br />
+						<tr>
+							<td><t:checklist t:id="selectedCheckListBrams"
+									encoder="encoderBrams" model="modelBrams" /></td>
+						</tr>
+						<br />
+						<t:if test="ballot.publica">
+							<table>
+								<tr>
+									<td></td>
+									<td><t:kaptchaimage t:id="kaptchaBrams" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><t:kaptchafield image="kaptchaBrams" type="text" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>${message:captcha}</td>
+								</tr>
+							</table>
+						</t:if>
+
+						<tr>
+							<input t:type="submit" class="boton" value="${message:vote-but}" />
+						</tr>
+					</t:form>
+				</t:zone>
 			</t:if>
 			<!-- ///////////////////////////////////////// RANGE VOTING /////////////////////////////////////////////// -->
-			
+
 			<t:if test="ShowRange">
-				${message:values-betwen} ${range.minValue} ${message:and} ${range.MaxValue} ${message:included} <br/>
+				${message:values-betwen} ${range.minValue} ${message:and} ${range.MaxValue} ${message:included} <br />
 				<t:zone t:id="rangeZone">
-					
+
 					<t:form t:id="rangeForm" t:zone="^">
-					<t:if test="showRangeBadNumber">
-						<span class="error">${message:badNumer}</span>
-					</t:if>
+						<t:if test="showRangeBadNumber">
+							<span class="error">${message:badNumer}</span>
+						</t:if>
 
 						<table>
 							<tr>
 								<td><label>${rangeOpt0}</label></td>
-								<td><t:textfield t:id="range0"/></td>
+								<td><t:textfield t:id="range0" /></td>
 							</tr>
 							<tr>
 								<td><label>${rangeOpt1}</label></td>
-								<td><t:textfield t:id="range1"/></td>
+								<td><t:textfield t:id="range1" /></td>
 							</tr>
 							<t:if test="showRange2">
 								<tr>
 									<td><label>${rangeOpt2}</label></td>
-									<td><t:textfield t:id="range2"/></td>
+									<td><t:textfield t:id="range2" /></td>
 								</tr>
 							</t:if>
 							<t:if test="showRange3">
 								<tr>
 									<td><label>${rangeOpt3}</label></td>
-									<td><t:textfield t:id="range3"/></td>
+									<td><t:textfield t:id="range3" /></td>
 								</tr>
 							</t:if>
 							<t:if test="showRange4">
 								<tr>
 									<td><label>${rangeOpt4}</label></td>
-									<td><t:textfield t:id="range4"/></td>
+									<td><t:textfield t:id="range4" /></td>
 								</tr>
 							</t:if>
 							<t:if test="showRange5">
 								<tr>
 									<td><label>${rangeOpt5}</label></td>
-									<td><t:textfield t:id="range5"/></td>
+									<td><t:textfield t:id="range5" /></td>
 								</tr>
 							</t:if>
 							<t:if test="showRange6">
 								<tr>
 									<td><label>${rangeOpt6}</label></td>
-									<td><t:textfield t:id="range6"/></td>
+									<td><t:textfield t:id="range6" /></td>
 								</tr>
 							</t:if>
-													
+
 						</table>
 						<t:if test="ballot.publica">
-						<table>
-						<tr>
-							<td></td>
-							<td><t:kaptchaimage t:id="kaptcha4" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><kaptchafield image="kaptcha4" type="text" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>${message:captcha}</td>
-						</tr>			
-						</table>		 	
+							<table>
+								<tr>
+									<td></td>
+									<td><t:kaptchaimage t:id="kaptcha4" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><kaptchafield image="kaptcha4" type="text" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>${message:captcha}</td>
+								</tr>
+							</table>
 						</t:if>
-						<input t:type="submit" class="boton" value="${message:vote-but}"/>
-						
+						<input t:type="submit" class="boton" value="${message:vote-but}" />
+
 					</t:form>
 				</t:zone>
-				
-				
+
+
 			</t:if>
-			
-			 <p:else>
-			 	<h2>${message:vote-done}</h2>
-			 </p:else>
+
+			<p:else>
+				<h2>${message:vote-done}</h2>
+			</p:else>
 		</t:if>
-	</div></t:border>
+	</div>
+</t:border>
 </html>

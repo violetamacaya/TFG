@@ -16,19 +16,35 @@ import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 import com.pfc.ballots.dao.ApprovalVotingDao;
 import com.pfc.ballots.dao.BallotDao;
+import com.pfc.ballots.dao.BlackDao;
 import com.pfc.ballots.dao.BordaDao;
+import com.pfc.ballots.dao.BramsDao;
+import com.pfc.ballots.dao.BucklinDao;
 import com.pfc.ballots.dao.CensusDao;
+import com.pfc.ballots.dao.CondorcetDao;
+import com.pfc.ballots.dao.CoombsDao;
+import com.pfc.ballots.dao.CopelandDao;
+import com.pfc.ballots.dao.DodgsonDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.HareDao;
+import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
+import com.pfc.ballots.dao.MajoryDao;
+import com.pfc.ballots.dao.MejorPeorDao;
+import com.pfc.ballots.dao.NansonDao;
 import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
+import com.pfc.ballots.dao.SchulzeDao;
+import com.pfc.ballots.dao.SmallDao;
 import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.VoteDao;
+import com.pfc.ballots.dao.VotoAcumulativoDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
+import com.pfc.ballots.entities.ballotdata.Brams;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
@@ -83,6 +99,23 @@ public class ResultBallot {
 	BordaDao bordaDao;
 	RangeVotingDao rangeDao;
 	ApprovalVotingDao approvalVotingDao;
+	BramsDao bramsDao;
+	BlackDao blackDao;
+	BucklinDao bucklinDao;
+	CondorcetDao condorcetDao;
+	CoombsDao coombsDao;
+	CopelandDao copelandDao;
+	DodgsonDao dodgsonDao;
+	HareDao hareDao;
+	JuicioMayoritarioDao juicioMayoritarioDao;
+	MajoryDao majoryDao;
+	MejorPeorDao mejorPeorDao;
+	NansonDao nansonDao;
+	SchulzeDao schulzeDao;
+	SmallDao smallDao;
+	VotoAcumulativoDao votoAcumulativoDao;	
+	
+	
 	@Persist
 	@Property
 	ApprovalVoting approvalVoting;
@@ -191,6 +224,24 @@ public class ResultBallot {
 				ballotDao.updateBallot(ballot);
 			}
 		}
+		else if(ballot.getMethod()==Method.BRAMS)
+		{
+			bramsDao= DB4O.getBramsDao(datasession.getDBName());
+			brams=bramsDao.getByBallotId(ballot.getId());
+			
+			
+			if(!ballot.isEnded())
+			{
+				brams.calcularBrams();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && brams!=null)
+			{
+				brams.calcularBrams();
+				ballot.setCounted(true);
+				bramsDao.update(brams);
+				ballotDao.updateBallot(ballot);
+			}
+		}
 		
 		
 		
@@ -275,6 +326,19 @@ public class ResultBallot {
 			
 			System.out.println("tamaño->"+array.toString());
 			javaScriptSupport.addInitializerCall("charts_approval",array.toString());
+		}
+		if(ballot.getMethod()==Method.BRAMS)
+		{
+			List<String> options=getBramsOptions();
+			for(String option:options)
+			{
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", brams.getResultOption(option));
+				array.put(obj);
+			}
+			
+			javaScriptSupport.addInitializerCall("charts_brams",array.toString());
 		}
 		
 	}
@@ -526,6 +590,54 @@ public class ResultBallot {
 	public String getApprovalVotingNum()
 	{
 		return String.valueOf(approvalVoting.getVotes().size());
+	}
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////// BRAMS //////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Brams Data
+	 */
+	@Persist
+	@Property
+	Brams brams;
+	@Property
+	private String optionBrams;
+	
+	public String getBramsVote()
+	{
+		return String.valueOf(brams.getResultOption(option));
+	}
+	
+	public List<String> getBramsOptions()
+	{
+		List<String> lista=brams.getOptions();
+		
+		for(int i=0;i<lista.size()-1;i++)
+		{
+			for(int j=0;j<lista.size()-i-1;j++)
+			{
+				if(brams.getResultOption(lista.get(j+1))>brams.getResultOption(lista.get(j)))
+				{
+					String aux=lista.get(j+1);
+					lista.set(j+1, lista.get(j));
+					lista.set(j, aux);
+				}
+			}
+		}
+		
+		return lista;
+	}
+	
+	public boolean getShowBrams()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.BRAMS)
+			{return true;}
+		return false;
+	}
+
+	public String getBramsNum()
+	{
+		return String.valueOf(brams.getVotes().size());
 	}
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
