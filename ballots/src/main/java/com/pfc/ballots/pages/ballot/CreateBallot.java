@@ -62,6 +62,7 @@ import com.pfc.ballots.entities.ballotdata.Brams;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
+import com.pfc.ballots.entities.ballotdata.VotoAcumulativo;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
@@ -151,6 +152,7 @@ public class CreateBallot {
 		bordaModel=NUMBERS2_7;
 		rangeModel=NUMBERS2_7;
 		bramsModel=NUMBERS7_15;
+		votoAcumulativoModel=NUMBERS2_15;
 
 		numOpt=2;
 		bordaOpt1=2;
@@ -197,6 +199,9 @@ public class CreateBallot {
 		
 		showBrams=false;
 		showErrorBrams=false;
+
+		showVotoAcumulativo=false;
+		showErrorVotoAcumulativo=false;
 		
 		showKemeny=false;
 		showErrorKemeny=false;
@@ -622,6 +627,12 @@ public class CreateBallot {
 					showType=false;
 					showBrams=true;
 					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bramsZone",bramsZone);
+				}
+				else if(method==Method.VOTO_ACUMULATIVO)
+				{
+					showType=false;
+					showVotoAcumulativo=true;
+					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("votoAcumulativoZone",votoAcumulativoZone);
 				}
 			}
 		}
@@ -1855,188 +1866,6 @@ public class CreateBallot {
 		return null;
 	}
 
-
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////// BACK EVENT /////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	public void onBack(List<String> list)
-	{
-		String from=list.get(0);
-		String to=list.get(1);
-		if(to.equals("toGeneral"))
-		{
-			showType=false;
-			showGeneral=true;
-			ajaxResponseRenderer.addRender("generalZone", generalZone).addRender("typeZone", typeZone);
-		}
-		if(to.equals("toType"))
-		{
-			if(from.equals("fromMayRel"))
-			{
-				showType=true;
-				showMayRel=false;
-				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("mayRelZone",mayRelZone);
-			}
-			if(from.equals("fromKemeny"))
-			{
-				showType=true;
-				showKemeny=false;
-				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("kemenyZone",kemenyZone);
-			}
-			if(from.equals("fromBorda"))
-			{
-				showType=true;
-				showBorda=false;
-				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bordaZone",bordaZone);
-			}
-			if(from.equals("fromRange"))
-			{
-				showType=true;
-				showRange=false;
-				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("rangeZone",rangeZone);
-			}
-			if(from.equals("fromApproval"))
-			{
-				showType=true;
-				showApproval=false;
-				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("approvalZone",approvalZone);
-			}			
-		}
-	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////// TOOLS /////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	private Ballot setBallotData()
-	{
-
-		Ballot newBallot=new Ballot();
-		newBallot.setId(UUID.generate());
-		newBallot.setName(ballotName);
-		newBallot.setDescription(description);
-		newBallot.setIdOwner(datasession.getId());
-		if(ballotKind==BallotKind.PRIVADA)
-		{
-			newBallot.setNotStarted(true);
-			newBallot.setIdCensus(censusNormal.getId());
-		}
-		else if(ballotKind==BallotKind.DOCENTE)
-		{
-			newBallot.setTeaching(true);
-		}
-		else
-		{
-			newBallot.setPublica(true);
-		}
-		newBallot.setMethod(method);
-		newBallot.setStartDate(cal_inicio.getTime());
-		newBallot.setEndDate(cal_final.getTime());
-		return newBallot;
-	}
-
-	/**
-	 * Report the users that are able to vote in the created ballot
-	 * @param censo
-	 * @param ballotMail
-	 */
-	private void sendMail(Census censo,Ballot ballotMail)
-	{
-		userDao=DB4O.getUsuarioDao(datasession.getDBName());
-		emailAccountDao=DB4O.getEmailAccountDao();
-		List<Profile> usersToMail=userDao.getProfileById(censo.getUsersCounted());
-		EmailAccount account=emailAccountDao.getAccount();
-
-		String metodo=null;
-		String subject;
-		String txt;
-
-
-		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
-		{
-			metodo="Mayoria Relativa";
-		}
-		else if(ballot.getMethod()==Method.KEMENY)
-		{
-			metodo="Kemeny";
-		}
-
-
-		if(ballotMail.isTeaching())
-		{
-			subject="Votacion docente "+metodo+": "+ballotMail.getName();
-			txt="La votacion docente "+ballotMail.getName()+" ha sido realizada con el metodo "+metodo+"<br/><br/>Su descripcion es:<br/>"+ballotMail.getDescription();
-		}
-		else
-		{
-			subject="Ya puedes Votar en: "+ballotMail.getName();
-			txt="Ya tiene acceso a la votacion ("+metodo+"): "+ballotMail.getName()+"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
-		}
-
-		for(Profile emailDestino:usersToMail)
-		{
-			Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino.getEmail(), subject, txt);
-		}
-	}
-	/**
-	 * Report a users that are able to vote in the created ballot
-	 * @param censo
-	 * @param ballotMail
-	 */
-	private void sendMail (String idUser,Ballot ballotMail)
-	{
-		userDao=DB4O.getUsuarioDao(datasession.getDBName());
-		emailAccountDao=DB4O.getEmailAccountDao();
-		String emailDestino=userDao.getEmailById(idUser);
-		EmailAccount account=emailAccountDao.getAccount();
-
-		SimpleDateFormat dateFormat;
-
-		String metodo=null;
-		String subject;
-		String txt;
-
-		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
-		{
-			metodo="Mayoria Relativa";
-		}
-		else if(ballot.getMethod()==Method.KEMENY)
-		{
-			metodo="Kemeny";
-		}
-
-		if(ballotMail.isTeaching())
-		{
-			subject="Votacion docente "+metodo+": "+ballotMail.getName();
-			txt="La votacion docente "+ballotMail.getName()+" ha sido realizada con el metodo "+metodo+"<br/><br/>Su descripcion es:<br/>"+ballotMail.getDescription();
-		}
-		else
-		{			
-			dateFormat =new SimpleDateFormat("dd/MM/yyyy");
-			String fecha = dateFormat.format(ballot.getStartDate());
-			dateFormat=new SimpleDateFormat("HH:mm");
-			String hora= dateFormat.format(ballot.getStartDate());
-
-			subject="Nueva votación: "+ballotMail.getName();
-			txt="Ha sido invitado a participación a la votación ("+metodo+"): "+ballotMail.getName()+ "que dara comienzo el "+fecha+" a las "+hora+
-					"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
-
-		}
-
-
-		Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino, subject, txt);
-	}
-
-	private boolean isNumeric(String cadena)
-	{
-		try {
-			Integer.parseInt(cadena);
-			return true;
-		} catch (NumberFormatException nfe){
-			return false;
-		}
-	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// Approval ZONE /////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2694,6 +2523,587 @@ public class CreateBallot {
 		}
 		return null;
 	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////// VotoAcumulativo ZONE /////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@InjectComponent
+	private Zone votoAcumulativoZone;
+	@Property
+	@Persist
+	private boolean showVotoAcumulativo;
+	@Property
+	@Persist
+	private boolean showErrorVotoAcumulativo;
+	@Property
+	@Persist
+	private boolean showRepeatedVotoAcumulativo;
+	@Persist
+	private VotoAcumulativo votoAcumulativo;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String votoAcumulativoNumOp;
+	@Persist
+	private int numOptVotoAcumulativo;
+	@Property
+	@Persist 
+	private String [] votoAcumulativoModel;
+
+	@Property
+	@Persist
+	private String votoAcumulativoOp1;
+	@Property
+	@Persist
+	private String votoAcumulativoOp2;
+	@Property
+	@Persist
+	private String votoAcumulativoOp3;
+	@Property
+	@Persist
+	private String votoAcumulativoOp4;
+	@Property
+	@Persist
+	private String votoAcumulativoOp5;
+	@Property
+	@Persist
+	private String votoAcumulativoOp6;
+	@Property
+	@Persist
+	private String votoAcumulativoOp7;
+	@Property
+	@Persist
+	private String votoAcumulativoOp8;
+	@Property
+	@Persist
+	private String votoAcumulativoOp9;
+	@Property
+	@Persist
+	private String votoAcumulativoOp10;
+	@Property
+	@Persist
+	private String votoAcumulativoOp11;
+	@Property
+	@Persist
+	private String votoAcumulativoOp12;
+	@Property
+	@Persist
+	private String votoAcumulativoOp13;
+	@Property
+	@Persist
+	private String votoAcumulativoOp14;
+	@Property
+	@Persist
+	private String votoAcumulativoOp15;
+
+
+	private String optionVotoAcumulativo;
+	public String getOptionVotoAcumulativo() {
+		return optionVotoAcumulativo;
+	}
+	public void setOptionVotoAcumulativo(String optionVotoAcumulativo) {
+		this.optionVotoAcumulativo = optionVotoAcumulativo;
+	}
+
+	/**
+	 * Controls the number of options for the votoAcumulativo voting
+	 * @param str
+	 */
+	public void  onValueChangedFromVotoAcumulativoSel(String str)
+	{
+		numOptVotoAcumulativo=Integer.parseInt(str);
+		ajaxResponseRenderer.addRender("votoAcumulativoZone", votoAcumulativoZone);
+	}
+
+
+	public boolean isShowVotoAcumulativo3()
+	{
+		if(numOptVotoAcumulativo>=3)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo4()
+	{
+		if(numOptVotoAcumulativo>=4)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo5()
+	{
+		if(numOptVotoAcumulativo>=5)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo6()
+	{
+		if(numOptVotoAcumulativo>=6)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo7()
+	{
+		if(numOptVotoAcumulativo>=7)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo8()
+	{
+		if(numOptVotoAcumulativo>=8)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo9()
+	{
+		if(numOptVotoAcumulativo>=9)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo10()
+	{
+		if(numOptVotoAcumulativo>=10)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo11()
+	{
+		if(numOptVotoAcumulativo>=11)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo12()
+	{
+		if(numOptVotoAcumulativo>=12)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo13()
+	{
+		if(numOptVotoAcumulativo>=13)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo14()
+	{
+		if(numOptVotoAcumulativo>=14)
+			return true;
+		return false;
+	}
+	public boolean isShowVotoAcumulativo15()
+	{
+		if(numOptVotoAcumulativo>=15)
+			return true;
+		return false;
+	}
+	/**
+	 * Checks the options of the votoAcumulativo voting
+	 */
+	public void onValidateFromVotoAcumulativoForm()
+	{
+		showErrorVotoAcumulativo=false;
+		showRepeatedVotoAcumulativo=false;
+		if(votoAcumulativoOp1==null || votoAcumulativoOp2==null)
+		{
+
+			showErrorVotoAcumulativo=true;
+		}
+
+		switch(numOptVotoAcumulativo)
+		{
+		case 15:
+			if(votoAcumulativoOp15==null){showErrorVotoAcumulativo=true;}
+		case 14:
+			if(votoAcumulativoOp14==null){showErrorVotoAcumulativo=true;}
+		case 13:
+			if(votoAcumulativoOp13==null){showErrorVotoAcumulativo=true;}
+		case 12:
+			if(votoAcumulativoOp12==null){showErrorVotoAcumulativo=true;}
+		case 11:
+			if(votoAcumulativoOp11==null){showErrorVotoAcumulativo=true;}
+		case 10:
+			if(votoAcumulativoOp10==null){showErrorVotoAcumulativo=true;}
+		case 9:
+			if(votoAcumulativoOp9==null){showErrorVotoAcumulativo=true;}
+		case 8:
+			if(votoAcumulativoOp8==null){showErrorVotoAcumulativo=true;}
+		case 7:
+			if(votoAcumulativoOp7==null){showErrorVotoAcumulativo=true;}
+		case 6:
+			if(votoAcumulativoOp6==null){showErrorVotoAcumulativo=true;}
+		case 5:
+			if(votoAcumulativoOp5==null){showErrorVotoAcumulativo=true;}
+		case 4:
+			if(votoAcumulativoOp4==null){showErrorVotoAcumulativo=true;}
+		case 3:
+			if(votoAcumulativoOp3==null){showErrorVotoAcumulativo=true;}
+			break;
+		default:
+			showErrorVotoAcumulativo=false;
+		}
+		if(!showErrorVotoAcumulativo)//añadir las opciones
+		{
+			List<String> listOptions=new LinkedList<String>();
+			listOptions.add(votoAcumulativoOp1);
+			listOptions.add(votoAcumulativoOp2);
+			if(numOptVotoAcumulativo>=3)
+			{
+				listOptions.add(votoAcumulativoOp3);
+			}
+			if(numOptVotoAcumulativo>=4)
+			{
+				listOptions.add(votoAcumulativoOp4);
+			}
+			if(numOptVotoAcumulativo>=5)
+			{
+				listOptions.add(votoAcumulativoOp5);
+			}
+			if(numOptVotoAcumulativo>=6)
+			{
+				listOptions.add(votoAcumulativoOp6);
+			}
+			if(numOptVotoAcumulativo>=7)
+			{
+				listOptions.add(votoAcumulativoOp7);
+			}
+			if(numOptVotoAcumulativo>=8)
+			{
+				listOptions.add(votoAcumulativoOp8);
+			}
+			if(numOptVotoAcumulativo>=9)
+			{
+				listOptions.add(votoAcumulativoOp9);
+			}
+			if(numOptVotoAcumulativo>=10)
+			{
+				listOptions.add(votoAcumulativoOp10);
+			}
+			if(numOptVotoAcumulativo>=11)
+			{
+				listOptions.add(votoAcumulativoOp11);
+			}
+			if(numOptVotoAcumulativo>=12)
+			{
+				listOptions.add(votoAcumulativoOp12);
+			}
+			if(numOptVotoAcumulativo>=13)
+			{
+				listOptions.add(votoAcumulativoOp13);
+			}
+			if(numOptVotoAcumulativo>=14)
+			{
+				listOptions.add(votoAcumulativoOp14);
+			}
+			if(numOptVotoAcumulativo>=15)
+			{
+				listOptions.add(votoAcumulativoOp15);
+			}
+			for(int x=0;x<listOptions.size();x++)
+			{
+				for(int i=x+1;i<listOptions.size();i++)
+				{
+					if(listOptions.get(x).toLowerCase().equals(listOptions.get(i).toLowerCase()))
+					{
+						showRepeatedVotoAcumulativo=true; 
+					}
+
+				}
+			}
+			votoAcumulativo=new VotoAcumulativo(listOptions);
+		}
+	}
+
+	/**
+	 * Stores all the necessary data of the ballot
+	 * @return
+	 */
+	public Object onSuccessFromVotoAcumulativoForm()
+	{
+		if(request.isXHR())
+		{//añadir las opciones
+
+			if(showErrorVotoAcumulativo || showRepeatedVotoAcumulativo)
+			{
+				ajaxResponseRenderer.addRender("votoAcumulativoZone", votoAcumulativoZone);
+			}
+			else //No hay errores
+			{
+				ballot=setBallotData();
+				votoAcumulativo.setId(UUID.generate());
+				ballot.setIdBallotData(votoAcumulativo.getId());
+				votoAcumulativo.setBallotId(ballot.getId());
+
+				voteDao=DB4O.getVoteDao(datasession.getDBName());
+				votoAcumulativoDao=DB4O.getVotoAcumulativoDao(datasession.getDBName());
+
+				if(ballot.isTeaching())//Votacion Docente
+				{
+					//Genera votos aleatoriamente para la votacion docente
+					ballot.setIdCensus("none");
+					votoAcumulativo.setVotes(GenerateDocentVotes.generateVotoAcumulativo(votoAcumulativo.getOptions(), Integer.parseInt(census)));
+					//HACER RECUENTO VOTOS AQUI PARA DOCENTES
+					votoAcumulativo.calcularVotoAcumulativo();
+					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+					this.sendMail(datasession.getId(), ballot);
+					ballot.setEnded(true);
+					ballot.setCounted(true);
+					voteDao.store(vote);
+				}
+				else if(ballotKind==BallotKind.PUBLICA){
+					ballot.setIdCensus("none");
+				}
+				else
+				{
+					boolean creatorInCensus=false;
+					this.sendMail(censusNormal,ballot);
+					for(String idUser:censusNormal.getUsersCounted())
+					{
+						if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+
+						voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+					}
+					if(!creatorInCensus)
+					{
+						// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+						//this.sendMail(datasession.getId(), ballot);
+					}
+
+				}
+
+				votoAcumulativoDao.store(votoAcumulativo);
+				ballotDao.store(ballot);
+				return BallotWasCreated.class;
+			}
+		}
+		return null;
+	}
+
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////// BACK EVENT /////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public void onBack(List<String> list)
+	{
+		String from=list.get(0);
+		String to=list.get(1);
+		if(to.equals("toGeneral"))
+		{
+			showType=false;
+			showGeneral=true;
+			ajaxResponseRenderer.addRender("generalZone", generalZone).addRender("typeZone", typeZone);
+		}
+		if(to.equals("toType"))
+		{
+			if(from.equals("fromMayRel"))
+			{
+				showType=true;
+				showMayRel=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("mayRelZone",mayRelZone);
+			}
+			if(from.equals("fromKemeny"))
+			{
+				showType=true;
+				showKemeny=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("kemenyZone",kemenyZone);
+			}
+			if(from.equals("fromBorda"))
+			{
+				showType=true;
+				showBorda=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bordaZone",bordaZone);
+			}
+			if(from.equals("fromRange"))
+			{
+				showType=true;
+				showRange=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("rangeZone",rangeZone);
+			}
+			if(from.equals("fromApproval"))
+			{
+				showType=true;
+				showApproval=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("approvalZone",approvalZone);
+			}	
+			if(from.equals("fromVotoAcumulativo"))
+			{
+				showType=true;
+				showVotoAcumulativo=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("votoAcumulativoZone",votoAcumulativoZone);
+			}	
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////// TOOLS /////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	private Ballot setBallotData()
+	{
+
+		Ballot newBallot=new Ballot();
+		newBallot.setId(UUID.generate());
+		newBallot.setName(ballotName);
+		newBallot.setDescription(description);
+		newBallot.setIdOwner(datasession.getId());
+		if(ballotKind==BallotKind.PRIVADA)
+		{
+			newBallot.setNotStarted(true);
+			newBallot.setIdCensus(censusNormal.getId());
+		}
+		else if(ballotKind==BallotKind.DOCENTE)
+		{
+			newBallot.setTeaching(true);
+		}
+		else
+		{
+			newBallot.setPublica(true);
+		}
+		newBallot.setMethod(method);
+		newBallot.setStartDate(cal_inicio.getTime());
+		newBallot.setEndDate(cal_final.getTime());
+		return newBallot;
+	}
+
+	/**
+	 * Report the users that are able to vote in the created ballot
+	 * @param censo
+	 * @param ballotMail
+	 */
+	private void sendMail(Census censo,Ballot ballotMail)
+	{
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		emailAccountDao=DB4O.getEmailAccountDao();
+		List<Profile> usersToMail=userDao.getProfileById(censo.getUsersCounted());
+		EmailAccount account=emailAccountDao.getAccount();
+
+		String metodo=null;
+		String subject;
+		String txt;
+
+
+		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
+		{
+			metodo="Mayoria Relativa";
+		}
+		else if(ballot.getMethod()==Method.KEMENY)
+		{
+			metodo="Kemeny";
+		}
+		else if(ballot.getMethod()==Method.BORDA)
+		{
+			metodo="Borda";
+		}
+		else if(ballot.getMethod()==Method.RANGE_VOTING)
+		{
+			metodo="Range Voting";
+		}
+		else if(ballot.getMethod()==Method.APPROVAL_VOTING)
+		{
+			metodo="Approval Voting";
+		}
+		else if(ballot.getMethod()==Method.BRAMS)
+		{
+			metodo="Brams";
+		}
+		else if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{
+			metodo="Voto Acumulativo";
+		}
+
+		if(ballotMail.isTeaching())
+		{
+			subject="Votacion docente "+metodo+": "+ballotMail.getName();
+			txt="La votacion docente "+ballotMail.getName()+" ha sido realizada con el metodo "+metodo+"<br/><br/>Su descripcion es:<br/>"+ballotMail.getDescription();
+		}
+		else
+		{
+			subject="Ya puedes Votar en: "+ballotMail.getName();
+			txt="Ya tiene acceso a la votacion ("+metodo+"): "+ballotMail.getName()+"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
+		}
+
+		for(Profile emailDestino:usersToMail)
+		{
+			Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino.getEmail(), subject, txt);
+		}
+	}
+	/**
+	 * Report a users that are able to vote in the created ballot
+	 * @param censo
+	 * @param ballotMail
+	 */
+	private void sendMail (String idUser,Ballot ballotMail)
+	{
+		userDao=DB4O.getUsuarioDao(datasession.getDBName());
+		emailAccountDao=DB4O.getEmailAccountDao();
+		String emailDestino=userDao.getEmailById(idUser);
+		EmailAccount account=emailAccountDao.getAccount();
+
+		SimpleDateFormat dateFormat;
+
+		String metodo=null;
+		String subject;
+		String txt;
+
+		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
+		{
+			metodo="Mayoria Relativa";
+		}
+		else if(ballot.getMethod()==Method.KEMENY)
+		{
+			metodo="Kemeny";
+		}
+		else if(ballot.getMethod()==Method.BORDA)
+		{
+			metodo="Borda";
+		}
+		else if(ballot.getMethod()==Method.RANGE_VOTING)
+		{
+			metodo="Range Voting";
+		}
+		else if(ballot.getMethod()==Method.APPROVAL_VOTING)
+		{
+			metodo="Approval Voting";
+		}
+		else if(ballot.getMethod()==Method.BRAMS)
+		{
+			metodo="Brams";
+		}
+		else if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{
+			metodo="Voto Acumulativo";
+		}
+		if(ballotMail.isTeaching())
+		{
+			subject="Votacion docente "+metodo+": "+ballotMail.getName();
+			txt="La votacion docente "+ballotMail.getName()+" ha sido realizada con el metodo "+metodo+"<br/><br/>Su descripcion es:<br/>"+ballotMail.getDescription();
+		}
+		else
+		{			
+			dateFormat =new SimpleDateFormat("dd/MM/yyyy");
+			String fecha = dateFormat.format(ballot.getStartDate());
+			dateFormat=new SimpleDateFormat("HH:mm");
+			String hora= dateFormat.format(ballot.getStartDate());
+
+			subject="Nueva votación: "+ballotMail.getName();
+			txt="Ha sido invitado a participación a la votación ("+metodo+"): "+ballotMail.getName()+ "que dara comienzo el "+fecha+" a las "+hora+
+					"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
+
+		}
+
+
+		Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino, subject, txt);
+	}
+
+	private boolean isNumeric(String cadena)
+	{
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
+	}
+
 	////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// ON ACTIVATE //////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////

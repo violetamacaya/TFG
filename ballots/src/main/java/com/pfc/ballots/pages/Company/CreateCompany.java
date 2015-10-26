@@ -17,7 +17,6 @@ import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
-import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
 /**
@@ -37,7 +36,7 @@ public class CreateCompany {
     private ComponentResources componentResources;
 
 	
-	final String [] caracteresEspeciales={"!","¡","@","|","#","$","%","&","/","(",")","=","¿","?","*","+","-","_"};
+	final String [] caracteresEspeciales={"!","¡","@","|","#","$","%","&","/","(",")","=","¿","?","*","+","-","_", "ñ"};
 	//****************************************Initialize DAO****************************//
 		FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 		CompanyDao companyDao= DB4O.getCompanyDao();
@@ -136,10 +135,6 @@ public class CreateCompany {
 			isnotPassOk=true;
 		}
 		
-		if(company.getCompanyName().contains("ñ"))
-		{
-			isBadChar=true;
-		}
 		
 		badSecurity=true;
 		for(String car:caracteresEspeciales)

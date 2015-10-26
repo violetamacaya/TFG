@@ -1,9 +1,5 @@
 package com.pfc.ballots.pages.users;
 
-
-
-import java.util.Date;
-
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.InjectComponent;

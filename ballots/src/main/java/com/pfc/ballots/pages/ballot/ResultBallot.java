@@ -48,6 +48,7 @@ import com.pfc.ballots.entities.ballotdata.Brams;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
+import com.pfc.ballots.entities.ballotdata.VotoAcumulativo;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 
@@ -55,34 +56,34 @@ import com.pfc.ballots.pages.SessionExpired;
 @Import(library = "context:js/charts.js")
 public class ResultBallot {
 
-	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 //////////////////////////////////////////////////// GENERAL STUFF //////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	//////////////////////////////////////////////////// GENERAL STUFF //////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	@SessionState
 	private DataSession datasession;
-	
+
 	@Inject
 	private ComponentResources componentResources;
-	
-	
+
+
 	@SessionAttribute
 	private String contextResultBallotId;
-	
 
-	
+
+
 	@Persist
 	@Property
 	private Ballot ballot;
-	
+
 	@Property 
 	private boolean noBallot;
-	
+
 	@Inject
-    private JavaScriptSupport javaScriptSupport;
-	
-	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 ////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
+	private JavaScriptSupport javaScriptSupport;
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
@@ -114,13 +115,11 @@ public class ResultBallot {
 	SchulzeDao schulzeDao;
 	SmallDao smallDao;
 	VotoAcumulativoDao votoAcumulativoDao;	
-	
-	
-	@Persist
-	@Property
-	ApprovalVoting approvalVoting;
-	
-	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
@@ -129,7 +128,7 @@ public class ResultBallot {
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();
-		
+
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		ballot=ballotDao.getById(contextResultBallotId);
 		if(ballot==null)
@@ -140,8 +139,8 @@ public class ResultBallot {
 		{
 			relMayDao= DB4O.getRelativeMajorityDao(datasession.getDBName());
 			relMay=relMayDao.getByBallotId(ballot.getId());
-			
-			
+
+
 			if(!ballot.isEnded())
 			{
 				relMay.calcularMayoriaRelativa();
@@ -158,7 +157,7 @@ public class ResultBallot {
 		{
 			kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 			kemeny=kemenyDao.getByBallotId(contextResultBallotId);
-			
+
 			if(!ballot.isEnded())
 			{
 				kemeny.calcularKemeny();
@@ -170,13 +169,13 @@ public class ResultBallot {
 				kemenyDao.update(kemeny);
 				ballotDao.updateBallot(ballot);
 			}
-			
+
 		}
 		else if(ballot.getMethod()==Method.BORDA)
 		{
 			bordaDao=DB4O.getBordaDao(datasession.getDBName());
 			borda=bordaDao.getByBallotId(contextResultBallotId);
-			
+
 			if(!ballot.isEnded())
 			{
 				borda.calcularBorda();
@@ -193,7 +192,7 @@ public class ResultBallot {
 		{
 			rangeDao=DB4O.getRangeVotingDao();
 			range=rangeDao.getByBallotId(contextResultBallotId);
-			
+
 			if(!ballot.isEnded())
 			{
 				range.calcularRangeVoting();
@@ -210,8 +209,8 @@ public class ResultBallot {
 		{
 			approvalVotingDao= DB4O.getApprovalVotingDao(datasession.getDBName());
 			approvalVoting=approvalVotingDao.getByBallotId(ballot.getId());
-			
-			
+
+
 			if(!ballot.isEnded())
 			{
 				approvalVoting.calcularApprovalVoting();
@@ -228,8 +227,8 @@ public class ResultBallot {
 		{
 			bramsDao= DB4O.getBramsDao(datasession.getDBName());
 			brams=bramsDao.getByBallotId(ballot.getId());
-			
-			
+
+
 			if(!ballot.isEnded())
 			{
 				brams.calcularBrams();
@@ -242,10 +241,25 @@ public class ResultBallot {
 				ballotDao.updateBallot(ballot);
 			}
 		}
-		
-		
-		
-		
+		else if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{
+			votoAcumulativoDao= DB4O.getVotoAcumulativoDao(datasession.getDBName());
+			votoAcumulativo=votoAcumulativoDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				votoAcumulativo.calcularVotoAcumulativo();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && votoAcumulativo!=null)
+			{
+				votoAcumulativo.calcularVotoAcumulativo();
+				ballot.setCounted(true);
+				votoAcumulativoDao.update(votoAcumulativo);
+				ballotDao.updateBallot(ballot);
+			}
+		}		
+
+
 	}
 	/**
 	 * JavaScript controller
@@ -254,12 +268,12 @@ public class ResultBallot {
 	{
 		System.out.println("AFTER");
 		JSONArray array=new JSONArray();
-	
+
 		JSONObject obj=new JSONObject();
 		obj.put("title", ballot.getName());
 		array.put(obj);
-		
-	
+
+
 		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
 		{
 			List<String> options=getRelMayOptions();
@@ -270,7 +284,7 @@ public class ResultBallot {
 				obj.put("value", relMay.getResultOption(option));
 				array.put(obj);
 			}
-			
+
 			System.out.println("tamaño->"+array.toString());
 			javaScriptSupport.addInitializerCall("charts_may",array.toString());
 		}
@@ -285,7 +299,7 @@ public class ResultBallot {
 				array.put(obj);
 			}
 			javaScriptSupport.addInitializerCall("charts_kem",array.toString());
-			
+
 		}
 		if(ballot.getMethod()==Method.BORDA)
 		{
@@ -323,7 +337,7 @@ public class ResultBallot {
 				obj.put("value", approvalVoting.getResultOption(option));
 				array.put(obj);
 			}
-			
+
 			System.out.println("tamaño->"+array.toString());
 			javaScriptSupport.addInitializerCall("charts_approval",array.toString());
 		}
@@ -337,14 +351,27 @@ public class ResultBallot {
 				obj.put("value", brams.getResultOption(option));
 				array.put(obj);
 			}
-			
+
 			javaScriptSupport.addInitializerCall("charts_brams",array.toString());
 		}
-		
+
+		if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{
+			List<String> options=getVotoAcumulativoOptions();
+			for(String option:options)
+			{
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", votoAcumulativo.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_votoAcumulativo",array.toString());
+		}
 	}
-	
-	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 /////////////////////////////////////////////// MAYORIA RELATIVA //////////////////////////////////////////////////////////////////
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////// MAYORIA RELATIVA //////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Relative Majority Data
@@ -352,19 +379,19 @@ public class ResultBallot {
 	@Persist
 	@Property
 	RelativeMajority relMay;
-	
+
 	@Property
 	private String option;
-	
+
 	public String getRelMayVote()
 	{
 		return String.valueOf(relMay.getResultOption(option));
 	}
-	
+
 	public List<String> getRelMayOptions()
 	{
 		List<String> lista=relMay.getOptions();
-		
+
 		for(int i=0;i<lista.size()-1;i++)
 		{
 			for(int j=0;j<lista.size()-i-1;j++)
@@ -377,14 +404,14 @@ public class ResultBallot {
 				}
 			}
 		}
-		
+
 		return lista;
 	}
-	
+
 	public boolean getShowRelMay()
 	{
 		if(ballot!=null && ballot.getMethod()==Method.MAYORIA_RELATIVA)
-			{return true;}
+		{return true;}
 		return false;
 	}
 
@@ -392,31 +419,31 @@ public class ResultBallot {
 	{
 		return String.valueOf(relMay.getVotes().size());
 	}
-	
-	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 /////////////////////////////////////////////////// KEMENY ////////////////////////////////////////////////////////////////////////
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/////////////////////////////////////////////////// KEMENY ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Kemeny Data
 	 */
 	@Property
 	@Persist
 	Kemeny kemeny;
-	
+
 	@Property
 	private String permutation;
 	public boolean getShowKemeny()
 	{
 		if(ballot!=null && ballot.getMethod()==Method.KEMENY)
-			{return true;}
+		{return true;}
 		return false;
 	}
-	
+
 	public List<String> getKemenyPermutations()
 	{
 		List<String> lista=kemeny.getPermutations();
-	
+
 		for(int i=0;i<lista.size()-1;i++)
 		{
 			for(int j=0;j<lista.size()-i-1;j++)
@@ -429,10 +456,10 @@ public class ResultBallot {
 				}
 			}
 		}
-		
+
 		return lista;
 	}
-	
+
 	public String getKemenyVote()
 	{
 		return String.valueOf(kemeny.getResult(permutation));
@@ -441,8 +468,8 @@ public class ResultBallot {
 	{
 		return String.valueOf(kemeny.getVotes().size());
 	}
-	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 //////////////////////////////////////////////////// BORDA ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// BORDA ////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Borda Data
@@ -450,21 +477,21 @@ public class ResultBallot {
 	@Property
 	@Persist
 	Borda borda;
-	
+
 	@Property
 	private String bordaOpt;
-	
+
 	public boolean getShowBorda()
 	{
 		if(ballot!=null && ballot.getMethod()==Method.BORDA)
-			{return true;}
+		{return true;}
 		return false;
 	}
-	
+
 	public List<String> getBordaOptions()
 	{
 		List<String> lista=borda.getBordaOptions();
-		
+
 		for(int i=0;i<lista.size()-1;i++)
 		{
 			for(int j=0;j<lista.size()-i-1;j++)
@@ -479,8 +506,8 @@ public class ResultBallot {
 		}
 		return lista;
 	}
-	
-	
+
+
 	public String getBordaVote()
 	{
 		return String.valueOf(borda.getResult(bordaOpt));
@@ -489,8 +516,8 @@ public class ResultBallot {
 	{
 		return String.valueOf(borda.getVotes().size());
 	}
-	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 //////////////////////////////////////////////////// RANGE ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// RANGE ////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * RangeVoting Data
@@ -501,15 +528,15 @@ public class ResultBallot {
 
 	@Property
 	private String rangeOpt;
-	
+
 	public boolean getShowRange()
 	{
 		if(ballot!=null && ballot.getMethod()==Method.RANGE_VOTING)
-			{return true;}
+		{return true;}
 		return false;
 	}
-	
-	
+
+
 	public List<String> getRangeOptions()
 	{
 		List<String> lista=range.getOptions();
@@ -527,8 +554,8 @@ public class ResultBallot {
 		}
 		return lista;
 	}
-	
-	
+
+
 	public String getRangeVote()
 	{
 		return String.valueOf(range.getResult(rangeOpt));
@@ -545,25 +572,28 @@ public class ResultBallot {
 	{
 		return String.valueOf(range.getMinValue());
 	}
-	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 /////////////////////////////////////////////// APPROVAL VOTING //////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////// APPROVAL VOTING //////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Approval voting Data
 	 */
+	@Persist
+	@Property
+	ApprovalVoting approvalVoting;
 	
 	@Property
 	private String optionApproval;
-	
+
 	public String getApprovalVotingVote()
 	{
 		return String.valueOf(approvalVoting.getResultOption(option));
 	}
-	
+
 	public List<String> getApprovalVotingOptions()
 	{
 		List<String> lista=approvalVoting.getOptions();
-		
+
 		for(int i=0;i<lista.size()-1;i++)
 		{
 			for(int j=0;j<lista.size()-i-1;j++)
@@ -576,14 +606,14 @@ public class ResultBallot {
 				}
 			}
 		}
-		
+
 		return lista;
 	}
-	
+
 	public boolean getShowApprovalVoting()
 	{
 		if(ballot!=null && ballot.getMethod()==Method.APPROVAL_VOTING)
-			{return true;}
+		{return true;}
 		return false;
 	}
 
@@ -591,8 +621,8 @@ public class ResultBallot {
 	{
 		return String.valueOf(approvalVoting.getVotes().size());
 	}
-	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 /////////////////////////////////////////////// BRAMS //////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////// BRAMS //////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Brams Data
@@ -602,16 +632,16 @@ public class ResultBallot {
 	Brams brams;
 	@Property
 	private String optionBrams;
-	
+
 	public String getBramsVote()
 	{
 		return String.valueOf(brams.getResultOption(option));
 	}
-	
+
 	public List<String> getBramsOptions()
 	{
 		List<String> lista=brams.getOptions();
-		
+
 		for(int i=0;i<lista.size()-1;i++)
 		{
 			for(int j=0;j<lista.size()-i-1;j++)
@@ -624,14 +654,14 @@ public class ResultBallot {
 				}
 			}
 		}
-		
+
 		return lista;
 	}
-	
+
 	public boolean getShowBrams()
 	{
 		if(ballot!=null && ballot.getMethod()==Method.BRAMS)
-			{return true;}
+		{return true;}
 		return false;
 	}
 
@@ -639,13 +669,61 @@ public class ResultBallot {
 	{
 		return String.valueOf(brams.getVotes().size());
 	}
-	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////// VotoAcumulativo  //////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * VotoAcumulativo Data
+	 */
+	@Persist
+	@Property
+	VotoAcumulativo votoAcumulativo;
+	@Property
+	private String optionVotoAcumulativo;
+
+	public String getVotoAcumulativoVote()
+	{
+		return String.valueOf(votoAcumulativo.getResultOption(option));
+	}
+
+	public List<String> getVotoAcumulativoOptions()
+	{
+		List<String> lista=votoAcumulativo.getOptions();
+
+		for(int i=0;i<lista.size()-1;i++)
+		{
+			for(int j=0;j<lista.size()-i-1;j++)
+			{
+				if(votoAcumulativo.getResultOption(lista.get(j+1))>votoAcumulativo.getResultOption(lista.get(j)))
+				{
+					String aux=lista.get(j+1);
+					lista.set(j+1, lista.get(j));
+					lista.set(j, aux);
+				}
+			}
+		}
+
+		return lista;
+	}
+
+	public boolean getShowVotoAcumulativo()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{return true;}
+		return false;
+	}
+
+	public String getVotoAcumulativoNum()
+	{
+		return String.valueOf(votoAcumulativo.getVotes().size());
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
-	* Controls if the user can enter in the page
-	* @return another page if the user can't enter
-	*/
+	 * Controls if the user can enter in the page
+	 * @return another page if the user can't enter
+	 */
 	public Object onActivate()
 	{
 		if(contextResultBallotId==null)
@@ -654,18 +732,18 @@ public class ResultBallot {
 		}
 		switch(datasession.sessionState())
 		{
-			case 0:
-				return null;
-			case 1:
-				return null;
-			case 2:
-				return null;
-			case 3:
-				return SessionExpired.class;
-			default:
-				return Index.class;
+		case 0:
+			return null;
+		case 1:
+			return null;
+		case 2:
+			return null;
+		case 3:
+			return SessionExpired.class;
+		default:
+			return Index.class;
 		}
-		
+
 	}
-	
+
 }

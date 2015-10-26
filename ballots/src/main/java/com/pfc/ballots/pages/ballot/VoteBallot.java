@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.tapestry5.ComponentResources;
-import org.apache.tapestry5.PersistenceConstants;
-import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
@@ -20,8 +18,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
-import org.apache.tapestry5.util.EnumSelectModel;
-import org.apache.tapestry5.util.EnumValueEncoder;
+
 
 import com.pfc.ballots.dao.ApprovalVotingDao;
 import com.pfc.ballots.dao.BallotDao;
@@ -33,6 +30,7 @@ import com.pfc.ballots.dao.KemenyDao;
 import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.VoteDao;
+import com.pfc.ballots.dao.VotoAcumulativoDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
@@ -43,6 +41,7 @@ import com.pfc.ballots.entities.ballotdata.Brams;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
+import com.pfc.ballots.entities.ballotdata.VotoAcumulativo;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 /**
@@ -119,7 +118,8 @@ public class VoteBallot {
 	ApprovalVotingDao approvalDao;
 	@Persist
 	BramsDao bramsDao;	
-
+	@Persist
+	VotoAcumulativoDao votoAcumulativoDao;	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,6 @@ public class VoteBallot {
 	 */
 	public void setupRender()
 	{
-		componentResources.discardPersistentFieldChanges();
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		ballot=ballotDao.getById(contextBallotId);
 
@@ -186,8 +185,13 @@ public class VoteBallot {
 		{
 			bramsDao=DB4O.getBramsDao(datasession.getDBName());
 			brams=bramsDao.getByBallotId(contextBallotId);
-			bramsVote=brams.getOptions().get(0);
-			showErrorBrams=false;
+			bramsVote=new LinkedList<String>();
+		}	
+		if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{
+			votoAcumulativoDao=DB4O.getVotoAcumulativoDao(datasession.getDBName());
+			votoAcumulativo=votoAcumulativoDao.getByBallotId(contextBallotId);
+			votoAcumulativoVote=new LinkedList<String>();
 		}	
 	}
 
@@ -232,7 +236,6 @@ public class VoteBallot {
 			if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
 			{
 				vote.setCounted(true);
-				System.out.println("SI");
 				voteDao.updateVote(vote);
 				relMay.addVote(relMayVote);
 				relativeMajorityDao.update(relMay);
@@ -709,6 +712,7 @@ public class VoteBallot {
 		}
 
 		contextResultBallotId=contextBallotId;
+        componentResources.discardPersistentFieldChanges();
 		return VoteCounted.class;
 	}
 	public boolean isShowApprovalVoting()
@@ -728,29 +732,28 @@ public class VoteBallot {
 	////////////////////////////////////////////////////// BRAMS /////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-	@Persist
-	@Property
-	private Brams brams;
-	@Property
-	private String bramsVote;
-	@Property
-	private String bramsOption;
-	@InjectComponent
-	private Zone bramsZone;
-
-
-
-	@Property
-	@Persist
-	private boolean showErrorBrams;
-
 	/**
 	 * Stores the Brams vote
 	 * @return
 	 */
 
+	@InjectComponent
+	private Zone bramsZone;
+
+	@Persist
+	@Property
+	private Brams brams;
+
+	@Persist
+	@Property
+	private List<String> bramsVote;
+
+	@Property
+	private String bramsOption;
+
+	@Property
+	@Persist
+	private boolean showErrorBrams;
 
 
 	public ValueEncoder<String> getStringEncoderBrams() { 
@@ -770,21 +773,32 @@ public class VoteBallot {
 
 	public Object onSuccessFromBramsForm()
 	{
-		System.out.println("La otra mierda de opciones: "+ brams.getOptions().size());
-
 		if(request.isXHR())
 		{
-			showErrorBrams = false;
-			System.out.println("Selected MIAU: "+ selectedCheckListBrams.size()+" La otra mierda de opciones: "+ brams.getOptions().size());
+			System.out.println("Selected : "+ selectedCheckListBrams.size()+" Opciones: "+ brams.getOptions().size());
 			if (selectedCheckListBrams.size() > (brams.getOptions().size() - 3)){
-				//Ha seleccionado más opciones de las que debería
+				System.out.println("Dentro del if de render  "+showErrorBrams);
 				showErrorBrams = true;
-				ajaxResponseRenderer.addRender("bramsZone", bramsZone);
-
+					ajaxResponseRenderer.addRender("bramsZone",bramsZone);
+				
+				
 			}
-			
-				if(!ballot.isPublica())
+			else {
+				if(ballot.isPublica())
 				{
+					ballot=ballotDao.getById(contextBallotId);
+					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
+					{
+						for(String option:selectedCheckListBrams){
+							brams.addVote(option);
+						}
+						bramsDao.update(brams);
+						addPublicVote();
+					}
+				}
+				else
+				{
+
 					vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
 					ballot=ballotDao.getById(contextBallotId);
 
@@ -798,28 +812,16 @@ public class VoteBallot {
 						bramsDao.update(brams);
 					}
 				}
-				else
-				{
-					ballot=ballotDao.getById(contextBallotId);
-					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
-					{
-						for(String option:selectedCheckListBrams){
-							brams.addVote(option);
-						}
-						bramsDao.update(brams);
-						addPublicVote();
-					}
-					else
-					{
-						return null;
-					}
-				}
-			
+				
+				contextResultBallotId=contextBallotId;
+		        componentResources.discardPersistentFieldChanges();
+				return VoteCounted.class;
+			}
+
 		}
-		contextResultBallotId=contextBallotId;
-		//return VoteCounted.class;
-		return null;
+		return this;
 	}
+	
 	public boolean isShowBrams()
 	{
 		if(ballot==null)
@@ -827,6 +829,107 @@ public class VoteBallot {
 			return false;
 		}
 		if(ballot.getMethod()==Method.BRAMS)
+		{
+			return true;
+		}
+		return false;
+
+	}		
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////// Voto acumulativo /////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Stores the VotoAcumulativo vote
+	 * @return
+	 */
+
+
+	@Persist
+	@Property
+	private VotoAcumulativo votoAcumulativo;
+
+	@Persist
+	@Property
+	private List<String> votoAcumulativoVote;
+
+	@Property
+	private String votoAcumulativoOption;
+
+	@Property
+	@Persist
+	private boolean showErrorVotoAcumulativo;
+
+	@Property
+	private final StringValueEncoder encoderVotoAcumulativo = new StringValueEncoder();
+
+	@Property
+	@Persist
+	private List<String> selectedCheckListVotoAcumulativo;
+
+
+	public ValueEncoder<String> getStringEncoderVotoAcumulativo() { 
+		return new StringValueEncoder(); 
+	}
+
+	public List<String> getModelVotoAcumulativo() {
+		return votoAcumulativo.getOptions(); 
+	}
+
+	public Object onSuccessFromVotoAcumulativoForm()
+	{
+		if(request.isXHR())
+		{
+			if (selectedCheckListVotoAcumulativo.size() > (votoAcumulativo.getOptions().size() - 3)){
+				showErrorVotoAcumulativo = true;			
+				
+			}
+			else {
+				if(ballot.isPublica())
+				{
+					ballot=ballotDao.getById(contextBallotId);
+					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
+					{
+						for(String option:selectedCheckListVotoAcumulativo){
+							votoAcumulativo.addVote(option);
+						}
+						votoAcumulativoDao.update(votoAcumulativo);
+						addPublicVote();
+					}
+				}
+				else
+				{
+
+					vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+					ballot=ballotDao.getById(contextBallotId);
+
+					if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+					{
+						vote.setCounted(true);
+						voteDao.updateVote(vote);
+						for(String option:selectedCheckListVotoAcumulativo){
+							votoAcumulativo.addVote(option);
+						}
+						votoAcumulativoDao.update(votoAcumulativo);
+					}
+				}
+				
+				contextResultBallotId=contextBallotId;
+		        componentResources.discardPersistentFieldChanges();
+				return VoteCounted.class;
+			}
+
+		}
+		return this;
+	}
+	
+	public boolean isShowVotoAcumulativo()
+	{
+		if(ballot==null)
+		{
+			return false;
+		}
+		if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
 		{
 			return true;
 		}
@@ -847,24 +950,25 @@ public class VoteBallot {
 	}
 	private boolean alreadyVote()
 	{
-		if(publicVotes==null)
-			return false;
-		List<String> list=publicVotes.get(datasession.getIdSession());
-		if(list==null)
-		{
-			return false;
-		}
-		else
-		{
-			for(String current:list)
-			{
-				if(current.equals(contextBallotId))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
+		//		if(publicVotes==null)
+		//			return false;
+		//		List<String> list=publicVotes.get(datasession.getIdSession());
+		//		if(list==null)
+		//		{
+		//			return false;
+		//		}
+		//		else
+		//		{
+		//			for(String current:list)
+		//			{
+		//				if(current.equals(contextBallotId))
+		//				{
+		//					return true;
+		//				}
+		//			}
+		//			return false;vale
+		//		}
+		return false;
 	}
 
 	private boolean isNumeric(String cadena)

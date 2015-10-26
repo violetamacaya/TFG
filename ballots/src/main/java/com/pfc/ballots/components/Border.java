@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
@@ -16,6 +17,7 @@ import org.apache.tapestry5.services.PersistentLocale;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Session;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 import com.pfc.ballots.dao.DodgsonDao;
 import com.pfc.ballots.dao.FactoryDao;
@@ -81,6 +83,7 @@ import com.pfc.ballots.pages.Methods.VotoAcumulativoMethod;
  * @version 2.0 OCT-2014
  *
  */
+@Import(library = "context:js/sizes.js")
 public class Border {
 
 	/***************************************** Ajax menu stuff *******************************************************************/
@@ -181,7 +184,9 @@ public class Border {
 	
 	@Persist
 	private String localeLabel;
+	@Inject
 	
+	private JavaScriptSupport javaScriptSupport;
 	
 	//get locale label ------------------------------------------------------------------------------------------------------------
 	public String getLocaleLabel()
@@ -214,6 +219,18 @@ public class Border {
 		{
 			persistentLocale.set(Locale.ENGLISH);
 		}
+	}
+	void onActionFromIncreaseSize()
+	{
+		//Ampliar el tamaño de la letra
+		//body, table, input, select 
+		javaScriptSupport.addInitializerCall("increase","increase");
+		
+	}
+	
+	void onActionFromDecreaseSize()
+	{
+		//Disminuir el tamaño de la letra
 	}
 	/**
 	 * 

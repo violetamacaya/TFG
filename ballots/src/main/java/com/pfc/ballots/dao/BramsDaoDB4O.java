@@ -115,7 +115,7 @@ public class BramsDaoDB4O implements BramsDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the Brams text
 	 * @param about
 	 */
 	public void updateBramsText(BramsText text)

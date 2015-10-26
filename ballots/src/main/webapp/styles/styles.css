@@ -99,6 +99,33 @@ boldstuff
 	
 }
 
+div#letterSize
+{
+	display: inline;
+	padding: 2px 20px 2px;
+	margin-right:3px;
+	margin-top: -10px;
+
+}
+
+div#letterSize>a>img {
+
+width:20px;
+}
+div#letterSizeLess
+{
+	display: inline;
+	padding: 2px 0px 2px;
+	margin-right:3px;
+	margin-top: -10px;
+
+}
+
+div#letterSizeLess>a>img {
+
+width:20px;
+}
+
 div#lenguages
 {
 	display: inline;

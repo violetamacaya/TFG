@@ -9,6 +9,7 @@ import com.db4o.query.Query;
 import com.pfc.ballots.entities.RangeVotingText;
 import com.pfc.ballots.entities.VotoAcumulativoText;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
+import com.pfc.ballots.entities.ballotdata.VotoAcumulativo;
 /**
  * 
  * Implementation of the interface VotoAcumulativoDao for the DB4O database
@@ -24,8 +25,8 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 	String ruta=System.getProperty("user.home")+sep+"BallotsFiles"+sep;
 	EmbeddedConfiguration config = null;
 	ObjectContainer DB=null;
-	
-	
+
+
 	public VotoAcumulativoDaoDB4O(String DBName)
 	{
 		if(DBName==null)
@@ -36,37 +37,37 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		{
 			PATH=ruta+DBName;
 		}
-		
+
 	}
 	//********************************************Open and Close DB************************************//
-		/**
-		 * Opens database
-		 */
-		private void open()
+	/**
+	 * Opens database
+	 */
+	private void open()
+	{
+		config=Db4oEmbedded.newConfiguration();
+		config.common().objectClass(RangeVoting.class).cascadeOnUpdate(true);
+		try
 		{
-			config=Db4oEmbedded.newConfiguration();
-			config.common().objectClass(RangeVoting.class).cascadeOnUpdate(true);
-			try
-			{
-				
-				DB=Db4oEmbedded.openFile(config, PATH);
-				System.out.println("[DB4O]Database was open");
-				
-			}
-			catch(Exception e)
-			{
-				System.out.println("[DB4O]ERROR:Database could not be open");
-				e.printStackTrace();
-			}
+
+			DB=Db4oEmbedded.openFile(config, PATH);
+			System.out.println("[DB4O]Database was open");
+
 		}
-		/**
-		 * Closes database
-		 */
-		private void close()
+		catch(Exception e)
 		{
-			DB.close();
-			System.out.println("[DB4O]Database was closed");
+			System.out.println("[DB4O]ERROR:Database could not be open");
+			e.printStackTrace();
 		}
+	}
+	/**
+	 * Closes database
+	 */
+	private void close()
+	{
+		DB.close();
+		System.out.println("[DB4O]Database was closed");
+	}
 	public VotoAcumulativoText getVotoAcumulativoText() {
 
 		open();
@@ -114,9 +115,9 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		}
 
 	}
-	
+
 	/**
-	 * Updates the BORDA text
+	 * Updates the VotoAcumulativo text
 	 * @param about
 	 */
 	public void updateVotoAcumulativoText(VotoAcumulativoText text)
@@ -190,9 +191,9 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		}
 
 	}
-	
+
 	/**
-	 * Updates the BORDA text
+	 * Updates the VotoAcumulativo text
 	 * @param about
 	 */
 	public void updateRangeVotingText(RangeVotingText text)
@@ -219,16 +220,150 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		}
 	}
 	public void deleteByBallotId(String ballotId) {
-		// TODO Auto-generated method stub
-		
+		open();
+		try
+		{
+			VotoAcumulativo votoAcumulativo=new VotoAcumulativo();
+			votoAcumulativo.setBallotId(ballotId);
+			ObjectSet result=DB.queryByExample(votoAcumulativo);
+			if(result.hasNext())
+			{
+				DB.delete((VotoAcumulativo)result.next());
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
 	}
 	public void deleteById(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
+		open();
+		try
+		{
+			VotoAcumulativo votoAcumulativo=new VotoAcumulativo();
+			votoAcumulativo.setId(id);
+			ObjectSet result=DB.queryByExample(votoAcumulativo);
+			if(result.hasNext())
+			{
+				DB.delete((VotoAcumulativo)result.next());
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}		
+
 	}
 
+
+
+
+	/**
+	 * Deletes all the VotoAcumulativo voting entities in the system
+	 */
+	public void deleteAll() {
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(VotoAcumulativo.class);
+			ObjectSet result = query.execute();
+
+			while(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+			System.out.println("[DB4O]All VotoAcumulativo was deleted");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All VotoAcumulativo could not be deleted");
+
+		}
+		finally
+		{
+			close();
+		}
+
+	}
+	public void store(VotoAcumulativo votoAcumulativo) {
+		open();
+		try
+		{
+			DB.store(votoAcumulativo);
+			System.out.println("[DB4O]Ballot stored");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:Ballot could not be stored");
+		}
+		finally
+		{
+			close();
+		}
+	}
+	public VotoAcumulativo getByBallotId(String idBallot)
+	{
+		open();
+		try
+		{
+			VotoAcumulativo votoAcumulativo=new VotoAcumulativo();
+			votoAcumulativo.setBallotId(idBallot);
+			ObjectSet result=DB.queryByExample(votoAcumulativo);
+			if(result.hasNext())
+			{
+				return (VotoAcumulativo)result.next();
+			}
+			return null;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			close();
+		}
+
+	}
+
+	public void update(VotoAcumulativo updated)
+	{
+		open();
+		try
+		{
+			VotoAcumulativo votoAcumulativo=new VotoAcumulativo();
+			votoAcumulativo.setId(updated.getId());
+
+			ObjectSet result=DB.queryByExample(votoAcumulativo);
+			if(result.hasNext())
+			{
+				DB.delete(result.next());
+				DB.store(updated);
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+	}
 }

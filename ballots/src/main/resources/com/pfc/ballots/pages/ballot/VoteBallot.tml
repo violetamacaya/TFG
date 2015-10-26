@@ -128,8 +128,6 @@
 
 			<!--///////////////////////////////////  APPROVAL VOTING /////////////////////////////////////////// -->
 			<t:if test="showApprovalVoting">
-
-
 				<t:form t:id="approvalVotingForm">
 					${message:instructions}<br />
 					<br />
@@ -159,48 +157,52 @@
 						<input t:type="submit" class="boton" value="${message:vote-but}" />
 					</tr>
 				</t:form>
-
-
-
-
 			</t:if>
 			<!--/////////////////////////////////// Brams /////////////////////////////////////////// -->
+
+			
+			
 			<t:if test="showBrams">
 
 				<t:zone t:id="bramsZone" t:update="show">
-
-					<t:form t:id="bramsForm" t:zone="^">
+				
 					<t:if test="showErrorBrams">
 						<span class="error">${message:brams-error}</span>
 					</t:if>
+					
 					${message:instructions-brams}<br />
-						<br />
+					<br />
+					
+					<t:form t:id="bramsForm" t:zone="^">
+						<table>
 						<tr>
-							<td><t:checklist t:id="selectedCheckListBrams"
-									encoder="encoderBrams" model="modelBrams" /></td>
+						<td><t:checklist t:id="selectedCheckListBrams"
+								encoder="encoderBrams" model="modelBrams" /></td>
 						</tr>
 						<br />
 						<t:if test="ballot.publica">
-							<table>
+
 								<tr>
-									<td></td>
 									<td><t:kaptchaimage t:id="kaptchaBrams" /></td>
 								</tr>
 								<tr>
-									<td></td>
 									<td><t:kaptchafield image="kaptchaBrams" type="text" /></td>
 								</tr>
 								<tr>
-									<td></td>
 									<td>${message:captcha}</td>
 								</tr>
-							</table>
+							
 						</t:if>
-
+						
 						<tr>
-							<input t:type="submit" class="boton" value="${message:vote-but}" />
+							<td><input t:type="submit" class="boton" value="${message:vote-but}" /></td>
+							<td></td>
 						</tr>
+						</table>
 					</t:form>
+					
+					
+	
 				</t:zone>
 			</t:if>
 			<!-- ///////////////////////////////////////// RANGE VOTING /////////////////////////////////////////////// -->
@@ -276,9 +278,67 @@
 					</t:form>
 				</t:zone>
 
-
 			</t:if>
 
+			<!--/////////////////////////////////// VotoAcumulativo /////////////////////////////////////////// -->
+
+			
+			
+			<t:if test="showVotoAcumulativo">
+
+				<t:zone t:id="votoAcumulativoZone" t:update="show">
+				
+					<t:if test="showErrorVotoAcumulativo">
+						<span class="error">${message:votoAcumulativo-error}</span>
+					</t:if>
+					
+					${message:instructions-votoAcumulativo}<br />
+					<br />
+					
+					<t:form t:id="votoAcumulativoForm" t:zone="^">
+						<table>
+						<tr>
+
+
+						<input t:type="Palette" t:id="paletteBorda" t:reorder="true"
+							t:model="borda.bordaOptions" t:selected="VotoAcumulativoVote"
+							t:encoder="stringValueEncoder" />
+							
+							
+						<!-- <td><t:checklist t:id="selectedCheckListVotoAcumulativo"
+								encoder="encoderVotoAcumulativo" model="modelVotoAcumulativo" /></td>-->
+						</tr>
+						<br />
+						<t:if test="ballot.publica">
+
+								<tr>
+									<td><t:kaptchaimage t:id="kaptchaVotoAcumulativo" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield image="kaptchaVotoAcumulativo" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+							
+						</t:if>
+						
+						<tr>
+							<td><input t:type="submit" class="boton" value="${message:vote-but}" /></td>
+							<td></td>
+						</tr>
+						</table>
+					</t:form>
+					
+					
+	
+				</t:zone>
+			</t:if>
+			
+			
+			
+			
+			<!--/////////////////////////////////// Se ha votado /////////////////////////////////////////// -->
 			<p:else>
 				<h2>${message:vote-done}</h2>
 			</p:else>

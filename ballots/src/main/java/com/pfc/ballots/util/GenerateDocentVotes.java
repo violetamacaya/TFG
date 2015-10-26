@@ -187,7 +187,6 @@ public class GenerateDocentVotes {
 	 */
 	static public List<String> generateBrams(List<String> options, int numVotes) {
 		List<String> votes=new LinkedList<String>();
-		System.out.println("Dentro de generateBrams");
 
 		//Cada votante podrá dejar de votar 3 opciones (o más si quiere). 
 		for(int i=0; i<numVotes; i++){
@@ -204,6 +203,21 @@ public class GenerateDocentVotes {
 				else {
 					j--;
 				}
+			}	
+		}
+		
+		return votes;
+	}
+	static public List<String> generateVotoAcumulativo(List<String> options, int numVotes) {
+		List<String> votes=new LinkedList<String>();
+
+		//Cada votante tiene 5 votos que podrá repartir como quiera. 
+		for(int i=0; i<numVotes; i++){
+			int[] votospersona = new int[options.size()]; //Array que almacena los votos de una persona.
+			
+			for (int j = 0; j<5; j++){
+				int posvoto = 0 + (int)(Math.random() * ((votospersona.length - 1) + 1));
+					votes.add(options.get(posvoto));
 			}	
 		}
 		

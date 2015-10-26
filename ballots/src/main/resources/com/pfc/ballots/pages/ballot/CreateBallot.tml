@@ -281,22 +281,16 @@
 					</span>
 					<table>
 						<tr>
-							<td><t:label for="cat1" />
-								<t:textfield t:id="cat1" /></td>
-							<td><t:label for="cat2" />
-								<t:textfield t:id="cat2" /></td>
+							<td><t:label for="cat1" /> <t:textfield t:id="cat1" /></td>
+							<td><t:label for="cat2" /> <t:textfield t:id="cat2" /></td>
 						</tr>
 						<tr>
-							<td><t:label for="cat1_op1" />
-								<t:textfield t:id="cat1_op1" /></td>
-							<td><t:label for="cat2_op1" />
-								<t:textfield t:id="cat2_op1" /></td>
+							<td><t:label for="cat1_op1" /> <t:textfield t:id="cat1_op1" /></td>
+							<td><t:label for="cat2_op1" /> <t:textfield t:id="cat2_op1" /></td>
 						</tr>
 						<tr>
-							<td><t:label for="cat1_op2" />
-								<t:textfield t:id="cat1_op2" /></td>
-							<td><t:label for="cat2_op2" />
-								<t:textfield t:id="cat2_op2" /></td>
+							<td><t:label for="cat1_op2" /> <t:textfield t:id="cat1_op2" /></td>
+							<td><t:label for="cat2_op2" /> <t:textfield t:id="cat2_op2" /></td>
 						</tr>
 
 
@@ -768,6 +762,129 @@
 				<br />
 				<t:eventlink t:event="back" t:context="prop:['frombrams','toType']"
 					t:zone="^">
+					<button>${message:back-but}</button>
+				</t:eventlink>
+			</t:if>
+		</t:zone>
+
+
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////VOTO ACUMULATIVO ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="votoAcumulativoZone" id="votoAcumulativoZone"
+			t:update="show">
+			<t:if test="showVotoAcumulativo">
+				<h4>${message:votoacumulativo-title}</h4>
+				<t:form t:id="votoAcumulativoForm" t:zone="^">
+					<t:if test="showErrorVotoAcumulativo">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedVotoAcumulativo">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="votoAcumulativoSel" /></td>
+							<td><t:select t:id="votoAcumulativoSel"
+									value="votoAcumulativoNumOp" t:model="votoAcumulativoModel"
+									t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="votoAcumulativoOp1" /></td>
+							<td><t:textfield t:id="votoAcumulativoOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="votoAcumulativoOp2" /></td>
+							<td><t:textfield t:id="votoAcumulativoOp2" /></td>
+						</tr>
+						<t:if test="showVotoAcumulativo3">
+							<tr>
+								<td><t:label for="votoAcumulativoOp3" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo4">
+							<tr>
+								<td><t:label for="votoAcumulativoOp4" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo5">
+							<tr>
+								<td><t:label for="votoAcumulativoOp5" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo6">
+							<tr>
+								<td><t:label for="votoAcumulativoOp6" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo7">
+							<tr>
+								<td><t:label for="votoAcumulativoOp7" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo8">
+							<tr>
+								<td><t:label for="votoAcumulativoOp8" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo9">
+							<tr>
+								<td><t:label for="votoAcumulativoOp9" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo10">
+							<tr>
+								<td><t:label for="votoAcumulativoOp10" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo11">
+							<tr>
+								<td><t:label for="votoAcumulativoOp11" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo12">
+							<tr>
+								<td><t:label for="votoAcumulativoOp12" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo13">
+							<tr>
+								<td><t:label for="votoAcumulativoOp13" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo14">
+							<tr>
+								<td><t:label for="votoAcumulativoOp14" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showVotoAcumulativo15">
+							<tr>
+								<td><t:label for="votoAcumulativoOp15" /></td>
+								<td><t:textfield t:id="votoAcumulativoOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+				</t:form>
+				<br />
+				<t:eventlink t:event="back"
+					t:context="prop:['fromVotoAcumulativoRel','toType']" t:zone="^">
 					<button>${message:back-but}</button>
 				</t:eventlink>
 			</t:if>
