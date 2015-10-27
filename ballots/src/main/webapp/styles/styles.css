@@ -868,3 +868,7 @@ button:active {
 #kaptcha{
 	margin-left:150px;
 }
+
+#KaptchaField{
+	width:100px;
+}

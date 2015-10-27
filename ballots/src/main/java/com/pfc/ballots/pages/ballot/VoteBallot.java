@@ -191,7 +191,6 @@ public class VoteBallot {
 		{
 			votoAcumulativoDao=DB4O.getVotoAcumulativoDao(datasession.getDBName());
 			votoAcumulativo=votoAcumulativoDao.getByBallotId(contextBallotId);
-			votoAcumulativoVote=new LinkedList<String>();
 		}	
 	}
 
@@ -712,7 +711,7 @@ public class VoteBallot {
 		}
 
 		contextResultBallotId=contextBallotId;
-        componentResources.discardPersistentFieldChanges();
+		componentResources.discardPersistentFieldChanges();
 		return VoteCounted.class;
 	}
 	public boolean isShowApprovalVoting()
@@ -779,9 +778,9 @@ public class VoteBallot {
 			if (selectedCheckListBrams.size() > (brams.getOptions().size() - 3)){
 				System.out.println("Dentro del if de render  "+showErrorBrams);
 				showErrorBrams = true;
-					ajaxResponseRenderer.addRender("bramsZone",bramsZone);
-				
-				
+				ajaxResponseRenderer.addRender("bramsZone",bramsZone);
+
+
 			}
 			else {
 				if(ballot.isPublica())
@@ -812,16 +811,16 @@ public class VoteBallot {
 						bramsDao.update(brams);
 					}
 				}
-				
+
 				contextResultBallotId=contextBallotId;
-		        componentResources.discardPersistentFieldChanges();
+				componentResources.discardPersistentFieldChanges();
 				return VoteCounted.class;
 			}
 
 		}
 		return this;
 	}
-	
+
 	public boolean isShowBrams()
 	{
 		if(ballot==null)
@@ -849,40 +848,340 @@ public class VoteBallot {
 	@Property
 	private VotoAcumulativo votoAcumulativo;
 
-	@Persist
-	@Property
-	private List<String> votoAcumulativoVote;
-
-	@Property
-	private String votoAcumulativoOption;
-
 	@Property
 	@Persist
 	private boolean showErrorVotoAcumulativo;
 
 	@Property
-	private final StringValueEncoder encoderVotoAcumulativo = new StringValueEncoder();
+	@Persist
+	private String votoAcumulativoRadio0;
 
 	@Property
 	@Persist
-	private List<String> selectedCheckListVotoAcumulativo;
+	private String votoAcumulativoRadio1;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio2;	
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio3;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio4;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio5;	
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio6;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio7;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio8;	
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio9;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio10;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio11;	
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio12;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio13;
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio14;	
+
+	@Property
+	@Persist
+	private String votoAcumulativoRadio15;	
 
 
-	public ValueEncoder<String> getStringEncoderVotoAcumulativo() { 
-		return new StringValueEncoder(); 
+	public boolean isShowVotoAcumulativo3()
+	{
+		if(votoAcumulativo.getOptions().size()>=4)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo4()
+	{
+		if(votoAcumulativo.getOptions().size()>=5)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo5()
+	{
+		if(votoAcumulativo.getOptions().size()>=6)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo6()
+	{
+		if(votoAcumulativo.getOptions().size()>=7)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo7()
+	{
+		if(votoAcumulativo.getOptions().size()>=6)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo8()
+	{
+		if(votoAcumulativo.getOptions().size()>=7)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo9()
+	{
+		if(votoAcumulativo.getOptions().size()>=8)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo10()
+	{
+		if(votoAcumulativo.getOptions().size()>=9)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo11()
+	{
+		if(votoAcumulativo.getOptions().size()>=10)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo12()
+	{
+		if(votoAcumulativo.getOptions().size()>=11)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo13()
+	{
+		if(votoAcumulativo.getOptions().size()>=12)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo14()
+	{
+		if(votoAcumulativo.getOptions().size()>=13)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowVotoAcumulativo15()
+	{
+		if(votoAcumulativo.getOptions().size()>=14)
+			return true;
+		else
+			return false;
 	}
 
-	public List<String> getModelVotoAcumulativo() {
-		return votoAcumulativo.getOptions(); 
+
+	public String getVotoAcumulativoOption0()
+	{
+		votoAcumulativoRadio0 = "0";
+		return votoAcumulativo.getOptions().get(0);
+	}
+	public String getVotoAcumulativoOption1()
+	{
+		votoAcumulativoRadio1 = "0";
+		return votoAcumulativo.getOptions().get(1);
+	}
+	public String getVotoAcumulativoOption2()
+	{
+		votoAcumulativoRadio2 = "0";
+		return votoAcumulativo.getOptions().get(2);
+	}
+	public String getVotoAcumulativoOption3()
+	{
+		votoAcumulativoRadio3 = "0";
+		return votoAcumulativo.getOptions().get(3);
+	}
+	public String getVotoAcumulativoOption4()
+	{
+		votoAcumulativoRadio4 = "0";
+		return votoAcumulativo.getOptions().get(4);
+	}
+	public String getVotoAcumulativoOption5()
+	{
+		votoAcumulativoRadio5 = "0";
+		return votoAcumulativo.getOptions().get(5);
+	}
+	public String getVotoAcumulativoOption6()
+	{
+		votoAcumulativoRadio6 = "0";
+		return votoAcumulativo.getOptions().get(6);
+	}
+	public String getVotoAcumulativoOption7()
+	{
+		votoAcumulativoRadio7 = "0";
+		return votoAcumulativo.getOptions().get(7);
+	}
+	public String getVotoAcumulativoOption8()
+	{
+		votoAcumulativoRadio8 = "0";
+		return votoAcumulativo.getOptions().get(8);
+	}
+	public String getVotoAcumulativoOption9()
+	{
+		votoAcumulativoRadio9 = "0";
+		return votoAcumulativo.getOptions().get(9);
+	}
+	public String getVotoAcumulativoOption10()
+	{
+		votoAcumulativoRadio10 = "0";
+		return votoAcumulativo.getOptions().get(10);
+	}
+	public String getVotoAcumulativoOption11()
+	{
+		votoAcumulativoRadio11 = "0";
+		return votoAcumulativo.getOptions().get(11);
+	}
+	public String getVotoAcumulativoOption12()
+	{
+		votoAcumulativoRadio12 = "0";
+		return votoAcumulativo.getOptions().get(12);
+	}
+	public String getVotoAcumulativoOption13()
+	{
+		votoAcumulativoRadio13 = "0";
+		return votoAcumulativo.getOptions().get(13);
+	}
+	public String getVotoAcumulativoOption14()
+	{
+		votoAcumulativoRadio14 = "0";
+		return votoAcumulativo.getOptions().get(14);
 	}
 
 	public Object onSuccessFromVotoAcumulativoForm()
 	{
 		if(request.isXHR())
 		{
-			if (selectedCheckListVotoAcumulativo.size() > (votoAcumulativo.getOptions().size() - 3)){
-				showErrorVotoAcumulativo = true;			
-				
+			System.out.println("radio 0: "+votoAcumulativoRadio0);
+			System.out.println("radio 1: "+votoAcumulativoRadio1);
+			System.out.println("radio 2: "+votoAcumulativoRadio2);
+			System.out.println("radio 3: "+votoAcumulativoRadio3);
+			System.out.println("radio 4: "+votoAcumulativoRadio4);
+			System.out.println("radio 5: "+votoAcumulativoRadio5);
+			System.out.println("radio 6: "+votoAcumulativoRadio6);
+			System.out.println("radio 7: "+votoAcumulativoRadio7);
+			System.out.println("radio 8: "+votoAcumulativoRadio8);
+			System.out.println("radio 9: "+votoAcumulativoRadio9);
+			System.out.println("radio 10: "+votoAcumulativoRadio10);
+			System.out.println("radio 11: "+votoAcumulativoRadio11);
+			System.out.println("radio 12: "+votoAcumulativoRadio12);
+			System.out.println("radio 13: "+votoAcumulativoRadio13);
+			System.out.println("radio 14: "+votoAcumulativoRadio14);
+			System.out.println("votoAcumulativo tiene: "+votoAcumulativo.getOptions().size());
+			if(votoAcumulativo.getOptions().size()==2){
+				System.out.println("He entrado por el case 2 con valores: "+Integer.parseInt(votoAcumulativoRadio0)+" y "+Integer.parseInt(votoAcumulativoRadio1));
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+
+			else if(votoAcumulativo.getOptions().size()==3){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1)+ Integer.parseInt(votoAcumulativoRadio2))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==4){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==5){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==6){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}		
+			else if(votoAcumulativo.getOptions().size()==7){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==8){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6)+ Integer.parseInt(votoAcumulativoRadio7))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==9){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6)+ Integer.parseInt(votoAcumulativoRadio7)+ Integer.parseInt(votoAcumulativoRadio8))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==10){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6)+ Integer.parseInt(votoAcumulativoRadio7)+ Integer.parseInt(votoAcumulativoRadio8)+ Integer.parseInt(votoAcumulativoRadio9))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==11){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6)+ Integer.parseInt(votoAcumulativoRadio7)+ Integer.parseInt(votoAcumulativoRadio8)+ Integer.parseInt(votoAcumulativoRadio9)+ Integer.parseInt(votoAcumulativoRadio10))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==12){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6)+ Integer.parseInt(votoAcumulativoRadio7)+ Integer.parseInt(votoAcumulativoRadio8)+ Integer.parseInt(votoAcumulativoRadio9)+ Integer.parseInt(votoAcumulativoRadio10)+ Integer.parseInt(votoAcumulativoRadio11))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==13){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6)+ Integer.parseInt(votoAcumulativoRadio7)+ Integer.parseInt(votoAcumulativoRadio8)+ Integer.parseInt(votoAcumulativoRadio9)+ Integer.parseInt(votoAcumulativoRadio10)+ Integer.parseInt(votoAcumulativoRadio11)+ Integer.parseInt(votoAcumulativoRadio12))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}
+			else if(votoAcumulativo.getOptions().size()==14){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6)+ Integer.parseInt(votoAcumulativoRadio7)+ Integer.parseInt(votoAcumulativoRadio8)+ Integer.parseInt(votoAcumulativoRadio9)+ Integer.parseInt(votoAcumulativoRadio10)+ Integer.parseInt(votoAcumulativoRadio11)+ Integer.parseInt(votoAcumulativoRadio12)+ Integer.parseInt(votoAcumulativoRadio13))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}		
+			else if(votoAcumulativo.getOptions().size()==15){
+				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1) + Integer.parseInt(votoAcumulativoRadio2)+ Integer.parseInt(votoAcumulativoRadio3)+ Integer.parseInt(votoAcumulativoRadio4)+ Integer.parseInt(votoAcumulativoRadio5)+ Integer.parseInt(votoAcumulativoRadio6)+ Integer.parseInt(votoAcumulativoRadio7)+ Integer.parseInt(votoAcumulativoRadio8)+ Integer.parseInt(votoAcumulativoRadio9)+ Integer.parseInt(votoAcumulativoRadio10)+ Integer.parseInt(votoAcumulativoRadio11)+ Integer.parseInt(votoAcumulativoRadio12)+ Integer.parseInt(votoAcumulativoRadio13)+ Integer.parseInt(votoAcumulativoRadio14))== 5)
+				{showErrorVotoAcumulativo=false;}
+				else {showErrorVotoAcumulativo=true;}
+			}		
+
+
+			if(showErrorVotoAcumulativo){
+				return this;
 			}
 			else {
 				if(ballot.isPublica())
@@ -890,9 +1189,67 @@ public class VoteBallot {
 					ballot=ballotDao.getById(contextBallotId);
 					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
 					{
-						for(String option:selectedCheckListVotoAcumulativo){
-							votoAcumulativo.addVote(option);
+
+						if(Integer.parseInt(votoAcumulativoRadio0) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio0); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(0));
 						}
+						if(Integer.parseInt(votoAcumulativoRadio1) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio1); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(1));
+						}
+						if(votoAcumulativo.getOptions().size()==3 && Integer.parseInt(votoAcumulativoRadio2) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio2); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(2));
+						}
+						if(votoAcumulativo.getOptions().size()==4 && Integer.parseInt(votoAcumulativoRadio3) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio3); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(3));
+						}
+						if(votoAcumulativo.getOptions().size()==5 && Integer.parseInt(votoAcumulativoRadio4) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio4); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(4));
+						}
+						if(votoAcumulativo.getOptions().size()==6 && Integer.parseInt(votoAcumulativoRadio5) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio5); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(5));
+						}
+						if(votoAcumulativo.getOptions().size()==7 && Integer.parseInt(votoAcumulativoRadio6) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio6); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(6));
+						}
+						if(votoAcumulativo.getOptions().size()==8 && Integer.parseInt(votoAcumulativoRadio7) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio7); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(7));
+						}
+						if(votoAcumulativo.getOptions().size()==9 && Integer.parseInt(votoAcumulativoRadio8) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio8); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(8));
+						}
+						if(votoAcumulativo.getOptions().size()==10 && Integer.parseInt(votoAcumulativoRadio9) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio9); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(9));
+						}
+						if(votoAcumulativo.getOptions().size()==11 && Integer.parseInt(votoAcumulativoRadio10) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio10); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(10));
+						}
+						if(votoAcumulativo.getOptions().size()==12 && Integer.parseInt(votoAcumulativoRadio11) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio11); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(11));
+						}
+						if(votoAcumulativo.getOptions().size()==13 && Integer.parseInt(votoAcumulativoRadio12) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio12); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(12));
+						}
+						if(votoAcumulativo.getOptions().size()==14 && Integer.parseInt(votoAcumulativoRadio13) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio13); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(13));
+						}						
+						if(votoAcumulativo.getOptions().size()==15 && Integer.parseInt(votoAcumulativoRadio14) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio14); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(14));
+						}	
 						votoAcumulativoDao.update(votoAcumulativo);
 						addPublicVote();
 					}
@@ -907,22 +1264,80 @@ public class VoteBallot {
 					{
 						vote.setCounted(true);
 						voteDao.updateVote(vote);
-						for(String option:selectedCheckListVotoAcumulativo){
-							votoAcumulativo.addVote(option);
+
+						if(Integer.parseInt(votoAcumulativoRadio0) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio0); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(0));
 						}
-						votoAcumulativoDao.update(votoAcumulativo);
+						if(Integer.parseInt(votoAcumulativoRadio1) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio1); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(1));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio2) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio2); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(2));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio3) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio3); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(3));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio4) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio4); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(4));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio5) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio5); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(5));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio6) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio6); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(6));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio7) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio7); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(7));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio8) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio8); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(8));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio9) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio9); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(9));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio10) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio10); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(10));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio11) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio11); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(11));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio12) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio12); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(12));
+						}
+						if(Integer.parseInt(votoAcumulativoRadio13) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio13); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(13));
+						}						
+						if(Integer.parseInt(votoAcumulativoRadio14) > 0){
+							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio14); i++)
+							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(14));
+						}							votoAcumulativoDao.update(votoAcumulativo);
 					}
 				}
-				
+
 				contextResultBallotId=contextBallotId;
-		        componentResources.discardPersistentFieldChanges();
+				componentResources.discardPersistentFieldChanges();
 				return VoteCounted.class;
 			}
-
 		}
-		return this;
+		return VoteCounted.class;
+
+
 	}
-	
+
 	public boolean isShowVotoAcumulativo()
 	{
 		if(ballot==null)

@@ -21,7 +21,7 @@
 
 
 				<t:form t:id="relativeMajorityForm">
-					<t:radiogroup t:value="relMayVote" t:id="radioGroup">
+					<t:radiogroup t:value="relMayVote" t:id="radioGroupRelMay">
 						<table>
 							<tr t:type="Loop" t:source="relMay.options"
 								t:value="relMayOption">
@@ -38,7 +38,8 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><t:kaptchafield image="kaptcha1" type="text" /></td>
+								<td><t:kaptchafield visible="true" style="width:200px;"
+										image="kaptcha1" type="text" /></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -75,7 +76,8 @@
 									<td><t:kaptchaimage t:id="kaptcha2" /></td>
 								</tr>
 								<tr>
-									<td><t:kaptchafield image="kaptcha2" type="text" /></td>
+									<td><t:kaptchafield visible="true" style="width:200px;"
+											image="kaptcha2" type="text" /></td>
 								</tr>
 								<tr>
 									<td>${message:captcha}</td>
@@ -112,7 +114,8 @@
 								</tr>
 								<tr>
 									<td></td>
-									<td><t:kaptchafield image="kaptcha3" type="text" /></td>
+									<td><t:kaptchafield visible="true" style="width:200px;"
+											image="kaptcha3" type="text" /></td>
 								</tr>
 								<tr>
 									<td></td>
@@ -144,7 +147,8 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><t:kaptchafield image="kaptchaApproval" type="text" /></td>
+								<td><t:kaptchafield visible="true" style="width:200px;"
+										image="kaptchaApproval" type="text" /></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -160,49 +164,51 @@
 			</t:if>
 			<!--/////////////////////////////////// Brams /////////////////////////////////////////// -->
 
-			
-			
+
+
 			<t:if test="showBrams">
 
 				<t:zone t:id="bramsZone" t:update="show">
-				
+
 					<t:if test="showErrorBrams">
 						<span class="error">${message:brams-error}</span>
 					</t:if>
 					
 					${message:instructions-brams}<br />
 					<br />
-					
+
 					<t:form t:id="bramsForm" t:zone="^">
 						<table>
-						<tr>
-						<td><t:checklist t:id="selectedCheckListBrams"
-								encoder="encoderBrams" model="modelBrams" /></td>
-						</tr>
-						<br />
-						<t:if test="ballot.publica">
+							<tr>
+								<td><t:checklist t:id="selectedCheckListBrams"
+										encoder="encoderBrams" model="modelBrams" /></td>
+							</tr>
+							<br />
+							<t:if test="ballot.publica">
 
 								<tr>
 									<td><t:kaptchaimage t:id="kaptchaBrams" /></td>
 								</tr>
 								<tr>
-									<td><t:kaptchafield image="kaptchaBrams" type="text" /></td>
+									<td><t:kaptchafield style="width:200px;" visible="true"
+											image="kaptchaBrams" type="text" /></td>
 								</tr>
 								<tr>
 									<td>${message:captcha}</td>
 								</tr>
-							
-						</t:if>
-						
-						<tr>
-							<td><input t:type="submit" class="boton" value="${message:vote-but}" /></td>
-							<td></td>
-						</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
 						</table>
 					</t:form>
-					
-					
-	
+
+
+
 				</t:zone>
 			</t:if>
 			<!-- ///////////////////////////////////////// RANGE VOTING /////////////////////////////////////////////// -->
@@ -265,7 +271,8 @@
 								</tr>
 								<tr>
 									<td></td>
-									<td><kaptchafield image="kaptcha4" type="text" /></td>
+									<td><kaptchafield style="width:200px;" visible="true"
+											image="kaptcha4" type="text" /></td>
 								</tr>
 								<tr>
 									<td></td>
@@ -282,62 +289,272 @@
 
 			<!--/////////////////////////////////// VotoAcumulativo /////////////////////////////////////////// -->
 
-			
-			
+
+
 			<t:if test="showVotoAcumulativo">
 
 				<t:zone t:id="votoAcumulativoZone" t:update="show">
-				
+
 					<t:if test="showErrorVotoAcumulativo">
 						<span class="error">${message:votoAcumulativo-error}</span>
 					</t:if>
 					
 					${message:instructions-votoAcumulativo}<br />
-					<br />
-					
+
 					<t:form t:id="votoAcumulativoForm" t:zone="^">
-						<table>
-						<tr>
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+								<td style="text-align: center;">0</td>
+								<td style="text-align: center;">1</td>
+								<td style="text-align: center;">2</td>
+								<td style="text-align: center;">3</td>
+								<td style="text-align: center;">4</td>
+								<td style="text-align: center;">5</td>
+							</tr>
 
+							<tr>
+								<td>${votoAcumulativoOption0}</td>
+								<t:radioGroup value="votoAcumulativoRadio0"
+									id="radioGroupVotoAcumulativo0" required="true">
+									<td><t:Radio t:id="label0" value="literal:0" type="radio" /></td>
+									<td><t:Radio t:id="label1" value="literal:1" type="radio" /></td>
+									<td><t:Radio t:id="label2" value="literal:2" type="radio" /></td>
+									<td><t:Radio t:id="label3" value="literal:3" type="radio" /></td>
+									<td><t:Radio t:id="label4" value="literal:4" type="radio" /></td>
+									<td><t:Radio t:id="label5" value="literal:5" type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+							<tr>
+								<td>${votoAcumulativoOption1}</td>
+								<t:radioGroup value="votoAcumulativoRadio1"
+									id="radioGroupVotoAcumulativo1" required="true">
+									<td><t:Radio value="literal:0" type="radio" /></td>
+									<td><t:Radio value="literal:1" type="radio" /></td>
+									<td><t:Radio value="literal:2" type="radio" /></td>
+									<td><t:Radio value="literal:3" type="radio" /></td>
+									<td><t:Radio value="literal:4" type="radio" /></td>
+									<td><t:Radio value="literal:5" type="radio" /></td>
+								</t:radioGroup>
+							</tr>
 
-						<input t:type="Palette" t:id="paletteBorda" t:reorder="true"
-							t:model="borda.bordaOptions" t:selected="VotoAcumulativoVote"
-							t:encoder="stringValueEncoder" />
-							
-							
-						<!-- <td><t:checklist t:id="selectedCheckListVotoAcumulativo"
-								encoder="encoderVotoAcumulativo" model="modelVotoAcumulativo" /></td>-->
-						</tr>
-						<br />
-						<t:if test="ballot.publica">
+							<t:if test="showVotoAcumulativo3">
+								<tr>
+									<td>${votoAcumulativoOption2}</td>
+									<t:radioGroup value="votoAcumulativoRadio2"
+										id="radioGroupVotoAcumulativo2" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showVotoAcumulativo4">
+								<tr>
+									<td>${votoAcumulativoOption3}</td>
+									<t:radioGroup value="votoAcumulativoRadio3"
+										id="radioGroupVotoAcumulativo2" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showVotoAcumulativo5">
+								<tr>
+									<td>${votoAcumulativoOption4}</td>
+									<t:radioGroup value="votoAcumulativoRadio4"
+										id="radioGroupVotoAcumulativo4" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									
+								</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showVotoAcumulativo6">
+								<tr>
+									<td>${votoAcumulativoOption5}</td>
+									<t:radioGroup value="votoAcumulativoRadio5"
+										id="radioGroupVotoAcumulativo5" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showVotoAcumulativo7">
+								<tr>
+									<td>${votoAcumulativoOption6}</td>
+									<t:radioGroup value="votoAcumulativoRadio6"
+										id="radioGroupVotoAcumulativo6" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showVotoAcumulativo8">
+								<tr>
+									<td>${votoAcumulativoOption7}</td>
+									<t:radioGroup value="votoAcumulativoRadio7"
+										id="radioGroupVotoAcumulativo7" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showVotoAcumulativo9">
+								<tr>
+									<td>${votoAcumulativoOption8}</td>
+									<t:radioGroup value="votoAcumulativoRadio8"
+										id="radioGroupVotoAcumulativo8" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showVotoAcumulativo10">
+								<tr>
+									<td>${votoAcumulativoOption9}</td>
+									<t:radioGroup value="votoAcumulativoRadio9"
+										id="radioGroupVotoAcumulativo9" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showVotoAcumulativo11">
+								<tr>
+									<td>${votoAcumulativoOption10}</td>
+									<t:radioGroup value="votoAcumulativoRadio10"
+										id="radioGroupVotoAcumulativo10" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showVotoAcumulativo12">
+								<tr>
+									<td>${votoAcumulativoOption11}</td>
+									<t:radioGroup value="votoAcumulativoRadio11"
+										id="radioGroupVotoAcumulativo11" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showVotoAcumulativo13">
+								<tr>
+									<td>${votoAcumulativoOption12}</td>
+									<t:radioGroup value="votoAcumulativoRadio12"
+										id="radioGroupVotoAcumulativo12" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									
+								</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showVotoAcumulativo14">
+								<tr>
+									<td>${votoAcumulativoOption13}</td>
+									<t:radioGroup value="votoAcumulativoRadio13"
+										id="radioGroupVotoAcumulativo13" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showVotoAcumulativo15">
+								<tr>
+									<td>${votoAcumulativoOption14}</td>
+									<t:radioGroup value="votoAcumulativoRadio14"
+										id="radioGroupVotoAcumulativo14" required="true">
+										<td><t:Radio value="literal:0" type="radio" /></td>
+										<td><t:Radio value="literal:1" type="radio" /></td>
+										<td><t:Radio value="literal:2" type="radio" /></td>
+										<td><t:Radio value="literal:3" type="radio" /></td>
+										<td><t:Radio value="literal:4" type="radio" /></td>
+										<td><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+															
+							<t:if test="ballot.publica">
 
 								<tr>
-									<td><t:kaptchaimage t:id="kaptchaVotoAcumulativo" /></td>
+
+									<td><br /> <t:kaptchaimage t:id="kaptchaVotoAcumulativo" /></td>
 								</tr>
 								<tr>
-									<td><t:kaptchafield image="kaptchaVotoAcumulativo" type="text" /></td>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaVotoAcumulativo" visible="true" type="text" /></td>
 								</tr>
 								<tr>
 									<td>${message:captcha}</td>
 								</tr>
-							
-						</t:if>
-						
-						<tr>
-							<td><input t:type="submit" class="boton" value="${message:vote-but}" /></td>
-							<td></td>
-						</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
 						</table>
 					</t:form>
-					
-					
-	
+
+
+
 				</t:zone>
 			</t:if>
-			
-			
-			
-			
+
+
+
+
 			<!--/////////////////////////////////// Se ha votado /////////////////////////////////////////// -->
 			<p:else>
 				<h2>${message:vote-done}</h2>
