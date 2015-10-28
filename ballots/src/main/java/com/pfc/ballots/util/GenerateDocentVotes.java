@@ -223,4 +223,19 @@ public class GenerateDocentVotes {
 		
 		return votes;
 	}
+	static public List<String> generateJuicioMayoritario(List<String> options, int numVotes) {
+		List<String> votes=new LinkedList<String>();
+
+		//Cada votante tiene que votar todas las opciones entre 1-5 
+		for(int i=0; i<numVotes; i++){
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				int numVotos = 1 + (int)(Math.random() * 5);
+					for(int k = 0; k<numVotos; k++){
+					votes.add(options.get(j));
+					}
+			}	
+		}
+		
+		return votes;
+	}
 }

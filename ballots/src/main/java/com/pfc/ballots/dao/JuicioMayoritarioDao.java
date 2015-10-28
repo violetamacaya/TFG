@@ -1,6 +1,7 @@
 package com.pfc.ballots.dao;
 
 import com.pfc.ballots.entities.JuicioMayoritarioText;
+import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 
 /**
  * Dao Interface to retrieves JuicioMayoritario entity
@@ -17,5 +18,9 @@ public interface JuicioMayoritarioDao {
 	public void deleteByBallotId(String ballotId);
 	public void deleteById(String id);
 	public void deleteAll();
+	
+	public void store(JuicioMayoritario juicioMayoritario);
+	public JuicioMayoritario getByBallotId(String idBallot);
+	public void update(JuicioMayoritario updated);
 	
 }

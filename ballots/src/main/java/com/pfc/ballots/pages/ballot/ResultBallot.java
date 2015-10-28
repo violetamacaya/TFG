@@ -45,6 +45,7 @@ import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Brams;
+import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
@@ -258,7 +259,23 @@ public class ResultBallot {
 				ballotDao.updateBallot(ballot);
 			}
 		}		
-
+		else if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
+		{
+			juicioMayoritarioDao= DB4O.getJuicioMayoritarioDao(datasession.getDBName());
+			juicioMayoritario=juicioMayoritarioDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				juicioMayoritario.calcularJuicioMayoritario();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && juicioMayoritario!=null)
+			{
+				juicioMayoritario.calcularJuicioMayoritario();
+				ballot.setCounted(true);
+				juicioMayoritarioDao.update(juicioMayoritario);
+				ballotDao.updateBallot(ballot);
+			}
+		}	
 
 	}
 	/**
@@ -367,6 +384,19 @@ public class ResultBallot {
 			}
 
 			javaScriptSupport.addInitializerCall("charts_votoAcumulativo",array.toString());
+		}
+		if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
+		{
+			List<String> options=getJuicioMayoritarioOptions();
+			for(String option:options)
+			{
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", juicioMayoritario.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_juicioMayoritario",array.toString());
 		}
 	}
 
@@ -716,6 +746,54 @@ public class ResultBallot {
 	public String getVotoAcumulativoNum()
 	{
 		return String.valueOf(votoAcumulativo.getVotes().size());
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////// JUICIO MAYORITARIO  //////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * VotoAcumulativo Data
+	 */
+	@Persist
+	@Property
+	JuicioMayoritario juicioMayoritario;
+	@Property
+	private String optionJuicioMayoritario;
+
+	public String getJuicioMayoritarioVote()
+	{
+		return String.valueOf(juicioMayoritario.getResultOption(option));
+	}
+
+	public List<String> getJuicioMayoritarioOptions()
+	{
+		List<String> lista=juicioMayoritario.getOptions();
+
+		for(int i=0;i<lista.size()-1;i++)
+		{
+			for(int j=0;j<lista.size()-i-1;j++)
+			{
+				if(juicioMayoritario.getResultOption(lista.get(j+1))>juicioMayoritario.getResultOption(lista.get(j)))
+				{
+					String aux=lista.get(j+1);
+					lista.set(j+1, lista.get(j));
+					lista.set(j, aux);
+				}
+			}
+		}
+
+		return lista;
+	}
+
+	public boolean getShowJuicioMayoritario()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.JUICIO_MAYORITARIO)
+		{return true;}
+		return false;
+	}
+
+	public String getJuicioMayoritarioNum()
+	{
+		return String.valueOf(juicioMayoritario.getVotes().size());
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 

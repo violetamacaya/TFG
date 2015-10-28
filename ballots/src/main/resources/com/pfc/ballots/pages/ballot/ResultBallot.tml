@@ -187,6 +187,24 @@
 				</t:loop>
 			</table>
 		</t:if>
+		
+		<t:if test="showJuicioMayoritario">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:votes}</th>
+				</tr>
+				<t:loop t:source="JuicioMayoritarioOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${JuicioMayoritarioVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+		
+		
 	</div>
 </t:border>
 </html>

@@ -19,13 +19,13 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
-
 import com.pfc.ballots.dao.ApprovalVotingDao;
 import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.BramsDao;
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
 import com.pfc.ballots.dao.RangeVotingDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
@@ -38,6 +38,7 @@ import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Brams;
+import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
@@ -120,6 +121,8 @@ public class VoteBallot {
 	BramsDao bramsDao;	
 	@Persist
 	VotoAcumulativoDao votoAcumulativoDao;	
+	@Persist
+	JuicioMayoritarioDao juicioMayoritarioDao;	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,6 +194,11 @@ public class VoteBallot {
 		{
 			votoAcumulativoDao=DB4O.getVotoAcumulativoDao(datasession.getDBName());
 			votoAcumulativo=votoAcumulativoDao.getByBallotId(contextBallotId);
+		}	
+		if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
+		{
+			juicioMayoritarioDao=DB4O.getJuicioMayoritarioDao(datasession.getDBName());
+			juicioMayoritario=juicioMayoritarioDao.getByBallotId(contextBallotId);
 		}	
 	}
 
@@ -774,9 +782,7 @@ public class VoteBallot {
 	{
 		if(request.isXHR())
 		{
-			System.out.println("Selected : "+ selectedCheckListBrams.size()+" Opciones: "+ brams.getOptions().size());
 			if (selectedCheckListBrams.size() > (brams.getOptions().size() - 3)){
-				System.out.println("Dentro del if de render  "+showErrorBrams);
 				showErrorBrams = true;
 				ajaxResponseRenderer.addRender("bramsZone",bramsZone);
 
@@ -919,28 +925,28 @@ public class VoteBallot {
 
 	public boolean isShowVotoAcumulativo3()
 	{
-		if(votoAcumulativo.getOptions().size()>=4)
+		if(votoAcumulativo.getOptions().size()>=2)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo4()
 	{
-		if(votoAcumulativo.getOptions().size()>=5)
+		if(votoAcumulativo.getOptions().size()>=3)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo5()
 	{
-		if(votoAcumulativo.getOptions().size()>=6)
+		if(votoAcumulativo.getOptions().size()>=4)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo6()
 	{
-		if(votoAcumulativo.getOptions().size()>=7)
+		if(votoAcumulativo.getOptions().size()>=5)
 			return true;
 		else
 			return false;
@@ -1090,24 +1096,7 @@ public class VoteBallot {
 	{
 		if(request.isXHR())
 		{
-			System.out.println("radio 0: "+votoAcumulativoRadio0);
-			System.out.println("radio 1: "+votoAcumulativoRadio1);
-			System.out.println("radio 2: "+votoAcumulativoRadio2);
-			System.out.println("radio 3: "+votoAcumulativoRadio3);
-			System.out.println("radio 4: "+votoAcumulativoRadio4);
-			System.out.println("radio 5: "+votoAcumulativoRadio5);
-			System.out.println("radio 6: "+votoAcumulativoRadio6);
-			System.out.println("radio 7: "+votoAcumulativoRadio7);
-			System.out.println("radio 8: "+votoAcumulativoRadio8);
-			System.out.println("radio 9: "+votoAcumulativoRadio9);
-			System.out.println("radio 10: "+votoAcumulativoRadio10);
-			System.out.println("radio 11: "+votoAcumulativoRadio11);
-			System.out.println("radio 12: "+votoAcumulativoRadio12);
-			System.out.println("radio 13: "+votoAcumulativoRadio13);
-			System.out.println("radio 14: "+votoAcumulativoRadio14);
-			System.out.println("votoAcumulativo tiene: "+votoAcumulativo.getOptions().size());
 			if(votoAcumulativo.getOptions().size()==2){
-				System.out.println("He entrado por el case 2 con valores: "+Integer.parseInt(votoAcumulativoRadio0)+" y "+Integer.parseInt(votoAcumulativoRadio1));
 				if((Integer.parseInt(votoAcumulativoRadio0) + Integer.parseInt(votoAcumulativoRadio1))== 5)
 				{showErrorVotoAcumulativo=false;}
 				else {showErrorVotoAcumulativo=true;}
@@ -1192,63 +1181,63 @@ public class VoteBallot {
 
 						if(Integer.parseInt(votoAcumulativoRadio0) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio0); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(0));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(0));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio1) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio1); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(1));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(1));
 						}
 						if(votoAcumulativo.getOptions().size()==3 && Integer.parseInt(votoAcumulativoRadio2) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio2); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(2));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(2));
 						}
 						if(votoAcumulativo.getOptions().size()==4 && Integer.parseInt(votoAcumulativoRadio3) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio3); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(3));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(3));
 						}
 						if(votoAcumulativo.getOptions().size()==5 && Integer.parseInt(votoAcumulativoRadio4) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio4); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(4));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(4));
 						}
 						if(votoAcumulativo.getOptions().size()==6 && Integer.parseInt(votoAcumulativoRadio5) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio5); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(5));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(5));
 						}
 						if(votoAcumulativo.getOptions().size()==7 && Integer.parseInt(votoAcumulativoRadio6) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio6); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(6));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(6));
 						}
 						if(votoAcumulativo.getOptions().size()==8 && Integer.parseInt(votoAcumulativoRadio7) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio7); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(7));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(7));
 						}
 						if(votoAcumulativo.getOptions().size()==9 && Integer.parseInt(votoAcumulativoRadio8) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio8); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(8));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(8));
 						}
 						if(votoAcumulativo.getOptions().size()==10 && Integer.parseInt(votoAcumulativoRadio9) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio9); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(9));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(9));
 						}
 						if(votoAcumulativo.getOptions().size()==11 && Integer.parseInt(votoAcumulativoRadio10) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio10); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(10));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(10));
 						}
 						if(votoAcumulativo.getOptions().size()==12 && Integer.parseInt(votoAcumulativoRadio11) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio11); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(11));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(11));
 						}
 						if(votoAcumulativo.getOptions().size()==13 && Integer.parseInt(votoAcumulativoRadio12) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio12); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(12));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(12));
 						}
 						if(votoAcumulativo.getOptions().size()==14 && Integer.parseInt(votoAcumulativoRadio13) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio13); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(13));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(13));
 						}						
 						if(votoAcumulativo.getOptions().size()==15 && Integer.parseInt(votoAcumulativoRadio14) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio14); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(14));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(14));
 						}	
 						votoAcumulativoDao.update(votoAcumulativo);
 						addPublicVote();
@@ -1267,63 +1256,63 @@ public class VoteBallot {
 
 						if(Integer.parseInt(votoAcumulativoRadio0) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio0); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(0));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(0));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio1) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio1); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(1));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(1));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio2) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio2); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(2));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(2));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio3) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio3); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(3));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(3));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio4) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio4); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(4));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(4));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio5) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio5); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(5));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(5));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio6) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio6); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(6));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(6));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio7) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio7); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(7));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(7));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio8) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio8); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(8));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(8));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio9) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio9); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(9));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(9));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio10) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio10); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(10));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(10));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio11) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio11); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(11));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(11));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio12) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio12); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(12));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(12));
 						}
 						if(Integer.parseInt(votoAcumulativoRadio13) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio13); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(13));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(13));
 						}						
 						if(Integer.parseInt(votoAcumulativoRadio14) > 0){
 							for(int i=0; i<Integer.parseInt(votoAcumulativoRadio14); i++)
-							votoAcumulativo.addVote(votoAcumulativo.getOptions().get(14));
+								votoAcumulativo.addVote(votoAcumulativo.getOptions().get(14));
 						}							votoAcumulativoDao.update(votoAcumulativo);
 					}
 				}
@@ -1345,6 +1334,361 @@ public class VoteBallot {
 			return false;
 		}
 		if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{
+			return true;
+		}
+		return false;
+
+	}		
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////Juicio Mayoritario /////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Stores the JuicioMayoritario vote
+	 * @return
+	 */
+
+
+	@Persist
+	@Property
+	private JuicioMayoritario juicioMayoritario;
+
+	@Property
+	@Persist
+	private boolean showErrorJuicioMayoritario;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio0;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio1;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio2;	
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio3;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio4;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio5;	
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio6;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio7;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio8;	
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio9;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio10;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio11;	
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio12;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio13;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio14;	
+
+	@Property
+	@Persist
+	private String juicioMayoritarioRadio15;	
+
+
+	public boolean isShowJuicioMayoritario8()
+	{
+		System.out.println("num opciones: "+juicioMayoritario.getOptions().size());
+		if(juicioMayoritario.getOptions().size()>=8)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowJuicioMayoritario9()
+	{
+		if(juicioMayoritario.getOptions().size()>=9)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowJuicioMayoritario10()
+	{
+		if(juicioMayoritario.getOptions().size()>=10)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowJuicioMayoritario11()
+	{
+		if(juicioMayoritario.getOptions().size()>=11)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowJuicioMayoritario12()
+	{
+		if(juicioMayoritario.getOptions().size()>=12)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowJuicioMayoritario13()
+	{
+		if(juicioMayoritario.getOptions().size()>=13)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowJuicioMayoritario14()
+	{
+		if(juicioMayoritario.getOptions().size()>=14)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowJuicioMayoritario15()
+	{
+		if(juicioMayoritario.getOptions().size()>=15)
+			return true;
+		else
+			return false;
+	}
+
+
+	public String getJuicioMayoritarioOption0()
+	{
+		juicioMayoritarioRadio0 = "1";
+		return juicioMayoritario.getOptions().get(0);
+	}
+	public String getJuicioMayoritarioOption1()
+	{
+		juicioMayoritarioRadio1 = "1";
+		return juicioMayoritario.getOptions().get(1);
+	}
+	public String getJuicioMayoritarioOption2()
+	{
+		juicioMayoritarioRadio2 = "1";
+		return juicioMayoritario.getOptions().get(2);
+	}
+	public String getJuicioMayoritarioOption3()
+	{
+		juicioMayoritarioRadio3 = "1";
+		return juicioMayoritario.getOptions().get(3);
+	}
+	public String getJuicioMayoritarioOption4()
+	{
+		juicioMayoritarioRadio4 = "1";
+		return juicioMayoritario.getOptions().get(4);
+	}
+	public String getJuicioMayoritarioOption5()
+	{
+		juicioMayoritarioRadio5 = "1";
+		return juicioMayoritario.getOptions().get(5);
+	}
+	public String getJuicioMayoritarioOption6()
+	{
+		juicioMayoritarioRadio6 = "1";
+		return juicioMayoritario.getOptions().get(6);
+	}
+	public String getJuicioMayoritarioOption7()
+	{
+		juicioMayoritarioRadio7 = "1";
+		return juicioMayoritario.getOptions().get(7);
+	}
+	public String getJuicioMayoritarioOption8()
+	{
+		juicioMayoritarioRadio8 = "1";
+		return juicioMayoritario.getOptions().get(8);
+	}
+	public String getJuicioMayoritarioOption9()
+	{
+		juicioMayoritarioRadio9 = "1";
+		return juicioMayoritario.getOptions().get(9);
+	}
+	public String getJuicioMayoritarioOption10()
+	{
+		juicioMayoritarioRadio10 = "1";
+		return juicioMayoritario.getOptions().get(10);
+	}
+	public String getJuicioMayoritarioOption11()
+	{
+		juicioMayoritarioRadio11 = "1";
+		return juicioMayoritario.getOptions().get(11);
+	}
+	public String getJuicioMayoritarioOption12()
+	{
+		juicioMayoritarioRadio12 = "1";
+		return juicioMayoritario.getOptions().get(12);
+	}
+	public String getJuicioMayoritarioOption13()
+	{
+		juicioMayoritarioRadio13 = "1";
+		return juicioMayoritario.getOptions().get(13);
+	}
+	public String getJuicioMayoritarioOption14()
+	{
+		juicioMayoritarioRadio14 = "1";
+		return juicioMayoritario.getOptions().get(14);
+	}
+
+	public Object onSuccessFromJuicioMayoritarioForm()
+	{
+		if(request.isXHR())
+		{
+			if(showErrorJuicioMayoritario){
+				return this;
+			}
+			else {
+				if(ballot.isPublica())
+				{
+					ballot=ballotDao.getById(contextBallotId);
+					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
+					{
+
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio0); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(0));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio1); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(1));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio2); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(2));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio3); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(3));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio4); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(4));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio5); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(5));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio6); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(6));
+						System.out.println("Radio 7 "+juicioMayoritarioRadio7);
+						if(!(juicioMayoritarioRadio7 == null)){
+							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio7); i++)
+								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(7));
+						}
+						if(!(juicioMayoritarioRadio8 == null)){
+							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio8); i++)
+								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(8));
+						}
+						if(!(juicioMayoritarioRadio9 == null)){
+							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio9); i++)
+								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(9));
+
+						}
+						if(!(juicioMayoritarioRadio10 == null)){
+							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio10); i++)
+								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(10));}
+					}
+
+
+					if(!(juicioMayoritarioRadio11 == null)){
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio11); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(11));
+					}
+					if(!(juicioMayoritarioRadio12 == null)){
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio12); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(12));
+					}
+					if(!(juicioMayoritarioRadio13 == null)){
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio13); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(13));
+					}
+					if(!(juicioMayoritarioRadio14 == null)){
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio14); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(14));
+					}
+					juicioMayoritarioDao.update(juicioMayoritario);
+					addPublicVote();
+				}
+
+				else
+				{
+
+					vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+					ballot=ballotDao.getById(contextBallotId);
+
+					if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+					{
+						vote.setCounted(true);
+						voteDao.updateVote(vote);
+
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio0); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(0));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio1); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(1));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio2); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(2));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio3); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(3));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio4); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(4));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio5); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(5));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio6); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(6));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio7); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(7));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio8); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(8));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio9); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(9));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio10); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(10));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio11); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(11));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio12); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(12));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio13); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(13));
+						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio14); i++)
+							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(14));
+						juicioMayoritarioDao.update(juicioMayoritario);
+					}
+				}
+
+				contextResultBallotId=contextBallotId;
+				componentResources.discardPersistentFieldChanges();
+				return VoteCounted.class;
+			}
+		}
+		return VoteCounted.class;
+
+
+	}
+
+	public boolean isShowJuicioMayoritario()
+	{
+		if(ballot==null)
+		{
+			return false;
+		}
+		if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
 		{
 			return true;
 		}

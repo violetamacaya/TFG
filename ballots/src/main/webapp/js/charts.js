@@ -51,7 +51,12 @@ charts= Class.create( {
             {
             	data.addColumn('string', 'Option');
                 data.addColumn('number', 'Votos');
-            }           
+            }       
+            if(type=="MAYORITARIO")
+            {
+            	data.addColumn('string', 'Option');
+                data.addColumn('number', 'Votos');
+            }    
             var firstItem=true;
           
             array.forEach(function(obj)
@@ -104,6 +109,10 @@ charts= Class.create( {
             {
             	chart= new google.visualization.ColumnChart(document.getElementById('chart_div'));
             }   
+            if(type=="MAYORITARIO")
+            {
+            	chart= new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            }   
             chart.draw(data, options);
           }
     }
@@ -147,4 +156,9 @@ Tapestry.Initializer.charts_votoAcumulativo = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("ACUMULATIVO",array);
+}
+Tapestry.Initializer.charts_juicioMayoritario = function(spec) {
+	
+	var array=JSON.parse(spec);
+	new charts("MAYORITARIO",array);
 }

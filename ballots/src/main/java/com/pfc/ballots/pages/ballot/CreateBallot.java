@@ -59,6 +59,7 @@ import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Brams;
+import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
@@ -153,6 +154,7 @@ public class CreateBallot {
 		rangeModel=NUMBERS2_7;
 		bramsModel=NUMBERS7_15;
 		votoAcumulativoModel=NUMBERS2_15;
+		juicioMayoritarioModel=NUMBERS7_15;
 
 		numOpt=2;
 		bordaOpt1=2;
@@ -202,6 +204,9 @@ public class CreateBallot {
 
 		showVotoAcumulativo=false;
 		showErrorVotoAcumulativo=false;
+		
+		showJuicioMayoritario=false;
+		showErrorJuicioMayoritario=false;		
 		
 		showKemeny=false;
 		showErrorKemeny=false;
@@ -633,6 +638,12 @@ public class CreateBallot {
 					showType=false;
 					showVotoAcumulativo=true;
 					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("votoAcumulativoZone",votoAcumulativoZone);
+				}
+				else if(method==Method.JUICIO_MAYORITARIO)
+				{
+					showType=false;
+					showJuicioMayoritario=true;
+					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("juicioMayoritarioZone",juicioMayoritarioZone);
 				}
 			}
 		}
@@ -2877,7 +2888,305 @@ public class CreateBallot {
 		return null;
 	}
 
-	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////// JuicioMayoritario ZONE /////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@InjectComponent
+	private Zone juicioMayoritarioZone;
+	@Property
+	@Persist
+	private boolean showJuicioMayoritario;
+	@Property
+	@Persist
+	private boolean showErrorJuicioMayoritario;
+	@Property
+	@Persist
+	private boolean showRepeatedJuicioMayoritario;
+	@Persist
+	private JuicioMayoritario juicioMayoritario;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String juicioMayoritarioNumOptions;
+	@Persist
+	private int numOptJuicioMayoritario;
+	@Property
+	@Persist 
+	private String [] juicioMayoritarioModel;
+
+	@Property
+	@Persist
+	private String juicioMayoritarioOption1;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption2;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption3;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption4;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption5;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption6;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption7;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption8;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption9;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption10;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption11;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption12;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption13;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption14;
+	@Property
+	@Persist
+	private String juicioMayoritarioOption15;
+
+
+	private String optionJuicioMayoritario;
+	public String getOptionJuicioMayoritario() {
+		return optionJuicioMayoritario;
+	}
+	public void setOptionJuicioMayoritario(String optionJuicioMayoritario) {
+		this.optionJuicioMayoritario = optionJuicioMayoritario;
+	}
+
+	/**
+	 * Controls the number of options for the juicioMayoritario voting
+	 * @param str
+	 */
+	public void  onValueChangedFromJuicioMayoritarioSel(String str)
+	{
+		numOptJuicioMayoritario=Integer.parseInt(str);
+		ajaxResponseRenderer.addRender("juicioMayoritarioZone", juicioMayoritarioZone);
+	}
+
+	public boolean isShowJuicioMayoritario8()
+	{
+		if(numOptJuicioMayoritario>=8)
+			return true;
+		return false;
+	}
+	public boolean isShowJuicioMayoritario9()
+	{
+		if(numOptJuicioMayoritario>=9)
+			return true;
+		return false;
+	}
+	public boolean isShowJuicioMayoritario10()
+	{
+		if(numOptJuicioMayoritario>=10)
+			return true;
+		return false;
+	}
+	public boolean isShowJuicioMayoritario11()
+	{
+		if(numOptJuicioMayoritario>=11)
+			return true;
+		return false;
+	}
+	public boolean isShowJuicioMayoritario12()
+	{
+		if(numOptJuicioMayoritario>=12)
+			return true;
+		return false;
+	}
+	public boolean isShowJuicioMayoritario13()
+	{
+		if(numOptJuicioMayoritario>=13)
+			return true;
+		return false;
+	}
+	public boolean isShowJuicioMayoritario14()
+	{
+		if(numOptJuicioMayoritario>=14)
+			return true;
+		return false;
+	}
+	public boolean isShowJuicioMayoritario15()
+	{
+		if(numOptJuicioMayoritario>=15)
+			return true;
+		return false;
+	}
+	/**
+	 * Checks the options of the juicioMayoritario voting
+	 */
+	public void onValidateFromJuicioMayoritarioForm()
+	{
+		showErrorJuicioMayoritario=false;
+		showRepeatedJuicioMayoritario=false;
+		if(juicioMayoritarioOption1==null || juicioMayoritarioOption2==null)
+		{
+
+			showErrorJuicioMayoritario=true;
+		}
+
+		switch(numOptJuicioMayoritario)
+		{
+		case 15:
+			if(juicioMayoritarioOption15==null){showErrorJuicioMayoritario=true;}
+		case 14:
+			if(juicioMayoritarioOption14==null){showErrorJuicioMayoritario=true;}
+		case 13:
+			if(juicioMayoritarioOption13==null){showErrorJuicioMayoritario=true;}
+		case 12:
+			if(juicioMayoritarioOption12==null){showErrorJuicioMayoritario=true;}
+		case 11:
+			if(juicioMayoritarioOption11==null){showErrorJuicioMayoritario=true;}
+		case 10:
+			if(juicioMayoritarioOption10==null){showErrorJuicioMayoritario=true;}
+		case 9:
+			if(juicioMayoritarioOption9==null){showErrorJuicioMayoritario=true;}
+		case 8:
+			if(juicioMayoritarioOption8==null){showErrorJuicioMayoritario=true;}
+			break;
+		default:
+			showErrorJuicioMayoritario=false;
+		}
+		if(!showErrorJuicioMayoritario)//añadir las opciones
+		{
+			List<String> listOptions=new LinkedList<String>();
+			listOptions.add(juicioMayoritarioOption1);
+			listOptions.add(juicioMayoritarioOption2);
+			listOptions.add(juicioMayoritarioOption3);
+			listOptions.add(juicioMayoritarioOption4);
+			listOptions.add(juicioMayoritarioOption5);
+			listOptions.add(juicioMayoritarioOption6);
+			listOptions.add(juicioMayoritarioOption7);
+			
+			if(numOptJuicioMayoritario>=8)
+			{
+				listOptions.add(juicioMayoritarioOption8);
+			}
+			if(numOptJuicioMayoritario>=9)
+			{
+				listOptions.add(juicioMayoritarioOption9);
+			}
+			if(numOptJuicioMayoritario>=10)
+			{
+				listOptions.add(juicioMayoritarioOption10);
+			}
+			if(numOptJuicioMayoritario>=11)
+			{
+				listOptions.add(juicioMayoritarioOption11);
+			}
+			if(numOptJuicioMayoritario>=12)
+			{
+				listOptions.add(juicioMayoritarioOption12);
+			}
+			if(numOptJuicioMayoritario>=13)
+			{
+				listOptions.add(juicioMayoritarioOption13);
+			}
+			if(numOptJuicioMayoritario>=14)
+			{
+				listOptions.add(juicioMayoritarioOption14);
+			}
+			if(numOptJuicioMayoritario>=15)
+			{
+				listOptions.add(juicioMayoritarioOption15);
+			}
+			for(int x=0;x<listOptions.size();x++)
+			{
+				for(int i=x+1;i<listOptions.size();i++)
+				{
+					if(listOptions.get(x).toLowerCase().equals(listOptions.get(i).toLowerCase()))
+					{
+						showRepeatedJuicioMayoritario=true; 
+					}
+
+				}
+			}
+			juicioMayoritario=new JuicioMayoritario(listOptions);
+		}
+	}
+
+	/**
+	 * Stores all the necessary data of the ballot
+	 * @return
+	 */
+	public Object onSuccessFromJuicioMayoritarioForm()
+	{
+		if(request.isXHR())
+		{//añadir las opciones
+
+			if(showErrorJuicioMayoritario || showRepeatedJuicioMayoritario)
+			{
+				ajaxResponseRenderer.addRender("juicioMayoritarioZone", juicioMayoritarioZone);
+			}
+			else //No hay errores
+			{
+				ballot=setBallotData();
+				juicioMayoritario.setId(UUID.generate());
+				ballot.setIdBallotData(juicioMayoritario.getId());
+				juicioMayoritario.setBallotId(ballot.getId());
+
+				voteDao=DB4O.getVoteDao(datasession.getDBName());
+				juicioMayoritarioDao=DB4O.getJuicioMayoritarioDao(datasession.getDBName());
+
+				if(ballot.isTeaching())//Votacion Docente
+				{
+					//Genera votos aleatoriamente para la votacion docente
+					ballot.setIdCensus("none");
+					juicioMayoritario.setVotes(GenerateDocentVotes.generateJuicioMayoritario(juicioMayoritario.getOptions(), Integer.parseInt(census)));
+					//HACER RECUENTO VOTOS AQUI PARA DOCENTES
+					juicioMayoritario.calcularJuicioMayoritario();
+					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+					this.sendMail(datasession.getId(), ballot);
+					ballot.setEnded(true);
+					ballot.setCounted(true);
+					voteDao.store(vote);
+				}
+				else if(ballotKind==BallotKind.PUBLICA){
+					ballot.setIdCensus("none");
+				}
+				else
+				{
+					boolean creatorInCensus=false;
+					this.sendMail(censusNormal,ballot);
+					for(String idUser:censusNormal.getUsersCounted())
+					{
+						if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+
+						voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+					}
+					if(!creatorInCensus)
+					{
+						// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+						//this.sendMail(datasession.getId(), ballot);
+					}
+
+				}
+
+				juicioMayoritarioDao.store(juicioMayoritario);
+				ballotDao.store(ballot);
+				return BallotWasCreated.class;
+			}
+		}
+		return null;
+	}
+
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////// BACK EVENT /////////////////////////////////////////////////////////////////////
@@ -2930,6 +3239,12 @@ public class CreateBallot {
 				showType=true;
 				showVotoAcumulativo=false;
 				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("votoAcumulativoZone",votoAcumulativoZone);
+			}	
+			if(from.equals("fromJuicioMayoritario"))
+			{
+				showType=true;
+				showJuicioMayoritario=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("juicioMayoritarioZone",juicioMayoritarioZone);
 			}	
 		}
 	}
@@ -3009,7 +3324,10 @@ public class CreateBallot {
 		{
 			metodo="Voto Acumulativo";
 		}
-
+		else if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
+		{
+			metodo="Juicio Mayoritario";
+		}
 		if(ballotMail.isTeaching())
 		{
 			subject="Votacion docente "+metodo+": "+ballotMail.getName();
@@ -3071,6 +3389,10 @@ public class CreateBallot {
 		else if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
 		{
 			metodo="Voto Acumulativo";
+		}
+		else if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
+		{
+			metodo="Juicio Mayoritario";
 		}
 		if(ballotMail.isTeaching())
 		{

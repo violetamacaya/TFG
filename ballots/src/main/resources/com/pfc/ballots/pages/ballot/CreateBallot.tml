@@ -889,7 +889,121 @@
 				</t:eventlink>
 			</t:if>
 		</t:zone>
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////Juicio Mayoritario ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
 
+		<t:zone t:id="juicioMayoritarioZone" id="juicioMayoritarioZone"
+			t:update="show">
+			<t:if test="showjuicioMayoritario">
+				<h4>${message:juicioMayoritario-voting}</h4>
+				<t:form t:id="juicioMayoritarioForm" t:zone="^">
+					<t:if test="showErrorJuicioMayoritario">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedJuicioMayoritario">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="juicioMayoritarioSel" /></td>
+							<td><t:select t:id="juicioMayoritarioSel"
+									value="juicioMayoritarioNumOptions"
+									t:model="juicioMayoritarioModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="juicioMayoritarioOption1" /></td>
+							<td><t:textfield t:id="juicioMayoritarioOption1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="juicioMayoritarioOption2" /></td>
+							<td><t:textfield t:id="juicioMayoritarioOption2" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="juicioMayoritarioOption3" /></td>
+							<td><t:textfield t:id="juicioMayoritarioOption3" /></td>
+						</tr>
+
+						<tr>
+							<td><t:label for="juicioMayoritarioOption4" /></td>
+							<td><t:textfield t:id="juicioMayoritarioOption4" /></td>
+						</tr>
+
+						<tr>
+							<td><t:label for="juicioMayoritarioOption5" /></td>
+							<td><t:textfield t:id="juicioMayoritarioOption5" /></td>
+						</tr>
+
+						<tr>
+							<td><t:label for="juicioMayoritarioOption6" /></td>
+							<td><t:textfield t:id="juicioMayoritarioOption6" /></td>
+						</tr>
+
+						<tr>
+							<td><t:label for="juicioMayoritarioOption7" /></td>
+							<td><t:textfield t:id="juicioMayoritarioOption7" /></td>
+						</tr>
+						<t:if test="showJuicioMayoritario8">
+							<tr>
+								<td><t:label for="juicioMayoritarioOption8" /></td>
+								<td><t:textfield t:id="juicioMayoritarioOption8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showJuicioMayoritario9">
+							<tr>
+								<td><t:label for="juicioMayoritarioOption9" /></td>
+								<td><t:textfield t:id="juicioMayoritarioOption9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showJuicioMayoritario10">
+							<tr>
+								<td><t:label for="juicioMayoritarioOption10" /></td>
+								<td><t:textfield t:id="juicioMayoritarioOption10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showJuicioMayoritario11">
+							<tr>
+								<td><t:label for="juicioMayoritarioOption11" /></td>
+								<td><t:textfield t:id="juicioMayoritarioOption11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showJuicioMayoritario12">
+							<tr>
+								<td><t:label for="juicioMayoritarioOption12" /></td>
+								<td><t:textfield t:id="juicioMayoritarioOption12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showJuicioMayoritario13">
+							<tr>
+								<td><t:label for="juicioMayoritarioOption13" /></td>
+								<td><t:textfield t:id="juicioMayoritarioOption13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showJuicioMayoritario14">
+							<tr>
+								<td><t:label for="juicioMayoritarioOption14" /></td>
+								<td><t:textfield t:id="juicioMayoritarioOption14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showJuicioMayoritario15">
+							<tr>
+								<td><t:label for="juicioMayoritarioOption15" /></td>
+								<td><t:textfield t:id="juicioMayoritarioOption15" /></td>
+							</tr>
+						</t:if>
+					</table>
+
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+				</t:form>
+				<br />
+				<t:eventlink t:event="back"
+					t:context="prop:['fromjuiciomayoritario','toType']" t:zone="^">
+					<button>${message:back-but}</button>
+				</t:eventlink>
+			</t:if>
+		</t:zone>
 
 
 

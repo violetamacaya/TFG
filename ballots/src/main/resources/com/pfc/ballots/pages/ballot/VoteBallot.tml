@@ -552,7 +552,246 @@
 				</t:zone>
 			</t:if>
 
+		<!--/////////////////////////////////// JuicioMayoritario /////////////////////////////////////////// -->
 
+
+
+			<t:if test="showJuicioMayoritario">
+
+				<t:zone t:id="juicioMayoritarioZone" t:update="show">
+
+					<t:if test="showErrorJuicioMayoritario">
+						<span class="error">${message:juicioMayoritario-error}</span>
+					</t:if>
+					
+					${message:instructions-juicioMayoritario}<br />
+
+					<t:form t:id="juicioMayoritarioForm" t:zone="^">
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+								<td style="text-align: center;">Muy malo</td>
+								<td style="text-align: center;">Malo</td>
+								<td style="text-align: center;">Regular</td>
+								<td style="text-align: center;">Bueno</td>
+								<td style="text-align: center;">Muy bueno</td>
+							</tr>
+
+							<tr>
+								<td>${juicioMayoritarioOption0}</td>
+								<t:radioGroup value="juicioMayoritarioRadio0"
+									id="radioGroupJuicioMayoritario0" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+							<tr>
+								<td>${juicioMayoritarioOption1}</td>
+								<t:radioGroup value="juicioMayoritarioRadio1"
+									id="radioGroupJuicioMayoritario1" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+
+								<tr>
+									<td>${juicioMayoritarioOption2}</td>
+									<t:radioGroup value="juicioMayoritarioRadio2"
+										id="radioGroupJuicioMayoritario2" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+								<tr>
+									<td>${juicioMayoritarioOption3}</td>
+									<t:radioGroup value="juicioMayoritarioRadio3"
+										id="radioGroupJuicioMayoritario2" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+								<tr>
+									<td>${juicioMayoritarioOption4}</td>
+									<t:radioGroup value="juicioMayoritarioRadio4"
+										id="radioGroupJuicioMayoritario4" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									
+								</t:radioGroup>
+								</tr>
+
+								<tr>
+									<td>${juicioMayoritarioOption5}</td>
+									<t:radioGroup value="juicioMayoritarioRadio5"
+										id="radioGroupJuicioMayoritario5" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+
+								<tr>
+									<td>${juicioMayoritarioOption6}</td>
+									<t:radioGroup value="juicioMayoritarioRadio6"
+										id="radioGroupJuicioMayoritario6" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							<t:if test="showJuicioMayoritario8">
+								<tr>
+									<td>${juicioMayoritarioOption7}</td>
+									<t:radioGroup value="juicioMayoritarioRadio7"
+										id="radioGroupJuicioMayoritario7" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showJuicioMayoritario9">
+								<tr>
+									<td>${juicioMayoritarioOption8}</td>
+									<t:radioGroup value="juicioMayoritarioRadio8"
+										id="radioGroupJuicioMayoritario8" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showJuicioMayoritario10">
+								<tr>
+									<td>${juicioMayoritarioOption9}</td>
+									<t:radioGroup value="juicioMayoritarioRadio9"
+										id="radioGroupJuicioMayoritario9" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showJuicioMayoritario11">
+								<tr>
+									<td>${juicioMayoritarioOption10}</td>
+									<t:radioGroup value="juicioMayoritarioRadio10"
+										id="radioGroupJuicioMayoritario10" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showJuicioMayoritario12">
+								<tr>
+									<td>${juicioMayoritarioOption11}</td>
+									<t:radioGroup value="juicioMayoritarioRadio11"
+										id="radioGroupJuicioMayoritario11" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showJuicioMayoritario13">
+								<tr>
+									<td>${juicioMayoritarioOption12}</td>
+									<t:radioGroup value="juicioMayoritarioRadio12"
+										id="radioGroupJuicioMayoritario12" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									
+								</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showJuicioMayoritario14">
+								<tr>
+									<td>${juicioMayoritarioOption13}</td>
+									<t:radioGroup value="juicioMayoritarioRadio13"
+										id="radioGroupJuicioMayoritario13" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>	
+							<t:if test="showJuicioMayoritario15">
+								<tr>
+									<td>${juicioMayoritarioOption14}</td>
+									<t:radioGroup value="juicioMayoritarioRadio14"
+										id="radioGroupJuicioMayoritario14" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+															
+							<t:if test="ballot.publica">
+
+								<tr>
+
+									<td><br /> <t:kaptchaimage t:id="kaptchaJuicioMayoritario" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaJuicioMayoritario" visible="true" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</t:form>
+
+
+
+				</t:zone>
+			</t:if>
 
 
 			<!--/////////////////////////////////// Se ha votado /////////////////////////////////////////// -->
