@@ -110,7 +110,6 @@ public class ListCompany {
 	 */
 	public Object onActionFromEditBut(String CompanyName)
 	{
-		
 		updateCompany.setup(CompanyName);
 		return updateCompany;
 	}

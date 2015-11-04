@@ -1,6 +1,5 @@
 package com.pfc.ballots.entities;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.tapestry5.beaneditor.NonVisual;
@@ -31,6 +30,8 @@ public class Company {
 	@Validate("required,regexp=^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	private String AdminEmail;
 	private Date RegDate;
+	private String firstName;
+	private String lastName;
 	
 	
 	
@@ -101,5 +102,17 @@ public class Company {
 	}
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }

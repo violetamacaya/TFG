@@ -24,7 +24,7 @@
 			  	<span class="error">${message:bad-alias}</span>
 			  </t:if>		
 		   
-	       <t:beaneditform t:id="form" submitlabel="${message:create-but}" object="company" reorder="active,companyName,DBName,alias" add="password,repeat,firstName,LastName">
+	       <t:beaneditform t:id="form" submitlabel="${message:create-but}" object="company" reorder="active,companyName,DBName,alias" add="password,repeat">
 		       <p:CompanyName>
 		       		<t:label for="CompanyName"/>
 		       		<t:textfield t:id="CompanyName" value="company.CompanyName"/>
@@ -56,12 +56,12 @@
 		       
 		       <p:firstName>
 		       		<t:label for="firstName"/>
-		       		<t:textfield t:id="firstName" value="profile.firstName" validate="required"/>
+		       		<t:textfield t:id="firstName" value="company.firstName" validate="required"/>
 		       </p:firstName>
 		       
 		       <p:lastName>
 		       		<t:label for="lastName"/>
-		       		<t:textfield t:id="lastName" value="profile.lastName" validate="required"/>
+		       		<t:textfield t:id="lastName" value="company.lastName" validate="required"/>
 		       </p:lastName>
 		       
 	       </t:beaneditform>

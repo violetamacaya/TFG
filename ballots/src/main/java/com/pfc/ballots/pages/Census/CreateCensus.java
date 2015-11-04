@@ -70,7 +70,6 @@ public class CreateCensus {
 	 */
 	public void setupRender()
 	{
-		componentResources.discardPersistentFieldChanges();
 		userDao=DB4O.getUsuarioDao(datasession.getDBName());
 		censusDao=DB4O.getCensusDao(datasession.getDBName());
 		censedInDao=DB4O.getProfileCensedInDao(datasession.getDBName());
@@ -542,7 +541,8 @@ public class CreateCensus {
 		}
 		censedInDao.addIdCensus(census.getUsersCounted(), census.getId());
 		censusDao.store(census);
-		
+		componentResources.discardPersistentFieldChanges();
+
 		return CensusList.class;
 	}
 	

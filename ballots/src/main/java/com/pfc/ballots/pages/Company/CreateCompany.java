@@ -26,28 +26,78 @@ import com.pfc.ballots.util.UUID;
  * 
  * @author Mario Temprano Martin
  * @version 1.0 MAY-2014
+ * @author Violeta Macaya Sánchez
+ * @version 1.1 OCT-2015
  */
 public class CreateCompany {
-	
+
 	@SessionState
 	private DataSession datasession;
-	
-	@Inject
-    private ComponentResources componentResources;
 
+	@Inject
+	private ComponentResources componentResources;
+
+	/// Form objects
+	@Persist
+	@Property
+	private Company company;
 	
+	@Persist
+	@Property
+	private Profile profile;
+
+	@Property
+	private String password;
+	
+	@Property
+	private String repeat;
+
+	//Form booleans
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private boolean isnotPassOk;
+	
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private boolean isnotCompanyNameAvalible;
+	
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private boolean isnotDBNameAvalible;
+	
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private boolean isBadChar;
+	
+	@Property
+	@Persist(PersistenceConstants.FLASH)
+	private boolean isBadName;
+
+	@Property 
+	@Persist(PersistenceConstants.FLASH)
+	private boolean badSecurity;
+	
+	@Property 
+	@Persist(PersistenceConstants.FLASH)
+	private boolean badAlias;
+
+	//FirstTime enter in the page
+	@Persist
+	private boolean isnotFirstTime;
+
+
 	final String [] caracteresEspeciales={"!","¡","@","|","#","$","%","&","/","(",")","=","¿","?","*","+","-","_", "ñ"};
 	//****************************************Initialize DAO****************************//
-		FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
-		CompanyDao companyDao= DB4O.getCompanyDao();
-		UserDao userDao =null;
-		
+	FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
+	CompanyDao companyDao= DB4O.getCompanyDao();
+	UserDao userDao =null;
+
 	/**
 	 * Initialize data
 	 */
 	void setupRender() 
 	{
-		if(!isnotFirstTime)
+		if(!isnotFirstTime) // es la primera vez
 		{
 			profile=new Profile();
 			company=new Company();
@@ -56,67 +106,27 @@ public class CreateCompany {
 		}
 		else if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible && !badAlias)
 		{
-			componentResources.discardPersistentFieldChanges();
-			profile=new Profile();
-			company=new Company();
+
+			//profile=new Profile();
+			//company=new Company();
 			company.setActive(true);
 		}
 	}
 
-	
-	/// Form objects
-		@Persist
-		@Property
-		private Company company;
-		@Persist
-		@Property
-		private Profile profile;
-		
-		@Property
-		private String password;
-		@Property
-		private String repeat;
 
-		//Form booleans
-		@Property
-		@Persist(PersistenceConstants.FLASH)
-		private boolean isnotPassOk;
-		@Property
-		@Persist(PersistenceConstants.FLASH)
-		private boolean isnotCompanyNameAvalible;
-		@Property
-		@Persist(PersistenceConstants.FLASH)
-		private boolean isnotDBNameAvalible;
-		@Property
-		@Persist(PersistenceConstants.FLASH)
-		private boolean isBadChar;
-		@Property
-		@Persist(PersistenceConstants.FLASH)
-		private boolean isBadName;
-		
-		@Property 
-		@Persist(PersistenceConstants.FLASH)
-		private boolean badSecurity;
-		@Property 
-		@Persist(PersistenceConstants.FLASH)
-		private boolean badAlias;
-		
-		//FirstTime enter in the page
-		private boolean isnotFirstTime;
-		
-		
+
 	/**
 	 * Stores the company
 	 */
 	Object onSuccess()
 	{
-		
+
 		company.setCompanyName(company.getCompanyName().toLowerCase());
 		if(company.getCompanyName().equals("login"))
 		{
 			isBadName=true;
 		}
-		
+
 		if(companyDao.isCompanyRegistred(company.getCompanyName()))
 		{
 			isnotCompanyNameAvalible=true;
@@ -134,8 +144,8 @@ public class CreateCompany {
 		{
 			isnotPassOk=true;
 		}
-		
-		
+
+
 		badSecurity=true;
 		for(String car:caracteresEspeciales)
 		{
@@ -144,7 +154,6 @@ public class CreateCompany {
 				badSecurity=false;
 			}
 		}
-		
 		//If all data are correct, store them in database
 		if(!isnotPassOk && !isnotCompanyNameAvalible && !isnotDBNameAvalible && !isBadChar && !isBadName && !badSecurity && !badAlias)
 		{
@@ -158,44 +167,46 @@ public class CreateCompany {
 			profile.setAdmin(true);
 			profile.setEmail(company.getAdminEmail());
 			profile.setPassword(encrypt);
-			
+
 			profile.setOwner(true);
-			
+			company.setFirstName(company.getFirstName());
+			company.setLastName(company.getLastName());
 			userDao.store(profile);
 			companyDao.store(company);
 			componentResources.discardPersistentFieldChanges();
-			return ListCompany.class;
 			
+			return ListCompany.class;
+
 		}
 		return null;
 	}
-	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
-	* Controls if the user can enter in the page
-	* @return another page if the user can't enter
-	*/
+	 * Controls if the user can enter in the page
+	 * @return another page if the user can't enter
+	 */
 	public Object onActivate()
 	{
 		switch(datasession.sessionState())
 		{
-			case 0:
-				return Index.class;
-			case 1:
-				return UnauthorizedAttempt.class;
-			case 2:
-				if(datasession.isMainUser())
-				{
-					return null;
-				}
-				return UnauthorizedAttempt.class;
-			case 3:
-				return SessionExpired.class;
-			default:
-				return Index.class;
+		case 0:
+			return Index.class;
+		case 1:
+			return UnauthorizedAttempt.class;
+		case 2:
+			if(datasession.isMainUser())
+			{
+				return null;
+			}
+			return UnauthorizedAttempt.class;
+		case 3:
+			return SessionExpired.class;
+		default:
+			return Index.class;
 		}
-		
+
 	}
-	
+
 }

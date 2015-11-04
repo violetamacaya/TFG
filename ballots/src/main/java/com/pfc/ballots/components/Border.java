@@ -4,10 +4,13 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.annotations.Environmental;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
@@ -87,6 +90,9 @@ import com.pfc.ballots.pages.Methods.VotoAcumulativoMethod;
 public class Border {
 
 	/***************************************** Ajax menu stuff *******************************************************************/
+    @Inject
+    private JavaScriptSupport javaScriptSupport;
+	
 	@Inject
 	private Request request;
 	
@@ -186,7 +192,7 @@ public class Border {
 	private String localeLabel;
 	@Inject
 	
-	private JavaScriptSupport javaScriptSupport;
+
 	
 	//get locale label ------------------------------------------------------------------------------------------------------------
 	public String getLocaleLabel()
@@ -224,7 +230,8 @@ public class Border {
 	{
 		//Ampliar el tamaño de la letra
 		//body, table, input, select 
-		javaScriptSupport.addInitializerCall("increase","increase");
+		System.out.println("En el action de increase");
+		//javaScriptSupport.addScriptLink(increase);
 		
 	}
 	
@@ -477,4 +484,6 @@ public class Border {
 		}
 		return page;
 	}
+	
+
 }

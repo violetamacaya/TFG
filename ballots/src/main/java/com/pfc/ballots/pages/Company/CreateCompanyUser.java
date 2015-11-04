@@ -104,6 +104,9 @@ public class CreateCompanyUser {
 			censedInDao.store(censedIn);
 			profile=new Profile();
 		}
+		else{
+			return null;
+		}
 		return ListCompanyUsers.class;
 	}
 	

@@ -74,15 +74,7 @@ public class CreateProfile {
 			profile=new Profile();
 			isnotFirstTime=true;
 		}
-		else if(!isnotPassOk && !isnotAvalible)
-		{
-			//componentResources.discardPersistentFieldChanges();
-			//profile=new Profile();
-		}
-		if(profile==null || !badCaptcha || isnotPassOk || isnotAvalible)
-		{
-			profile=new Profile();
-		}
+
 		
 	}
 	//////////////////////////////////////////////////////// PAGE STUFF /////////////////////////////////////

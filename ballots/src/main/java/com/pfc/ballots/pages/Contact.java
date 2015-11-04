@@ -38,7 +38,6 @@ public class Contact
 		if(!Mail.checkAccount(emailAccount))
 		{
 			showEmailProblem=true;
-			System.out.println("--------------------\nHOLA");
 		}
 
 		

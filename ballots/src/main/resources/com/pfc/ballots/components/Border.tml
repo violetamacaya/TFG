@@ -14,7 +14,9 @@
 			<t:actionlink t:id="switchlocale"><img src="${asset:context:/layout/flag.gif}" /></t:actionlink>
 		</div>
 		<div id="letterSize">
-			<t:actionlink t:id="increaseSize"><img src="${asset:context:/layout/lupa.png}" /></t:actionlink>
+			<t:actionlink t:id="increaseSize"><img src="${asset:context:/layout/lupa.png}" />
+			
+			</t:actionlink>
 			
 		</div>
 		<div id="letterSizeLess">

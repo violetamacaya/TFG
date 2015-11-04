@@ -35,7 +35,7 @@
 						</tr>
 						<tr>
 							<td></td>
-							<td><t:kaptchafield image="kaptcha" type="text" /></td>
+							<td><t:kaptchafield style="width:200px;" visible="true" image="kaptcha" type="text" /></td>
 						</tr>
 						<tr>
 							<td></td>

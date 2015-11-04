@@ -50,11 +50,7 @@ public class AdminCreateProfile {
 			profile=new Profile();
 			isnotFirstTime=true;
 		}
-		else if(!isnotPassOk && !isnotAvalible)
-		{
-			componentResources.discardPersistentFieldChanges();
-			profile=new Profile();
-		}
+
 		
 		
 	}

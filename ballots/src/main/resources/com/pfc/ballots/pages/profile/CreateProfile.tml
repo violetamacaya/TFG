@@ -45,7 +45,7 @@
 					</p:repeat>
 			<p:email>
 				<t:label for="email" />
-				<t:textfield t:id="email" value="profile.email" />
+				<t:textfield t:id="email" value="profile.email"/>
 
 			</p:email>
 			<p:password>
@@ -59,7 +59,7 @@
 			<div id="kaptcha">
 				<t:kaptchaimage t:id="kaptcha"/>
 				<br /><br />
-			<t:kaptchafield image="kaptcha" type="text"/>
+			<t:kaptchafield style="width:200px;" image="kaptcha" visible="true" type="text"/>
 			<br />
 			${message:captcha}	
 				</div>
