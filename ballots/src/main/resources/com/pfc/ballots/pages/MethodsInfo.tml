@@ -1,0 +1,34 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<head>
+	<title>${message:page-title}</title>
+	 <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
+ </head>
+	<t:border>
+	
+		<body>
+		<ul id="methodsList">
+				<li><t:eventlink t:event="menu"  t:context="literal:approvalVoting"><plain>${message:approvalVoting}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:black"><plain>${message:black}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:borda"><plain>${message:borda}</plain></t:eventlink></li>				
+				<li><t:eventlink t:event="menu"  t:context="literal:brams"><plain>${message:brams}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:bucklin"><plain>${message:bucklin}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:condorcet"><plain>${message:condorcet}</plain></t:eventlink></li>			
+				<li><t:eventlink t:event="menu"  t:context="literal:coombs"><plain>${message:coombs}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:copeland"><plain>${message:copeland}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:dodgson"><plain>${message:dodgson}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:hare"><plain>${message:hare}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:juiciomayoritario"><plain>${message:juicioMayoritario}</plain></t:eventlink></li>				
+				<li><t:eventlink t:event="menu"  t:context="literal:kemeny"><plain>${message:kemeny}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:majory"><plain>${message:majory}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:mejorPeor"><plain>${message:mejorPeor}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:nanson"><plain>${message:nanson}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:rangeVoting"><plain>${message:rangeVoting}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:schulze"><plain>${message:schulze}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:approvalVoting"><plain>${message:approvalVoting}</plain></t:eventlink></li>
+				<li><t:eventlink t:event="menu"  t:context="literal:small"><plain>${message:small}</plain></t:eventlink></li>				
+				<li><t:eventlink t:event="menu"  t:context="literal:votoAcumulativo"><plain>${message:votoAcumulativo}</plain></t:eventlink></li>
+		</ul>
+		</body>
+	</t:border>
+</html>

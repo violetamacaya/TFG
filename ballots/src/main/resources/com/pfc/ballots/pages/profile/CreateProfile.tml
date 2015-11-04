@@ -1,36 +1,74 @@
-<html xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-   
-	<t:border xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
-	
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
+	<div id="userlistDiv">
+
+		<h1>${message:create-profile}</h1>
+		<hr />
+		<infouser> 
 		
-		<infouser>
-			<t:beaneditform t:id="form" submitlabel="Anadir" object="profile" add="repeat" reorder="email,password,repeat">
+		<t:if test="badCaptcha">
+			<span class="error">${message:badCaptcha}</span>
+		</t:if> 
+		
+		<t:if test="isnotAvalible">
+			<span class="error">${message:non-available-email}</span>
+		</t:if> 
+		
+		<t:if test="isnotPassOk">
+			<span class="error">${message:pass-not-match}</span>
+		</t:if> 
+		
+		<t:if test="badSecurity">
+			<span class="error">${message:bad-security}</span>
+		</t:if> 
+		
+		<t:if test="numbersInPass">
+			<span class="error">${message:bad-numbers}</span>
+		</t:if> 
+		
+		
+		<t:beaneditform t:id="form" submitclass="boton"
+			submitlabel="${message:send-but}" object="profile"
+			reorder="email,password, repeat" add="repeat, kaptcha"  exclude="teacher,admin,owner,maker">
+
+			<p:repeat>
+						<t:label for="repeat"/>
+						<t:passwordfield t:id="repeat" value="repeat" validate="required,minLength=8"/>
+					</p:repeat>
 			<p:email>
-				<t:label for="email"/>
+				<t:label for="email" />
 				<t:textfield t:id="email" value="profile.email"/>
-				<t:if test="isnotAvalible">
-					Ya hay una cuenta registrada con este email
-				</t:if>
+
 			</p:email>
 			<p:password>
-				<t:label for="password"/>
-				<t:passwordfield t:id="password" value="password"/>
-				<t:if test="isnotPassOk">
-					contraseñas distintas	
-				</t:if>
-			</p:password>
-			<p:repeat>
-				<t:label for="repeat">Repeat Password</t:label>
-				<t:passwordfield t:id="repeat" value="repeat"/>
-			</p:repeat>
-			</t:beaneditform>
-		</infouser>
-	
-	</t:border>
-	
-		
-			
-	
+				<t:label for="password" />
+				<t:passwordfield t:id="password" value="password"
+					validate="required,minLength=8" />
 
+			</p:password>
+			
+			<p:kaptcha >
+			<div id="kaptcha">
+				<t:kaptchaimage t:id="kaptcha"/>
+				<br /><br />
+			<t:kaptchafield style="width:200px;" image="kaptcha" visible="true" type="text"/>
+			<br />
+			${message:captcha}	
+				</div>
+				
+			</p:kaptcha>
+			
+		</t:beaneditform> 
+		</infouser>
+	</div>
+</t:border>
 
 </html>

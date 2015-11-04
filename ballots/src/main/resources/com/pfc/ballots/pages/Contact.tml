@@ -1,7 +1,59 @@
-<html t:type="layout" title="Contact com.pfc"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:p="tapestry:parameter">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<head><title>${message:page-title}</title>
+ <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
+	</head>   
+	<t:border><div id="contactDiv">
+	
+	
+	<h1>${message:contact-with-us}</h1><hr/>
+	
+		<t:if test="showEmailProblem">
+			<h1>${message:mail-problem}</h1>
+			${message:in-this-moments}<br/>
+			${message:please}<br/>
+			${message:sorry}
+			
+			
+			
+			<p:else>
+				<t:form t:id="contact">
+					${message:our-email} ${emailAccount.email}<br/><br/>
+					<table>
+						<tr>
+							<td><t:Label t:for="remitente"/></td>
+							<td><t:textfield t:id="remitente"/></td>
+						</tr>
 
-    <p>Contact com.pfc ...</p>
+						<tr>
+							<td><t:Label t:for="text" /></td>
+							<td><t:TextArea t:id="text"></t:TextArea></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><t:kaptchaimage t:id="kaptcha" /></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><t:kaptchafield style="width:200px;" visible="true" image="kaptcha" type="text" /></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>${message:captcha}</td>
+						</tr>
 
+						<tr id="boton-enviar">
+							<td><input t:type="submit" value="${message:send}" class="boton"/></td>
+						</tr>
+					
+					</table>
+				</t:form>
+		
+			</p:else>
+		</t:if>
+
+	
+	
+
+	</div></t:border>
 </html>

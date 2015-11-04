@@ -1,0 +1,11 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="refresh" content="5; URL=Index"/>
+<head><title>Unauthorized Attempt</title>
+ <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/></head> 
+
+	<h1>Unauthorized Attempt</h1><br/>
+	<t:pagelink page="index">INDEX</t:pagelink>
+
+
+</html>

@@ -1,0 +1,246 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     <head><title>${message:page-title}</title>
+      <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/></head>
+   
+	<t:border>
+	
+	
+	<infouser>
+	
+	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////// USER DATA ZONE /////////////////////////////////////////////////
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  -->
+		<t:zone t:id="userDataZone" id="userDataZone" t:update="show">
+		
+			<t:if test="showData">
+			<div id="showProfile">
+			<h1>${message:my-profile}</h1><hr/>
+				
+				<t:if test="notOwner">
+					<t:actionlink t:id="deleteBut" t:zone="^"><img src="${asset:context:/layout/images/remove.png}" /></t:actionlink>
+				</t:if>
+				<t:actionlink t:id="updateProfile" zone="^"><img src="${asset:context:/layout/images/edit.png}" /></t:actionlink>
+				
+				<table>
+					<tr>
+						<td>${message:email}:</td>
+						<td>${profile.email }</td>
+					</tr>
+					<tr>
+						<td>${message:admin}:</td>
+						<td><t:if test="profile.admin">${message:yes}<p:else>No</p:else></t:if></td>
+					</tr>
+					<tr>
+						<td>${message:maker}:</td>
+						<td><t:if test="profile.maker">${message:yes}<p:else>No</p:else></t:if></td>
+					</tr>
+					<tr>
+					<td>${message:teacher}:</td>
+						<td><t:if test="profile.teacher">${message:yes}<p:else>No</p:else></t:if></td>
+					</tr>
+					<t:if test="companyUser">
+						<tr>
+							<td>${message:company}:</td>
+							<td>${company.companyname }</td>
+						</tr>
+					</t:if>
+
+					<tr>
+						<td>${message:firstname}:</td>
+						<td>${profile.firstname }</td>
+					</tr>
+					<tr>
+						<td>${message:lastname}:</td>
+						<td>${profile.lastname }</td>
+					</tr>
+					<tr>
+						<td>${message:sex}:</td>
+						<td>${sex}</td>
+					</tr>
+					<tr>
+						<td>${message:city}:</td>
+						<td>${profile.city }</td>
+					</tr>
+					<tr>
+						<td>${message:country}:</td>
+						<td>${profile.country }</td>
+					</tr>
+					
+					<tr>
+						<td>${message:dni-label}:</td>
+						<td>${profile.DNI}</td>
+					</tr>
+					<tr>
+						<td>${message:phone-label}:</td>
+						<td>${profile.phone}</td>
+					</tr>
+					<tr>
+						<td>${message:fechaNac-label}:</td>
+						<td>${fechaNac}</td>
+					</tr>
+					<tr>
+						<td>${message:address-label}:</td>
+						<td>${profile.address}</td>
+					</tr>
+					<tr>
+						<td>${message:carrera-label}:</td>
+						<td>${profile.carrera}</td>
+					</tr>
+					<tr>
+						<td>${message:centro-label}:</td>
+						<td>${profile.centro}</td>
+					</tr>
+					
+					<tr id="cambioPass">
+						<td>${message:change-pass}</td>
+						<td><t:actionlink t:id="changePass" zone="^"><img src="${asset:context:/layout/images/edit.png}" class="editar"  /></t:actionlink></td>
+					</tr>
+					
+					<t:if test="mainOwner">
+						<tr id="cambioPass">
+							<td>${message:change-owner}</td>
+							<td><t:pageLink page="admin/changePrincipalOwner"><img src="${asset:context:/layout/images/edit.png}" class="editar" /></t:pageLink></td>
+						</tr>
+					</t:if>
+				</table>
+				</div>
+			</t:if>
+		</t:zone>
+	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   /////////////////////////////////////////////ARE U SURE TO DELETE//////////////////////////////////////////////
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  -->	
+		
+	<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
+		<t:if test="showSure">
+		<h1>${message:delete-profile}</h1><hr/>
+			${message:areuSure}<br/><br/>
+			<t:actionlink t:id="yesSureBut" class="butonclass"><button>${message:yesSure}</button></t:actionlink>
+			<t:actionlink t:id="notSureBut" t:zone="^" class="butonclass"><button>No</button></t:actionlink>
+		</t:if>
+	</t:zone>		
+		
+		
+
+	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   /////////////////////////////////////////////CHANGE PASS ZONE /////////////////////////////////////////////////
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  -->		
+	   <t:zone t:id="changePassZone" id="changePassZone" t:update="show">
+	   		<t:if test="showChange">
+	   			<h1>${message:change-pass}</h1><hr/>
+	   			<t:form t:id="changePassForm" zone="^">
+	   				<t:if test="samePass">
+	   					<span class="error">${message:same-pass}</span>
+	   				</t:if>
+	   				<t:if test="badSecurity">
+	   					<span class="error">${message:bad-security}</span>
+	   				</t:if>
+	   				<table>
+	   					<tr>
+	   						<td><t:label for="pass"/></td>
+	   						<td><t:passwordfield t:id="pass"/></td>
+	   						<td><t:if test="badPass">${message:invalid-pass}</t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td><t:label for="newPass1"/></td>
+	   						<td><t:passwordfield t:id="newPass1"/></td>
+	   						<td><t:if test="badMatch">${message:pass-not-match}</t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td><t:label for="newPass2"/></td>
+	   						<td><t:passwordfield t:id="newPass2"/></td>
+	   					</tr>
+	   					<tr>
+	   						<td></td>
+	   						<td><input t:type="submit" class="boton" value="${message:save-but}"/>
+	   						<t:actionlink t:id="cancelChangePass" t:zone="^"><button>${message:cancel-but}</button></t:actionlink></td>
+	   					</tr>
+	   				</table>
+	   			</t:form>
+	   		</t:if>
+	   </t:zone>
+	
+	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   ///////////////////////////////////////// UPDATE PROFILE ZONE /////////////////////////////////////////////////
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 -->
+	 	<t:zone t:id="updateProfileZone" id="updateProfileZone" t:update="show">
+	 		
+	 		<t:if test="showUpdate">
+	 		<h1>${message:update-profile}</h1><hr/>
+	 			<t:form t:id="updateForm" zone="^">
+	 				<table>
+	 					<tr>
+	 						<td><t:label for="emailfield"/></td>
+	 						<td><t:textfield t:id="emailField" value="update.email"/></td>
+	 						<td><t:if test="badMail">${message:badMail}</t:if></td>
+	 					</tr>
+	 					<tr>
+	 						<td><t:label for="namefield"/></td>
+	 						<td><t:textfield t:id="nameField" value="update.firstname"/></td>
+	 					</tr>
+	 					<tr>
+	 						<td><t:label for="lastfield"/></td>
+	 						<td><t:textfield t:id="lastField" value="update.lastname"/></td>
+	 					</tr>
+	 					<tr>
+	 						<td><t:label for="selectSex"/></td>
+	 						<td><t:Select t:id="selectSex" t:value="update.sex" /></td>
+	 					</tr>
+	 					<tr>
+	 						<td><t:label for="cityfield"/></td>
+	 						<td><t:textfield t:id="cityField" value="update.city"/></td>
+	 					</tr>
+	 					<tr>
+	 						<td><t:label for="countryfield"/></td>
+	 						<td><t:textfield t:id="countryField" value="update.country"/></td>
+	 					</tr>
+	 				<tr>
+						<td><label>${message:fechaNac-label}</label></td>
+						<td><t:DateField t:id="nacField" t:value="update.fechaNac"/></td>
+						<td><t:if test="badDate">${message:badDate}</t:if></td>
+						
+					</tr>
+					<tr>
+						<td><label>${message:phone-label}</label></td>
+						<td><t:textfield t:id="phonefield" t:value="update.phone"/></td>
+					</tr>
+					<tr>
+						<td>
+							<label>${message:address-label}</label>
+						</td>
+						<td>
+							<t:textfield t:id="directionfield" t:value="update.address"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label>${message:DNI-label}</label></td>
+						<td><t:textfield t:id="dniField" t:value="update.DNI"/></td>
+					</tr>
+					
+					<tr>
+						<td><label>${message:carrera-label}</label></td>
+						<td><t:textfield t:id="carreraField" t:value="update.carrera"/></td>
+					</tr>
+					<tr>
+						<td><label>${message:centro-label}</label></td>
+						<td><t:textfield t:id="centroField" t:value="update.centro"/></td>
+					</tr>
+	 					<tr>
+	 						<td></td>
+	 						<td>
+	 							<input t:type="submit" class="boton" value="${message:save-but}"/>
+	 							<t:actionlink t:id="cancelUpdate" zone="^"><button>${message:cancel-but}</button></t:actionlink>
+	 						</td>
+	 					</tr>
+	 				</table>
+	 			</t:form>
+	 		</t:if>
+	 	</t:zone>
+	</infouser>
+	
+	</t:border>
+</html>

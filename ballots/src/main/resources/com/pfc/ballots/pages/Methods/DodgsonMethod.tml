@@ -1,0 +1,80 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+<link type="text/css" rel="stylesheet" href="/ballots/assets/1.0-SNAPSHOT/ctx/styles/jquery-te-1.4.0.css"/>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js" charset="utf-8"></script>
+<script>
+	var  $jq = jQuery.noConflict();
+</script>
+<script type="text/javascript" src="/ballots/assets/1.0-SNAPSHOT/ctx/js/jquery-te-1.4.0.min.js" charset="utf-8"></script>
+
+</head>
+<t:border>
+
+	<body>
+		<t:zone t:id="methodZone" id="methodZone" t:update="show">
+			<titlelist>
+			<h1>${message:method-name}</h1>
+			</titlelist>
+
+			
+			<div class="descripcionMetodo">
+				<p id="descripcionDodgson">
+				<hr />
+					<t:OutputRaw t:value="${dodgsonText}"/>
+				</p>
+			</div>
+		</t:zone>
+		
+		<div id="previousMethod">
+		<t:eventlink t:event="menu"  t:context="literal:copeland"><plain>${message:previous}</plain></t:eventlink>
+		</div>
+		
+		<div id="nextMethod">
+		<t:eventlink t:event="menu"  t:context="literal:hare"><plain>${message:next}</plain></t:eventlink>
+		</div>
+		
+		<t:zone t:id="editZone" id="editZone" t:update="show">
+			<t:if test="adminorteacher">
+				<h3>${message:about-us}</h3>
+				<hr />
+				<t:form t:id="editForm" t:zone="^">
+					<table>
+
+						<tr>
+							<td><t:textArea t:id="dodgsonText" class="areaText" /></td>
+						</tr>
+						<tr>
+							<td><input t:type="submit" class="boton"
+								t:value="${message:submit-but}" /></td>
+
+							<td><label><t:actionlink t:id="setDefault" t:zone="^">
+								<button>${message:set-but}</button>
+								</t:actionlink></label></td>
+						</tr>
+					</table>
+				</t:form>
+				<script>
+		
+					$jq('.areaText').jqte();
+
+					// settings of status
+					var jqteStatus = true;
+					$jq(".status").click(function() {
+						jqteStatus = jqteStatus ? false : true;
+						$jq('.areaText').jqte({
+							"status" : jqteStatus
+						})
+					});
+				</script>
+			</t:if>
+			
+		</t:zone>
+
+	</body>
+</t:border>
+</html>

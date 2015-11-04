@@ -1,0 +1,204 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     <head><title>${message:page-title}</title>
+     <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
+	</head>
+   
+	<t:border><div id="adminmaildiv">
+	
+		<h1>${message:config}</h1><hr/>
+	
+		
+		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////// NO EMAIL ZONE /////////////////////////////////////////////////////////////////////
+		   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		   
+		   
+		<t:zone t:id="newEmailZone" id="newEmailZone" t:update="show">
+			<t:if test="showNewZone">
+				<infouser>
+				<h3>${message:no-mail}</h3>
+				<t:form t:id="newForm" zone="^">
+					<t:if test="badCombination"><span class="error">${message:invalid-epass}</span></t:if>
+					<table>
+						<tr>
+							<td><label>${message:email}</label></td>
+							<td><t:textfield t:id="emailAddress" t:value="emailform.email"/></td>
+							<td><t:if test="badServer"><span class="error">${message:gmail-account}</span></t:if></td>
+						</tr>
+						<tr>
+							<td><label>${message:password}</label></td>
+							<td><t:passwordfield t:id="pass1"/></td>
+							<td><t:if test="badMatch"><span class="error">${message:pass-notmatch}</span></t:if></td>
+						</tr>
+						<tr>
+							<td><label>${message:repeat-pass}</label></td>
+							<td><t:passwordfield t:id="pass2"/></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input t:type="submit" class="boton" value="${message:submit-but}"/></td>
+						</tr>	
+					</table>
+				</t:form>
+				</infouser>
+			</t:if>
+		</t:zone>
+		
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    ////////////////////////////////////////////////////// EMAIL SETTINGS ZONE ///////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		
+		<t:zone t:id="emailSettingsZone" id="emailSettingsZone" t:update="show">
+			<t:if test="showSettings">
+			<infouser>
+			<div id="adminMailZone">
+				<h3>${message:admin-mail}</h3><hr/>
+				<table>
+					<tr>
+						<td><label>${message:email-account}:</label> </td>
+						<td>${emailAccount.email}</td> 
+					</tr> 		
+				</table><br/><br/>
+				<t:actionlink t:id="changeAccount" t:zone="^"><button>${message:change-account}</button></t:actionlink>
+				<t:actionlink t:id="changePass" t:zone="^"><button>${message:change-pass}</button></t:actionlink>
+				<t:actionlink t:id="deleteAccount" t:zone="^"><button>${message:delete-account}</button></t:actionlink>
+			</div>
+			</infouser>
+			
+				<br/>
+	   			<br/>
+	   			<infouser>
+	   				<div id="adminAboutUs">
+	   				<h3>${message:about-us}</h3><hr/>
+	   				${message:change-about}: <t:actionlink t:id="editAboutBut" t:zone="^"><img src="${asset:context:/layout/images/edit.png}" /></t:actionlink><br/>
+	   				${message:default-about}:<t:actionlink t:id="defaultText"><button>${message:default-but}</button></t:actionlink><br/>
+	   			</div>
+	   			</infouser>
+			</t:if>
+		</t:zone>
+		
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //////////////////////////////////////////////////////// CHANGE PASS ZONE ////////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	
+		<t:zone t:id="changePassZone" id="changePassZone" t:update="show">
+			<t:if test="showChange">
+				<infouser>
+				<t:form t:id="changePassForm" zone="^">
+					<h3>${message:change-pass}</h3><hr/>
+					<t:if test="badCombination">
+						<span class="error">${message:invalid-epass}</span>
+					</t:if>
+					<table>
+						<tr>
+							<td><label>${message:adminPass}</label></td>
+							<td><t:passwordfield t:id="adminPass"/></td>
+							<td><t:if test="badPass"><span class="error">${message:bad-pass}</span></t:if></td>
+						</tr>
+						<tr>
+							<td><label>${message:new-pass}</label></td>
+							<td><t:passwordfield t:id="newPass1"/></td>
+							<td><t:if test="badMatch"><span class="error">${message:pass-notmatch}</span></t:if></td>
+						</tr>
+						<tr>
+							<td><label>${message:repeat-pass}</label></td>
+							<td><t:passwordfield t:id="newPass2"/></td>
+						</tr>
+						<tr>
+							<td>
+								<input t:type="submit" class="boton" t:value="${message:submit-but}"/>
+ 								<t:actionlink t:id="cancelChangePass" zone="^"><button>${message:cancel-but}</button></t:actionlink>
+							</td>
+						</tr>
+					</table>
+				</t:form>
+				</infouser>
+			</t:if>
+		</t:zone>	
+		
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    ////////////////////////////////////////////////////// CHANGE ACCOUNT ZONE ///////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	   
+	   
+	   <t:zone t:id="changeAccountZone" id="changeAccountZone" t:update="show">
+	   		<t:if test="showChangeAccount">
+	   			<infouser>
+	   			<h3>${message:change-account}</h3><hr/>
+	   			<t:form t:id="changeAccountForm" zone="^">
+					<t:if test="badCombination">
+						<span class="error">${message:invalid-epass}</span>
+					</t:if>	   				
+	   				<table>
+	   					<tr>
+	   						<td><label>${message:adminPass}</label></td>
+	   						<td><t:passwordfield t:id="adminPassword"/></td>
+	   						<td><t:if test="badPass"><span class="error">${message:bad-pass}</span></t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td><label>${message:email}</label></td>
+	   						<td><t:textfield t:id="emailChange" t:value="emailform.email"/></td>
+	   						<td><t:if test="badServer"><span class="error">${message:gmail-account}</span></t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td><label>${message:password}</label></td>
+	   						<td><t:textfield t:id="password1"/></td>
+	   						<td><t:if test="badMatch"><span class="error">${message:pass-notmatch}</span></t:if></td>
+	   					</tr>
+	   					<tr>
+	   						<td><label>${message:repeat-pass}</label></td>
+	   						<td><t:textfield t:id="password2"/></td>
+	   					</tr>
+	   					<tr>
+							<td>
+								<input t:type="submit" class="boton" t:value="${message:submit-but}"/>
+								<t:actionlink t:id="cancelChangeAccount" zone="^"><button>${message:cancel-but}</button></t:actionlink>
+							</td>
+						</tr>
+	   				</table>
+	   			</t:form>
+	   			</infouser>
+	   			
+	   		</t:if>
+	   </t:zone>
+	   <t:zone t:id="areusureZone">
+	   		<t:if test="showSure">
+	   		<infouser>
+	   			Esta usted seguro de eliminar la cuenta de correo electronico<br/>
+	   			<t:actionlink t:id="imSure" t:zone="^"><button>Si</button></t:actionlink>
+	   			<t:actionlink t:id="notSure" t:zone="^"><button>No</button></t:actionlink>
+	   			</infouser>
+	   		</t:if>
+	   </t:zone>
+	   
+	   
+	   <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    ////////////////////////////////////////////////////// ABOUT TEXT ////////////////////////////////////////////////////////////////////////
+	   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<t:zone t:id="aboutZone" id="aboutZone" t:update="show">
+		<t:if test="showAbout">
+			<infouser>
+			<h3>${message:about-us}</h3><hr/>
+			<t:form t:id="aboutForm" t:zone="^">
+			<table>
+				<tr>
+					<td><t:label for="head"/></td>
+					<td><t:textfield t:id="head"/></td>
+				</tr>
+				<tr>
+					<td><t:label for="aboutText"/></td>
+					<td><t:textArea t:id="aboutText" class="areaText"/></td>
+				</tr>
+				<tr>
+					<td><label><t:actionlink t:id="backBut" t:zone="^"><button>${message:cancel}</button></t:actionlink></label></td>
+					<td><input t:type="submit" class="boton" t:value="${message:submit-but}"/></td>
+				</tr>
+			</table>
+			</t:form>
+			</infouser>
+		</t:if>
+	</t:zone>
+	
+	</div></t:border>
+</html>

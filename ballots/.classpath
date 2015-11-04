@@ -33,5 +33,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/Calculo"/>
+	<classpathentry kind="lib" path="lib/Filters.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-kaptcha-5.3.7.jar"/>
+	<classpathentry kind="lib" path="lib/kaptcha-2.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

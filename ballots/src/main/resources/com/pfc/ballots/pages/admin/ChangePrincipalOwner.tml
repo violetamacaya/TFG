@@ -1,0 +1,140 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     <head><title>${message:page-title}</title>
+     	<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+		<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
+	</head>
+   
+	<t:border><div id="showprofileDiv">
+		
+		<h1>${message:page-title}</h1><hr/>
+	
+		<t:zone t:id="userGridZone" id="userGridZone" t:update="show">
+			<t:if test="!showSure">
+			<t:grid source="users" reorder="email,admin,maker" row="user" add="Details, MakeOwner" exclude="password,owner, regDate,lastLog,phone,centro,carrera,sex,address,fechaNac">
+					<p:makeOwnerCell>
+						<t:actionlink t:id="makeOwnerBut" context="user.id" zone="^"><button>${message:make-owner}</button></t:actionlink>
+					</p:makeOwnerCell>
+					<p:detailscell>
+						<t:actionlink t:id="details" zone="^" context="user.id"><img src="${asset:context:/layout/images/ojo.png}"/></t:actionlink>
+				</p:detailscell>
+					<p:adminCell>
+						<t:if test="user.admin">
+							<img src="${asset:context:/layout/tickv.png}" />
+							<p:else>
+								<img src="${asset:context:/layout/tickx.png}" />
+							</p:else>
+						</t:if>
+					</p:adminCell>
+					<p:makerCell>
+						<t:if test="user.maker">
+							<img src="${asset:context:/layout/tickv.png}" />
+							<p:else>
+								<img src="${asset:context:/layout/tickx.png}" />
+							</p:else>
+						</t:if>
+					</p:makerCell>
+					<p:teacherCell>
+						<t:if test="user.teacher">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
+					</p:teacherCell>
+					
+					<p:studentCell>
+						<t:if test="user.student">
+							<img src="${asset:context:/layout/tickv.png}" />
+							<p:else>
+								<img src="${asset:context:/layout/tickx.png}" />
+							</p:else>
+						</t:if>
+					</p:studentCell>
+				</t:grid>
+			</t:if>
+		</t:zone>
+		
+		
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
+			<t:if test="showSure">
+				${message:are-u-sure}<b>${newOwner.email}</b>${message:owner} <b>${message:aplication}</b>						
+				
+				<br/>
+				<t:actionlink t:id="isSureBut" zone="^"><button>${message:yes}</button></t:actionlink>
+				<t:actionlink t:id="notSureBut" zone="^"><button>${message:no}</button></t:actionlink>
+			</t:if>
+		</t:zone></div>
+		
+		<t:zone t:id="detailsZone" id="detailsZone" t:update="show">
+		<t:if test="details"> 
+			<br/><br/>
+			<table>
+					<tr>
+						<td>${message:email}:</td>
+						<td>${user.email }</td>
+					</tr>
+					<tr>
+						<td>${message:admin}:</td>
+						<td><t:if test="user.admin">${message:yes}<p:else>No</p:else></t:if></td>
+					</tr>
+					<tr>
+						<td>${message:maker}:</td>
+						<td><t:if test="user.maker">${message:yes}<p:else>No</p:else></t:if></td>
+					</tr>
+
+					<tr>
+						<td>${message:firstname}:</td>
+						<td>${user.firstname }</td>
+					</tr>
+					<tr>
+						<td>${message:lastname}:</td>
+						<td>${user.lastname }</td>
+					</tr>
+					<tr>
+						<td>${message:sex}:</td>
+						<td>${user.sex}</td>
+					</tr>
+					<tr>
+						<td>${message:city}:</td>
+						<td>${user.city }</td>
+					</tr>
+					<tr>
+						<td>${message:country}:</td>
+						<td>${user.country }</td>
+					</tr>
+					
+					<tr>
+						<td>${message:dni-label}:</td>
+						<td>${user.DNI}</td>
+					</tr>
+					<tr>
+						<td>${message:phone-label}:</td>
+						<td>${user.phone}</td>
+					</tr>
+					<tr>
+						<td>${message:fechaNac-label}:</td>
+						<td>${user.fechaNac}</td>
+					</tr>
+					<tr>
+						<td>${message:address-label}:</td>
+						<td>${user.address}</td>
+					</tr>
+					<tr>
+						<td>${message:carrera-label}:</td>
+						<td>${user.carrera}</td>
+					</tr>
+					<tr>
+						<td>${message:centro-label}:</td>
+						<td>${user.centro}</td>
+					</tr>
+					<tr>
+						<td>
+						<t:actionlink t:id="less" zone="^" context="user.id">${message:lessdetail}</t:actionlink>
+						</td>
+					</tr>
+					</table>
+		</t:if>
+		
+		</t:zone>
+	</t:border>
+</html>

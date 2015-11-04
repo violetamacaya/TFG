@@ -1,0 +1,121 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
+	<div id="companydiv">
+
+		<h1>${message:company-list}</h1>
+		<hr />
+
+
+		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////// COMPANY GRID ZONE /////////////////////////////////////////////////////////////////
+		   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+		<t:zone t:id="companyGridZone" id="companyGridZone" t:update="show">
+			<t:if test="!showMain">
+				<t:grid source="companies" row="company" exclude="RegDate,DBName"
+					add="edit,seeusers,addusers,deletecompany,addusersfile,ChangeActive"
+					reorder="active,companyName,alias">
+					<p:activeCell>
+						<t:if test="company.active">
+							<img src="${asset:context:/layout/tickv.png}" />
+							<p:else>
+								<img src="${asset:context:/layout/tickx.png}" />
+							</p:else>
+						</t:if>
+					</p:activeCell>
+					<p:editCell>
+						<t:actionlink t:id="editbut" context="company.CompanyName">
+							<img src="${asset:context:/layout/images/editp.png}" />
+						</t:actionlink>
+					</p:editCell>
+					<p:addusersfilecell>
+						<t:actionlink t:id="addbyfile" context="company.DBName">
+							<img src="${asset:context:/layout/images/file.png}" />
+						</t:actionlink>
+					</p:addusersfilecell>
+					<p:seeusersCell>
+						<t:actionlink t:id="ver"
+							context="[company.CompanyName,company.DBName]">
+							<img src="${asset:context:/layout/images/ojo.png}" />
+						</t:actionlink>
+					</p:seeusersCell>
+					<p:addusersCell>
+						<t:actionlink t:id="addusers"
+							context="[company.CompanyName,company.DBName]">
+							<img src="${asset:context:/layout/images/plusp.png}" />
+						</t:actionlink>
+					</p:addusersCell>
+					<p:deletecompanyCell>
+						<t:actionlink t:id="delete" context="company.CompanyName" zone="^">
+							<img src="${asset:context:/layout/tickx.png}" />
+						</t:actionlink>
+					</p:deletecompanyCell>
+					<p:changeActiveCell>
+						<t:if test="company.active">
+							<t:actionlink t:id="deactivateBut" context="company.companyName"
+								zone="^">
+								<button>${message:deactivate-but}</button>
+							</t:actionlink>
+						</t:if>
+						<t:if test="!company.active">
+							<t:actionlink t:id="activateBut" context="company.companyName"
+								zone="^">
+								<button>${message:activate-but}</button>
+							</t:actionlink>
+						</t:if>
+					</p:changeActiveCell>
+
+					<p:empty>
+						<h4>${message:no-companies}</h4>
+					</p:empty>
+				</t:grid>
+			</t:if>
+		</t:zone>
+
+
+
+		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////// AREUSURE ZONE /////////////////////////////////////////////////////////////////////
+		   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
+			<t:if test="showSure">
+				${message:are-u-sure} <t:if test="status">${message:activate-but} <p:else> desctivar</p:else>
+				</t:if>
+				<b> ${toCheck.companyName }</b>
+				<br />
+				<t:actionlink t:id="isSureBut" zone="^">
+					<button>${message:yes-but}</button>
+				</t:actionlink>
+				<t:actionlink t:id="isNotSureBut" zone="^">
+					<button>${message:not-but}</button>
+				</t:actionlink>
+			</t:if>
+		</t:zone>
+		<t:zone t:id="sureToDeleteZone" id="sureToDeleteZone">
+			<t:if test="showToDelete">
+				${message:are-u-sure} <strong>${message:toDelete}</strong> ${message:thisCompany}<br />
+				<t:actionlink t:id="deleteSure" zone="^">
+					<button>${message:yes-but}</button>
+				</t:actionlink>
+				<t:actionlink t:id="deleteNot" zone="^">
+					<button>${message:not-but}</button>
+				</t:actionlink>
+
+			</t:if>
+		</t:zone>
+
+	</div>
+</t:border>
+
+
+
+</html>

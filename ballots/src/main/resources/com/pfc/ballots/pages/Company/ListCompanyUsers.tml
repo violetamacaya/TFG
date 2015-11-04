@@ -1,0 +1,213 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     <head><title>${message:page-title}</title>
+   <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/></head>
+   
+	<t:border><div id="userlistDiv">
+	
+		<h1>${message:company-users}</h1><hr/>
+		<!--  
+	  	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		 /////////////////////////////////////////////////// GRID ZONE //////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 		-->
+		
+		<t:zone t:id="userGridZone" id="userGridZone" t:update="show">	
+			<t:if test="!showSure">
+				<t:grid source="users" row="user" add="Edit,Delete,makeOwner" rowsperpage="15" inplace="true" exclude="password,owner,lastlog">
+					<p:adminCell>
+						<t:if test="user.admin">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
+					</p:adminCell>
+					<p:makerCell>
+						<t:if test="user.maker">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
+					</p:makerCell>
+					<p:studentCell>
+						<t:if test="user.student">
+							<img src="${asset:context:/layout/tickv.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+						</t:if>
+					</p:studentCell>
+							
+					<p:deleteCell>
+						<t:if test="!editing">
+							<t:if test="!owner">
+								<t:actionlink t:id="deleteuser" context="user.email" zone="^"><button>${message:delete-but}</button></t:actionlink>
+							</t:if>
+						</t:if>
+					</p:deleteCell>
+					<p:editCell>
+						<t:if test="!editing">
+							
+								<t:actionlink t:id="editbut" context="user.id" zone="^"><button>${message:edit-but}</button></t:actionlink>
+							
+						</t:if>
+					</p:editCell>
+					<p:makeOwnercell>
+						<t:if test="!editing">
+							<t:if test="!owner">
+								<t:actionlink t:id="makeOwnerBut" context="user.id" zone="^"><button>${message:makeowner-but}</button></t:actionlink>
+							</t:if>
+						</t:if>
+					</p:makeOwnercell>
+				</t:grid>
+			</t:if>
+		</t:zone>
+		
+			<!--  
+	  	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		 /////////////////////////////////////////////////// AREUSURE ZONE //////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 		-->	
+		
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
+			<t:if test="showSure">
+				
+				${message:are-u-sure}<b>${toCheck.email }</b>${message:owner-of}<b>${companyName }</b><br/>
+				<t:actionlink t:id="successChangeOwnerBut" t:zone="^"><button>${message:yes-but}</button></t:actionlink>
+				<t:actionlink t:id="cancelChangeOwnerBut" t:zone="^"><button>${message:not-but}</button></t:actionlink>
+			</t:if>
+		</t:zone>
+		<!--  
+	  	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		 /////////////////////////////////////////////////// EDIT ZONE //////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 		-->		
+
+		<t:zone t:id="editZone" id="editZone" t:update="show">
+			<t:if test="editing">
+				<t:form t:id="editForm" zone="^">
+					<table>
+					<tr>
+						<td>
+							<t:label for="adminbox"/>
+						</td>
+						<td>
+							<t:checkbox t:id="adminbox" t:value="editprof.admin"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:label for="makerbox"/>
+						</td>
+						<td>
+							<t:checkbox t:id="makerbox" t:value="editprof.maker"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:label for="studentbox"/>
+						</td>
+						<td>
+							<t:checkbox t:id="studentbox" t:value="editprof.student"/>
+						</td>
+					</tr>
+						<tr>
+							<td>
+								<t:label for="emailfield"/>
+							</td>
+							<td>
+								<t:textfield t:id="emailfield" t:value="editprof.email"/>
+							</td>
+							<td>
+							<t:if test="nonavalible">
+								<span class="error">${message:non-available}</span>
+							</t:if>
+						</td>
+						</tr>
+						
+					<tr>
+						<td>
+							<t:label for="firstnamefield"/>
+						</td>
+						<td>
+							<t:textfield t:id="firstnamefield" t:value="editprof.firstname"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:label for="lastnamefield"/>
+						</td>
+						<td>
+							<t:textfield t:id="lastnamefield" t:value="editprof.lastname"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:label for="universityfield"/>
+						</td>
+						<td>
+							<t:textfield t:id="universityfield" t:value="editprof.university"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:label for="cityfield"/>
+						</td>
+						<td>
+							<t:textfield t:id="cityfield" t:value="editprof.city"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:label for="countryfield"/>
+						</td>
+						<td>
+							<t:textfield t:id="countryfield" t:value="editprof.country"/>
+						</td>
+					</tr>
+							<tr>
+						<td><label>${message:fechaNac-label}</label></td>
+						<td><t:DateField t:id="nacField" t:value="editprof.fechaNac"/></td>
+					</tr>
+					<tr>
+						<td><label>${message:phone-label}</label></td>
+						<td><t:textfield t:id="phonefield" t:value="editprof.phone"/></td>
+					</tr>
+					<tr>
+						<td>
+							<label>${message:address-label}</label>
+						</td>
+						<td>
+							<t:textfield t:id="addressfield" t:value="editprof.address"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label>${message:DNI-label}</label></td>
+						<td><t:textfield t:id="dniField" t:value="editprof.DNI"/></td>
+					</tr>
+					
+					<tr>
+						<td><label>${message:carrera-label}</label></td>
+						<td><t:textfield t:id="carreraField" t:value="editprof.carrera"/></td>
+					</tr>
+					<tr>
+						<td><label>${message:centro-label}</label></td>
+						<td><t:textfield t:id="centroField" t:value="editprof.centro"/></td>
+					</tr>
+					<tr>
+						<td>
+							<label><input t:type="submit" t:id="save" value="${message:save-but}"/></label>
+						</td>
+						<td>
+							<input t:type="submit" t:id="cancel" value="${message:cancel-but}" t:mode="cancel"/>
+						</td>
+					</tr>
+					</table>
+				</t:form>
+			</t:if>
+		</t:zone>	
+	
+	</div></t:border>
+</html>

@@ -1,0 +1,502 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta http-equiv="Cache-control" content="no-cache"/> <meta http-equiv="Expires" content="-1"/>
+     <head><title>${message:page-title}</title>
+     <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/></head>
+   
+	<t:border><div id="CreateballotDiv">
+	
+		<h1>${message:create-ballot}</h1><hr/>
+	
+		<t:zone t:id="generalZone" id="generalZone" t:update="show">
+			<t:if test="showGeneral">
+				
+				<t:form t:id="generalForm" zone="^">
+					<t:if test="showErrorGeneral">
+						<div class="error">${message:fill-fields}<br/></div>
+					</t:if>
+					<t:if test="showBadName" zone="^">
+						<div class="error">${message:name-in-use}<br/></div>
+					</t:if>
+					<table>
+						<tr>
+							<td>
+								<t:label for="ballotName">${message:name}*</t:label>
+							</td>
+							<td>
+								<t:textfield t:id="ballotName"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<t:label for="description">${message:description}*</t:label>
+							</td>
+							<td>	
+								<t:textarea t:id="description"></t:textarea>
+							</td>
+						</tr>
+					</table>
+					
+					<br/><input t:type="submit" t:value="${message:next-but}"/>
+				</t:form>
+			</t:if>
+		</t:zone>
+		
+		
+		
+		<t:zone t:id="typeZone" id="typeZone" t:update="show">
+			<t:if test="showtype">
+				<t:form t:id="typeForm" zone="^">
+					<span class="error">
+						<t:if test="showErrorType">
+							${message:fields-required}<br/>
+						</t:if>
+						<t:if test="showBadDate">
+							${message:bad-date}<br/>
+						</t:if>
+					</span>
+					<table>
+						<tr>
+							<td><t:label for="methodSelect">${message:method}*</t:label></td>
+							<td><t:select t:type="select" t:id="methodSelect" value="method" t:blankLabel="${message:choose}" t:zone="^"/></td>
+						</tr>
+						<tr>
+							<td><t:label for="ballotKindSelect">${message:Kind}*</t:label></td>
+							<td><t:select t:type="select" t:id="ballotKindSelect" value="ballotKind" t:blankLabel="${message:choose}" t:zone="^"/></td>
+						</tr>
+						<t:if test="showNormalCensus">
+							<t:if test="showExist">
+								<t:if test="!showPublic">
+									<tr>
+										<td><t:label for="censusNormalSelect">${message:census}*</t:label></td>
+										<td><t:select t:type="select" t:id="censusNormalSelect" t:model="censusNormalModel" t:value="censusNormal" t:encoder="censusNormalEncoder" t:blankLabel="Choose..." t:zone="^"/></td>
+									</tr>
+									<p:else>
+										<tr>
+											<td><t:label for="censusModel">${message:census}</t:label></td>
+											<td><t:select t:type="select" t:id="censusPublic" t:value="census" t:model="censusModel" t:blankOption="ALWAYS" t:blankLabel="${message:choose}"/></td>
+										</tr>
+									</p:else>							
+								</t:if>
+								<tr>
+									<td><t:label for="startDate"/></td>
+									<td><t:datefield t:id="startDate" format="prop:dateInFormatStr"/>(${dateInFormatStr})</td>
+								</tr>
+								<tr>
+									<td><t:label for="startHour"/></td>
+									<td><t:textfield t:id="startHour"/>(hh:mm:ss)</td>
+								</tr>
+								<tr>
+									<td><t:label for="endDate"/>*</td>
+									<td><t:datefield t:id="endDate" format="prop:dateInFormatStr"/>(${dateInFormatStr}</td>
+								</tr>
+								<tr>
+									<td><t:label for="endHour"/></td>
+									<td><t:textfield t:id="endHour"/>(hh:mm:ss)</td>
+								</tr>
+								<tr>
+									<td><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>${message:back-but}</button></t:eventlink></td>
+									<td><input t:type="submit" t:value="${message:next-but}"/></td>
+								</tr>
+								<p:else>
+									<tr><td></td>
+									<td>${message:no-census} <t:pagelink page="census/createCensus"><strong>${message:here-link}</strong></t:pagelink></td></tr>
+								</p:else>
+							</t:if>
+							<p:else>
+								<tr>
+									<td><t:label for="censusModel">${message:census}*</t:label></td>
+									<td><t:select t:type="select" t:id="censusModel" t:value="census" t:model="censusModel" t:blankOption="ALWAYS" t:blankLabel="${message:choose}"/></td>
+								</tr>
+								<tr>
+									<td><t:eventlink t:event="back" t:context="prop:['fromType','toGeneral']" t:zone="^"><button>${message:back-but}</button></t:eventlink></td>
+									<td><input t:type="submit" value="${message:next-but}"/></td>
+								</tr>
+							</p:else>
+						</t:if>
+					</table>
+				</t:form>
+			</t:if>
+			
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////MAYORIA RELATIVA ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+			
+			
+		</t:zone>
+		<t:zone t:id="mayRelZone" id="mayRelZone" t:update="show">
+			<t:if test="showMayRel">
+				<h4>${message:relative-majority}</h4>
+				<t:form t:id="mayRelForm" t:zone="^">
+					<t:if test="showErrorMayRel">
+						<span class="error">${message:fill-fields}</span><br/>
+					</t:if>
+					<t:if test="showRepeatedMayRel">
+						<span class="error">${message:repeated-fields}</span><br/>
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="mayRelSel"/></td>
+							<td><t:select t:id="mayRelSel" value="mayRelNumOp" t:model="mayRelModel" t:zone="^"/></td>
+						</tr>
+						<tr>
+							<td><t:label for="mayRelOp1"/></td>
+							<td><t:textfield t:id="mayRelOp1"/></td>
+						</tr>
+						<tr>
+							<td><t:label for="mayRelOp2"/></td>
+							<td><t:textfield t:id="mayRelOp2"/></td>
+						</tr>
+						<t:if test="showMay3">
+							<tr>
+								<td><t:label for="mayRelOp3"/></td>
+								<td><t:textfield t:id="mayRelOp3"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay4">
+							<tr>
+								<td><t:label for="mayRelOp4"/></td>
+								<td><t:textfield t:id="mayRelOp4"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay5">
+							<tr>
+								<td><t:label for="mayRelOp5"/></td>
+								<td><t:textfield t:id="mayRelOp5"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay6">
+							<tr>
+								<td><t:label for="mayRelOp6"/></td>
+								<td><t:textfield t:id="mayRelOp6"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay7">
+							<tr>
+								<td><t:label for="mayRelOp7"/></td>
+								<td><t:textfield t:id="mayRelOp7"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay8">
+							<tr>
+								<td><t:label for="mayRelOp8"/></td>
+								<td><t:textfield t:id="mayRelOp8"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay9">
+							<tr>
+								<td><t:label for="mayRelOp9"/></td>
+								<td><t:textfield t:id="mayRelOp9"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay10">
+							<tr>
+								<td><t:label for="mayRelOp10"/></td>
+								<td><t:textfield t:id="mayRelOp10"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay11">
+							<tr>
+								<td><t:label for="mayRelOp11"/></td>
+								<td><t:textfield t:id="mayRelOp11"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay12">
+							<tr>
+								<td><t:label for="mayRelOp12"/></td>
+								<td><t:textfield t:id="mayRelOp12"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay13">
+							<tr>
+								<td><t:label for="mayRelOp13"/></td>
+								<td><t:textfield t:id="mayRelOp13"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay14">
+							<tr>
+								<td><t:label for="mayRelOp14"/></td>
+								<td><t:textfield t:id="mayRelOp14"/></td>
+							</tr>
+						</t:if>
+						<t:if test="showMay15">
+							<tr>
+								<td><t:label for="mayRelOp15"/></td>
+								<td><t:textfield t:id="mayRelOp15"/></td>
+							</tr>
+						</t:if>
+					</table>
+					
+          			<input t:type="submit" t:value="${message:create}"/>
+				</t:form>
+				<br/><t:eventlink t:event="back" t:context="prop:['fromMayRel','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
+			</t:if>
+		</t:zone>
+		
+		
+		
+		
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////// KEMENY /////////////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+		
+		
+		<t:zone t:id="kemenyZone" id="kemenyZone" t:update="show">
+			<t:if test="showKemeny">
+				<h4>${message:kemeny-title}</h4>
+				<t:form t:id="kemenyForm" t:zone="^">
+					<span class="error">
+						<t:if test="showErrorKemeny" >
+							${message:fill-fields}<br/>	
+						</t:if>
+						<t:if test="showRepeatKemeny">
+							${message:not-repeated}<br/>
+						</t:if>
+						<t:if test="showBadCharKemeny">
+							${message:bad-char}<br/>
+						</t:if>
+					</span>
+					<table>
+						<tr>
+							<td><t:label for="cat1"/><t:textfield t:id="cat1"/></td>
+							<td><t:label for="cat2"/><t:textfield t:id="cat2"/></td>
+						</tr>
+						<tr>
+							<td><t:label for="cat1_op1"/><t:textfield t:id="cat1_op1"/></td>
+							<td><t:label for="cat2_op1"/><t:textfield t:id="cat2_op1"/></td>
+						</tr>
+						<tr>
+							<td><t:label for="cat1_op2"/><t:textfield t:id="cat1_op2"/></td>
+							<td><t:label for="cat2_op2"/><t:textfield t:id="cat2_op2"/></td>
+						</tr>
+						
+						
+					</table>
+					<br/>
+					<input t:type="submit" t:value="${message:create}"/>
+					</t:form>
+				<br/><t:eventlink t:event="back" t:context="prop:['fromKemeny','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
+			</t:if>
+		</t:zone>
+		
+	
+		
+		
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////// BORDA ///////////////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+		
+		<t:zone t:id="bordaZone" id="bordaZone" t:update="show">
+			<t:if test="showBorda">
+				<h4>${message:borda-title}</h4>
+				
+				<t:form t:id="bordaForm" zone="^">
+					<span class="error">
+						<t:if test="showBordaFill">
+							${message:fill-fields}<br/>
+						</t:if>
+						<t:if test="showBordaRepeat">
+							${message:not-repeated}<br/>
+						</t:if>
+						<t:if test="showBordaBadChar" >
+							${message:bad-char}<br/>
+							
+						</t:if>
+					</span>
+					<t:zone t:id="bordaForm1Zone" id="bordaForm1Zone">
+						<table>
+							<tr>
+								<td><t:label for="bordaSel1"/></td>
+								<td><t:select t:id="bordaSel1" value="bordaNumOpt1" t:model="bordaModel" t:zone="^"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="bcat1"/></td>
+								<td><t:textfield t:id="bcat1"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="b1Opt1"/></td>
+								<td><t:textfield t:id="b1Opt1"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="b1Opt2"/></td>
+								<td><t:textfield t:id="b1Opt2"/></td>
+							</tr>
+							<t:if test="showB1Opt3">
+								<tr>
+									<td><t:label for="b1Opt3"/></td>
+									<td><t:textfield t:id="b1Opt3"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB1Opt4">
+								<tr>
+									<td><t:label for="b1Opt4"/></td>
+									<td><t:textfield t:id="b1Opt4"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB1Opt5">
+								<tr>
+									<td><t:label for="b1Opt5"/></td>
+									<td><t:textfield t:id="b1Opt5"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB1Opt6">
+								<tr>
+									<td><t:label for="b1Opt6"/></td>
+									<td><t:textfield t:id="b1Opt6"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB1Opt7">
+								<tr>
+									<td><t:label for="b1Opt7"/></td>
+									<td><t:textfield t:id="b1Opt7"/></td>
+								</tr>
+							</t:if>
+						</table>
+					</t:zone>
+					
+					<t:zone t:id="bordaForm2Zone" id="bordaForm2Zone">
+						<table>
+							<tr>
+								<td><t:label for="bordaSel2"/></td>
+								<td><t:select t:id="bordaSel2" value="bordaNumOpt2" t:model="bordaModel" t:zone="^"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="bcat2"/></td>
+								<td><t:textfield t:id="bcat2"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="b2Opt1"/></td>
+								<td><t:textfield t:id="b2Opt1"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="b2Opt2"/></td>
+								<td><t:textfield t:id="b2Opt2"/></td>
+							</tr>
+							<t:if test="showB2Opt3">
+								<tr>
+									<td><t:label for="b2Opt3"/></td>
+									<td><t:textfield t:id="b2Opt3"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB2Opt4">
+								<tr>
+									<td><t:label for="b2Opt4"/></td>
+									<td><t:textfield t:id="b2Opt4"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB2Opt5">
+								<tr>
+									<td><t:label for="b2Opt5"/></td>
+									<td><t:textfield t:id="b2Opt5"/></td>
+								</tr>
+							</t:if>
+							<t:if test="showB2Opt6">
+								<tr>
+									<td><t:label for="b2Opt6"/></td>
+									<td><t:textfield t:id="b2Opt6"/></td>
+								</tr>
+							</t:if>						
+							<t:if test="showB2Opt7">
+								<tr>
+									<td><t:label for="b2Opt7"/></td>
+									<td><t:textfield t:id="b2Opt7"/></td>
+								</tr>
+							</t:if>
+						</table>
+					</t:zone>
+					<input t:type="submit" t:value="${message:create}"/>
+					
+				</t:form>
+				<br/><t:eventlink t:event="back" t:context="prop:['fromBorda','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
+			</t:if>
+		</t:zone>
+		
+		
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////// RANGE_VOTING ///////////////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+		
+		
+		<t:zone t:id="RangeZone" id="rangeZone" t:update="show">
+			<t:if test="showRange">
+				<h4>${message:range-title}</h4>
+					<t:form t:id="rangeForm" zone="^">
+						<span class="error">
+							<t:if test="showRangeFill">
+								${message:fill-fields}<br/>
+							</t:if>
+							<t:if test="showRangeValues">
+								${message:range-values}<br/>
+							</t:if>
+							<t:if test="showRangeRepeated">
+								${message:not-repeated}<br/>
+							</t:if>
+							<t:if test="showRangeBadChar" >
+								${message:bad-char}<br/>
+							</t:if>
+							<t:if test="showRangeBadNum">
+								${message:bad-char}<br/>
+							</t:if>
+						</span>
+						<table>
+								<tr>
+									<td><t:label for="rangeSel"/></td>
+									<td><t:select t:id="rangeSel" value="rangeNumOpt" t:model="rangeModel" t:zone="^"/></td>
+								</tr>
+								<tr>
+									<td><t:label for="minRange"/></td>
+									<td><t:textfield t:id="minRange"/></td>
+								
+								</tr>
+								<tr>
+									<td><t:label for="maxRange"/></td>
+									<td><t:textfield t:id="maxRange"/></td>
+									<td><t:if test="showRangeMax"><span t:class="error">${message:max-range}</span></t:if></td>
+								</tr>
+								<tr>
+									<td><t:label for="rangeOpt1"/></td>
+									<td><t:textfield t:id="rangeOpt1"/></td>
+								</tr>
+								<tr>
+									<td><t:label for="rangeOpt2"/></td>
+									<td><t:textfield t:id="rangeOpt2"/></td>
+								</tr>
+								<t:if test="showrange3">
+									<tr>
+										<td><t:label for="rangeOpt3"/></td>
+										<td><t:textfield t:id="rangeOpt3"/></td>
+									</tr>
+								</t:if>
+								<t:if test="showrange4">
+									<tr>
+										<td><t:label for="rangeOpt4"/></td>
+										<td><t:textfield t:id="rangeOpt4"/></td>
+									</tr>
+								</t:if>
+								<t:if test="showrange5">
+									<tr>
+										<td><t:label for="rangeOpt5"/></td>
+										<td><t:textfield t:id="rangeOpt5"/></td>
+									</tr>
+								</t:if>
+								<t:if test="showrange6">
+									<tr>
+										<td><t:label for="rangeOpt6"/></td>
+										<td><t:textfield t:id="rangeOpt6"/></td>
+									</tr>
+								</t:if>
+								<t:if test="showrange7">
+									<tr>
+										<td><t:label for="rangeOpt7"/></td>
+										<td><t:textfield t:id="rangeOpt7"/></td>
+									</tr>
+								</t:if>								
+						</table>
+						<input t:type="submit" t:value="${message:create}"/>
+					</t:form>
+				<br/><t:eventlink t:event="back" t:context="prop:['fromRange','toType']" t:zone="^"><button>${message:back-but}</button></t:eventlink>
+			</t:if>
+		</t:zone>
+		
+		
+	</div></t:border>
+</html>

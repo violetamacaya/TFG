@@ -1,0 +1,71 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
+	<div id="companydiv">
+
+		<h1>${message:updateCompany}</h1>
+		<hr />
+
+		<infouser> <t:zone t:id="formZone" id="formZone">
+			<t:if test="showForm">
+				<t:if test="showBadChar">
+					<span class="error">${message:badChar}<br /></span>
+				</t:if>
+				<t:form t:id="updateCompanyForm" zone="^">
+					<table>
+						<tr>
+							<td><t:label for="companyName" /></td>
+							<td><t:textfield t:id="companyName"
+									value="newCompany.companyName" /></td>
+							<td><t:if test="showNameInUse">
+									<span class="error">${message:name-in-use}</span>
+								</t:if> <t:if test="showBadName">
+									<span class="error">${message:bad-name}</span>
+								</t:if></td>
+						</tr>
+						<tr>
+							<td><t:label for="companyAlias" /></td>
+							<td><t:textfield t:id="companyAlias"
+									value="newCompany.alias" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="companyEmail" /></td>
+							<td><t:textfield t:id="companyEmail"
+									value="newCompany.adminEmail" /></td>
+						</tr>
+
+						<tr>
+							<td><t:label for="companyFirstName" /></td>
+							<td><t:textfield t:id="companyFirstName"
+									value="newCompany.firstName" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="companyLastName" /></td>
+							<td><t:textfield t:id="companyLastName"
+									value="newCompany.lastName" /></td>
+						</tr>
+						<tr>
+							<td><label><input t:type="submit"
+								t:value="${message:update-but}" /></label></td>
+						<td><t:actionlink t:id="cancelBut" t:zone="^">
+								<button>${message:cancel-but}</button>
+							</t:actionlink></td>
+						</tr>
+						
+					
+					</table>
+				</t:form>
+			</t:if>
+		</t:zone>
+		
+	</infouser>
+	</div>
+</t:border>
+</html>

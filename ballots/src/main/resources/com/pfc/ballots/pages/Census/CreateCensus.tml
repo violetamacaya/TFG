@@ -1,0 +1,251 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <head><title>${message:page-title}</title>
+      <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
+  </head>
+
+
+	<t:border><div id="CreateCensusDiv">
+					<h1>${message:create-census}</h1><hr/>
+	
+		<!--//////////////////////////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////// NAME CENSUS ZONE /////////////////////////////////////// 
+		  ////////////////////////////////////////////////////////////////////////////////////////// -->
+		  				
+		
+			<t:zone t:id="censusNameZone" id="censusNameZone" visible="!censusNameVisible" t:update="show">
+		 	  
+				<t:form t:id="censusNameForm" t:zone="^">
+					<table>
+						<tr>
+							<td><t:label for="censusName"/></td>
+							<td><t:textfield t:id="censusName" validate="required,minLength=5"/></td>
+																				  
+							<td>
+								<t:if test="nameNotAvalible">
+									<span class="error">${message:non available}</span>
+								</t:if>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><p style="text-align:center;"><input class="boton" t:type="submit" value="${message:next-but}"/></p></td> 
+						</tr>
+					</table>
+				</t:form>
+		</t:zone>
+		
+		
+			<!--//////////////////////////////////////////////////////////////////////////////////////////
+			   /////////////////////////////// SWITCH SEARCH TYPE /////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+			
+			<t:zone t:id="searchTypeZone" t:update="show" visible="secondVisible"> 
+						
+				<t:if test="advancedSearch">
+					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink><br/><br/>
+					<p:else>
+						<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search}</t:eventlink><br/><br/>
+					</p:else>
+				</t:if>
+			</t:zone>
+			
+			
+			<!--//////////////////////////////////////////////////////////////////////////////////////////
+			   ///////////////////////////////////  BASIC SEARCH  /////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+			<t:zone t:id="basicSearchZone" id="basicSearchZone" t:update="show" visible="secondVisible">
+				<t:if test="!advancedSearch">
+					<t:form t:id="basicForm" zone="^">	
+						<table>
+							<tr>
+								<td><t:label for="email"/></td>
+								<td><t:textfield t:id="email"/></td>
+							</tr>
+							
+							<tr>
+								
+								<td></td>
+								<td><p style="text-align:center;"><input class="boton" t:type="submit" value="${message:search-but}"/>
+									<t:eventlink t:event="reset" zone="^"><button>${message:reset-but}</button></t:eventlink></p></td>
+							</tr>
+						</table>
+					</t:form>
+								
+				</t:if>	
+			</t:zone>
+			
+			
+			<!--//////////////////////////////////////////////////////////////////////////////////////////
+			   ///////////////////////////////// ADVANCED SEARCH  /////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+			<t:zone t:id="advancedSearchZone" id="advancedSearchZone" t:update="show" visible="secondVisible">
+				<t:if test="advancedSearch">
+						<t:form t:id="advancedSearchForm" zone="^">
+							<table>
+						 		<tr>
+										<td><t:label for="admin"/></td>
+										<td><t:checkbox t:id="admin" value="profile.admin"/></td>
+								</tr>
+								<tr>
+										<td><t:label for="maker"/></td>
+										<td><t:checkbox t:id="maker" value="profile.maker"/></td>
+								</tr>
+					 			<tr>
+					 					<td><t:label for="firstName"/></td>
+					 					<td><t:textfield t:id="firstName"></t:textfield></td>
+					 			</tr>
+					 			<tr>
+					 					<td><t:label for="lastName"/></td>
+					 					<td><t:textfield t:id="lastName"></t:textfield></td>
+					 			</tr>
+						 		<tr>
+							 			<td><t:label for="city"/></td>
+							 			<td><t:textfield t:id="city" value="profile.city"/></td>
+						 		</tr>
+						 		<tr>
+							 			<td><t:label for="country"/></td>
+							 			<td><t:textfield t:id="country" value="profile.country"/></td>
+						 		</tr>
+								<tr>
+									<td></td>
+									<td><p style="text-align:center;"><input class="boton" t:type="submit" value="${message:search-but}"/>
+										<t:eventlink t:event="reset" zone="^"><button>${message:reset-but}</button></t:eventlink></p></td>
+								</tr>
+							</table>
+						</t:form>
+				</t:if>
+			</t:zone>
+			
+		    <!--//////////////////////////////////////////////////////////////////////////////////////////
+			   ///////////////////////////////// SEARCH LIST GRID  ////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+		
+			<t:zone t:id="searchListZone" id="searchListZone" t:update="show" visible="secondVisible">
+				<h3>${message:user-list}</h3><hr/>
+				<t:form t:id="addForm" zone="^">
+					<table>
+						<tr id="showUsers"><td><t:actionLink t:id="showAll" zone="^">${message:showall-users}</t:actionLink></td></tr>
+							<tr><td>
+								<t:if test="showSearchList">				
+									<t:grid source="users" row="user" exclude="lastLog,regDate,password, sex, phone, address,  carrera, centro" add="add" reorder="add" inplace="true">
+										<p:addCell>
+											<t:checkbox t:id="add"/>
+										</p:addCell>
+											
+										<p:adminCell>
+											<t:if test="user.admin">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:adminCell>
+										<p:makerCell>
+											<t:if test="user.maker">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:makerCell>
+										<p:studentCell>
+											<t:if test="user.student">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:studentCell>
+										<p:ownerCell>
+											<t:if test="user.owner">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:ownerCell>
+									</t:grid>
+								</t:if>
+							</td></tr>
+							<tr><td>
+								<t:if test="showSearchList">
+									<input class="boton" t:type="submit" value="${message:add-but}"/>
+									<t:actionLink t:id="addAll" zone="^"><button>${message:addall-but}</button></t:actionLink>
+								</t:if>
+							</td></tr>
+							
+					</table>
+				</t:form>
+				
+			</t:zone>
+			
+	     	<!--//////////////////////////////////////////////////////////////////////////////////////////
+			   ///////////////////////////////// CENSUS LIST GRID  ////////////////////////////////////// 
+			  ////////////////////////////////////////////////////////////////////////////////////////// -->
+			  
+			<t:zone t:id="censusListZone" id="censusListZone" t:update="show"  visible="secondVisible">
+				<t:if test="showCensusList">
+					<h3>${message:users-counted}</h3><hr/>
+					<t:form t:id="removeForm" zone="^">
+						<table>
+							<tr><td>
+							<t:grid source="censusList" row="user" exclude="lastLog,regDate,password, sex, phone, address,  carrera, centro" add="remove" reorder="remove" inplace="true">
+								<p:removeCell>
+										<t:checkbox t:id="remove"/>						
+								</p:removeCell>
+								<p:adminCell>
+											<t:if test="user.admin">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:adminCell>
+										<p:makerCell>
+											<t:if test="user.maker">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:makerCell>
+										<p:studentCell>
+											<t:if test="user.student">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:studentCell>
+										<p:ownerCell>
+											<t:if test="user.owner">
+												<img src="${asset:context:/layout/tickv.png}" />
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
+											</t:if>
+										</p:ownerCell>
+								
+							</t:grid>
+							</td></tr>
+							<tr><td>
+								<input t:type="submit" class="boton" value="${message:remove-but}"/>
+								<t:actionLink t:id="removeAll" zone="^"><button>${message:removeall-but}</button></t:actionLink>
+							</td></tr>
+						</table>
+					</t:form>
+				</t:if>
+			</t:zone>
+			<t:zone t:id="buttonsZone" id="buttonsZone" visible="secondVisible" t:update="show">
+				
+						<t:actionLink t:id="backbut" zone="^"><button>${message:back-but}</button></t:actionLink>
+						<t:if test="showCensusList">
+							<t:actionLink t:id="endbut" zone="^"><button>${message:savecensus-but}</button></t:actionLink>
+						</t:if>
+			</t:zone>
+
+	</div></t:border>
+
+
+</html>

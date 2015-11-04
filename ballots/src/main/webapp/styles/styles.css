@@ -1,22 +1,31 @@
 pagehead
 {
 	display: block;
-	/*width:99%;*/
-	background: repeat-x, #B91A1F;
-	height: 168px;
+	background: #6aa9bd;
+	height: 188px;
+	color: black;
 	margin-top: -8px;
 	margin-right: -8px;
 	margin-left: 2px;
 	margin-bottom: -55px;
 	padding: 2px;
+	width:100%;
 }
 
+TABLE.t-data-grid
+{
+	 overflow: scroll;
+}
 
 TABLE.t-data-grid THEAD TR TH
 {
-	background: #8c1116;
+	background: #333333;
+	
 }
-
+TABLE.t-data-grid TD
+{
+	text-align: center;	
+}
 
 #banner
 {
@@ -33,7 +42,13 @@ div .textarea
 	width: 500px;
 	height: 200px;
 }
-
+#administration-menu{
+	
+	float: inherit;
+	padding-bottom: 10;
+	margin-left: 8;
+	
+}
 #publicballotszoneid
 {
 	margin-top: 20px;
@@ -50,9 +65,13 @@ label .contactrow
 #contact
 {
 	margin-top: 10px;
+	padding-left: 20px;
+}
+#boton-enviar{
+	left: 100px;
+	position: absolute;
 	
 }
-
 
 #footer {
  clear: both;
@@ -68,9 +87,11 @@ label .contactrow
  font-weight: bold;
 }
 
-
-html, body, #container { height: 100%; }
-body > #container { height: auto; min-height: 100%; }
+body > #container { 
+	height: auto; 
+	min-height: 100%;
+	width:100%;
+}
 
 boldstuff
 {
@@ -78,19 +99,51 @@ boldstuff
 	
 }
 
-languages
+div#letterSize
+{
+	display: inline;
+	padding: 2px 20px 2px;
+	margin-right:3px;
+	margin-top: -10px;
+
+}
+
+div#letterSize>a>img {
+
+width:20px;
+}
+div#letterSizeLess
+{
+	display: inline;
+	padding: 2px 0px 2px;
+	margin-right:3px;
+	margin-top: -10px;
+
+}
+
+div#letterSizeLess>a>img {
+
+width:20px;
+}
+
+div#lenguages
 {
 	display: inline;
 	padding: 2px 6px 2px;
-	background: #F5F5F5;
-	border: solid 1px #8c1116;
 	margin-right:3px;
-	margin-top: -2px;
-	margin-bottom: 4px;
+	margin-top: -10px;
 	float: right;
 }
-
-
+div#lenguages>a>img {
+border: solid 1px;
+border-color: black
+}
+div#lenguages>a>span{
+	color:black;
+}
+div#lenguages>a{
+	text-decoration:none;
+}
 .methodtext
 {
 	font-family: Arial, Helvetica, sans-serif;
@@ -100,7 +153,12 @@ languages
 	text-align: justify;
 }
 
-
+.areaText
+{
+	margin: 2px;
+	width: 500px;
+	height: 110px;
+}
 
 .error
 {
@@ -116,11 +174,16 @@ languages
 #mainmenu
 {
 	display: block;
-	width: 900px;
+	/*width: 900px;*/
 	height: 35px;
 	padding: 0px;
-	margin-left: auto;
+	margin-left: -100px;
 	margin-right:auto;
+	margin-top:-13px;
+	min-width: 900px;
+	position: absolute;
+	left: 36%;
+	z-index: 1;
 }
 
 #mainmenu li
@@ -136,55 +199,36 @@ languages
 
 #mainmenu li a plain
 {
-	display: inline;
-	font-family: Arial;
-	font-size:11px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	padding: 8px 22px;
 	text-decoration: none;
-	padding: 10px;
-	background-color: #8c1116;
-	color: #fff;
-	border: solid #F5F5F5 1px;
-	margin-top: 20px;
-	/*max-width: 20%;*/
+	background: #6aa9bd;
 }
 
 #mainmenu li a:hover plain
 {
-	background-color: #F5F5F5;
-	color: black;
+	background-color: #6aa9bd;
+	color: #333333;
 	margin-top:-2px;
-	padding-bottom:12px;
-	border: solid #B91A1F 1px;
 }
 
 #mainmenu li plain
 {
-	font-family: Arial;
-	font-size:11px;
+	font-family: sans-serif;
+	font-size:1.1em;
 	text-decoration: none;
 	padding: 10px;
 	background-color: #F5F5F5;
 	color: black;
 	border: solid #F5F5F5 1px;
-}
-
-
-body .leftcolumn
-{
-	position: absolute;
-	/*background-color: #F5F5F5;*/
-	width:180px;
-	padding-top: 21px;
-	padding-right: 26px;
-	padding-bottom: 30px;
-	border-right: solid white;
-	height: 100%
 }
 
 /* my menu (user or admin menu) */
 #mymenu
 {
-	width: 300 px;
+	width: 10%;
 	display: block;
 	margin-top: 21px;
 	margin-left: -30px;
@@ -195,9 +239,9 @@ body .leftcolumn
 
 #mymenu ul li
 {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:11px;
-	color:#FFFFFF;
+	font-family:sans-serif;
+	font-size:1em;
+	color:white;
 	line-height:32px;
 	list-style-type:none;
 	text-indent:8px;
@@ -212,30 +256,23 @@ body .leftcolumn
 
 #mymenu li a plain
 {
-text-decoration: none;
-	font-family: Arial;
-	font-size:11px;
+	border: solid #ffffff 1px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	padding: 8px 10px;
 	text-decoration: none;
-	float:left;
-	padding: 10px;
-	background-color: #8c1116;
-	color: #fff;
-	margin-top: none;
-	margin-bottom: none;
-	width: 100%;
-	border: solid #D9DADB 1px;
+	background: #6aa8bd;
+	font-family: sans-serif;
+    font-size: 1em;
+    
 }
 
 #mymenu li a:hover plain
 {
-text-decoration: none;
-	background-color: #B91A1F;
-	padding-bottom:12px;
-	margin-top: none;
-	margin-bottom: none;
-	width: 100%;
-	float: left;
-	border: solid #B91A1F 1px;
+	background-color: #6aa8bd;
+	color:#333333;
+	margin-bottom: -3px;
 }
 
 #mymenu li a
@@ -245,16 +282,8 @@ text-decoration: none;
 
 #mymenu plain
 {
-text-decoration: none;
-	font-family: Arial;
-	font-size:11px;
-	text-decoration: none;
-	float:left;
-	padding: 10px;
-	background-color: #B91A1F;
-	color: #fff;
 	width: 100%;
-	border: solid #F5F5F5 1px;
+
 }
 
 /**********************************************/
@@ -266,44 +295,29 @@ text-decoration: none;
 }
 #mymenu li a plain2
 {
-	text-decoration: none;
+	
+	border: solid #ffffff 1px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	padding: 8px 10px;
+	text-decoration: none;	
+	background: #6aa9bd;
 	font-family: Arial;
-	font-size:11px;
-	text-decoration: none;
-	float:left;
-	padding: 10px;
-	background-color: #1675D4;
-	color: #fff;
-	margin-top: none;
-	margin-bottom: none;
-	width: 100%;
-	border: solid #D9DADB 1px;
+    font-size: 1em;
+	margin-left:10px;
+	background-color: #0185b9;
+	width: 126px;
+
 }
 #mymenu li a:hover plain2
 {
-	text-decoration: none;
-	background-color: #0B4885;
-	padding-bottom:12px;
-	margin-top: none;
-	margin-bottom: none;
-	width: 100%;
-	float: left;
-	border: solid #B91A1F 1px;
+	background-color: #387ef9;
+	color:#333333;
+	margin-top:-2px;
+	padding-bottom:10px;
 }
 
-#mymenu plain2
-{
-	
-	font-family: Arial;
-	font-size:11px;
-	text-decoration: none;
-	float:left;
-	padding: 10px;
-	background-color: #1675D4;
-	color: #fff;
-	width: 100%;
-	border: solid #F5F5F5 1px;
-}
 
 
 /***************************************/
@@ -311,14 +325,13 @@ text-decoration: none;
 mainposition
 {
 	display: block;
-	width: 82%;
-	float: right;
-	margin-left: 10px;
-	margin-right: 10px;
+	width: auto;
+	position: absolute;
+	left: 180px;	
 	margin-top: 50px;
 	padding-top: 10px;
-	/*padding-bottom: 3px;*/
-	padding-left: 19px;
+	padding-bottom: 100px;
+	padding-left: 30px;
 }
 
 
@@ -357,14 +370,22 @@ infoUser
 {
 	display: block;
 	background: white;
-	margin-top: 9px;
+	margin-top: 25px;
 	margin-left: -3px;
 	margin-bottom: 10px;
 	border: 1px solid;
 	padding-bottom: 4px;
-	width: 83%;
+	width: 1100px;
 }
 
+infoUser>h1
+{
+color:#333333;
+}
+#userDataZone, #changePassZone, #areuSureZone, #updateProfileZone{
+	padding-left: 20px;
+	padding-right: 20px;
+}
 notbeandisplay left
 {
 	/*display: block;*/
@@ -454,17 +475,14 @@ body
 h1
 {
 	margin-top: 10px;
-	margin-left: 27px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 20pt;
 	font-weight: bold;
-	/*color: #204060;*/
-	color: black;
-}
+	color: rgb(32, 74, 135);}
 
 h2
 {
-	color: #8c1116;
+	color: #333333;
 	margin-top: 10px;
 	margin-bottom:-3px;
 	text-align: center;
@@ -480,13 +498,6 @@ titleList
 	font-weight: bold;
 }
 
-
-/*form
-{
-	background: white;
-	border: 2px solid navy;
-	margin: 10px;
-}*/
 
 form div
 {
@@ -520,9 +531,344 @@ div .row
 	border-left: 2px solid #B91A1F;
 }
 
+div .indexRow
+{
+	text-align: center;
+	display: block;
+	background-color: white;
+	min-height: 30px;
+	width: 100%;
+	margin-bottom: 10px;
+	box-shadow: 0px 2px 2px #4b8ba4;
+	padding-left:15px;
+	padding-top:15px;
+}
+
+div .indexRow:hover
+{
+	background-color: rgba(45, 0, 255, 0.1);
+}
+
+.indexRow>span {
+display: inline-block;
+width: 20%;
+color: black;
+}
+
+div .indexHead
+{
+	display: block;
+	text-align: center;
+	margin-bottom: 4px;
+	margin-top: -15px;
+    padding-left: 15px;
+	
+}
+div .indexHead>span
+{
+display: inline-block;
+width: 20%;
+color: #204A9F;	
+}
+
 div .row span
 {
 	display:inline-block;
 	width: 18%;
 	padding: 15px;
+}
+
+#personsTable
+{
+	width: 100%;
+	margin-right:30px;
+	text-align:center;
+}
+
+
+.tst
+{
+	width: 100%;
+	height	: 100%;
+	border-collapse:collapse;
+}
+
+.tstmail
+{
+	width: 8%;	
+}
+
+.tstbuttons
+{
+	width: 92%;	
+}
+
+.tst tr td
+{
+	border: 1px solid #00FF00;
+}
+
+div.outtst div.t-zone
+{
+	
+	height: 30px;
+}
+
+#CreateCensusDiv>h1
+{
+	color:#333333;
+	margin-left:0px;
+}
+#CreateCensusDiv>h2
+{
+	color:#333333;
+	margin-left:0px;
+}
+#CreateCensusDiv>h3
+{
+	color:#333333;
+	margin-left:0px;
+}
+
+
+#CreateCensusDiv label
+{
+	width:initial;	
+}
+
+#CreateballotDiv>h1
+{
+	color:#333333;
+	margin-left:0px;
+}
+#CreateballotDiv>h4
+{
+	color:#333333;
+	margin-left:0px;
+}
+
+
+#CreateballotDiv label
+{
+	width:initial;	
+}
+
+#CreateballotDiv #typeZone
+{
+	background-color:#F5F5F5;
+}
+
+
+#resultballotDiv table
+{
+	margin-top:25px;
+	border-collapse:collapse;
+	text-align:center;
+	width:50%;
+}
+
+#resultballotDiv table td
+{
+	background-color:lightblue;
+	padding:10px;
+}
+
+#resultballotDiv #chart_div
+{
+	border: 1px solid;
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+	background-color: white;
+}
+
+#resultballotDiv h2
+{
+	text-align:left;
+	margin-bottom:25px;
+	margin-top:25px;
+}
+
+#resultballotDiv h1 
+{
+	color: #333333;
+}
+#showprofileDiv h1
+{
+	color: #333333;
+}
+
+#ballotlistDiv h1
+{
+	color: #333333;
+}
+hr
+{
+	margin-bottom:25px;
+}
+#censuslistDiv h1
+{
+	color: #333333;
+}
+#userlistDiv h1
+{
+	color:#333333; 
+}
+#companyDiv h1
+{
+	color:#333333; 
+}
+#adminmailDiv h1
+{
+	color:#333333;	
+}
+#contactDiv h1
+{
+	color:#333333;	
+}
+#indexDiv h1 
+{
+	color:#333333;	
+}
+#indexDiv h3 
+{
+	color:#333333;	
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
+
+#addToBallotDiv h1
+{
+	color:#333333;	
+}
+#addToBallotDiv h2
+{
+	color:#333333;	
+}
+#addToBallotDiv h3
+{
+	color:#333333;	
+}
+#voteDiv h1
+{
+	margin-left:0px;
+	color:#333333;	
+}
+#voteDiv h2
+{
+	color:#333333;	
+}
+#voteDiv h3
+{
+	color:#333333;	
+}
+div#showProfile h1 
+{
+	color:#333333;
+}
+div#showProfile img
+{
+	float: right;
+	margin-top: -22px;
+	margin-right: 6px
+}
+.boton, .t-beaneditor-submit{
+	border-radius: 8px;
+	border: solid #ffffff 1px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	padding: 8px 10px;
+	text-decoration: none;
+	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
+	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
+	font-family: Arial;
+    font-size: 11px;
+}
+
+.boton:hover, .t-beaneditor-submit:hover
+{
+	background-color: #09c0e2;
+	color: black;
+	margin-top:-2px;
+	padding-bottom:10px;
+	border: solid #333333 1px;
+}
+
+.boton:active, .t-beaneditor-submit:active{
+	position:relative;
+}
+button{
+	border: solid #ffffff 1px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	padding: 8px 10px;
+	text-decoration: none;
+	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%) rgb(115, 218, 255);
+	font-family: Arial;
+    font-size: 11px;
+}
+
+button:hover
+{
+	background-color: #09c0e2;
+	color: black;
+	margin-top:-2px;
+	padding-bottom:10px;
+	border: solid #333333 1px;
+}
+
+button:active {
+	position:relative;
+}	
+.editar{
+	position: absolute;
+}
+#cambioPass{
+	height: 30px;
+}
+#searchZone a, #mostrarVotaciones a, #searchTypeZone a, #showUsers a{
+	color: rgb(32, 74, 135);
+	text-decoration: underline;
+	font-size: 14pt;
+	
+}
+#searchZone, #gridZone, #areuSureZone{
+	margin-left: 20px;
+	margin-right:20px;
+	width: 1050px;
+}
+#ballotlistDiv{
+	width:1070px;
+	margin-left: 20px;
+}
+#indexDiv{
+	width:1070px;
+}
+#adminAboutUs, #adminMailZone{
+	margin-left:20px;
+	margin-bottom: 5px;
+}
+.descripcionMetodo{
+	text-align:justify;
+	padding-right: 30px;
+	font-size:11pt;
+}
+
+#nextMethod{
+	text-align: right;
+	padding-right: 35px;
+	font-size: 12pt;
+}
+#previousMethod{
+	text-align: left;
+	font-size: 12pt;
+}
+#kaptcha{
+	margin-left:150px;
+}
+
+#KaptchaField{
+	width:100px;
 }

@@ -1,0 +1,184 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	  <head><title>${message:page-title}</title>
+	  <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
+	</head>
+	
+	<t:border><div id="ballotlistDiv">
+		<t:if test="isAdmin">
+			<h1>${message:admin-ballots}</h1><hr/>
+			<p:else>
+				<h1>${message:my-ballots}</h1><hr/>
+			</p:else>
+		</t:if>
+		
+		
+		<t:zone t:id="searchZone" id="searchZone" t:update="show">
+			<t:if test="showSearch">
+				<t:if test="showBasic">
+					<t:actionlink t:id="advancedBut" t:zone="^">${message:advanced}</t:actionlink> <br/><br/>
+					<t:form t:id="basicForm" t:zone="^">
+						<table>
+							<tr>
+								<td><t:label for="emailf1"/></td>
+								<td><t:textfield t:id="emailf1" t:value="email"/></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input class="boton" t:type="submit" value="${message:submit-but}"/></td>
+							</tr>
+						</table>
+						
+					</t:form>
+					
+					
+					<p:else>
+						<t:actionlink t:id="basicBut" t:zone="^">${message:basic}</t:actionlink>
+						<t:form t:id="advancedForm" t:zone="^">
+						<table>
+							<tr>
+								<td><t:label for="emailf2"/></td>
+								<td><t:textfield t:id="emailf2" t:value="email"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="namef"/></td>
+								<td><t:textfield t:id="namef" t:value="name"/></td>
+							</tr>
+							
+							<tr>
+								<td><t:label for="ballotKindSelect"/></td>
+								<td><t:select t:type="select" t:id="ballotKindSelect" value="kind" exclude="sensible" t:blankLabel="${message:choose}" t:zone="^"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="methodSelect"/></td>
+								<td><t:select t:type="select" t:id="methodSelect" value="method" t:blankLabel="${message:choose}" t:zone="^"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="startD"/></td>
+								<td><t:DateField t:id="startD" t:value="startDate"/></td>
+							</tr>
+							<tr>
+								<td><t:label for="endD"/></td>
+								<td><t:DateField t:id="endD" t:value="endDate"/></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input t:type="submit" class="boton" value="${message:submit-but}"/></td>
+							</tr>
+						</table>
+						
+					</t:form>
+					</p:else>
+				</t:if>
+			</t:if>
+		<hr/>
+		</t:zone>
+		
+		<t:zone t:id="gridZone" id="gridZone">
+			<t:if test="notemptyBallots">
+				<t:if test="showGrid">
+					<div id="mostrarVotaciones">
+					<t:if test="showMine">
+							<t:actionlink t:id="mineBut" t:zone="^">${message:mine-ballots}</t:actionlink><br/><br/>
+						<p:else>
+							<t:actionlink t:id="allBut" t:zone="^">${message:all-ballots}</t:actionlink><br/><br/>
+						</p:else>
+					</t:if>
+					</div>
+				</t:if>
+			</t:if>
+			<t:if test="showGrid">
+				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="vote,result,kind,addusers,finish,delete,maker,census,edit"
+					rowsPerPage="15" inplace="true" reorder="maker,name,method,census" exclude="teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
+					<p:addusersCell>
+						<t:if test="showAdd">
+							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><img src="${asset:context:/layout/images/plusp.png}" /></t:actionlink>
+						</t:if>
+					</p:addusersCell>
+					<p:kindCell>
+						<t:if test="ballot.publica">
+							${message:public}
+							<p:else>
+								<t:if test="ballot.teaching">
+									${message:teaching}
+									<p:else>
+										${message:private}
+									</p:else>
+								</t:if>
+							</p:else>
+						</t:if>
+					</p:kindCell>
+					<p:voteCell>
+						<t:if test="canVote">
+							<t:actionlink t:id="voteBallot" t:context="ballot.id"><img src="${asset:context:/layout/images/urn.png}" /></t:actionlink>
+						</t:if>
+					</p:voteCell>
+					<p:endedCell>
+						<t:if test="ballot.ended">
+							<img src="${asset:context:/layout/locked.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/unlocked.png}" />
+						</p:else>
+						</t:if>
+						
+					</p:endedCell>
+					<p:makerCell>
+						${username}
+					</p:makerCell>
+					<p:censusCell>
+						${censusName}
+					</p:censusCell>
+					<p:deleteCell>
+						<t:if test="myBallot">
+							<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><img src="${asset:context:/layout/tickx.png}" /></t:actionLink>
+						</t:if>
+					</p:deleteCell>
+					<p:editCell>
+						<t:if test="myBallot">
+							<t:actionLink t:id="editBallot" t:context="ballot.id" t:zone="^"><img src="${asset:context:/layout/images/edit.png}" /></t:actionLink>
+						</t:if>
+					</p:editCell>
+					
+					<p:finishCell>
+						<t:if test="myBallot">
+				
+							<t:if test="!ballot.ended">
+								<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><img src="${asset:context:/layout/images/finish.png}" /></t:actionLink>
+							</t:if>
+						</t:if>
+					</p:finishCell>
+					
+					<p:resultCell>
+						<t:actionlink t:id="resultBallot" t:context="ballot.id"><img src="${asset:context:/layout/images/results.png}" /></t:actionlink>
+					</p:resultCell>
+					<p:empty>
+					</p:empty>
+				</t:grid>
+				
+			<t:if test="canMake">
+				<t:actionlink t:id="addBallot"><img src="${asset:context:/layout/images/plus.png}" /></t:actionlink>
+				${message:newBallot}
+			</t:if>
+			</t:if>
+			
+		</t:zone>
+
+		
+		
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
+			<t:if test="showAreuSure">
+				<t:if test="optionDelete">
+					Esta usted seguro de que quiere <strong>eliminar</strong> la votación <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
+					<p:else>
+						Esta usted seguro de que quiere <strong>finalizar</strong> la votación <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
+					</p:else>
+				</t:if>
+				<br/>
+				<t:actionLink t:id="isSure" t:zone="^"><button>${message:yes}</button></t:actionLink>
+				<t:actionLink t:id="notSure" t:zone="^"><button>No</button></t:actionLink>
+			</t:if>
+		</t:zone>
+		
+	</div>
+	</t:border>
+</html>

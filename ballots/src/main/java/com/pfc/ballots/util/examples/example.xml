@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<uploadUsers>
+
+	<user>
+		<firstName></firstName>
+		<lastName></lastName>
+		<dni></dni>
+		<email></email>
+		<country></country>		
+		<city></city>
+		<address></address>
+		<phone></phone>
+		<center></center>
+		<studies></studies>
+	</user>
+		
+
+</uploadUsers>

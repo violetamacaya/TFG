@@ -1,0 +1,89 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	  <head><title>${message:page-title}</title>
+	  <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
+	</head>
+	
+	<t:border><div id="ballotlistDiv">
+		
+		<h1>${message:admin-ballots}</h1><hr/>
+		
+		
+		<t:zone t:id="gridZone" id="gridZone" t:update="show">
+			<t:if test="showGrid">
+				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="kind,addUsers,finish,delete,maker,census" reorder="maker,name,method,census" exclude="teaching,publica,id,description,active,notstarted,counted,idOwner,idballotdata,idCensus">
+					<p:addusersCell>
+						<t:if test="showAdd">
+							<t:actionlink t:id="addUsersBut" t:context="ballot.id"><button>${message:add-users}</button></t:actionlink>
+						</t:if>
+					</p:addusersCell>
+					<p:kindCell>
+						<t:if test="ballot.publica">
+							${message:public}
+							<p:else>
+								<t:if test="ballot.teaching">
+									${message:teaching}
+									<p:else>
+										{message:private}
+									</p:else>
+								</t:if>
+							</p:else>
+						</t:if>
+					</p:kindCell>
+					<p:endedCell>
+						<t:if test="ballot.ended">
+							<img src="${asset:context:/layout/locked.png}" />
+						<p:else>
+							<img src="${asset:context:/layout/unlocked.png}" />
+						</p:else>
+						</t:if>
+						
+					</p:endedCell>
+					<p:makerCell>
+						${username}
+					</p:makerCell>
+					<p:censusCell>
+						${censusName}
+					</p:censusCell>
+					<p:deleteCell>
+						<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><button>${message:delete-but}</button></t:actionLink>
+					</p:deleteCell>
+					<p:finishCell>
+						<t:if test="!ballot.ended">
+							<t:actionLink t:id="finishBallot" t:context="ballot.id" t:zone="^"><button>${message:finish-but}</button></t:actionLink>
+						</t:if>
+					</p:finishCell>
+				</t:grid>
+				
+				<!-- Comprobar si tienen la clase de datos asociada 
+				RELATIVE MAJORITY
+				<table>
+					<tr><td><t:grid t:id="relGrid" source="relMays" reorder="ballotId,id"/></td></tr>
+					<tr><td><t:actionlink t:id="deleteAllMaj" t:zone="^">deleteAll</t:actionlink></td></tr>
+				</table>
+				KEMENY
+				<table>
+					<tr><td><t:grid t:id="kemGrid" source="kemenys" reorder="ballotId,id"/></td></tr>
+					<tr><td><t:actionlink t:id="deleteAllKem" t:zone="^">deleteAll</t:actionlink></td></tr>
+				</table>
+				 -->
+			</t:if>
+		</t:zone>
+		
+		
+		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
+			<t:if test="showAreuSure">
+				<t:if test="optionDelete">
+					Esta usted seguro de que quiere <strong>eliminar</strong> la botacion <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
+					<p:else>
+						Esta usted seguro de que quiere <strong>finalizar</strong> la votacion <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
+					</p:else>
+				</t:if>
+				<br/>
+				<t:actionLink t:id="isSure" t:zone="^"><button>YES</button></t:actionLink>
+				<t:actionLink t:id="notSure" t:zone="^"><button>NO</button></t:actionLink>
+			</t:if>
+		</t:zone>
+		
+	</div></t:border>
+</html>
