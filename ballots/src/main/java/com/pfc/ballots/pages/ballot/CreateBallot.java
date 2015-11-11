@@ -1,11 +1,18 @@
 package com.pfc.ballots.pages.ballot;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
@@ -307,7 +314,9 @@ public class CreateBallot {
 	@Persist
 	private String numVotes;
 
-
+	@Property
+	@Persist
+	private boolean editable;
 
 	public CensusEncoder getCensusNormalEncoder()
 	{
@@ -988,6 +997,21 @@ public class CreateBallot {
 			}
 			else //No hay errores
 			{
+				File img = null;
+				try {
+					URL url = new URL("https://docs.oracle.com/javase/tutorial/2d/images/examples/strawberry.jpg");
+				} catch (IOException e) {
+					System.out.println("No se ha podido cargar la imagen");
+				}
+				
+				File file;
+				file = new File ("https://docs.oracle.com/javase/tutorial/2d/images/examples/strawberry.jpg");
+				
+				ballot.setImage(file);
+				
+				//CARGA DE IMAGENES REVISAR!!!!
+				
+				
 				ballot=setBallotData();
 				relativeMajority.setId(UUID.generate());
 				ballot.setIdBallotData(relativeMajority.getId());
@@ -3258,6 +3282,7 @@ public class CreateBallot {
 		Ballot newBallot=new Ballot();
 		newBallot.setId(UUID.generate());
 		newBallot.setName(ballotName);
+		newBallot.setEditable(editable);
 		newBallot.setDescription(description);
 		newBallot.setIdOwner(datasession.getId());
 		if(ballotKind==BallotKind.PRIVADA)

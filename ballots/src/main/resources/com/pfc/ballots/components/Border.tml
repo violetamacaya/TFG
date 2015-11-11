@@ -14,15 +14,13 @@
 			<t:actionlink t:id="switchlocale"><img src="${asset:context:/layout/flag.gif}" /></t:actionlink>
 		</div>
 		<div id="letterSize">
-			<t:actionlink t:id="increaseSize"><img src="${asset:context:/layout/lupa.png}" />
-			
-			</t:actionlink>
-			
+			<img src="${asset:context:/layout/lupa.png}" id="increaseSize" />
 		</div>
+		
 		<div id="letterSizeLess">
-			<t:actionlink t:id="decreaseSize"><img src="${asset:context:/layout/lupamenos.png}" /></t:actionlink>
-			
+			<img src="${asset:context:/layout/lupamenos.png}" id="decreaseSize" />
 		</div>
+		
 		<ul id="mainMenu">
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:index" ><plain>${message:home}</plain></t:eventlink></li>
 			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:methods" ><plain>${message:methods}</plain></t:eventlink></li>

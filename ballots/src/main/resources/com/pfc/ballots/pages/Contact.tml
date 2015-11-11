@@ -22,12 +22,12 @@
 					<table>
 						<tr>
 							<td><t:Label t:for="remitente"/></td>
-							<td><t:textfield t:id="remitente"/></td>
+							<td><t:textfield style="width: 200px;" t:id="remitente"/></td>
 						</tr>
 
 						<tr>
 							<td><t:Label t:for="text" /></td>
-							<td><t:TextArea t:id="text"></t:TextArea></td>
+							<td><t:TextArea style="width: 200px; height: 50px" t:id="text"></t:TextArea></td>
 						</tr>
 						<tr>
 							<td></td>

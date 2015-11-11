@@ -1,5 +1,8 @@
 package com.pfc.ballots.entities;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Date;
 
 import org.apache.tapestry5.beaneditor.NonVisual;
@@ -34,6 +37,8 @@ public class Ballot {
 	private boolean notStarted;
 	private boolean active;
 	private boolean counted;
+	private boolean editable;
+	private File imagen1;
 	
 	
 		public String getId() {
@@ -131,6 +136,15 @@ public class Ballot {
 		}
 		public void setPrivat(boolean privat) {
 			this.privat = privat;
+		}
+		public boolean isEditable(){
+			return editable;
+		}
+		public void setEditable(boolean editable){
+			this.editable=editable;
+		}
+		public void setImage(File image){
+			this.imagen1 = image;
 		}
 	
 }

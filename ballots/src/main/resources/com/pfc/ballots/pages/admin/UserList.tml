@@ -300,6 +300,10 @@
 						<td>${user.address}</td>
 					</tr>
 					<tr>
+						<td>${message:university-label}:</td>
+						<td>${user.university}</td>
+					</tr>
+					<tr>
 						<td>${message:carrera-label}:</td>
 						<td>${user.carrera}</td>
 					</tr>

@@ -88,7 +88,7 @@
 				</t:if>
 			</t:if>
 			<t:if test="showGrid">
-				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="vote,result,kind,addusers,finish,delete,maker,census,edit"
+				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="vote,result,kind,addusers,finish,delete,maker,census"
 					rowsPerPage="15" inplace="true" reorder="maker,name,method,census" exclude="teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
 					<p:addusersCell>
 						<t:if test="showAdd">
@@ -122,6 +122,16 @@
 						</t:if>
 						
 					</p:endedCell>
+					<p:editableCell> 
+						<t:if test="ballot.editable">
+							<t:actionLink t:id="editBallot" t:context="ballot.id" t:zone="^"> <img src="{$asset:context:/layout/tickv.png}" /> </t:actionLink>
+						<p:else>
+							<img src="${asset:context:/layout/tickx.png}" />
+						</p:else>
+					</t:if>
+					</p:editableCell>
+							
+						
 					<p:makerCell>
 						${username}
 					</p:makerCell>
@@ -133,11 +143,6 @@
 							<t:actionLink t:id="deleteBallot" t:context="ballot.id" t:zone="^"><img src="${asset:context:/layout/tickx.png}" /></t:actionLink>
 						</t:if>
 					</p:deleteCell>
-					<p:editCell>
-						<t:if test="myBallot">
-							<t:actionLink t:id="editBallot" t:context="ballot.id" t:zone="^"><img src="${asset:context:/layout/images/edit.png}" /></t:actionLink>
-						</t:if>
-					</p:editCell>
 					
 					<p:finishCell>
 						<t:if test="myBallot">

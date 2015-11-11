@@ -4,13 +4,10 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.ComponentResources;
-import org.apache.tapestry5.annotations.Environmental;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
@@ -18,16 +15,11 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.PersistentLocale;
 import org.apache.tapestry5.services.Request;
-import org.apache.tapestry5.services.Session;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
-import com.pfc.ballots.dao.DodgsonDao;
 import com.pfc.ballots.dao.FactoryDao;
-import com.pfc.ballots.dao.LogDao;
-import com.pfc.ballots.dao.UserDao;
 import com.pfc.ballots.dao.UserLogedDao;
-import com.pfc.ballots.dao.HareDao;
 /*import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.MejorPeorDao;
 import com.pfc.ballots.dao.NansonDao;
@@ -52,31 +44,12 @@ import com.pfc.ballots.pages.ballot.BallotList;
 import com.pfc.ballots.pages.ballot.BallotWizzard;
 import com.pfc.ballots.pages.ballot.CreateBallot;
 import com.pfc.ballots.pages.ballot.PublicBallots;
-import com.pfc.ballots.pages.ballot.ShowBallotAdmin;
 import com.pfc.ballots.pages.profile.CreateProfile;
 import com.pfc.ballots.pages.profile.ProfileByFile;
 import com.pfc.ballots.pages.profile.ShowProfile;
 import com.pfc.ballots.pages.users.CompanyLogIn;
 import com.pfc.ballots.pages.users.LogIn;
-import com.pfc.ballots.pages.Methods.ApprovalVotingMethod;
-import com.pfc.ballots.pages.Methods.BlackMethod;
-import com.pfc.ballots.pages.Methods.BordaMethod;
-import com.pfc.ballots.pages.Methods.CondorcetMethod;
-import com.pfc.ballots.pages.Methods.CoombsMethod;
-import com.pfc.ballots.pages.Methods.DodgsonMethod;
-import com.pfc.ballots.pages.Methods.HareMethod;
-import com.pfc.ballots.pages.Methods.JuicioMayoritarioMethod;
-import com.pfc.ballots.pages.Methods.KemenyMethod;
-import com.pfc.ballots.pages.Methods.MajoryMethod;
-import com.pfc.ballots.pages.Methods.MejorPeorMethod;
-import com.pfc.ballots.pages.Methods.NansonMethod;
-import com.pfc.ballots.pages.Methods.RangeVotingMethod;
-import com.pfc.ballots.pages.Methods.BramsMethod;
-import com.pfc.ballots.pages.Methods.BucklinMethod;
-import com.pfc.ballots.pages.Methods.CopelandMethod;
-import com.pfc.ballots.pages.Methods.SchulzeMethod;
-import com.pfc.ballots.pages.Methods.SmallMethod;
-import com.pfc.ballots.pages.Methods.VotoAcumulativoMethod;
+
 /**
  * Border class is a component that provides the menu interface for all the application
  * 
@@ -86,12 +59,10 @@ import com.pfc.ballots.pages.Methods.VotoAcumulativoMethod;
  * @version 2.0 OCT-2014
  *
  */
-@Import(library = "context:js/sizes.js")
+@Import(library = {"context:js/jquery-min.js", "context:js/sizes.js"})
 public class Border {
 
 	/***************************************** Ajax menu stuff *******************************************************************/
-    @Inject
-    private JavaScriptSupport javaScriptSupport;
 	
 	@Inject
 	private Request request;
@@ -190,9 +161,10 @@ public class Border {
 	
 	@Persist
 	private String localeLabel;
-	@Inject
 	
-
+	
+	@Inject
+	private JavaScriptSupport javaScriptSupport;
 	
 	//get locale label ------------------------------------------------------------------------------------------------------------
 	public String getLocaleLabel()
@@ -226,19 +198,8 @@ public class Border {
 			persistentLocale.set(Locale.ENGLISH);
 		}
 	}
-	void onActionFromIncreaseSize()
-	{
-		//Ampliar el tamaño de la letra
-		//body, table, input, select 
-		System.out.println("En el action de increase");
-		//javaScriptSupport.addScriptLink(increase);
-		
-	}
-	
-	void onActionFromDecreaseSize()
-	{
-		//Disminuir el tamaño de la letra
-	}
+
+
 	/**
 	 * 
 	 * @return if the user is a maker

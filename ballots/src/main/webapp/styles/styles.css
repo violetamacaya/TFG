@@ -105,10 +105,11 @@ div#letterSize
 	padding: 2px 20px 2px;
 	margin-right:3px;
 	margin-top: -10px;
+	cursor:pointer;
 
 }
 
-div#letterSize>a>img {
+div#letterSize>img {
 
 width:20px;
 }
@@ -118,10 +119,11 @@ div#letterSizeLess
 	padding: 2px 0px 2px;
 	margin-right:3px;
 	margin-top: -10px;
+	cursor:pointer;
 
 }
 
-div#letterSizeLess>a>img {
+div#letterSizeLess>img {
 
 width:20px;
 }
@@ -375,7 +377,8 @@ infoUser
 	margin-bottom: 10px;
 	border: 1px solid;
 	padding-bottom: 4px;
-	width: 1100px;
+	padding-right: 20px;
+	width: 100%;
 }
 
 infoUser>h1
@@ -724,6 +727,10 @@ hr
 {
 	color:#333333;	
 }
+#contactDiv{
+	padding-right: 30px;
+}
+
 #indexDiv h1 
 {
 	color:#333333;	

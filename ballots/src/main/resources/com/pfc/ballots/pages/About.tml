@@ -1,24 +1,36 @@
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-   <head><title>${message:page-title}</title>
-    <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
-	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/></head>
-	<t:border><div id="contactDiv">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+<t:border>
+	<div id="contactDiv">
 
-    <t:if test="showDefault">
-    <h1><titlelist>${message:group}</titlelist></h1><hr/>
-		<p class="methodtext">
-				${message:info} <t:pagelink href="http//:inpo.usal.es" page = "About">${message:link}</t:pagelink></p>
-	<p:else>
-		<h1><titlelist>${about.head}</titlelist></h1><hr/>
-		<p class="methodtext">
-				${about.text}</p><br/>
-	</p:else>
-	</t:if>
+		<t:if test="showDefault">
+			<h1>
+				<titlelist>${message:group}</titlelist>
+			</h1>
+			<hr />
+			<p class="methodtext">
+				${message:info} <a href="http://inpo.usal.es">${message:link}</a>
+			</p>
+			<p:else>
+				<h1>
+					<titlelist>${about.head}</titlelist>
+				</h1>
+				<hr />
+				<p class="methodtext">${about.text}</p>
+				<br />
+			</p:else>
+		</t:if>
 
 
-<p>Copyright&copy; 2015</p>
-<br/>
-<br/>
-    </div></t:border>
+		<p>Copyright&copy; 2015</p>
+		<br /> <br />
+	</div>
+</t:border>
 
 </html>

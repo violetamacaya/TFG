@@ -17,7 +17,7 @@
 					<t:if test="isnotPassOk">
 						<span class="error">${message:pass-not-match}</span>
 					</t:if>
-				<t:beaneditform t:id="form" submitlabel="${message:send-but}" object="profile" add="repeat" reorder="admin,maker,email,password,repeat" exclude="owner">
+				<t:beaneditform t:id="form" submitlabel="${message:send-but}" object="profile" add="repeat, university" reorder="admin,maker,student,teacher,email,password,repeat" exclude="owner">
 					
 					<p:email>
 						<t:label for="email"/>
@@ -33,11 +33,11 @@
 						<t:label for="repeat"/>
 						<t:passwordfield t:id="repeat" value="repeat" validate="required,minLength=8"/>
 					</p:repeat>
+					<p:university>
+						<t:label for="university"/>
+						<t:textfield t:id="university" value="profile.university"/>
+						</p:university>
 				</t:beaneditform>
-				
-			
-			
-			
 			
 		</infouser>
 	</div>

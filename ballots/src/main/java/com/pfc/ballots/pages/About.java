@@ -36,7 +36,7 @@ public class About
 	
 	@Inject
 	private ComponentResources componentResources;
-	
+
 	
 	public void setupRender()
 	{
