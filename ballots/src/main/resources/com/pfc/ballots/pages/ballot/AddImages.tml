@@ -1,0 +1,41 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-control" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+<t:border>
+	<div id="CreateballotDiv">
+		<h1>${message:add-images}</h1>
+		<hr />
+		${message:description}
+		<t:zone t:id="formZone" id="formZone" update="^">
+			<span class="error"> <t:if test="errorExtension">
+							${message:errorExtension}<br />
+				</t:if>
+			</span>
+			<t:form t:id="form" zone="formZone" t:mixins="ajaxupload">
+				<t:upload t:id="file" value="file" />
+				<t:submit class="boton" value="${message:upload}" />
+			</t:form>
+			<t:ActionLink class="boton" t:id="finish">${message:finish}</t:ActionLink>
+		</t:zone>
+		<br />
+
+		<t:zone t:id="imageZone" id="imageZone" update="^">
+			<t:Loop t:id="imagesLoop" t:source="ballotImages" t:value="imagen">
+				${imagen}  <t:actionLink t:id="delete" t:context="imagen" t:zone="^">
+					<img src="${asset:context:/layout/tickx.png}" />
+				</t:actionLink>
+				<br />
+			</t:Loop>
+
+
+		</t:zone>
+	</div>
+</t:border>
+</html>

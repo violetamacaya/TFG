@@ -52,7 +52,7 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		try
 		{
 			DB.store(relativeMajority);
-			System.out.println("[DB4O]Vote stored");
+			//System.out.println("[DB4O]Vote stored");
 		}
 		catch(Exception e)
 		{
@@ -84,7 +84,7 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 				{
 					relMays.add((RelativeMajority)result.next());
 				}
-				System.out.println("[DB4O]All RelMay was retrieved");
+				//System.out.println("[DB4O]All RelMay was retrieved");
 		}
 		catch(Exception e)
 		{
@@ -286,7 +286,7 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		{
 			
 			DB=Db4oEmbedded.openFile(config, PATH);
-			System.out.println("[DB4O]Database was open");
+			//System.out.println("[DB4O]Database was open");
 			
 		}
 		catch(Exception e)
@@ -301,7 +301,7 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 	private void close()
 	{
 		DB.close();
-		System.out.println("[DB4O]Database was closed");
+		//System.out.println("[DB4O]Database was closed");
 	}
 
 	

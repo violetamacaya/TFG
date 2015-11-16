@@ -1,5 +1,6 @@
 package com.pfc.ballots.pages.ballot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,7 +82,9 @@ public class VoteBallot {
 	private Vote vote;
 
 
-
+	@InjectComponent
+	private Zone imagesZone;
+	
 	@Property
 	@SessionAttribute
 	private String contextBallotId;
@@ -95,6 +98,13 @@ public class VoteBallot {
 
 	@Property
 	private final StringValueEncoder stringValueEncoder = new StringValueEncoder();
+	
+	@Property
+	private String imagen;
+	
+	@Property
+	@Persist
+	ArrayList<String> ballotImages;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
@@ -137,6 +147,9 @@ public class VoteBallot {
 		voteDao=DB4O.getVoteDao(datasession.getDBName());
 		vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
 
+		ballotImages= ballot.getImagenes();
+		System.out.println("ballotimages: "+ballot.getImagenes());
+		
 		if(ballot.isPublica())
 		{
 
@@ -925,14 +938,14 @@ public class VoteBallot {
 
 	public boolean isShowVotoAcumulativo3()
 	{
-		if(votoAcumulativo.getOptions().size()>=2)
+		if(votoAcumulativo.getOptions().size()>2)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo4()
 	{
-		if(votoAcumulativo.getOptions().size()>=3)
+		if(votoAcumulativo.getOptions().size()>3)
 			return true;
 		else
 			return false;
@@ -1709,24 +1722,25 @@ public class VoteBallot {
 	}
 	private boolean alreadyVote()
 	{
-				if(publicVotes==null)
-					return false;
-				List<String> list=publicVotes.get(datasession.getIdSession());
-				if(list==null)
-				{
-					return false;
-				}
-				else
-				{
-					for(String current:list)
-					{
-						if(current.equals(contextBallotId))
-						{
-							return true;
-						}
-					}
-					return false;
-				}
+//				if(publicVotes==null)
+//					return false;
+//				List<String> list=publicVotes.get(datasession.getIdSession());
+//				if(list==null)
+//				{
+//					return false;
+//				}
+//				else
+//				{
+//					for(String current:list)
+//					{
+//						if(current.equals(contextBallotId))
+//						{
+//							return true;
+//						}
+//					}
+//					return false;
+//				}
+		return false;
 	}
 
 	private boolean isNumeric(String cadena)

@@ -46,9 +46,11 @@
 		</dependency>
 
 
-		<!-- Uncomment this to add support for file uploads: <dependency> <groupId>org.apache.tapestry</groupId> 
-			<artifactId>tapestry-upload</artifactId> <version>${tapestry-release-version}</version> 
-			</dependency> -->
+		<dependency>
+			<groupId>org.apache.tapestry</groupId>
+			<artifactId>tapestry-upload</artifactId>
+			<version>${tapestry-release-version}</version>
+		</dependency>
 
 		<!-- A dependency on either JUnit or TestNG is required, or the surefire 
 			plugin (which runs the tests) will fail, preventing Maven from packaging 
@@ -113,7 +115,7 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-kaptcha</artifactId>
@@ -129,6 +131,12 @@
 			<artifactId>filters</artifactId>
 			<version>2.0.235</version>
 		</dependency>
+
+		<!--  <dependency>
+			<groupId>org.got5</groupId>
+			<artifactId>tapestry5-jquery</artifactId>
+			<version>3.4.2</version>
+		</dependency>-->
 
 	</dependencies>
 	<build>
@@ -188,6 +196,14 @@
 		<repository>
 			<id>apache-staging</id>
 			<url>https://repository.apache.org/content/groups/staging/</url>
+		</repository>
+
+		<repository>
+			<id>oss—sonatype-snapshot-repo</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
 		</repository>
 
 	</repositories>

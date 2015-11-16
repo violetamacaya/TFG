@@ -798,6 +798,15 @@
 			<p:else>
 				<h2>${message:vote-done}</h2>
 			</p:else>
+			<t:zone t:id="imagesZone">
+			HOLAAAA
+			<t:Loop t:id="imagesLoop" t:source="ballotImages" t:value="imagen">
+				${imagen}  <t:actionLink t:id="delete" t:context="imagen" t:zone="^">
+					<img src="${asset:context:/layout/tickx.png}" />
+				</t:actionLink>
+				<br />
+			</t:Loop>
+			</t:zone>
 		</t:if>
 	</div>
 </t:border>

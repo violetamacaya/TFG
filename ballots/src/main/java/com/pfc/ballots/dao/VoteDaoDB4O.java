@@ -48,7 +48,7 @@ public class VoteDaoDB4O implements VoteDao {
 		try
 		{
 			DB.store(vote);
-			System.out.println("[DB4O]Vote stored");
+			//System.out.println("[DB4O]Vote stored");
 		}
 		catch(Exception e)
 		{

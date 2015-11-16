@@ -71,7 +71,7 @@ public class BallotDaoDB4O implements BallotDao{
 			}
 			else
 			{
-				System.out.println("[DB4O]Warning:Email was already in use");
+				System.out.println("[DB4O]Ballot name was already in use");
 			}
 		}
 		catch(Exception e)
@@ -629,6 +629,7 @@ public class BallotDaoDB4O implements BallotDao{
 		{
 				Query query=DB.query();
 				query.constrain(Ballot.class);
+				@SuppressWarnings("rawtypes")
 				ObjectSet result = query.execute();
 				Ballot x;
 				while(result.hasNext())
@@ -698,6 +699,7 @@ public class BallotDaoDB4O implements BallotDao{
 	 * @param List<String> ids of ballots to retrieve
 	 * @return List<Ballot> list of ballots that aren't counted yet
 	 */
+	@SuppressWarnings("rawtypes")
 	public List<Ballot> getEndedNotCountedById(List<String> ids)
 	{
 		open();
@@ -882,6 +884,7 @@ public class BallotDaoDB4O implements BallotDao{
 			{
 				DB.delete((Ballot)result.next());
 				DB.store(updatedBallot);
+				System.out.println("[DB4O]: Ballot was updated");
 			}
 			
 		}
@@ -1046,7 +1049,7 @@ public class BallotDaoDB4O implements BallotDao{
 				{
 					
 					DB=Db4oEmbedded.openFile(config, PATH);
-					System.out.println("[DB4O]Database was open");
+					//System.out.println("[DB4O]Database was open");
 					
 				}
 				catch(Exception e)
@@ -1061,7 +1064,7 @@ public class BallotDaoDB4O implements BallotDao{
 			private void close()
 			{
 				DB.close();
-				System.out.println("[DB4O]Database was closed");
+				//System.out.println("[DB4O]Database was closed");
 			}
 
 

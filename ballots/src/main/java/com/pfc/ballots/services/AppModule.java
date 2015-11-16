@@ -6,12 +6,15 @@ import org.apache.tapestry5.*;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.annotations.Local;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.RequestFilter;
 import org.apache.tapestry5.services.RequestHandler;
 import org.apache.tapestry5.services.Response;
 import org.slf4j.Logger;
+
+import com.pfc.ballots.util.FileUploadFilter;
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
@@ -27,6 +30,8 @@ public class AppModule
         // Use service builder methods (example below) when the implementation
         // is provided inline, or requires more initialization than simply
         // invoking the constructor.
+    	
+    	binder.bind(FileUploadFilter.class);
     }
 
     public static void contributeFactoryDefaults(
@@ -107,13 +112,13 @@ public class AppModule
      * that implement RequestFilter (defined in other modules).
      */
     public void contributeRequestHandler(OrderedConfiguration<RequestFilter> configuration,
-                                         @Local
-                                         RequestFilter filter)
+                                         @InjectService("FileUploadFilter") FileUploadFilter fileUploadFilter)
     {
         // Each contribution to an ordered configuration has a name, When necessary, you may
         // set constraints to precisely control the invocation order of the contributed filter
         // within the pipeline.
 
-        configuration.add("Timing", filter);
+        //configuration.add("Timing", filter);
+        configuration.add("FileUploadFilter", fileUploadFilter);
     }
 }

@@ -57,6 +57,7 @@ encoding//src/main/resources/com/pfc/ballots/pages/admin/LogList.properties=UTF-
 encoding//src/main/resources/com/pfc/ballots/pages/admin/LogList_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/admin/UserList.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/admin/UserList_en.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/ballot/AddImages.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/AddUsers.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/AddUsers_en.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/ballot/BallotList.properties=UTF-8

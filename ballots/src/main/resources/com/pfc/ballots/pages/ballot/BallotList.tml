@@ -124,7 +124,7 @@
 					</p:endedCell>
 					<p:editableCell> 
 						<t:if test="ballot.editable">
-							<t:actionLink t:id="editBallot" t:context="ballot.id" t:zone="^"> <img src="{$asset:context:/layout/tickv.png}" /> </t:actionLink>
+							<t:actionLink t:id="editBallot" t:context="ballot.id" t:zone="^"> <img src="${asset:context:/layout/tickv.png}" /> </t:actionLink>
 						<p:else>
 							<img src="${asset:context:/layout/tickx.png}" />
 						</p:else>

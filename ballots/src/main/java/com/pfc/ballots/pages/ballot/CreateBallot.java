@@ -19,6 +19,7 @@ import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.beaneditor.Width;
@@ -108,6 +109,9 @@ public class CreateBallot {
 
 	@Persist
 	private Ballot ballot;
+	
+	@SessionAttribute
+	private String ballotIdSesion;
 
 	static final private String[] NUMBERS2_7 = new String[] { "2", "3", "4","5","6","7" };
 	static final private String[] NUMBERS7_15 = new String[] {"7","8","9","10","11","12","13","14","15" };
@@ -996,22 +1000,7 @@ public class CreateBallot {
 				ajaxResponseRenderer.addRender("mayRelZone", mayRelZone);
 			}
 			else //No hay errores
-			{
-				File img = null;
-				try {
-					URL url = new URL("https://docs.oracle.com/javase/tutorial/2d/images/examples/strawberry.jpg");
-				} catch (IOException e) {
-					System.out.println("No se ha podido cargar la imagen");
-				}
-				
-				File file;
-				file = new File ("https://docs.oracle.com/javase/tutorial/2d/images/examples/strawberry.jpg");
-				
-				ballot.setImage(file);
-				
-				//CARGA DE IMAGENES REVISAR!!!!
-				
-				
+			{			
 				ballot=setBallotData();
 				relativeMajority.setId(UUID.generate());
 				ballot.setIdBallotData(relativeMajority.getId());
@@ -1056,7 +1045,10 @@ public class CreateBallot {
 
 				relativeMajorityDao.store(relativeMajority);
 				ballotDao.store(ballot);
-				return BallotWasCreated.class;
+				
+				ballotIdSesion = ballot.getId();
+				//return AddImages.class;
+				return AddImages.class;
 			}
 		}
 		return null;
@@ -1225,7 +1217,7 @@ public class CreateBallot {
 
 			kemenyDao.store(kemeny);
 			ballotDao.store(ballot);
-			return BallotWasCreated.class;
+			return AddImages.class;
 
 		}
 		return null;
@@ -1617,7 +1609,7 @@ public class CreateBallot {
 
 				bordaDao.store(borda);
 				ballotDao.store(ballot);
-				return BallotWasCreated.class;
+				return AddImages.class;
 
 			}
 
@@ -1896,7 +1888,7 @@ public class CreateBallot {
 
 			rangeDao.store(range);
 			ballotDao.store(ballot);
-			return BallotWasCreated.class;
+			return AddImages.class;
 		}
 		return null;
 	}
@@ -2249,7 +2241,7 @@ public class CreateBallot {
 
 				approvalVotingDao.store(approvalVoting);
 				ballotDao.store(ballot);
-				return BallotWasCreated.class;
+				return AddImages.class;
 			}
 		}
 		return null;
@@ -2553,7 +2545,7 @@ public class CreateBallot {
 
 				bramsDao.store(brams);
 				ballotDao.store(ballot);
-				return BallotWasCreated.class;
+				return AddImages.class;
 			}
 		}
 		return null;
@@ -2906,7 +2898,7 @@ public class CreateBallot {
 
 				votoAcumulativoDao.store(votoAcumulativo);
 				ballotDao.store(ballot);
-				return BallotWasCreated.class;
+				return AddImages.class;
 			}
 		}
 		return null;
@@ -3205,7 +3197,7 @@ public class CreateBallot {
 
 				juicioMayoritarioDao.store(juicioMayoritario);
 				ballotDao.store(ballot);
-				return BallotWasCreated.class;
+				return AddImages.class;
 			}
 		}
 		return null;
