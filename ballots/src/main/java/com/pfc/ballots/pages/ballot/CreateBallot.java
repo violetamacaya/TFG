@@ -1047,7 +1047,7 @@ public class CreateBallot {
 				ballotDao.store(ballot);
 				
 				ballotIdSesion = ballot.getId();
-				//return AddImages.class;
+				//return .class;
 				return AddImages.class;
 			}
 		}
@@ -1217,6 +1217,7 @@ public class CreateBallot {
 
 			kemenyDao.store(kemeny);
 			ballotDao.store(ballot);
+			ballotIdSesion = ballot.getId();
 			return AddImages.class;
 
 		}
@@ -1609,6 +1610,7 @@ public class CreateBallot {
 
 				bordaDao.store(borda);
 				ballotDao.store(ballot);
+				ballotIdSesion = ballot.getId();
 				return AddImages.class;
 
 			}
@@ -1888,6 +1890,7 @@ public class CreateBallot {
 
 			rangeDao.store(range);
 			ballotDao.store(ballot);
+			ballotIdSesion = ballot.getId();
 			return AddImages.class;
 		}
 		return null;
@@ -2241,6 +2244,7 @@ public class CreateBallot {
 
 				approvalVotingDao.store(approvalVoting);
 				ballotDao.store(ballot);
+				ballotIdSesion = ballot.getId();
 				return AddImages.class;
 			}
 		}
@@ -2545,6 +2549,7 @@ public class CreateBallot {
 
 				bramsDao.store(brams);
 				ballotDao.store(ballot);
+				ballotIdSesion = ballot.getId();
 				return AddImages.class;
 			}
 		}
@@ -2898,6 +2903,7 @@ public class CreateBallot {
 
 				votoAcumulativoDao.store(votoAcumulativo);
 				ballotDao.store(ballot);
+				ballotIdSesion = ballot.getId();
 				return AddImages.class;
 			}
 		}
@@ -3197,6 +3203,7 @@ public class CreateBallot {
 
 				juicioMayoritarioDao.store(juicioMayoritario);
 				ballotDao.store(ballot);
+				ballotIdSesion = ballot.getId();
 				return AddImages.class;
 			}
 		}

@@ -79,6 +79,7 @@ public class AddImages {
 
 	public void setupRender()
 	{
+	
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		ballot=ballotDao.getById(ballotIdSesion);
 		errorExtension = false;
@@ -107,6 +108,8 @@ public class AddImages {
 
 	public Object onActionFromFinish()
 	{
+		System.out.println("Ballot images en addImages" + ballotImages);
+
 		ballot.setImagenes(ballotImages);		
 		ballotDao.updateBallot(ballot);
 		componentResources.discardPersistentFieldChanges();

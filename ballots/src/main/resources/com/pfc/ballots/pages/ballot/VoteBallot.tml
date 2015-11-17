@@ -4,8 +4,13 @@
 <head>
 <title>${message:page-title}</title>
 <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
-
 <link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+ <link href="${context:styles/jquery.fancybox.css}" rel="stylesheet" type="text/css"/>
+ 			<script type="text/javascript">
+ 			jQuery(document).ready(function() {
+ 				jQuery(".fancybox").fancybox();
+	});
+</script>
 </head>
 
 <t:border>
@@ -799,13 +804,13 @@
 				<h2>${message:vote-done}</h2>
 			</p:else>
 			<t:zone t:id="imagesZone">
-			HOLAAAA
+			<div id="imagesZone">
 			<t:Loop t:id="imagesLoop" t:source="ballotImages" t:value="imagen">
-				${imagen}  <t:actionLink t:id="delete" t:context="imagen" t:zone="^">
-					<img src="${asset:context:/layout/tickx.png}" />
-				</t:actionLink>
-				<br />
+				<!-- <a class="fancybox" rel="group" href="/files/${imagen}"><img src="/files/${imagen}" alt="" /></a> -->
+				<a class="fancybox" rel="group" href="${asset:context:/layout/mariposa.jpg}"><img style="width:200px; padding: 5px;" src="${asset:context:/layout/mariposa.jpg}" alt="" /></a>
+								
 			</t:Loop>
+			</div>
 			</t:zone>
 		</t:if>
 	</div>

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.ValueEncoder;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -56,6 +57,8 @@ import com.pfc.ballots.pages.SessionExpired;
  * @author Violeta Macaya Sánchez
  * @version 2.0 OCT-2015
  */
+
+@Import(library = { "context:js/jquery-min.js", "context:js/jquery.fancybox.pack.js"})
 public class VoteBallot {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////// GENERAL STUFF //////////////////////////////////////////////////////////////////
@@ -148,7 +151,7 @@ public class VoteBallot {
 		vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
 
 		ballotImages= ballot.getImagenes();
-		System.out.println("ballotimages: "+ballot.getImagenes());
+		System.out.println("ballotimages: "+ ballot.getDescription());
 		
 		if(ballot.isPublica())
 		{

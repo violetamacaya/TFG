@@ -145,25 +145,25 @@ public class Ballot {
 		this.imagenes = imagenes;
 	}
 	public ArrayList<String> getImagenes(){
-		return imagenes;
+		return this.imagenes;
 	}
 	public void addImagen(String imagen){
-		if (imagenes == null) {
-			imagenes = new ArrayList<String>();
+		if (this.imagenes == null) {
+			this.imagenes = new ArrayList<String>();
 		}
-		imagenes.add(imagen);
+		this.imagenes.add(imagen);
 	}
 	public void removeImagen(String imagen){
 		int position = -1;
-		for (String aux : imagenes) {
+		for (String aux : this.imagenes) {
 			if (aux.equals(imagen)) {
-				position = imagenes.indexOf(aux);
+				position = this.imagenes.indexOf(aux);
 				break;
 			}
 		}
 		
 		if (position != -1) {
-			imagenes.remove(position);
+			this.imagenes.remove(position);
 		}
 		System.out.println("Se ha eliminado la imagen: "+position +" con nombre "+imagen);
 	}
