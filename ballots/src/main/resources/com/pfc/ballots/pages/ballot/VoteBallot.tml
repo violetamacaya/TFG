@@ -806,8 +806,7 @@
 			<t:zone t:id="imagesZone">
 			<div id="imagesZone">
 			<t:Loop t:id="imagesLoop" t:source="ballotImages" t:value="imagen">
-				<!-- <a class="fancybox" rel="group" href="/files/${imagen}"><img src="/files/${imagen}" alt="" /></a> -->
-				<a class="fancybox" rel="group" href="${asset:context:/layout/mariposa.jpg}"><img style="width:200px; padding: 5px;" src="${asset:context:/layout/mariposa.jpg}" alt="" /></a>
+				<a class="fancybox" rel="group" href="/files/${imagen}"><img style="width:200px; padding: 5px;" src="/files/${imagen}" alt="" /></a> 
 								
 			</t:Loop>
 			</div>

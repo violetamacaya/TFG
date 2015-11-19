@@ -11,19 +11,17 @@
 		<t:eventlink t:event="returnstreamresponse">${message:here}</t:eventlink><br/><br/>
 		
 		
-		<t:form t:id="uploadForm">
-			<t:errors/>
-			<t:if test="badFile">
-				<span class="error">${message:bad-file}</span>
-			</t:if>
-
-			<div class="fileUpload btn btn-primary">
-    			<input id="file" type="file" validate="required" />
-			</div>
-			
-			<br/><br/>
-			<input type="submit" class="boton" value="${message:upload}"/>		
-		</t:form>
+		<t:zone t:id="formZone" id="formZone" update="^">
+			<span class="error"> <t:if test="badFile">
+							${message:bad-extension}<br />
+				</t:if>
+			</span>
+			<t:form t:id="form" zone="formZone" t:mixins="ajaxupload">
+				<t:upload t:id="file" value="file" />
+				<t:submit class="boton" value="${message:upload}" />
+			</t:form>
+		</t:zone>
+		
 			
 			
 		<t:zone t:id="gridZone" id="gridZone" t:update="show">

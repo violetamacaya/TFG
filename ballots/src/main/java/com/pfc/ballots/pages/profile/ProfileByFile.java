@@ -12,7 +12,9 @@ import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.InjectContainer;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -23,6 +25,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.apache.tapestry5.StreamResponse;
 import org.apache.tapestry5.services.Response;
+
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.ProfileCensedInDao;
@@ -47,7 +50,12 @@ import com.pfc.ballots.util.UUID;
  * @author Violeta Macaya Sánchez
  * @version 1.0 FEB-2015
  */
-
+@Import(
+		library = {
+				"context:js/jquery-min.js",
+				"context:js/jquery.ajax.upload.js",
+				"context:js/upload.js"
+		})
 
 public class ProfileByFile {
 	 	
@@ -95,8 +103,11 @@ public class ProfileByFile {
 	@Persist
 	private boolean newuser;
 	
+	@InjectContainer
+	private Form form;
 	
-	
+	@InjectComponent
+	private Zone formZone;
 		
 	private enum Actions{
 		SAVE,CANCEL
@@ -260,7 +271,7 @@ public class ProfileByFile {
 	/**
 	 * Upload the file
 	 */
-	public void onSuccessFromUploadForm()
+	public void onSuccessFromForm()
 	{
 		System.out.println("SUCCESSS en subir "+file);
 		
@@ -269,9 +280,10 @@ public class ProfileByFile {
 
 		if(datasession.isMainAdmin())
 		{
-			System.out.print(finalpath+"dentro del if");
+			
 
 			finalpath=path+datasession.getEmail()+"."+namef[namef.length-1];
+			System.out.print(finalpath+" dentro del if");
 		}
 		else
 		{			
