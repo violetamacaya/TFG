@@ -20,9 +20,10 @@
 
 		<t:zone t:id="companyGridZone" id="companyGridZone" t:update="show">
 			<t:if test="!showMain">
-				<t:grid source="companies" row="company" exclude="RegDate,DBName"
-					add="edit,seeusers,addusers,deletecompany,addusersfile,ChangeActive"
-					reorder="active,companyName,alias">
+				<t:grid source="companies" row="company"
+					add="details,edit,seeusers,addusers,deletecompany,addusersfile,ChangeActive"
+					reorder="active,companyName,alias"
+					exclude="firstName, lastName, address, cp, localidad, provincia, pais, url, regDate, DBName">
 					<p:activeCell>
 						<t:if test="company.active">
 							<img src="${asset:context:/layout/tickv.png}" />
@@ -44,7 +45,7 @@
 					<p:seeusersCell>
 						<t:actionlink t:id="ver"
 							context="[company.CompanyName,company.DBName]">
-							<img src="${asset:context:/layout/images/ojo.png}" />
+							<img style="width:20px;" src="${asset:context:/layout/usuarios.png}" />
 						</t:actionlink>
 					</p:seeusersCell>
 					<p:addusersCell>
@@ -58,6 +59,12 @@
 							<img src="${asset:context:/layout/tickx.png}" />
 						</t:actionlink>
 					</p:deletecompanyCell>
+					<p:detailsCell>
+						<t:actionlink t:id="details" context="company.CompanyName"
+							zone="^">
+							<img src="${asset:context:/layout/images/ojo.png}" />
+						</t:actionlink>
+					</p:detailsCell>
 					<p:changeActiveCell>
 						<t:if test="company.active">
 							<t:actionlink t:id="deactivateBut" context="company.companyName"
@@ -80,7 +87,58 @@
 			</t:if>
 		</t:zone>
 
-
+		<t:zone t:id="detailsZone" id="detailsZone" t:update="^">
+			<t:if test="showDetails">
+				<br />
+				<br />
+				<table>
+					<tr>
+						<td>${message:date}:</td>
+						<td>${company.RegDate }</td>
+					</tr>
+					<tr>
+						<td>${message:DBName}:</td>
+						<td>${company.DBName }</td>
+					</tr>
+					<tr>
+						<td>${message:firstName}:</td>
+						<td>${company.FirstName }</td>
+					</tr>
+					<tr>
+						<td>${message:lastName}:</td>
+						<td>${company.LastName }</td>
+					</tr>
+					<tr>
+						<td>${message:address}:</td>
+						<td>${company.Address }</td>
+					</tr>
+					<tr>
+						<td>${message:CP}:</td>
+						<td>${company.Cp }</td>
+					</tr>
+										<tr>
+						<td>${message:provincia}:</td>
+						<td>${company.Provincia }</td>
+					</tr>
+										<tr>
+						<td>${message:localidad}:</td>
+						<td>${company.Localidad }</td>
+					</tr>
+										<tr>
+						<td>${message:pais}:</td>
+						<td>${company.Pais}</td>
+					</tr>
+										<tr>
+						<td>${message:url}:</td>
+						<td>${company.Url }</td>
+					</tr>
+											<tr>
+							<td><t:actionlink t:id="less" zone="^" context="company.CompanyName">${message:lessdetail}</t:actionlink>
+							</td>
+						</tr>
+				</table>
+			</t:if>
+		</t:zone>
 
 		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////// AREUSURE ZONE /////////////////////////////////////////////////////////////////////

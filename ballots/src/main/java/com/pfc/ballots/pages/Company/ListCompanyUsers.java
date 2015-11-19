@@ -35,6 +35,8 @@ import com.pfc.ballots.pages.admin.AdminMail;
  * 
  * @author Mario Temprano Martin
  * @version 1.0 JUN-2014
+ * @author	Violeta Macaya Sánchez
+ * @version 2.0 NOV-2015
  */
 
 
@@ -95,6 +97,7 @@ public class ListCompanyUsers {
 		nonavalible=false;
 		editing=false;
 		showSure=false;
+		showDetails=false;
 	}
 	
 	
@@ -108,15 +111,23 @@ public class ListCompanyUsers {
 	@Persist
 	@Property
 	private boolean editing;
+	
 	@Persist
 	@Property
 	private boolean nonavalible;
+	
+	@Persist
+	@Property
+	private boolean showDetails;
 	
 	@Property
 	private Profile user;
 	
 	@InjectComponent
 	private Zone userGridZone;	
+	
+	@InjectComponent
+	private Zone detailsZone;	
 	
 	private Actions action;
 	
@@ -167,6 +178,26 @@ public class ListCompanyUsers {
 			ajaxResponseRenderer.addRender("userGridZone", userGridZone);
 		}
 	}
+	
+	public void onActionFromDetails(String id){
+		
+		showDetails=false;
+		if(request.isXHR())
+		{
+			showDetails=true;
+			user=lookforid(id);
+			ajaxResponseRenderer.addRender("userGridZone",userGridZone).addRender("detailsZone", detailsZone);
+		}
+	}
+	public void onActionFromLess(){
+		
+		if(request.isXHR())
+		{
+			showDetails=false;
+			ajaxResponseRenderer.addRender("userGridZone",userGridZone).addRender("detailsZone", detailsZone);
+
+		}
+	}
 	/**
 	 * Shows a dialog to change the owner of the company
 	 * @param idNewOwner
@@ -181,6 +212,9 @@ public class ListCompanyUsers {
 		}
 	}
 	
+	public Object onActionFromVolver(){
+		return ListCompany.class;
+	}
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////// EDIT ZONE //////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////

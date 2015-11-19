@@ -64,7 +64,7 @@ public class ListCompany {
 	CompanyDao companyDao=DB4O.getCompanyDao();
 	UserLogedDao userLogedDao=null;
 	@Property
-	private Company company;
+	Company company;
 	
 
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,6 +78,7 @@ public class ListCompany {
 		componentResources.discardPersistentFieldChanges();
 		companies=null;
 		showSure=false;
+		showDetails=false;
 	}
 	
 	
@@ -94,6 +95,10 @@ public class ListCompany {
 	@Property
 	private boolean showMain;
 	
+	@Persist
+	@Property
+	private boolean showDetails;
+		
 	public List<Company> getCompanies()
 	{
 		if(companies==null)
@@ -194,6 +199,31 @@ public class ListCompany {
 			
 			ajaxResponseRenderer.addRender("companyGridZone", companyGridZone).addRender("areuSureZone",areuSureZone);
 
+		}
+	}
+	
+	@InjectComponent
+	private Zone detailsZone;
+
+	public void onActionFromDetails(String companyName){
+		showDetails=false;
+		System.out.println("On action from details "+companyName);
+			showDetails=false;
+		if(request.isXHR()){
+
+			showDetails = true;
+			company=lookforname(companyName);
+			ajaxResponseRenderer.addRender("companyGridZone", companyGridZone).addRender("detailsZone",detailsZone);
+
+		}
+		
+	}
+	public void onActionFromLess(){
+		
+		if(request.isXHR())
+		{
+			showDetails=false;
+			ajaxResponseRenderer.addRender("companyGridZone", companyGridZone).addRender("detailsZone",detailsZone);
 		}
 	}
 	

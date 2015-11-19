@@ -171,6 +171,13 @@ public class CreateCompany {
 			profile.setOwner(true);
 			company.setFirstName(company.getFirstName());
 			company.setLastName(company.getLastName());
+			company.setAddress(company.getAddress());
+			company.setLocalidad(company.getLocalidad());
+			company.setCp(company.getCp());
+			company.setProvincia(company.getProvincia());
+			company.setPais(company.getPais());
+			company.seturl(company.getUrl());
+			
 			userDao.store(profile);
 			companyDao.store(company);
 			componentResources.discardPersistentFieldChanges();

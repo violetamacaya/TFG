@@ -57,6 +57,23 @@ public class UpdateCompany {
 	private String companyLastName;
 
 	@Persist
+	private String companyAddress;
+
+	@Persist
+	private String companyCP;
+
+	@Persist
+	private String companyLocalidad;
+	
+	@Persist
+	private String companyProvincia;
+
+	@Persist
+	private String companyPais;
+
+	@Persist
+	private String companyUrl;
+	@Persist
 	@Property
 	private Company oldCompany;
 	@Persist
@@ -105,6 +122,12 @@ public class UpdateCompany {
 		this.companyEmail=oldCompany.getAdminEmail();
 		this.companyFirstName=oldCompany.getFirstName();
 		this.companyLastName=oldCompany.getLastName();
+		this.companyAddress=oldCompany.getAddress();
+		this.companyCP=oldCompany.getCp();
+		this.companyLocalidad=oldCompany.getLocalidad();
+		this.companyProvincia=oldCompany.getProvincia();
+		this.companyPais=oldCompany.getPais();
+		this.companyUrl = oldCompany.getUrl();
 
 	}
 
@@ -118,6 +141,13 @@ public class UpdateCompany {
 		newCompany.setAdminEmail(oldCompany.getAdminEmail());
 		newCompany.setFirstName(oldCompany.getFirstName());
 		newCompany.setLastName(oldCompany.getLastName());
+		newCompany.setAddress(oldCompany.getAddress());
+		newCompany.setCp(oldCompany.getCp());
+		newCompany.setProvincia(oldCompany.getProvincia());
+		newCompany.setLocalidad(oldCompany.getLocalidad());
+		newCompany.setPais(oldCompany.getPais());
+		newCompany.seturl(oldCompany.getUrl());
+		
 
 
 		showForm=true;
@@ -139,13 +169,24 @@ public class UpdateCompany {
 		newCompany.setAdminEmail(newCompany.getAdminEmail().toLowerCase());
 		newCompany.setFirstName(newCompany.getFirstName().toLowerCase());
 		newCompany.setLastName(newCompany.getLastName().toLowerCase());
+		newCompany.setAddress(newCompany.getAddress().toLowerCase());
+		newCompany.setCp(newCompany.getCp().toLowerCase());
+		newCompany.setLocalidad(newCompany.getLocalidad().toLowerCase());
+		newCompany.setProvincia(newCompany.getProvincia().toLowerCase());
+		newCompany.setPais(newCompany.getPais().toLowerCase());
+		newCompany.seturl(newCompany.getUrl().toLowerCase());
 		if(newCompany.getCompanyName().equals("login") )
 		{
 			showBadName=true;
 		}
 		if(companyDao.isCompanyRegistred(newCompany.getCompanyName()))
 		{
+			if(newCompany.getCompanyName().equals(oldCompany.getCompanyName())){
+				showNameInUse=false;
+			}
+			else{
 			showNameInUse=true;
+			}
 		}
 	}
 
@@ -169,7 +210,13 @@ public class UpdateCompany {
 			oldCompany.setAdminEmail(newCompany.getAdminEmail());
 			oldCompany.setFirstName(newCompany.getFirstName());
 			oldCompany.setLastName(newCompany.getLastName());
-
+			oldCompany.setAddress(newCompany.getAddress());
+			oldCompany.setCp(newCompany.getCp());
+			oldCompany.setLocalidad(newCompany.getLocalidad());
+			oldCompany.setProvincia(newCompany.getProvincia());
+			oldCompany.setPais(newCompany.getPais());
+			oldCompany.seturl(newCompany.getUrl());
+			
 			companyDao.updateCompany(oldCompany);
 			notDone=false;
 			return ListCompany.class;

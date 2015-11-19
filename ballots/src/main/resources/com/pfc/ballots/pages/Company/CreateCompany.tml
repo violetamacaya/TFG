@@ -64,6 +64,34 @@
 		       		<t:textfield t:id="lastName" value="company.lastName" validate="required"/>
 		       </p:lastName>
 		       
+		       <p:address>
+		       		<t:label for="address"/>
+		       		<t:textfield t:id="address" value="company.address" validate="required"/>
+		       </p:address>
+		       
+		       <p:cp>
+		       		<t:label for="cp"/>
+		       		<t:textfield t:id="cp" value="company.cp" validate="required"/>
+		       </p:cp>
+		       <p:localidad>
+		       		<t:label for="localidad"/>
+		       		<t:textfield t:id="localidad" value="company.localidad" validate="required"/>
+		       </p:localidad>>
+		       
+		       <p:provincia>
+		       		<t:label for="provincia"/>
+		       		<t:textfield t:id="provincia" value="company.provincia" validate="required"/>
+		       </p:provincia>
+		       
+		       <p:pais>
+		       		<t:label for="pais"/>
+		       		<t:textfield t:id="pais" value="company.pais" validate="required"/>
+		       </p:pais>
+		       
+		       <p:url>
+		       		<t:label for="url"/>
+		       		<t:textfield t:id="url" value="company.url"/>
+		       </p:url>		       
 	       </t:beaneditform>
 		</infouser>
 	

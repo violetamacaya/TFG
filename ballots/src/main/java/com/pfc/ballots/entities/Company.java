@@ -32,6 +32,12 @@ public class Company {
 	private Date RegDate;
 	private String firstName;
 	private String lastName;
+	private String address;
+	private String cp;
+	private String localidad;
+	private String provincia;
+	private String pais;
+	private String url;
 	
 	
 	
@@ -114,5 +120,41 @@ public class Company {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getCp() {
+		return cp;
+	}
+	public void setCp(String cp) {
+		this.cp = cp;
+	}	
+	public String getLocalidad() {
+		return localidad;
+	}
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}	
+	public String getProvincia() {
+		return provincia;
+	}
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}	
+	public String getPais() {
+		return pais;
+	}
+	public void setPais(String pais) {
+		this.pais = pais;
+	}	
+	public String getUrl() {
+		return url;
+	}
+	public void seturl(String url) {
+		this.url = url;
 	}
 }

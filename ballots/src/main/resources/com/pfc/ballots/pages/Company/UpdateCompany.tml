@@ -52,20 +52,52 @@
 									value="newCompany.lastName" /></td>
 						</tr>
 						<tr>
-							<td><label><input t:type="submit"
-								t:value="${message:update-but}" /></label></td>
-						<td><t:actionlink t:id="cancelBut" t:zone="^">
-								<button>${message:cancel-but}</button>
-							</t:actionlink></td>
+							<td><t:label for="companyAddress" /></td>
+							<td><t:textfield t:id="companyAddress"
+									value="newCompany.address" validate="required" /></td>
+						</tr>
+
+						<tr>
+							<td><t:label for="companyCp" /></td>
+							<td><t:textfield t:id="companyCp" value="newCompany.cp"
+									validate="required" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="companyLocalidad" /></td>
+							<td><t:textfield t:id="companyLocalidad"
+									value="newCompany.localidad" validate="required" /></td>
 						</tr>
 						
-					
+
+						<tr>
+							<td><t:label for="companyProvincia" /></td>
+							<td><t:textfield t:id="companyProvincia"
+									value="newCompany.provincia" validate="required" /></td>
+						</tr>
+
+						<tr>
+							<td><t:label for="companyPais" /></td>
+							<td><t:textfield t:id="companyPais" value="newCompany.pais"
+									validate="required" /></td>
+						</tr>
+
+						<tr>
+							<td><t:label for="companyUrl" /></td>
+							<td><t:textfield t:id="companyUrl" value="newCompany.url" /></td>
+						</tr>
+						<tr>
+							<td><label><input t:type="submit"
+									t:value="${message:update-but}" /></label></td>
+							<td><t:actionlink t:id="cancelBut" t:zone="^">
+									<button>${message:cancel-but}</button>
+								</t:actionlink></td>
+						</tr>
+
+
 					</table>
 				</t:form>
 			</t:if>
-		</t:zone>
-		
-	</infouser>
+		</t:zone> </infouser>
 	</div>
 </t:border>
 </html>

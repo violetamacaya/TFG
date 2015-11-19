@@ -88,11 +88,9 @@
 					</t:if>
 				</p:deleteCell>
 				<p:detailscell>
-					<t:if test="notMaker">
 						<t:actionlink t:id="details" zone="^" context="user.id">
 							<img src="${asset:context:/layout/images/ojo.png}" />
 						</t:actionlink>
-					</t:if>
 				</p:detailscell>
 				<p:idcell>
 					${user.id }
@@ -311,12 +309,10 @@
 						<td>${message:centro-label}:</td>
 						<td>${user.centro}</td>
 					</tr>
-					<t:if test="notMaker">
 						<tr>
 							<td><t:actionlink t:id="less" zone="^" context="user.id">${message:lessdetail}</t:actionlink>
 							</td>
 						</tr>
-					</t:if>
 				</table>
 			</t:if>
 
