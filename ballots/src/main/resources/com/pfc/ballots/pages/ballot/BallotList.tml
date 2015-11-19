@@ -88,6 +88,12 @@
 				</t:if>
 			</t:if>
 			<t:if test="showGrid">
+			<style>
+			DIV.t-data-grid{
+			width: 100%;
+			}
+			
+			</style>
 				<t:grid t:id="ballotsGrid" source="ballots" row="ballot" add="vote,result,kind,addusers,finish,delete,maker,census"
 					rowsPerPage="15" inplace="true" reorder="maker,name,method,census" exclude="teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
 					<p:addusersCell>

@@ -18,6 +18,7 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.KemenyDao;
 import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.VoteDao;
+import com.pfc.ballots.data.BallotKind;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
@@ -53,7 +54,6 @@ public class Index
 		VoteDao voteDao;
 	
 		
-		
 		  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 ///////////////////////////////////////////////////// INITIALIZE //////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,15 +67,15 @@ public class Index
 			{
 				ballotDao=DB4O.getBallotDao(datasession.getDBName());
 				voteDao=DB4O.getVoteDao(datasession.getDBName());
-				
+			
 				nonActiveBallots=new LinkedList<Ballot>();
 				activeBallots=new LinkedList<Ballot>();
 				endedBallots=new LinkedList<Ballot>();
 				publicNonActiveBallots=new LinkedList<Ballot>();
 				publicActiveBallots=new LinkedList<Ballot>();
 				publicEndedBallots=new LinkedList<Ballot>();
-				currentBallots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()),nonActiveBallots,activeBallots,endedBallots,5);
-				publicCurrentBallots= ballotDao.getPublics(publicNonActiveBallots, publicActiveBallots, publicEndedBallots,5);
+				currentBallots=ballotDao.getById(voteDao.getBallotsWithParticipation(datasession.getId()),nonActiveBallots,activeBallots,endedBallots);
+				publicCurrentBallots= ballotDao.getPublics(publicNonActiveBallots, publicActiveBallots, publicEndedBallots);
 			}
 		}
 		
@@ -259,24 +259,24 @@ public class Index
 		
 	    @SessionAttribute
 		private String contextBallotId;
-		public Object onActionFromVoteBallot(String id)
+		public Object onVoteBallot(String id)
 		{
 			contextBallotId=id;
 			return VoteBallot.class;
 		}
-		public Object onActionFromVotePublicBallot(String id)
+		public Object onVotePublicBallot(String id)
 		{
 			contextBallotId=id;
 			return VoteBallot.class;
 		}
 		@SessionAttribute
 		private String contextResultBallotId;
-		public Object onActionFromResultBallot(String id)
+		public Object onResultBallot(String id)
 		{
 			contextResultBallotId=id;
 			return ResultBallot.class;
 		}
-		public Object onActionFromResultPublicBallot(String id)
+		public Object onResultPublicBallot(String id)
 		{
 			contextResultBallotId=id;
 			return ResultBallot.class;

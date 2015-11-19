@@ -48,7 +48,7 @@ import com.pfc.ballots.util.UUID;
  * @author Mario Temprano Martin
  * @version 1.0 FEB-2014
  * @author Violeta Macaya Sánchez
- * @version 1.0 FEB-2015
+ * @version 1.0 NOV-2015
  */
 @Import(
 		library = {

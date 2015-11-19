@@ -1725,25 +1725,24 @@ public class VoteBallot {
 	}
 	private boolean alreadyVote()
 	{
-//				if(publicVotes==null)
-//					return false;
-//				List<String> list=publicVotes.get(datasession.getIdSession());
-//				if(list==null)
-//				{
-//					return false;
-//				}
-//				else
-//				{
-//					for(String current:list)
-//					{
-//						if(current.equals(contextBallotId))
-//						{
-//							return true;
-//						}
-//					}
-//					return false;
-//				}
-		return false;
+				if(publicVotes==null)
+					return false;
+				List<String> list=publicVotes.get(datasession.getIdSession());
+				if(list==null)
+				{
+					return false;
+				}
+				else
+				{
+					for(String current:list)
+					{
+						if(current.equals(contextBallotId))
+						{
+							return true;
+						}
+					}
+					return false;
+				}
 	}
 
 	private boolean isNumeric(String cadena)

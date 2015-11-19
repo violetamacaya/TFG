@@ -7,6 +7,11 @@
 	<t:border>
 	
 		<body>
+		<div id="methodDiv">
+		<h1>${message:page-title}</h1>
+		<hr />
+		${message:description}<br/>
+		${message:segunda}
 		<ul id="methodsList">
 				<li><t:eventlink t:event="menu"  t:context="literal:approvalVoting"><plain>${message:approvalVoting}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu"  t:context="literal:black"><plain>${message:black}</plain></t:eventlink></li>
@@ -29,6 +34,7 @@
 				<li><t:eventlink t:event="menu"  t:context="literal:small"><plain>${message:small}</plain></t:eventlink></li>				
 				<li><t:eventlink t:event="menu"  t:context="literal:votoAcumulativo"><plain>${message:votoAcumulativo}</plain></t:eventlink></li>
 		</ul>
+		</div>
 		</body>
 	</t:border>
 </html>

@@ -847,11 +847,14 @@ button:active {
 	width: 1050px;
 }
 #ballotlistDiv{
-	width:1070px;
+	width:95%;
 	margin-left: 20px;
 }
+#methodDiv{
+	width: 100%;
+}
 #indexDiv{
-	width:1070px;
+	width:100%;
 }
 #adminAboutUs, #adminMailZone{
 	margin-left:20px;
@@ -878,4 +881,18 @@ button:active {
 
 #KaptchaField{
 	width:100px;
+}
+
+#methodsList{
+	list-style-type:none;
+	margin-left: -20px;
+}
+#methodsList a{
+	text-decoration: none;
+	color: black;
+}
+#methodsList li{
+	padding-bottom: 5px;
+	list-style-position: outside;
+	
 }
