@@ -45,7 +45,7 @@
 	<br/><br/><br/>
 	<t:zone t:id="lateral" id="lateral" visible="loged">
 	<ul class="leftcolumn" id="myMenu">
-		<h2>${message:my-menu}</h2><br/>
+		<h2 style="text-align:left;">${message:my-menu}</h2><br/>
 		<li><t:eventlink t:event="menu" t:context="literal:my-profile"><plain>${message:my-profile}</plain></t:eventlink></li>
 		<li><t:eventlink t:event="menu" t:context="literal:my-ballots"><plain>${message:ballots-by-me}</plain></t:eventlink></li>
 		
@@ -63,7 +63,7 @@
 		</t:zone>
 			
 		<t:if test="admin">
-			<div id="administration-menu"><h2>${message:administration-menu}</h2></div>		
+			<div id="administration-menu"><h2 style="text-align:left;">${message:administration-menu}</h2></div>		
 		</t:if>		
 		
 		<t:if test="admin">

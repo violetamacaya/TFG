@@ -284,7 +284,7 @@ div#lenguages>a{
 
 #mymenu plain
 {
-	width: 100%;
+	width: 136px;
 
 }
 
@@ -309,7 +309,7 @@ div#lenguages>a{
     font-size: 1em;
 	margin-left:10px;
 	background-color: #0185b9;
-	width: 126px;
+	width: 126px;	
 
 }
 #mymenu li a:hover plain2
@@ -327,9 +327,9 @@ div#lenguages>a{
 mainposition
 {
 	display: block;
-	width: auto;
+	width: 84%;
 	position: absolute;
-	left: 180px;	
+	left: 10%;	
 	margin-top: 50px;
 	padding-top: 10px;
 	padding-bottom: 100px;
