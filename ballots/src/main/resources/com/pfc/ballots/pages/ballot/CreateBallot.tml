@@ -21,8 +21,8 @@
 			</t:if>
 		</t:zone>
 
-
 		<t:zone t:id="typeZone" id="typeZone" t:update="show">
+
 			<t:if test="showtype">
 				<t:form t:id="typeForm" zone="^">
 					<span class="error"> <t:if test="showErrorType">

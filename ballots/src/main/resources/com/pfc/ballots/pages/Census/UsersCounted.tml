@@ -51,7 +51,7 @@
 		</t:zone>
 		<t:zone t:id="upperBackZone" id="upperBackZone" t:update="show">
 			<t:if test="showUsersCountedZone">
-				<t:eventLink t:event="back" zone="^"><button>${message:finish-but}</button></t:eventLink>
+				<t:eventLink  t:event="back" zone="^"><button class="boton">${message:finish-but}</button></t:eventLink>
 			</t:if>
 		</t:zone>
 		
@@ -76,7 +76,7 @@
 						<tr>
 							<td></td>
 							<td><input t:type="submit" class="boton" value="${message:update-but}"/>
-							<t:actionLink t:id="cancelNameBut" zone="^"><button>${message:restore-but}</button></t:actionLink></td>
+							<t:actionLink t:id="cancelNameBut" zone="^"><button class="boton" >${message:restore-but}</button></t:actionLink></td>
 						</tr>
 					</table>
 				</t:form>
@@ -277,7 +277,7 @@
 							</t:grid>
 						</td></tr>
 						<tr><td>
-							<input t:type="submit" class="boton" value="${message:remove-but}"/><t:actionlink t:id="removeAll" t:zone="^"><button>${message:removeall-but}</button></t:actionlink>
+							<input t:type="submit" class="boton" value="${message:remove-but}"/><t:actionlink t:id="removeAll" t:zone="^"><button class="boton">${message:removeall-but}</button></t:actionlink>
 						</td></tr>
 					</table>
 				</t:form>
@@ -289,16 +289,16 @@
 	   
 		<t:zone t:id="saveCancelZone" id="saveCancelZone" t:update="show">
 	   		<t:if test="showSave">
-	   			<t:actionlink t:id="savebut" t:zone="^"><button>${message:save-but}</button></t:actionlink>
+	   			<t:actionlink t:id="savebut" t:zone="^"><button class="boton" >${message:save-but}</button></t:actionlink>
 	   		</t:if>
 	   		<t:if test="showCancel">
-	   			<t:actionlink t:id="cancelbut" t:zone="^"><button>${message:restore-but}</button></t:actionlink>
+	   			<t:actionlink  t:id="cancelbut" t:zone="^"><button class="boton">${message:restore-but}</button></t:actionlink>
 	   		</t:if>
 		</t:zone>
 		
 		<t:zone t:id="lowerBackZone" id="lowerBackZone" t:update="show">
 			<t:if test="showUsersCountedZone">
-				<t:eventLink t:event="back" zone="^"><button>${message:finish-but}</button></t:eventLink>
+				<t:eventLink t:event="back" zone="^"><button  class="boton">${message:finish-but}</button></t:eventLink>
 			</t:if>
 		</t:zone>
 		

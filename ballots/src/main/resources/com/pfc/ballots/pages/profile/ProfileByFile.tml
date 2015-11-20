@@ -1,19 +1,26 @@
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-     <head><title>${message:page-title}</title>
-     <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
-	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/></head>
-   
-	<t:border><div id="userlistdiv">
-	
-	<h1>${message:add-by-file}</h1><hr/>
-		<t:OutputRaw  value="${message:explanation}"/>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
+	<div id="userlistdiv">
+
+		<h1>${message:add-by-file}</h1>
+		<hr />
+		<t:OutputRaw value="${message:explanation}" />
 		${message:example-file}
-		<t:eventlink t:event="returnstreamresponse">${message:here}</t:eventlink><br/><br/>
-		
-		
+		<t:eventlink t:event="returnstreamresponse">${message:here}</t:eventlink>
+		<br />
+		<br />
+
+
 		<t:zone t:id="formZone" id="formZone" update="^">
-			<span class="error"> <t:if test="badFile">
-							${message:bad-extension}<br />
+			<span class="error"> <t:if test="badFile"> ${message:bad-extension}<br />
 				</t:if>
 			</span>
 			<t:form t:id="form" zone="formZone" t:mixins="ajaxupload">
@@ -21,222 +28,306 @@
 				<t:submit class="boton" value="${message:upload}" />
 			</t:form>
 		</t:zone>
-		
-			
-			
+
+
+
 		<t:zone t:id="gridZone" id="gridZone" t:update="show">
 			<t:if test="fileupload">
 				<t:if test="!badFile">
-					<t:grid source="persons" row="person" add="ID,Edit,Avalible,Add" exclude="password,sex,owner,lastLog,regDate" reorder="ID,Avalible" rowsperpage="10" inplace="true">
+					<t:grid source="persons" row="person"
+						reorder="ID, Avalible, Admin, Maker, Teacher, Student, email"
+						add="ID,Edit,Avalible,Add, details"
+						exclude="password,regDate,lastLog,phone,centro,carrera,sex,address,fechaNac,dni,city,country"
+						rowsperpage="10" inplace="true">
 						<p:idcell>
 							${person.id }
 						</p:idcell>
 						<p:avaliblecell>
 							<t:if test="avalible">
 								<img src="${asset:context:/layout/tickv.png}" />
-							<p:else>
-								<img src="${asset:context:/layout/tickx.png}" />
-							</p:else>
+								<p:else>
+									<img src="${asset:context:/layout/tickx.png}" />
+								</p:else>
 							</t:if>
 						</p:avaliblecell>
 						<p:emailcell>
 							${person.email }
-							<t:if test="!okemail"><br/><font color="red">${message:bad-email}</font> </t:if>
+							<t:if test="!okemail">
+								<br />
+								<font color="red">${message:bad-email}</font>
+							</t:if>
 						</p:emailcell>
 						<p:firstnamecell>
 							${person.firstname}
-							<t:if test="!okfirstname"><br/><font color="red">${message:required}</font></t:if>
+							<t:if test="!okfirstname">
+								<br />
+								<font color="red">${message:required}</font>
+							</t:if>
 						</p:firstnamecell>
 						<p:lastnamecell>
 							${person.lastname }
-							<t:if test="!oklastname"><br/><font color="red">${message:required}</font></t:if>
+							<t:if test="!oklastname">
+								<br />
+								<font color="red">${message:required}</font>
+							</t:if>
 						</p:lastnamecell>
 						<p:editcell>
 							<t:if test="!editing">
-								<t:actionlink t:id="editBut" context="person.id" zone="^"><button>${message:edit-but}</button></t:actionlink>
+								<t:actionlink t:id="editBut" context="person.id" zone="^">
+									<img src="${asset:context:/layout/images/edit.png}" />
+								</t:actionlink>
 							</t:if>
-						</p:editcell>  
+						</p:editcell>
 						<p:addcell>
 							<t:if test="avalible">
 								<t:if test="complete">
-									<t:actionlink t:id="addbut" context="person.id" zone="^"><button>${message:add-but}</button></t:actionlink>
+									<t:actionlink t:id="addbut" context="person.id" zone="^">
+										<img src="${asset:context:/layout/images/plusp.png}" />
+									</t:actionlink>
 								</t:if>
 							</t:if>
+							<t:if test="!avalible">
+								<img style="width:20px;" src="${asset:context:/layout/noacceso.png}" />
+							</t:if>
 						</p:addcell>
+						<p:detailscell>
+							<t:actionlink t:id="details" zone="^" context="person.id">
+								<img src="${asset:context:/layout/images/ojo.png}" />
+							</t:actionlink>
+						</p:detailscell>
 						<p:adminCell>
-						<t:if test="person.admin">
-							<img src="${asset:context:/layout/tickv.png}" />
-						<p:else>
-							<img src="${asset:context:/layout/tickx.png}" />
-						</p:else>
-						</t:if>
-					</p:adminCell>
-					<p:makerCell>
-						<t:if test="person.maker">
-							<img src="${asset:context:/layout/tickv.png}" />
-						<p:else>
-							<img src="${asset:context:/layout/tickx.png}" />
-						</p:else>
-						</t:if>
-					</p:makerCell>
-					<p:studentCell>
-						<t:if test="person.student">
-							<img src="${asset:context:/layout/tickv.png}" />
-						<p:else>
-							<img src="${asset:context:/layout/tickx.png}" />
-						</p:else>
-						</t:if>
-					</p:studentCell>
-					<p:ownerCell>
-						<t:if test="person.owner">
-							<img src="${asset:context:/layout/tickv.png}" />
-						<p:else>
-							<img src="${asset:context:/layout/tickx.png}" />
-						</p:else>
-						</t:if>
-					</p:ownerCell>
-						 
+							<t:if test="person.admin">
+								<img src="${asset:context:/layout/tickv.png}" />
+								<p:else>
+									<img src="${asset:context:/layout/tickx.png}" />
+								</p:else>
+							</t:if>
+						</p:adminCell>
+						<p:teacherCell>
+							<t:if test="person.teacher">
+								<img src="${asset:context:/layout/tickv.png}" />
+								<p:else>
+									<img src="${asset:context:/layout/tickx.png}" />
+								</p:else>
+							</t:if>
+						</p:teacherCell>
+						<p:makerCell>
+							<t:if test="person.maker">
+								<img src="${asset:context:/layout/tickv.png}" />
+								<p:else>
+									<img src="${asset:context:/layout/tickx.png}" />
+								</p:else>
+							</t:if>
+						</p:makerCell>
+						<p:studentCell>
+							<t:if test="person.student">
+								<img src="${asset:context:/layout/tickv.png}" />
+								<p:else>
+									<img src="${asset:context:/layout/tickx.png}" />
+								</p:else>
+							</t:if>
+						</p:studentCell>
+						<p:ownerCell>
+							<t:if test="person.owner">
+								<img src="${asset:context:/layout/tickv.png}" />
+								<p:else>
+									<img src="${asset:context:/layout/tickx.png}" />
+								</p:else>
+							</t:if>
+						</p:ownerCell>
+
 						<p:empty>
-						</p:empty>     
+						</p:empty>
 					</t:grid>
-					<t:actionlink t:id="endBut"><button>${message:finish-but}</button></t:actionlink>
-					<t:actionlink t:id="addRowBut" zone="^"><button>${message:addrow-but}</button></t:actionlink>
-					<t:actionlink t:id="addavaliblesBut" zone="^"><button>${message:addavailable-but}</button></t:actionlink>
+					<br />
+					<t:actionlink t:id="endBut">
+						<button>${message:finish-but}</button>
+					</t:actionlink>
+					<t:actionlink t:id="addRowBut" zone="^">
+						<button>${message:addrow-but}</button>
+					</t:actionlink>
+					<t:actionlink t:id="addavaliblesBut" zone="^">
+						<button>${message:addavailable-but}</button>
+					</t:actionlink>
 				</t:if>
 			</t:if>
 		</t:zone>
+		
+		<t:zone t:id="detailsZone" id="detailsZone" t:update="show">
+			<t:if test="details">
+				<br />
+				<br />
+				<table>
+					<tr>
+						<td>${message:email-label}:</td>
+						<td>${person.email }</td>
+					</tr>
+					<tr>
+						<td>${message:admin-label}:</td>
+						<td><t:if test="person.admin">${message:yes}<p:else>No</p:else>
+							</t:if></td>
+					</tr>
+					<tr>
+						<td>${message:maker-label}:</td>
+						<td><t:if test="person.maker">${message:yes}<p:else>No</p:else>
+							</t:if></td>
+					</tr>
+
+					<tr>
+						<td>${message:firstname-label}:</td>
+						<td>${person.firstname }</td>
+					</tr>
+					<tr>
+						<td>${message:lastname-label}:</td>
+						<td>${person.lastname }</td>
+					</tr>
+					<tr>
+						<td>${message:sex-label}:</td>
+						<td>${person.sex}</td>
+					</tr>
+					<tr>
+						<td>${message:city-label}:</td>
+						<td>${person.city }</td>
+					</tr>
+					<tr>
+						<td>${message:country-label}:</td>
+						<td>${person.country }</td>
+					</tr>
+
+					<tr>
+						<td>${message:dni-label}:</td>
+						<td>${person.DNI}</td>
+					</tr>
+					<tr>
+						<td>${message:phone-label}:</td>
+						<td>${person.phone}</td>
+					</tr>
+					<tr>
+						<td>${message:fechaNac-label}:</td>
+						<td>${person.fechaNac}</td>
+					</tr>
+					<tr>
+						<td>${message:address-label}:</td>
+						<td>${person.address}</td>
+					</tr>
+					<tr>
+						<td>${message:university-label}:</td>
+						<td>${person.university}</td>
+					</tr>
+					<tr>
+						<td>${message:carrera-label}:</td>
+						<td>${person.carrera}</td>
+					</tr>
+					<tr>
+						<td>${message:centro-label}:</td>
+						<td>${person.centro}</td>
+					</tr>
+						<tr>
+							<td><t:actionlink t:id="less" zone="^" context="person.id">${message:lessdetail}</t:actionlink>
+							</td>
+						</tr>
+				</table>
+			</t:if>
+
+		</t:zone>
+		
 		<t:zone t:id="editZone" id="editZone" t:update="show">
 			<t:if test="editing">
 				<t:form t:id="editForm" zone="^">
 					<table>
 						<tr>
-							<td>
-								<t:label for="adminbox"/>
-							</td>
-							<td>
-								<t:checkbox t:id="adminbox" t:value="profile.admin"/>
+							<td><t:label for="adminbox" /></td>
+							<td><t:checkbox t:id="adminbox" t:value="profile.admin" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="makerbox" /></td>
+							<td><t:checkbox t:id="makerbox" t:value="profile.maker" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="studentbox" /></td>
+							<td><t:checkbox t:id="studentbox" t:value="profile.student" />
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="makerbox"/>
-							</td>
-							<td>
-								<t:checkbox t:id="makerbox" t:value="profile.maker"/>
+							<td><t:label for="emailfield" /></td>
+							<td><t:textfield t:id="emailfield" t:value="profile.email" />
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="studentbox"/>
-							</td>
-							<td>
-								<t:checkbox t:id="studentbox" t:value="profile.student"/>
+							<td><t:label for="passfield" /></td>
+							<td><t:textfield t:id="passfield" t:value="profile.password"
+									validate="required,minLength=6" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="firstnamefield" /></td>
+							<td><t:textfield t:id="firstnamefield"
+									t:value="profile.firstName" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="lastnamefield" /></td>
+							<td><t:textfield t:id="lastnamefield"
+									t:value="profile.lastName" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="universityfield" /></td>
+							<td><t:textfield t:id="universityfield"
+									t:value="profile.university" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="cityfield" /></td>
+							<td><t:textfield t:id="cityfield" t:value="profile.city" />
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="emailfield"/>
-							</td>
-							<td>
-								<t:textfield t:id="emailfield" t:value="profile.email"/>
-							</td>
+							<td><t:label for="countryfield" /></td>
+							<td><t:textfield t:id="countryfield"
+									t:value="profile.country" /></td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="passfield"/>
-							</td>
-							<td>
-								<t:textfield t:id="passfield" t:value="profile.password" validate="required,minLength=6"/>
-							</td>
+							<td><label>${message:fechaNac-label}</label></td>
+							<td><t:DateField t:id="nacField" t:value="profile.fechaNac" /></td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="firstnamefield"/>
-							</td>
-							<td>
-								<t:textfield t:id="firstnamefield" t:value="profile.firstName"/>
-							</td>
+							<td><label>${message:phone-label}</label></td>
+							<td><t:textfield t:id="phonefield" t:value="profile.phone" /></td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="lastnamefield"/>
-							</td>
-							<td>
-								<t:textfield t:id="lastnamefield" t:value="profile.lastName"/>
-							</td>
+							<td><label>${message:address-label}</label></td>
+							<td><t:textfield t:id="addressfield"
+									t:value="profile.address" /></td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="universityfield"/>
-							</td>
-							<td>
-								<t:textfield t:id="universityfield" t:value="profile.university"/>
-							</td>
+							<td><label>${message:DNI-label}</label></td>
+							<td><t:textfield t:id="dniField" t:value="profile.DNI" /></td>
+						</tr>
+
+						<tr>
+							<td><label>${message:carrera-label}</label></td>
+							<td><t:textfield t:id="carreraField"
+									t:value="profile.carrera" /></td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="cityfield"/>
-							</td>
-							<td>
-								<t:textfield t:id="cityfield" t:value="profile.city"/>
-							</td>
+							<td><label>${message:centro-label}</label></td>
+							<td><t:textfield t:id="centroField" t:value="profile.centro" /></td>
 						</tr>
 						<tr>
-							<td>
-								<t:label for="countryfield"/>
-							</td>
-							<td>
-								<t:textfield t:id="countryfield" t:value="profile.country"/>
-							</td>
-						</tr>
-						<tr>
-						<td><label>${message:fechaNac-label}</label></td>
-						<td><t:DateField t:id="nacField" t:value="profile.fechaNac"/></td>
-					</tr>
-					<tr>
-						<td><label>${message:phone-label}</label></td>
-						<td><t:textfield t:id="phonefield" t:value="profile.phone"/></td>
-					</tr>
-					<tr>
-						<td>
-							<label>${message:address-label}</label>
-						</td>
-						<td>
-							<t:textfield t:id="addressfield" t:value="profile.address"/>
-						</td>
-					</tr>
-					<tr>
-						<td><label>${message:DNI-label}</label></td>
-						<td><t:textfield t:id="dniField" t:value="profile.DNI"/></td>
-					</tr>
-					
-					<tr>
-						<td><label>${message:carrera-label}</label></td>
-						<td><t:textfield t:id="carreraField" t:value="profile.carrera"/></td>
-					</tr>
-					<tr>
-						<td><label>${message:centro-label}</label></td>
-						<td><t:textfield t:id="centroField" t:value="profile.centro"/></td>
-					</tr>
-						<tr>
-							<td>
-								<label><input t:type="submit" t:id="save" value="${message:save-but}"/></label>
-							</td>
-							<td>
-								<input t:type="submit" t:id="cancel" value="${message:cancel-but}" t:mode="cancel"/>
-							</td>
+							<td><label><input t:type="submit" t:id="save"
+									value="${message:save-but}" /></label></td>
+							<td><input t:type="submit" t:id="cancel"
+								value="${message:cancel-but}" t:mode="cancel" /></td>
 						</tr>
 					</table>
-					
+
 				</t:form>
 			</t:if>
 		</t:zone>
-			
-	</div></t:border>
-	
-		
-			
-	
+
+	</div>
+</t:border>
+
+
+
+
 
 
 </html>

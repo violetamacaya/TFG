@@ -171,7 +171,7 @@
 							<tr><td>
 								<t:if test="showSearchList">
 									<input class="boton" t:type="submit" value="${message:add-but}"/>
-									<t:actionLink t:id="addAll" zone="^"><button>${message:addall-but}</button></t:actionLink>
+									<t:actionLink class="boton" t:id="addAll" zone="^"><button>${message:addall-but}</button></t:actionLink>
 								</t:if>
 							</td></tr>
 							
@@ -231,7 +231,7 @@
 							</td></tr>
 							<tr><td>
 								<input t:type="submit" class="boton" value="${message:remove-but}"/>
-								<t:actionLink t:id="removeAll" zone="^"><button>${message:removeall-but}</button></t:actionLink>
+								<t:actionLink class="boton" t:id="removeAll" zone="^"><button>${message:removeall-but}</button></t:actionLink>
 							</td></tr>
 						</table>
 					</t:form>
@@ -239,9 +239,9 @@
 			</t:zone>
 			<t:zone t:id="buttonsZone" id="buttonsZone" visible="secondVisible" t:update="show">
 				
-						<t:actionLink t:id="backbut" zone="^"><button>${message:back-but}</button></t:actionLink>
+						<t:actionLink class="boton" t:id="backbut" zone="^"><button>${message:back-but}</button></t:actionLink>
 						<t:if test="showCensusList">
-							<t:actionLink t:id="endbut" zone="^"><button>${message:savecensus-but}</button></t:actionLink>
+							<t:actionLink class="boton" t:id="endbut" zone="^"><button>${message:savecensus-but}</button></t:actionLink>
 						</t:if>
 			</t:zone>
 

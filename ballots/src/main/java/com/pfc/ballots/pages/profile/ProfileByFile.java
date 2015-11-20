@@ -273,21 +273,17 @@ public class ProfileByFile {
 	 */
 	public void onSuccessFromForm()
 	{
-		System.out.println("SUCCESSS en subir "+file);
 		
 		String [] namef=file.getFileName().split("\\.");
-		System.out.print("antes de las comprobaciones");
 
 		if(datasession.isMainAdmin())
 		{
 			
 
 			finalpath=path+datasession.getEmail()+"."+namef[namef.length-1];
-			System.out.print(finalpath+" dentro del if");
 		}
 		else
 		{			
-			System.out.print(finalpath+"en el else");
 
 			finalpath=path+datasession.getEmail()+"."+datasession.getDBName()+"."+namef[namef.length-1];
 
@@ -524,7 +520,34 @@ public class ProfileByFile {
 			ajaxResponseRenderer.addRender(editZone).addRender(gridZone);
 		}
 	}
+	/*Details*/
+	@InjectComponent
+	private Zone detailsZone;
+	
+	@Persist
+	@Property	
+	private boolean details;
+	
+public void onActionFromDetails(String id){
+		
+		details=false;
+		if(request.isXHR())
+		{
+			details=true;
+			person=lookforid(id);
+			ajaxResponseRenderer.addRender("formZone",formZone).addRender("gridZone",gridZone).addRender("detailsZone", detailsZone);
+		}
+	}
+	public void onActionFromLess(){
+		
+		if(request.isXHR())
+		{
+			details=false;
+			ajaxResponseRenderer.addRender("formZone",formZone).addRender("gridZone",gridZone).addRender("detailsZone", detailsZone);
 
+		}
+	}
+	
 	/**
 	 * Report a users that are able to vote in the created ballot
 	 * @param censo
