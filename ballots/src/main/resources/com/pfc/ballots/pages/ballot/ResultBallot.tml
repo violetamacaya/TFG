@@ -203,7 +203,21 @@
 				</t:loop>
 			</table>
 		</t:if>
-		
+		<t:if test="showCondorcet">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:votes}</th>
+				</tr>
+				<t:loop t:source="CondorcetOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${condorcetVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
 		
 	</div>
 </t:border>

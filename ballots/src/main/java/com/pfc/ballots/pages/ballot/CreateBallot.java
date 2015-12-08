@@ -67,6 +67,7 @@ import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Brams;
+import com.pfc.ballots.entities.ballotdata.Condorcet;
 import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
@@ -166,6 +167,7 @@ public class CreateBallot {
 		bramsModel=NUMBERS7_15;
 		votoAcumulativoModel=NUMBERS2_15;
 		juicioMayoritarioModel=NUMBERS7_15;
+		condorcetModel=NUMBERS2_15;
 
 		numOpt=2;
 		bordaOpt1=2;
@@ -657,6 +659,12 @@ public class CreateBallot {
 					showType=false;
 					showJuicioMayoritario=true;
 					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("juicioMayoritarioZone",juicioMayoritarioZone);
+				}
+				else if(method==Method.CONDORCET)
+				{
+					showType=false;
+					showCondorcet=true;
+					ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("condorcetZone",condorcetZone);
 				}
 			}
 		}
@@ -3271,6 +3279,364 @@ public class CreateBallot {
 			}	
 		}
 	}
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////// Condorcet ZONE /////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@InjectComponent
+	private Zone condorcetZone;
+	@Property
+	@Persist
+	private boolean showCondorcet;
+	@Property
+	@Persist
+	private boolean showErrorCondorcet;
+	@Property
+	@Persist
+	private boolean showRepeatedCondorcet;
+	@Persist
+	private Condorcet condorcet;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String condorcetNumOp;
+	@Persist
+	private int numOptCondorcet;
+	@Property
+	@Persist 
+	private String [] condorcetModel;
+
+	@Property
+	@Persist
+	private String condorcetOp1;
+	@Property
+	@Persist
+	private String condorcetOp2;
+	@Property
+	@Persist
+	private String condorcetOp3;
+	@Property
+	@Persist
+	private String condorcetOp4;
+	@Property
+	@Persist
+	private String condorcetOp5;
+	@Property
+	@Persist
+	private String condorcetOp6;
+	@Property
+	@Persist
+	private String condorcetOp7;
+	@Property
+	@Persist
+	private String condorcetOp8;
+	@Property
+	@Persist
+	private String condorcetOp9;
+	@Property
+	@Persist
+	private String condorcetOp10;
+	@Property
+	@Persist
+	private String condorcetOp11;
+	@Property
+	@Persist
+	private String condorcetOp12;
+	@Property
+	@Persist
+	private String condorcetOp13;
+	@Property
+	@Persist
+	private String condorcetOp14;
+	@Property
+	@Persist
+	private String condorcetOp15;
+
+
+	private String optionCondorcet;
+	public String getOptionCondorcet() {
+		return optionCondorcet;
+	}
+	public void setOptionCondorcet(String optionCondorcet) {
+		this.optionCondorcet = optionCondorcet;
+	}
+
+	/**
+	 * Controls the number of options for the condorcet voting
+	 * @param str
+	 */
+	public void  onValueChangedFromCondorcetSel(String str)
+	{
+		numOptCondorcet=Integer.parseInt(str);
+		ajaxResponseRenderer.addRender("condorcetZone", condorcetZone);
+	}
+
+
+	public boolean isShowCondorcet3()
+	{
+		if(numOptCondorcet>=3)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet4()
+	{
+		if(numOptCondorcet>=4)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet5()
+	{
+		if(numOptCondorcet>=5)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet6()
+	{
+		if(numOptCondorcet>=6)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet7()
+	{
+		if(numOptCondorcet>=7)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet8()
+	{
+		if(numOptCondorcet>=8)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet9()
+	{
+		if(numOptCondorcet>=9)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet10()
+	{
+		if(numOptCondorcet>=10)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet11()
+	{
+		if(numOptCondorcet>=11)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet12()
+	{
+		if(numOptCondorcet>=12)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet13()
+	{
+		if(numOptCondorcet>=13)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet14()
+	{
+		if(numOptCondorcet>=14)
+			return true;
+		return false;
+	}
+	public boolean isShowCondorcet15()
+	{
+		if(numOptCondorcet>=15)
+			return true;
+		return false;
+	}
+	/**
+	 * Checks the options of the condorcet voting
+	 */
+	public void onValidateFromCondorcetForm()
+	{
+		showErrorCondorcet=false;
+		showRepeatedCondorcet=false;
+		if(condorcetOp1==null || condorcetOp2==null)
+		{
+
+			showErrorCondorcet=true;
+		}
+
+		switch(numOptCondorcet)
+		{
+		case 15:
+			if(condorcetOp15==null){showErrorCondorcet=true;}
+		case 14:
+			if(condorcetOp14==null){showErrorCondorcet=true;}
+		case 13:
+			if(condorcetOp13==null){showErrorCondorcet=true;}
+		case 12:
+			if(condorcetOp12==null){showErrorCondorcet=true;}
+		case 11:
+			if(condorcetOp11==null){showErrorCondorcet=true;}
+		case 10:
+			if(condorcetOp10==null){showErrorCondorcet=true;}
+		case 9:
+			if(condorcetOp9==null){showErrorCondorcet=true;}
+		case 8:
+			if(condorcetOp8==null){showErrorCondorcet=true;}
+		case 7:
+			if(condorcetOp7==null){showErrorCondorcet=true;}
+		case 6:
+			if(condorcetOp6==null){showErrorCondorcet=true;}
+		case 5:
+			if(condorcetOp5==null){showErrorCondorcet=true;}
+		case 4:
+			if(condorcetOp4==null){showErrorCondorcet=true;}
+		case 3:
+			if(condorcetOp3==null){showErrorCondorcet=true;}
+			break;
+		default:
+			showErrorCondorcet=false;
+		}
+		if(!showErrorCondorcet)//añadir las opciones
+		{
+			List<String> listOptions=new LinkedList<String>();
+			listOptions.add(condorcetOp1);
+			listOptions.add(condorcetOp2);
+			if(numOptCondorcet>=3)
+			{
+				listOptions.add(condorcetOp3);
+			}
+			if(numOptCondorcet>=4)
+			{
+				listOptions.add(condorcetOp4);
+			}
+			if(numOptCondorcet>=5)
+			{
+				listOptions.add(condorcetOp5);
+			}
+			if(numOptCondorcet>=6)
+			{
+				listOptions.add(condorcetOp6);
+			}
+			if(numOptCondorcet>=7)
+			{
+				listOptions.add(condorcetOp7);
+			}
+			if(numOptCondorcet>=8)
+			{
+				listOptions.add(condorcetOp8);
+			}
+			if(numOptCondorcet>=9)
+			{
+				listOptions.add(condorcetOp9);
+			}
+			if(numOptCondorcet>=10)
+			{
+				listOptions.add(condorcetOp10);
+			}
+			if(numOptCondorcet>=11)
+			{
+				listOptions.add(condorcetOp11);
+			}
+			if(numOptCondorcet>=12)
+			{
+				listOptions.add(condorcetOp12);
+			}
+			if(numOptCondorcet>=13)
+			{
+				listOptions.add(condorcetOp13);
+			}
+			if(numOptCondorcet>=14)
+			{
+				listOptions.add(condorcetOp14);
+			}
+			if(numOptCondorcet>=15)
+			{
+				listOptions.add(condorcetOp15);
+			}
+			for(int x=0;x<listOptions.size();x++)
+			{
+				for(int i=x+1;i<listOptions.size();i++)
+				{
+					if(listOptions.get(x).toLowerCase().equals(listOptions.get(i).toLowerCase()))
+					{
+						showRepeatedCondorcet=true; 
+					}
+
+				}
+			}
+			condorcet=new Condorcet(listOptions);
+		}
+	}
+
+	/**
+	 * Stores all the necessary data of the ballot
+	 * @return
+	 */
+	public Object onSuccessFromCondorcetForm()
+	{
+		if(request.isXHR())
+		{//añadir las opciones
+
+			if(showErrorCondorcet || showRepeatedCondorcet)
+			{
+				ajaxResponseRenderer.addRender("condorcetZone", condorcetZone);
+			}
+			else //No hay errores
+			{
+				ballot=setBallotData();
+				condorcet.setId(UUID.generate());
+				ballot.setIdBallotData(condorcet.getId());
+				condorcet.setBallotId(ballot.getId());
+
+				voteDao=DB4O.getVoteDao(datasession.getDBName());
+				condorcetDao=DB4O.getCondorcetDao(datasession.getDBName());
+
+				if(ballot.isTeaching())//Votacion Docente
+				{
+					//Genera votos aleatoriamente para la votacion docente
+					ballot.setIdCensus("none");
+					condorcet.setVotes(GenerateDocentVotes.generateCondorcet(condorcet.getOptions(), Integer.parseInt(census)));
+					//HACER RECUENTO VOTOS AQUI PARA DOCENTES
+					condorcet.calcularCondorcet();
+					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
+					this.sendMail(datasession.getId(), ballot);
+					ballot.setEnded(true);
+					ballot.setCounted(true);
+					voteDao.store(vote);
+				}
+				else if(ballotKind==BallotKind.PUBLICA){
+					ballot.setIdCensus("none");
+				}
+				else
+				{
+					boolean creatorInCensus=false;
+					this.sendMail(censusNormal,ballot);
+					for(String idUser:censusNormal.getUsersCounted())
+					{
+						if(idUser.equals(datasession.getId())){creatorInCensus=true;}
+
+						voteDao.store(new Vote(ballot.getId(),idUser));//Almacena vote con ids de users censados
+					}
+					if(!creatorInCensus)
+					{
+						// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
+						//this.sendMail(datasession.getId(), ballot);
+					}
+
+				}
+
+				condorcetDao.store(condorcet);
+				ballotDao.store(ballot);
+				ballotIdSesion = ballot.getId();
+				return AddImages.class;
+			}
+		}
+		return null;
+	}
+
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////// TOOLS /////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3352,6 +3718,10 @@ public class CreateBallot {
 		{
 			metodo="Juicio Mayoritario";
 		}
+		else if(ballot.getMethod()==Method.CONDORCET)
+		{
+			metodo="Condorcet";
+		}
 		if(ballotMail.isTeaching())
 		{
 			subject="Votacion docente "+metodo+": "+ballotMail.getName();
@@ -3417,6 +3787,10 @@ public class CreateBallot {
 		else if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
 		{
 			metodo="Juicio Mayoritario";
+		}
+		else if(ballot.getMethod()==Method.CONDORCET)
+		{
+			metodo="Condorcet";
 		}
 		if(ballotMail.isTeaching())
 		{

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.Calculo.CalcBorda;
-import com.pfc.ballots.dao.BordaDaoDB4O;
 
 
 /**
@@ -26,7 +25,6 @@ public class Borda {
 	private List<List<String>> votes;
 	private List<String> winner;
 	private Map<String,Integer> results;
-	private String text;
 	
 	public Borda()
 	{

@@ -26,6 +26,7 @@ import com.pfc.ballots.dao.BallotDao;
 import com.pfc.ballots.dao.BordaDao;
 import com.pfc.ballots.dao.BramsDao;
 import com.pfc.ballots.dao.CensusDao;
+import com.pfc.ballots.dao.CondorcetDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
@@ -40,6 +41,7 @@ import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Brams;
+import com.pfc.ballots.entities.ballotdata.Condorcet;
 import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
@@ -87,7 +89,7 @@ public class VoteBallot {
 
 	@InjectComponent
 	private Zone imagesZone;
-	
+
 	@Property
 	@SessionAttribute
 	private String contextBallotId;
@@ -101,10 +103,10 @@ public class VoteBallot {
 
 	@Property
 	private final StringValueEncoder stringValueEncoder = new StringValueEncoder();
-	
+
 	@Property
 	private String imagen;
-	
+
 	@Property
 	@Persist
 	ArrayList<String> ballotImages;
@@ -136,6 +138,8 @@ public class VoteBallot {
 	VotoAcumulativoDao votoAcumulativoDao;	
 	@Persist
 	JuicioMayoritarioDao juicioMayoritarioDao;	
+	@Persist
+	CondorcetDao condorcetDao;	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,7 +156,7 @@ public class VoteBallot {
 
 		ballotImages= ballot.getImagenes();
 		System.out.println("ballotimages: "+ ballot.getDescription());
-		
+
 		if(ballot.isPublica())
 		{
 
@@ -215,6 +219,16 @@ public class VoteBallot {
 		{
 			juicioMayoritarioDao=DB4O.getJuicioMayoritarioDao(datasession.getDBName());
 			juicioMayoritario=juicioMayoritarioDao.getByBallotId(contextBallotId);
+		}	
+		if(ballot.getMethod()==Method.CONDORCET)
+		{
+			condorcetDao=DB4O.getCondorcetDao(datasession.getDBName());
+			condorcet=condorcetDao.getByBallotId(contextBallotId);
+			radiobuttonsize = new String[condorcet.getOptions().size()];
+			for (int i = 0; i<condorcet.getOptions().size(); i++){
+				radiobuttonsize[i] = String.valueOf(i);
+			}
+			condorcetVote=new LinkedList<String>();
 		}	
 	}
 
@@ -1711,6 +1725,420 @@ public class VoteBallot {
 		return false;
 
 	}		
+
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////// Condorcet /////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Stores the Condorcet vote
+	 * @return
+	 */
+
+
+	@Persist
+	@Property
+	private Condorcet condorcet;
+
+	@Property
+	@Persist
+	private boolean showErrorCondorcet;
+
+	@Property
+	@Persist
+	private String condorcetRadio0;
+
+	@Property
+	@Persist
+	private String condorcetRadio1;
+
+	@Property
+	@Persist
+	private String condorcetRadio2;	
+
+	@Property
+	@Persist
+	private String condorcetRadio3;
+
+	@Property
+	@Persist
+	private String condorcetRadio4;
+
+	@Property
+	@Persist
+	private String condorcetRadio5;	
+
+	@Property
+	@Persist
+	private String condorcetRadio6;
+
+	@Property
+	@Persist
+	private String condorcetRadio7;
+
+	@Property
+	@Persist
+	private String condorcetRadio8;	
+
+	@Property
+	@Persist
+	private String condorcetRadio9;
+
+	@Property
+	@Persist
+	private String condorcetRadio10;
+
+	@Property
+	@Persist
+	private String condorcetRadio11;	
+
+	@Property
+	@Persist
+	private String condorcetRadio12;
+
+	@Property
+	@Persist
+	private String condorcetRadio13;
+
+	@Property
+	@Persist
+	private String condorcetRadio14;	
+
+	@Property
+	@Persist
+	private String condorcetRadio15;	
+
+	@Property
+	@Persist
+	private String[] radiobuttonsize;
+
+	@Property
+	@Persist
+	private String radioSize;
+
+	@Persist
+	@Property
+	private List<String> condorcetVote;
+
+
+	public boolean isShowCondorcet3()
+	{
+		if(condorcet.getOptions().size()>2)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet4()
+	{
+		if(condorcet.getOptions().size()>3)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet5()
+	{
+		if(condorcet.getOptions().size()>=4)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet6()
+	{
+		if(condorcet.getOptions().size()>=5)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet7()
+	{
+		if(condorcet.getOptions().size()>=6)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet8()
+	{
+		if(condorcet.getOptions().size()>=7)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet9()
+	{
+		if(condorcet.getOptions().size()>=8)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet10()
+	{
+		if(condorcet.getOptions().size()>=9)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet11()
+	{
+		if(condorcet.getOptions().size()>=10)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet12()
+	{
+		if(condorcet.getOptions().size()>=11)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet13()
+	{
+		if(condorcet.getOptions().size()>=12)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet14()
+	{
+		if(condorcet.getOptions().size()>=13)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowCondorcet15()
+	{
+		if(condorcet.getOptions().size()>=14)
+			return true;
+		else
+			return false;
+	}
+
+
+	public String getCondorcetOption0()
+	{
+		condorcetRadio0 = "0";
+		return condorcet.getOptions().get(0);
+	}
+	public String getCondorcetOption1()
+	{
+		condorcetRadio1 = "0";
+		return condorcet.getOptions().get(1);
+	}
+	public String getCondorcetOption2()
+	{
+		condorcetRadio2 = "0";
+		return condorcet.getOptions().get(2);
+	}
+	public String getCondorcetOption3()
+	{
+		condorcetRadio3 = "0";
+		return condorcet.getOptions().get(3);
+	}
+	public String getCondorcetOption4()
+	{
+		condorcetRadio4 = "0";
+		return condorcet.getOptions().get(4);
+	}
+	public String getCondorcetOption5()
+	{
+		condorcetRadio5 = "0";
+		return condorcet.getOptions().get(5);
+	}
+	public String getCondorcetOption6()
+	{
+		condorcetRadio6 = "0";
+		return condorcet.getOptions().get(6);
+	}
+	public String getCondorcetOption7()
+	{
+		condorcetRadio7 = "0";
+		return condorcet.getOptions().get(7);
+	}
+	public String getCondorcetOption8()
+	{
+		condorcetRadio8 = "0";
+		return condorcet.getOptions().get(8);
+	}
+	public String getCondorcetOption9()
+	{
+		condorcetRadio9 = "0";
+		return condorcet.getOptions().get(9);
+	}
+	public String getCondorcetOption10()
+	{
+		condorcetRadio10 = "0";
+		return condorcet.getOptions().get(10);
+	}
+	public String getCondorcetOption11()
+	{
+		condorcetRadio11 = "0";
+		return condorcet.getOptions().get(11);
+	}
+	public String getCondorcetOption12()
+	{
+		condorcetRadio12 = "0";
+		return condorcet.getOptions().get(12);
+	}
+	public String getCondorcetOption13()
+	{
+		condorcetRadio13 = "0";
+		return condorcet.getOptions().get(13);
+	}
+	public String getCondorcetOption14()
+	{
+		condorcetRadio14 = "0";
+		return condorcet.getOptions().get(14);
+	}
+
+	public Object onSuccessFromCondorcetForm()
+	{
+		if(request.isXHR())
+		{
+			if(showErrorCondorcet){
+				return this;
+			}
+			else {
+				if(ballot.isPublica())
+				{
+					ballot=ballotDao.getById(contextBallotId);
+					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
+					{
+						condorcetVote.add(condorcetRadio0);
+						System.out.println("El valor en el radio  0 es de : "+Integer.parseInt(condorcetRadio0));
+						condorcetVote.add(condorcetRadio1);
+						System.out.println("El valor en el radio  1 es de : "+Integer.parseInt(condorcetRadio1));
+
+						if(condorcet.getOptions().size()==3){
+							condorcetVote.add(condorcetRadio2);
+							System.out.println("El valor en el radio  2 es de : "+Integer.parseInt(condorcetRadio2));
+						}
+						if(condorcet.getOptions().size()==4 ){
+							condorcetVote.add(condorcetRadio3);
+						}
+						if(condorcet.getOptions().size()==5){
+							condorcetVote.add(condorcetRadio4);
+						}
+						if(condorcet.getOptions().size()==6){
+							condorcetVote.add(condorcetRadio5);
+						}
+						if(condorcet.getOptions().size()==7){
+							condorcetVote.add(condorcetRadio6);
+						}
+						if(condorcet.getOptions().size()==8 ){
+							condorcetVote.add(condorcetRadio7);
+						}
+						if(condorcet.getOptions().size()==9){
+							condorcetVote.add(condorcetRadio8);
+						}
+						if(condorcet.getOptions().size()==10){
+							condorcetVote.add(condorcetRadio9);
+						}
+						if(condorcet.getOptions().size()==11){
+							condorcetVote.add(condorcetRadio10);
+						}
+						if(condorcet.getOptions().size()==12){
+							condorcetVote.add(condorcetRadio11);
+						}
+						if(condorcet.getOptions().size()==13){
+							condorcetVote.add(condorcetRadio12);
+						}
+						if(condorcet.getOptions().size()==14){
+							condorcetVote.add(condorcetRadio13);
+						}						
+						if(condorcet.getOptions().size()==15){
+						}	
+						condorcet.addVote(condorcetVote);
+						condorcetDao.update(condorcet);
+						addPublicVote();
+					}
+				}
+				else
+				{
+
+					vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+					ballot=ballotDao.getById(contextBallotId);
+
+					if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+					{
+						vote.setCounted(true);
+						voteDao.updateVote(vote);
+
+						if(Integer.parseInt(condorcetRadio0) > 0){
+							condorcetVote.add(condorcetRadio0);
+						}
+						if(Integer.parseInt(condorcetRadio1) > 0){
+							condorcetVote.add(condorcetRadio1);
+						}
+						if(Integer.parseInt(condorcetRadio2) > 0){
+							condorcetVote.add(condorcetRadio2);
+						}
+						if(Integer.parseInt(condorcetRadio3) > 0){
+							condorcetVote.add(condorcetRadio3);
+						}
+						if(Integer.parseInt(condorcetRadio4) > 0){
+							condorcetVote.add(condorcetRadio4);
+						}
+						if(Integer.parseInt(condorcetRadio5) > 0){
+							condorcetVote.add(condorcetRadio5);
+						}
+						if(Integer.parseInt(condorcetRadio6) > 0){
+							condorcetVote.add(condorcetRadio6);
+						}
+						if(Integer.parseInt(condorcetRadio7) > 0){
+							condorcetVote.add(condorcetRadio7);
+						}
+						if(Integer.parseInt(condorcetRadio8) > 0){
+							condorcetVote.add(condorcetRadio8);
+						}
+						if(Integer.parseInt(condorcetRadio9) > 0){
+							condorcetVote.add(condorcetRadio9);
+						}
+						if(Integer.parseInt(condorcetRadio10) > 0){
+							condorcetVote.add(condorcetRadio10);
+						}
+						if(Integer.parseInt(condorcetRadio11) > 0){
+							condorcetVote.add(condorcetRadio11);
+						}
+						if(Integer.parseInt(condorcetRadio12) > 0){
+							condorcetVote.add(condorcetRadio12);
+						}
+						if(Integer.parseInt(condorcetRadio13) > 0){
+							condorcetVote.add(condorcetRadio13);
+						}						
+						if(Integer.parseInt(condorcetRadio14) > 0){
+							condorcetVote.add(condorcetRadio14);
+						}
+						System.out.println("condorcetVote vale: " +condorcetVote);
+						condorcet.addVote(condorcetVote);
+						condorcetDao.update(condorcet);
+					}
+				}
+
+				contextResultBallotId=contextBallotId;
+				componentResources.discardPersistentFieldChanges();
+				return VoteCounted.class;
+			}
+		}
+		return VoteCounted.class;
+
+
+	}
+
+	public boolean isShowCondorcet()
+	{
+		if(ballot==null)
+		{
+			return false;
+		}
+		if(ballot.getMethod()==Method.CONDORCET)
+		{
+			return true;
+		}
+		return false;
+
+	}		
+
 	/////////////////////////////////////////////////// TOOLS //////////////////////////
 
 	private void addPublicVote()
@@ -1725,24 +2153,25 @@ public class VoteBallot {
 	}
 	private boolean alreadyVote()
 	{
-				if(publicVotes==null)
-					return false;
-				List<String> list=publicVotes.get(datasession.getIdSession());
-				if(list==null)
-				{
-					return false;
-				}
-				else
-				{
-					for(String current:list)
-					{
-						if(current.equals(contextBallotId))
-						{
-							return true;
-						}
-					}
-					return false;
-				}
+		//				if(publicVotes==null)
+		//					return false;
+		//				List<String> list=publicVotes.get(datasession.getIdSession());
+		//				if(list==null)
+		//				{
+		//					return false;
+		//				}
+		//				else
+		//				{
+		//					for(String current:list)
+		//					{
+		//						if(current.equals(contextBallotId))
+		//						{
+		//							return true;
+		//						}
+		//					}
+		//					return false;
+		//				}
+		return false;
 	}
 
 	private boolean isNumeric(String cadena)

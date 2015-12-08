@@ -1,14 +1,11 @@
 package com.pfc.ballots.dao;
 
-import java.util.Calendar;
-
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.AboutText;
-import com.pfc.ballots.entities.Ballot;
 /**
  * Implementation of the interface AboutTextDao for the DB4O database
  * 
@@ -16,6 +13,8 @@ import com.pfc.ballots.entities.Ballot;
  * @version 2.0 JUL-2014
  *
  */
+
+@SuppressWarnings("rawtypes")
 public class AboutTextDaoDB4O implements AboutTextDao{
 	String sep=System.getProperty("file.separator");
 	String PATH;

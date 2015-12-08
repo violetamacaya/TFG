@@ -1,6 +1,9 @@
 package com.pfc.ballots.dao;
 
+import java.util.List;
+
 import com.pfc.ballots.entities.CondorcetText;
+import com.pfc.ballots.entities.ballotdata.Condorcet;
 
 /**
  * Dao Interface to retrieves Condorcet entity
@@ -17,5 +20,11 @@ public interface CondorcetDao {
 	public void deleteByBallotId(String ballotId);
 	public void deleteById(String id);
 	public void deleteAll();
+	
+	public void store(Condorcet Condorcet);
+	public Condorcet getByBallotId(String idBallot);
+	public Condorcet getById(String id);
+	public List<Condorcet> retrieveAll();
+	public void update(Condorcet updated);
 	
 }

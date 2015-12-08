@@ -45,6 +45,7 @@ import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Brams;
+import com.pfc.ballots.entities.ballotdata.Condorcet;
 import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
@@ -276,6 +277,23 @@ public class ResultBallot {
 				ballotDao.updateBallot(ballot);
 			}
 		}	
+		else if(ballot.getMethod()==Method.CONDORCET)
+		{
+			condorcetDao= DB4O.getCondorcetDao(datasession.getDBName());
+			condorcet=condorcetDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				condorcet.calcularCondorcet();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && condorcet!=null)
+			{
+				condorcet.calcularCondorcet();
+				ballot.setCounted(true);
+				condorcetDao.update(condorcet);
+				ballotDao.updateBallot(ballot);
+			}
+		}	
 
 	}
 	/**
@@ -283,7 +301,6 @@ public class ResultBallot {
 	 */
 	public void afterRender()
 	{
-		System.out.println("AFTER");
 		JSONArray array=new JSONArray();
 
 		JSONObject obj=new JSONObject();
@@ -397,6 +414,20 @@ public class ResultBallot {
 			}
 
 			javaScriptSupport.addInitializerCall("charts_juicioMayoritario",array.toString());
+		}
+		if(ballot.getMethod()==Method.CONDORCET)
+		{
+			List<String> options=getCondorcetOptions();
+			for(String option:options)
+			{
+				System.out.println(option);
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", condorcet.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_condorcet",array.toString());
 		}
 	}
 
@@ -794,6 +825,41 @@ public class ResultBallot {
 	public String getJuicioMayoritarioNum()
 	{
 		return String.valueOf(juicioMayoritario.getVotes().size());
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// CONDORCET ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Condorcet Data
+	 */
+	@Property
+	@Persist
+	Condorcet condorcet;
+
+	@Property
+	private String condorcetOpt;
+
+	public boolean getShowCondorcet()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.CONDORCET)
+		{return true;}
+		return false;
+	}
+
+	public List<String> getCondorcetOptions()
+	{
+		List<String> opciones=condorcet.getOptions();
+		return opciones;
+	}
+
+
+	public String getCondorcetVote()
+	{
+		return String.valueOf(condorcet.getResultOption(option));
+	}
+	public String getCondorcetNum()
+	{
+		return String.valueOf(condorcet.getVotes().size());
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 

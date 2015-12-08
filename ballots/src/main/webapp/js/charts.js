@@ -57,6 +57,11 @@ charts= Class.create( {
             	data.addColumn('string', 'Option');
                 data.addColumn('number', 'Votos');
             }    
+            if(type=="CONDORCET")
+            {
+            	data.addColumn('string', 'Option');
+                data.addColumn('number', 'Votos');
+            }    
             var firstItem=true;
           
             array.forEach(function(obj)
@@ -113,6 +118,10 @@ charts= Class.create( {
             {
             	chart= new google.visualization.ColumnChart(document.getElementById('chart_div'));
             }   
+            if(type=="CONDORCET")
+            {
+            	chart= new google.visualization.PieChart(document.getElementById('chart_div'));
+            }
             chart.draw(data, options);
           }
     }
@@ -161,4 +170,9 @@ Tapestry.Initializer.charts_juicioMayoritario = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("MAYORITARIO",array);
+}
+Tapestry.Initializer.charts_condorcet = function(spec) {
+	
+	var array=JSON.parse(spec);
+	new charts("CONDORCET",array);
 }

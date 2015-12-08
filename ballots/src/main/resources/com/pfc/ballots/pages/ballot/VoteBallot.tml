@@ -5,10 +5,11 @@
 <title>${message:page-title}</title>
 <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
 <link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
- <link href="${context:styles/jquery.fancybox.css}" rel="stylesheet" type="text/css"/>
- 			<script type="text/javascript">
- 			jQuery(document).ready(function() {
- 				jQuery(".fancybox").fancybox();
+<link href="${context:styles/jquery.fancybox.css}" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(".fancybox").fancybox();
 	});
 </script>
 </head>
@@ -370,7 +371,7 @@
 										<td><t:Radio value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showVotoAcumulativo5">
 								<tr>
 									<td>${votoAcumulativoOption4}</td>
@@ -382,8 +383,8 @@
 										<td><t:Radio value="literal:3" type="radio" /></td>
 										<td><t:Radio value="literal:4" type="radio" /></td>
 										<td><t:Radio value="literal:5" type="radio" /></td>
-									
-								</t:radioGroup>
+
+									</t:radioGroup>
 								</tr>
 							</t:if>
 							<t:if test="showVotoAcumulativo6">
@@ -399,7 +400,7 @@
 										<td><t:Radio value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showVotoAcumulativo7">
 								<tr>
 									<td>${votoAcumulativoOption6}</td>
@@ -427,7 +428,7 @@
 										<td><t:Radio value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showVotoAcumulativo9">
 								<tr>
 									<td>${votoAcumulativoOption8}</td>
@@ -455,7 +456,7 @@
 										<td><t:Radio value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showVotoAcumulativo11">
 								<tr>
 									<td>${votoAcumulativoOption10}</td>
@@ -483,7 +484,7 @@
 										<td><t:Radio value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showVotoAcumulativo13">
 								<tr>
 									<td>${votoAcumulativoOption12}</td>
@@ -495,8 +496,8 @@
 										<td><t:Radio value="literal:3" type="radio" /></td>
 										<td><t:Radio value="literal:4" type="radio" /></td>
 										<td><t:Radio value="literal:5" type="radio" /></td>
-									
-								</t:radioGroup>
+
+									</t:radioGroup>
 								</tr>
 							</t:if>
 							<t:if test="showVotoAcumulativo14">
@@ -512,7 +513,7 @@
 										<td><t:Radio value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showVotoAcumulativo15">
 								<tr>
 									<td>${votoAcumulativoOption14}</td>
@@ -527,7 +528,7 @@
 									</t:radioGroup>
 								</tr>
 							</t:if>
-															
+
 							<t:if test="ballot.publica">
 
 								<tr>
@@ -557,7 +558,7 @@
 				</t:zone>
 			</t:if>
 
-		<!--/////////////////////////////////// JuicioMayoritario /////////////////////////////////////////// -->
+			<!--/////////////////////////////////// JuicioMayoritario /////////////////////////////////////////// -->
 
 
 
@@ -586,106 +587,151 @@
 								<td>${juicioMayoritarioOption0}</td>
 								<t:radioGroup value="juicioMayoritarioRadio0"
 									id="radioGroupJuicioMayoritario0" required="true">
-									<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5"
+											type="radio" /></td>
 								</t:radioGroup>
 							</tr>
 							<tr>
 								<td>${juicioMayoritarioOption1}</td>
 								<t:radioGroup value="juicioMayoritarioRadio1"
 									id="radioGroupJuicioMayoritario1" required="true">
-									<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5"
+											type="radio" /></td>
 								</t:radioGroup>
 							</tr>
 
-								<tr>
-									<td>${juicioMayoritarioOption2}</td>
-									<t:radioGroup value="juicioMayoritarioRadio2"
-										id="radioGroupJuicioMayoritario2" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
-									</t:radioGroup>
-								</tr>
-								<tr>
-									<td>${juicioMayoritarioOption3}</td>
-									<t:radioGroup value="juicioMayoritarioRadio3"
-										id="radioGroupJuicioMayoritario2" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
-									</t:radioGroup>
-								</tr>
-								<tr>
-									<td>${juicioMayoritarioOption4}</td>
-									<t:radioGroup value="juicioMayoritarioRadio4"
-										id="radioGroupJuicioMayoritario4" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
-									
+							<tr>
+								<td>${juicioMayoritarioOption2}</td>
+								<t:radioGroup value="juicioMayoritarioRadio2"
+									id="radioGroupJuicioMayoritario2" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5"
+											type="radio" /></td>
 								</t:radioGroup>
-								</tr>
+							</tr>
+							<tr>
+								<td>${juicioMayoritarioOption3}</td>
+								<t:radioGroup value="juicioMayoritarioRadio3"
+									id="radioGroupJuicioMayoritario2" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+							<tr>
+								<td>${juicioMayoritarioOption4}</td>
+								<t:radioGroup value="juicioMayoritarioRadio4"
+									id="radioGroupJuicioMayoritario4" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5"
+											type="radio" /></td>
 
-								<tr>
-									<td>${juicioMayoritarioOption5}</td>
-									<t:radioGroup value="juicioMayoritarioRadio5"
-										id="radioGroupJuicioMayoritario5" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
-									</t:radioGroup>
-								</tr>
+								</t:radioGroup>
+							</tr>
 
-								<tr>
-									<td>${juicioMayoritarioOption6}</td>
-									<t:radioGroup value="juicioMayoritarioRadio6"
-										id="radioGroupJuicioMayoritario6" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
-									</t:radioGroup>
-								</tr>
+							<tr>
+								<td>${juicioMayoritarioOption5}</td>
+								<t:radioGroup value="juicioMayoritarioRadio5"
+									id="radioGroupJuicioMayoritario5" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+
+							<tr>
+								<td>${juicioMayoritarioOption6}</td>
+								<t:radioGroup value="juicioMayoritarioRadio6"
+									id="radioGroupJuicioMayoritario6" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:3"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:4"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:5"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
 							<t:if test="showJuicioMayoritario8">
 								<tr>
 									<td>${juicioMayoritarioOption7}</td>
 									<t:radioGroup value="juicioMayoritarioRadio7"
 										id="radioGroupJuicioMayoritario7" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showJuicioMayoritario9">
 								<tr>
 									<td>${juicioMayoritarioOption8}</td>
 									<t:radioGroup value="juicioMayoritarioRadio8"
 										id="radioGroupJuicioMayoritario8" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
@@ -694,24 +740,34 @@
 									<td>${juicioMayoritarioOption9}</td>
 									<t:radioGroup value="juicioMayoritarioRadio9"
 										id="radioGroupJuicioMayoritario9" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showJuicioMayoritario11">
 								<tr>
 									<td>${juicioMayoritarioOption10}</td>
 									<t:radioGroup value="juicioMayoritarioRadio10"
 										id="radioGroupJuicioMayoritario10" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
@@ -720,26 +776,36 @@
 									<td>${juicioMayoritarioOption11}</td>
 									<t:radioGroup value="juicioMayoritarioRadio11"
 										id="radioGroupJuicioMayoritario11" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showJuicioMayoritario13">
 								<tr>
 									<td>${juicioMayoritarioOption12}</td>
 									<t:radioGroup value="juicioMayoritarioRadio12"
 										id="radioGroupJuicioMayoritario12" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
-									
-								</t:radioGroup>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:5" type="radio" /></td>
+
+									</t:radioGroup>
 								</tr>
 							</t:if>
 							<t:if test="showJuicioMayoritario14">
@@ -747,37 +813,268 @@
 									<td>${juicioMayoritarioOption13}</td>
 									<t:radioGroup value="juicioMayoritarioRadio13"
 										id="radioGroupJuicioMayoritario13" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
-							</t:if>	
+							</t:if>
 							<t:if test="showJuicioMayoritario15">
 								<tr>
 									<td>${juicioMayoritarioOption14}</td>
 									<t:radioGroup value="juicioMayoritarioRadio14"
 										id="radioGroupJuicioMayoritario14" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:1" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:2" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:3" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:4" type="radio" /></td>
-										<td style="text-align: center;"><t:Radio value="literal:5" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:3" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:4" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:5" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
-															
+
 							<t:if test="ballot.publica">
 
 								<tr>
 
-									<td><br /> <t:kaptchaimage t:id="kaptchaJuicioMayoritario" /></td>
+									<td><br /> <t:kaptchaimage
+											t:id="kaptchaJuicioMayoritario" /></td>
 								</tr>
 								<tr>
 									<td><t:kaptchafield style="width:200px;"
 											image="kaptchaJuicioMayoritario" visible="true" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</t:form>
+
+
+
+				</t:zone>
+			</t:if>
+			<!--/////////////////////////////////// Condorcet /////////////////////////////////////////// -->
+
+
+
+			<t:if test="showCondorcet">
+
+				<t:zone t:id="condorcetZone" t:update="show">
+
+					<t:if test="showErrorCondorcet">
+						<span class="error">${message:condorcet-error}</span>
+					</t:if>
+					
+					${message:instructions-condorcet}<br />
+
+					<t:form t:id="condorcetForm" t:zone="^">
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+
+								<t:loop source="radiobuttonsize" value="radioSize">
+									<td style="text-align: center;">${radioSize}</td>
+								</t:loop>
+							</tr>
+
+							<tr>
+								<td>${condorcetOption0}</td>
+								<t:radioGroup value="condorcetRadio0" id="radioGroupCondorcet0"
+									required="true">
+									<t:loop source="radiobuttonsize" value="radioSize">
+										<td><t:radio value="radioSize" type="radio" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+
+
+							<tr>
+								<td>${condorcetOption1}</td>
+								<t:radioGroup value="condorcetRadio1" id="radioGroupCondorcet1"
+									required="true">
+									<t:loop source="radiobuttonsize" value="radioSize">
+										<td><t:Radio value="radioSize" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+							<t:if test="showCondorcet3">
+								<tr>
+									<td>${condorcetOption2}</td>
+									<t:radioGroup value="condorcetRadio2" id="radioGroupCondorcet2"
+										required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet4">
+								<tr>
+									<td>${condorcetOption3}</td>
+									<t:radioGroup value="condorcetRadio3" id="radioGroupCondorcet2"
+										required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet5">
+								<tr>
+									<td>${condorcetOption4}</td>
+									<t:radioGroup value="condorcetRadio4" id="radioGroupCondorcet4"
+										required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet6">
+								<tr>
+									<td>${condorcetOption5}</td>
+									<t:radioGroup value="condorcetRadio5" id="radioGroupCondorcet5"
+										required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet7">
+								<tr>
+									<td>${condorcetOption6}</td>
+									<t:radioGroup value="condorcetRadio6" id="radioGroupCondorcet6"
+										required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet8">
+								<tr>
+									<td>${condorcetOption7}</td>
+									<t:radioGroup value="condorcetRadio7" id="radioGroupCondorcet7"
+										required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet9">
+								<tr>
+									<td>${condorcetOption8}</td>
+									<t:radioGroup value="condorcetRadio8" id="radioGroupCondorcet8"
+										required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet10">
+								<tr>
+									<td>${condorcetOption9}</td>
+									<t:radioGroup value="condorcetRadio9" id="radioGroupCondorcet9"
+										required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet11">
+								<tr>
+									<td>${condorcetOption10}</td>
+									<t:radioGroup value="condorcetRadio10"
+										id="radioGroupCondorcet10" required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet12">
+								<tr>
+									<td>${condorcetOption11}</td>
+									<t:radioGroup value="condorcetRadio11"
+										id="radioGroupCondorcet11" required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet13">
+								<tr>
+									<td>${condorcetOption12}</td>
+									<t:radioGroup value="condorcetRadio12"
+										id="radioGroupCondorcet12" required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet14">
+								<tr>
+									<td>${condorcetOption13}</td>
+									<t:radioGroup value="condorcetRadio13"
+										id="radioGroupCondorcet13" required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCondorcet15">
+								<tr>
+									<td>${condorcetOption14}</td>
+									<t:radioGroup value="condorcetRadio14"
+										id="radioGroupCondorcet14" required="true">
+										<t:loop source="radiobuttonsize" value="radioSize">
+											<td><t:Radio value="radioSize" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+
+							<t:if test="ballot.publica">
+
+								<tr>
+
+									<td><br /> <t:kaptchaimage t:id="kaptchaCondorcet" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaCondorcet" visible="true" type="text" /></td>
 								</tr>
 								<tr>
 									<td>${message:captcha}</td>
@@ -804,12 +1101,13 @@
 				<h2>${message:vote-done}</h2>
 			</p:else>
 			<t:zone t:id="imagesZone">
-			<div id="imagesZone">
-			<t:Loop t:id="imagesLoop" t:source="ballotImages" t:value="imagen">
-				<a class="fancybox" rel="group" href="/files/${imagen}"><img style="width:200px; padding: 5px;" src="/files/${imagen}" alt="" /></a> 
-								
-			</t:Loop>
-			</div>
+				<div id="imagesZone">
+					<t:Loop t:id="imagesLoop" t:source="ballotImages" t:value="imagen">
+						<a class="fancybox" rel="group" href="/files/${imagen}"><img
+							style="width: 200px; padding: 5px;" src="/files/${imagen}" alt="" /></a>
+
+					</t:Loop>
+				</div>
 			</t:zone>
 		</t:if>
 	</div>

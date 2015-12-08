@@ -885,10 +885,11 @@
 					</table>
 					<t:eventlink t:event="back"
 						t:context="prop:['fromVotoAcumulativoRel','toType']" t:zone="^">
-						<button class="boton">${message:back-but}</button> </t:eventlink>
-						<input t:type="submit" class="boton" t:value="${message:create}" />
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
 
-					
+
 				</t:form>
 				<br />
 
@@ -1009,7 +1010,127 @@
 				</t:eventlink>
 			</t:if>
 		</t:zone>
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////CONDORCET ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
 
+		<t:zone t:id="condorcetZone" id="condorcetZone" t:update="show">
+			<t:if test="showCondorcet">
+				<h4>${message:condorcet-title}</h4>
+				<t:form t:id="condorcetForm" t:zone="^">
+					<t:if test="showErrorCondorcet">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedCondorcet">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="condorcetSel" /></td>
+							<td><t:select t:id="condorcetSel" value="condorcetNumOp"
+									t:model="condorcetModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="condorcetOp1" /></td>
+							<td><t:textfield t:id="condorcetOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="condorcetOp2" /></td>
+							<td><t:textfield t:id="condorcetOp2" /></td>
+						</tr>
+						<t:if test="showCondorcet3">
+							<tr>
+								<td><t:label for="condorcetOp3" /></td>
+								<td><t:textfield t:id="condorcetOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet4">
+							<tr>
+								<td><t:label for="condorcetOp4" /></td>
+								<td><t:textfield t:id="condorcetOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet5">
+							<tr>
+								<td><t:label for="condorcetOp5" /></td>
+								<td><t:textfield t:id="condorcetOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet6">
+							<tr>
+								<td><t:label for="condorcetOp6" /></td>
+								<td><t:textfield t:id="condorcetOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet7">
+							<tr>
+								<td><t:label for="condorcetOp7" /></td>
+								<td><t:textfield t:id="condorcetOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet8">
+							<tr>
+								<td><t:label for="condorcetOp8" /></td>
+								<td><t:textfield t:id="condorcetOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet9">
+							<tr>
+								<td><t:label for="condorcetOp9" /></td>
+								<td><t:textfield t:id="condorcetOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet10">
+							<tr>
+								<td><t:label for="condorcetOp10" /></td>
+								<td><t:textfield t:id="condorcetOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet11">
+							<tr>
+								<td><t:label for="condorcetOp11" /></td>
+								<td><t:textfield t:id="condorcetOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet12">
+							<tr>
+								<td><t:label for="condorcetOp12" /></td>
+								<td><t:textfield t:id="condorcetOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet13">
+							<tr>
+								<td><t:label for="condorcetOp13" /></td>
+								<td><t:textfield t:id="condorcetOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet14">
+							<tr>
+								<td><t:label for="condorcetOp14" /></td>
+								<td><t:textfield t:id="condorcetOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCondorcet15">
+							<tr>
+								<td><t:label for="condorcetOp15" /></td>
+								<td><t:textfield t:id="condorcetOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back"
+						t:context="prop:['fromCondorcet','toType']" t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
 
 
 	</div>

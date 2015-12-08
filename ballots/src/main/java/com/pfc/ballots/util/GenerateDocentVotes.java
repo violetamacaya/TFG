@@ -31,7 +31,7 @@ public class GenerateDocentVotes {
 			Random random=new Random();
 			votes.add(options.get(random.nextInt(options.size())));
 		}
-		
+
 		return votes;
 	}
 	/**
@@ -43,13 +43,13 @@ public class GenerateDocentVotes {
 	static public List<List<String>> generateKemeny(List<String> kemenyOptions,int numVotes)
 	{
 		Map<String,Integer> votesPerOption=new HashMap<String,Integer>();
-		 List<List<String>>votes=new LinkedList<List<String>>();
-		
+		List<List<String>>votes=new LinkedList<List<String>>();
+
 		for(String option:kemenyOptions)
 		{
 			votesPerOption.put(option, 0);
 		}
-		
+
 		for(int i=1; i<=numVotes;i++)
 		{
 			List<String> vote=new LinkedList<String>();
@@ -70,9 +70,9 @@ public class GenerateDocentVotes {
 			}
 			votes.add(vote);
 		}
-		
+
 		return votes;
-		
+
 	}
 	/**
 	 * Generates a list of random votes for a borda ballot
@@ -81,17 +81,17 @@ public class GenerateDocentVotes {
 	 * @param numVotes number of votes to generate
 	 * @return List<String> a list of random votes
 	 */
-	
+
 	static public List<List<String>> generateBorda(List<String> bordaOptions,int numVotes)
 	{
 		Map<String,Integer> votesPerOption=new HashMap<String,Integer>();
-		 List<List<String>>votes=new LinkedList<List<String>>();
-		
+		List<List<String>>votes=new LinkedList<List<String>>();
+
 		for(String option:bordaOptions)
 		{
 			votesPerOption.put(option, 0);
 		}
-		
+
 		for(int i=1; i<=numVotes;i++)
 		{
 			List<String> vote=new LinkedList<String>();
@@ -112,12 +112,12 @@ public class GenerateDocentVotes {
 			}
 			votes.add(vote);
 		}
-		
+
 		return votes;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Generates a list of random votes for a RangeVoting ballot
 	 * 
@@ -129,10 +129,10 @@ public class GenerateDocentVotes {
 	 */
 	static public List<List<String>> generateRangeVoting(List<String>options, int numVotes,int min,int max)
 	{
-	
-		 List<List<String>>votes=new LinkedList<List<String>>();
-		
-		
+
+		List<List<String>>votes=new LinkedList<List<String>>();
+
+
 		for(int x=0;x<numVotes;x++)
 		{
 			List<String>vote=new LinkedList<String>();
@@ -145,7 +145,7 @@ public class GenerateDocentVotes {
 			votes.add(vote);
 		}
 		return votes;
-		
+
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class GenerateDocentVotes {
 	static public List<String> generateApprovalVoting(List<String> options,int numVotes)
 	{
 		List<String> votes=new LinkedList<String>();
-		
+
 		//Cada uno de los usuarios puede votar el numero de opciones que quiera, entre una y todas. 
 		for(int i=0; i<numVotes; i++){
 			int[] votospersona = new int[options.size()];
@@ -175,7 +175,7 @@ public class GenerateDocentVotes {
 				}
 			}	
 		}
-		
+
 		return votes;
 	}
 	/**
@@ -205,7 +205,7 @@ public class GenerateDocentVotes {
 				}
 			}	
 		}
-		
+
 		return votes;
 	}
 	static public List<String> generateVotoAcumulativo(List<String> options, int numVotes) {
@@ -214,13 +214,13 @@ public class GenerateDocentVotes {
 		//Cada votante tiene 5 votos que podrá repartir como quiera. 
 		for(int i=0; i<numVotes; i++){
 			int[] votospersona = new int[options.size()]; //Array que almacena los votos de una persona.
-			
+
 			for (int j = 0; j<5; j++){
 				int posvoto = 0 + (int)(Math.random() * ((votospersona.length - 1) + 1));
-					votes.add(options.get(posvoto));
+				votes.add(options.get(posvoto));
 			}	
 		}
-		
+
 		return votes;
 	}
 	static public List<String> generateJuicioMayoritario(List<String> options, int numVotes) {
@@ -230,12 +230,46 @@ public class GenerateDocentVotes {
 		for(int i=0; i<numVotes; i++){
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
 				int numVotos = 1 + (int)(Math.random() * 5);
-					for(int k = 0; k<numVotos; k++){
+				for(int k = 0; k<numVotos; k++){
 					votes.add(options.get(j));
-					}
+				}
 			}	
 		}
-		
+
+		return votes;
+	}
+	static public List<List<String>> generateCondorcet(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
+		Map<String,Integer> votesPerOption=new HashMap<String,Integer>();
+		List<List<String>>votes=new LinkedList<List<String>>();
+
+		for(String option:options)
+		{
+			votesPerOption.put(option, 0);
+		}
+
+		for(int i=1; i<=numVotes;i++)
+		{
+			List<String> vote=new LinkedList<String>();
+			for(int x=0;x<options.size();x++)
+			{
+				boolean notSelected=true;
+				while(notSelected)
+				{
+					Random random=new Random();
+					int numOption=random.nextInt(options.size());
+					if(votesPerOption.get(options.get(numOption))<i)
+					{
+						notSelected=false;
+						vote.add(options.get(numOption));
+						votesPerOption.put(options.get(numOption), i);
+					}
+				}
+			}
+			votes.add(vote);
+		}
+
 		return votes;
 	}
 }

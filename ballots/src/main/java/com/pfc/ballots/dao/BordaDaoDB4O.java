@@ -8,14 +8,10 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
-import com.pfc.ballots.entities.AboutText;
 import com.pfc.ballots.entities.BordaText;
 import com.pfc.ballots.entities.ballotdata.Borda;
-import com.pfc.ballots.entities.ballotdata.Kemeny;
-import com.pfc.ballots.entities.ballotdata.RangeVoting;
-import com.pfc.ballots.pages.Methods.BordaMethod;
 
-
+@SuppressWarnings("rawtypes")
 public class BordaDaoDB4O implements BordaDao {
 
 	String sep=System.getProperty("file.separator");
