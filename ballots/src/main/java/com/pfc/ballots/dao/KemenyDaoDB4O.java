@@ -18,6 +18,8 @@ import com.pfc.ballots.entities.ballotdata.Kemeny;
  * @version 1.0 JUL-2014
  *
  */
+
+@SuppressWarnings("rawtypes")
 public class KemenyDaoDB4O implements KemenyDao 
 {
 	String sep=System.getProperty("file.separator");

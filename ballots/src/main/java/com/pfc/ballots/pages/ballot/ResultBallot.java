@@ -29,7 +29,6 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.HareDao;
 import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
-import com.pfc.ballots.dao.MajoryDao;
 import com.pfc.ballots.dao.MejorPeorDao;
 import com.pfc.ballots.dao.NansonDao;
 import com.pfc.ballots.dao.RangeVotingDao;
@@ -111,7 +110,6 @@ public class ResultBallot {
 	DodgsonDao dodgsonDao;
 	HareDao hareDao;
 	JuicioMayoritarioDao juicioMayoritarioDao;
-	MajoryDao majoryDao;
 	MejorPeorDao mejorPeorDao;
 	NansonDao nansonDao;
 	SchulzeDao schulzeDao;

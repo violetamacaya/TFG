@@ -9,9 +9,8 @@ import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
 import com.pfc.ballots.entities.RangeVotingText;
-import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
-
+@SuppressWarnings("rawtypes")
 public class RangeVotingDaoDB4O implements RangeVotingDao{
 
 	String sep=System.getProperty("file.separator");
@@ -171,7 +170,7 @@ public class RangeVotingDaoDB4O implements RangeVotingDao{
 			ObjectSet result=DB.queryByExample(rangeVoting);
 			if(result.hasNext())
 			{
-				DB.delete((Borda)result.next());
+				DB.delete((RangeVoting)result.next());
 			}
 		
 		}

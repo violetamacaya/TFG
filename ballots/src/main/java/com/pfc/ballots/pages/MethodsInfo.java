@@ -12,10 +12,10 @@ import com.pfc.ballots.pages.Methods.DodgsonMethod;
 import com.pfc.ballots.pages.Methods.HareMethod;
 import com.pfc.ballots.pages.Methods.JuicioMayoritarioMethod;
 import com.pfc.ballots.pages.Methods.KemenyMethod;
-import com.pfc.ballots.pages.Methods.MajoryMethod;
 import com.pfc.ballots.pages.Methods.MejorPeorMethod;
 import com.pfc.ballots.pages.Methods.NansonMethod;
 import com.pfc.ballots.pages.Methods.RangeVotingMethod;
+import com.pfc.ballots.pages.Methods.RelativeMajorityMethod;
 import com.pfc.ballots.pages.Methods.SchulzeMethod;
 import com.pfc.ballots.pages.Methods.SmallMethod;
 import com.pfc.ballots.pages.Methods.VotoAcumulativoMethod;
@@ -30,7 +30,7 @@ public class MethodsInfo {
 		
 		if(section.equals("majory"))
 		{
-			page=MajoryMethod.class;
+			page=RelativeMajorityMethod.class;
 		}
 		else if(section.equals("kemeny"))
 		{

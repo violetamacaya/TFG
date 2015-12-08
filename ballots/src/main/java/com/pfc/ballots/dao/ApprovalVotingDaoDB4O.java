@@ -1,17 +1,16 @@
 package com.pfc.ballots.dao;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
-import com.pfc.ballots.entities.RangeVotingText;
 import com.pfc.ballots.entities.ApprovalVotingText;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
-import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
-import com.pfc.ballots.entities.ballotdata.RangeVoting;
-import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 /**
  * 
  * Implementation of the interface ApprovalVotingDao for the DB4O database
@@ -20,6 +19,7 @@ import com.pfc.ballots.entities.ballotdata.RelativeMajority;
  * @version 1.0 DIC-2014
  *
  */
+@SuppressWarnings("rawtypes")
 public class ApprovalVotingDaoDB4O implements ApprovalVotingDao 
 {
 	String sep=System.getProperty("file.separator");
@@ -48,7 +48,7 @@ public class ApprovalVotingDaoDB4O implements ApprovalVotingDao
 		private void open()
 		{
 			config=Db4oEmbedded.newConfiguration();
-			config.common().objectClass(RangeVoting.class).cascadeOnUpdate(true);
+			config.common().objectClass(ApprovalVoting.class).cascadeOnUpdate(true);
 			try
 			{
 				
@@ -267,7 +267,8 @@ public class ApprovalVotingDaoDB4O implements ApprovalVotingDao
 		}
 		
 	}
-	
+
+
 	public void update(ApprovalVoting updated)
 	{
 		open();
@@ -293,4 +294,68 @@ public class ApprovalVotingDaoDB4O implements ApprovalVotingDao
 			close();
 		}
 	}
+	/**
+	 * Retrieves all ApprovalVoting entities
+	 * @return list<ApprovalVoting> list of all ApprovalVoting entities
+	 */
+	public List<ApprovalVoting> retrieveAll() {
+		List<ApprovalVoting> approvalVoting=new LinkedList<ApprovalVoting>();
+		open();
+		try
+		{
+				Query query=DB.query();
+				query.constrain(ApprovalVoting.class);
+				ObjectSet result = query.execute();
+			
+				while(result.hasNext())
+				{
+					approvalVoting.add((ApprovalVoting)result.next());
+				}
+				System.out.println("[DB4O]All ApprovalVoting was retrieved");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All ballots could not be retrieved");
+			approvalVoting.clear();
+			return approvalVoting;
+		}
+		finally
+		{
+			close();
+		}
+		
+		return approvalVoting;
+	}
+
+
+	/**
+	 * Retrieves a ApprovalVoting by its id
+	 * @param id id of the ApprovalVoting entity
+	 * @return ApprovalVoting
+	 */
+	public ApprovalVoting getById(String id) {
+		open();
+		try
+		{
+			ApprovalVoting approvalVoting=new ApprovalVoting();
+			approvalVoting.setId(id);
+			ObjectSet result=DB.queryByExample(approvalVoting);
+			if(result.hasNext())
+			{
+				return (ApprovalVoting)result.next();
+			}
+			return null;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			close();
+		}
+	}
+
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
@@ -31,7 +30,6 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.HareDao;
 import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
-import com.pfc.ballots.dao.MajoryDao;
 import com.pfc.ballots.dao.MejorPeorDao;
 import com.pfc.ballots.dao.NansonDao;
 import com.pfc.ballots.dao.RangeVotingDao;
@@ -46,11 +44,8 @@ import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
-import com.pfc.ballots.entities.ballotdata.Kemeny;
-import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
-import com.pfc.ballots.pages.UnauthorizedAttempt;
 /**
  *  BallotList class is the controller for the BallotList page that
  * 	provides a list of the ballots created by the current user
@@ -67,9 +62,6 @@ public class BallotList {
 	
 	@SessionState
 	private DataSession datasession;
-	
-	@Inject
-	private ComponentResources componentResources;
 	
 	@Inject
 	private AjaxResponseRenderer ajaxResponseRenderer;
@@ -129,8 +121,6 @@ public class BallotList {
 	HareDao hareDao;
 	@Persist
 	JuicioMayoritarioDao juicioMayoritarioDao;
-	@Persist
-	MajoryDao majoryDao;
 	@Persist
 	MejorPeorDao mejorpeorDao;
 	@Persist
@@ -195,7 +185,6 @@ public class BallotList {
 		dodgsonDao=DB4O.getDodgsonDao(datasession.getDBName());
 		hareDao=DB4O.getHareDao(datasession.getDBName());
 		juicioMayoritarioDao=DB4O.getJuicioMayoritarioDao(datasession.getDBName());
-		majoryDao=DB4O.getMajoryDao(datasession.getDBName());
 		mejorpeorDao=DB4O.getMejorPeorDao(datasession.getDBName());
 		nansonDao=DB4O.getNansonDao(datasession.getDBName());
 		schulzeDao=DB4O.getSchulzeDao(datasession.getDBName());
@@ -535,10 +524,6 @@ public class BallotList {
 				if(ballotSure.getMethod()==Method.NANSON)
 				{
 					nansonDao.deleteByBallotId(ballotSure.getId());
-				}
-				if(ballotSure.getMethod()==Method.MAJORY)
-				{
-					majoryDao.deleteByBallotId(ballotSure.getId());
 				}
 				if(ballotSure.getMethod()==Method.SCHULZE)
 				{

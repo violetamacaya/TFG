@@ -10,18 +10,17 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.Request;
-import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.data.DataSession;
-import com.pfc.ballots.entities.MajoryText;
+import com.pfc.ballots.entities.RelativeMajorityText;
 import com.pfc.ballots.dao.*;
 
 /**
  * @author Violeta Macaya Sánchez
- * @version 1.0 DIC-2014
+ * @version 1.0 ENE-2015
  *
  */
-public class MajoryMethod {
+public class RelativeMajorityMethod {
 
 	@Inject
 	private Messages messages;
@@ -40,29 +39,29 @@ public class MajoryMethod {
 
 	
 	@Persist 
-	MajoryDaoDB4O majoryDao;
+	RelativeMajorityDaoDB4O relativeMajorityDao;
 	
 	@Persist
 	@Property
-	private String majoryText;
+	private String relativeMajorityText;
 	
 	@Inject
 	private ComponentResources componentResources;
-
+	
 	@Inject
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 
 	
-	public MajoryMethod(){
+	public RelativeMajorityMethod(){
 
 		
 	}
 	public void setupRender()
 	{
 		componentResources.discardPersistentFieldChanges();		
-		majoryDao = new MajoryDaoDB4O(null);
-		majoryText= DB4O.getMajoryTextDao().getMajoryText().getMajoryText();	
+		relativeMajorityDao = new RelativeMajorityDaoDB4O(null);
+		relativeMajorityText= DB4O.getRelativeMajorityTextDao().getRelativeMajorityText().getRelativeMajorityText();	
 	}
 	
 	public boolean isTeacher()
@@ -83,32 +82,33 @@ public class MajoryMethod {
 	{
 		if(request.isXHR())
 		{
-			MajoryText temp = new MajoryText();
-			temp.setMajoryText(request.getParameter("majoryText"));
-			majoryDao.updateMajoryText(temp);
-			return MajoryMethod.class;
+			RelativeMajorityText temp = new RelativeMajorityText();
+			temp.setRelativeMajorityText(request.getParameter("relativeMajorityText"));
+			relativeMajorityDao.updateRelativeMajorityText(temp);
+			return RelativeMajorityMethod.class;
 		}
 		return null;
 	}
 	
 	public Object onActionFromsetDefault(){
 		String texto = messages.get("content");
-		MajoryText temp = new MajoryText();
-		temp.setMajoryText(texto);
-		majoryDao.updateMajoryText(temp);
-		return MajoryMethod.class;
+		RelativeMajorityText temp = new RelativeMajorityText();
+		temp.setRelativeMajorityText(texto);
+		relativeMajorityDao.updateRelativeMajorityText(temp);
+		return RelativeMajorityMethod.class;
 	}
+
 
 	Object onMenu(String section)
 	{
 		Object page=null;
-		if(section.equals("kemeny"))
+		if(section.equals("hare"))
+		{
+			page=HareMethod.class;
+		}
+		else if(section.equals("kemeny"))
 		{
 			page=KemenyMethod.class;
-		}
-		else if(section.equals("mejorpeor"))
-		{
-			page=MejorPeorMethod.class;
 		}
 
 		return page;

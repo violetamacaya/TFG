@@ -10,12 +10,11 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.Request;
-import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import com.pfc.ballots.dao.FactoryDao;
+import com.pfc.ballots.dao.KemenyDaoDB4O;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.KemenyText;
-import com.pfc.ballots.entities.ballotdata.Kemeny;
-import com.pfc.ballots.dao.*;
 
 /**
  * @author Violeta Macaya Sánchez
@@ -110,7 +109,7 @@ public class KemenyMethod {
 		}
 		else if(section.equals("majory"))
 		{
-			page=MajoryMethod.class;
+			page=RelativeMajorityMethod.class;
 		}
 
 		return page;

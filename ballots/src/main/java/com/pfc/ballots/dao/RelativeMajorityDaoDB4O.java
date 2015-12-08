@@ -8,7 +8,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
-import com.pfc.ballots.entities.Ballot;
+import com.pfc.ballots.entities.RelativeMajorityText;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 
 /**
@@ -19,6 +19,8 @@ import com.pfc.ballots.entities.ballotdata.RelativeMajority;
  * @version 1.0 JUL-2014
  *
  */
+
+@SuppressWarnings("rawtypes")
 
 public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 
@@ -304,6 +306,81 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		//System.out.println("[DB4O]Database was closed");
 	}
 
+	public RelativeMajorityText getRelativeMajorityText() {
+
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(RelativeMajorityText.class);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				return (RelativeMajorityText)result.next();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		return null;
+	}
+
+	public void deleteRelativeMajorityText()
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(RelativeMajorityText.class);
+			ObjectSet result=query.execute();
+			if(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
+	}
 	
+	/**
+	 * Updates the Relative majority text
+	 * @param about
+	 */
+	public void updateRelativeMajorityText(RelativeMajorityText text)
+	{
+		open();
+		try
+		{
+			Query query=DB.query();
+			query.constrain(RelativeMajorityText.class);
+			ObjectSet result=query.execute();
+			while(result.hasNext())
+			{
+				DB.delete(result.next());
+			}
+			DB.store(text);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+
+	}
 	
 }

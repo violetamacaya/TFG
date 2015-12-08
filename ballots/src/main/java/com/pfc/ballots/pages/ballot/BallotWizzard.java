@@ -1,7 +1,6 @@
 package com.pfc.ballots.pages.ballot;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -46,9 +45,6 @@ import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
-import com.pfc.ballots.pages.SessionExpired;
-import com.pfc.ballots.pages.UnauthorizedAttempt;
-import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.GenerateDocentVotes;
 import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.UUID;

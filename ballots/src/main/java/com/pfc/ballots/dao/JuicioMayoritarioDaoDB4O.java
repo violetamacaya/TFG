@@ -1,15 +1,16 @@
 package com.pfc.ballots.dao;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
-import com.pfc.ballots.entities.RangeVotingText;
 import com.pfc.ballots.entities.JuicioMayoritarioText;
 import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
-import com.pfc.ballots.entities.ballotdata.RangeVoting;
 /**
  * 
  * Implementation of the interface JuicioMayoritarioDao for the DB4O database
@@ -18,6 +19,7 @@ import com.pfc.ballots.entities.ballotdata.RangeVoting;
  * @version 1.0 DIC-2014
  *
  */
+@SuppressWarnings("rawtypes")
 public class JuicioMayoritarioDaoDB4O implements JuicioMayoritarioDao 
 {
 	String sep=System.getProperty("file.separator");
@@ -46,7 +48,7 @@ public class JuicioMayoritarioDaoDB4O implements JuicioMayoritarioDao
 		private void open()
 		{
 			config=Db4oEmbedded.newConfiguration();
-			config.common().objectClass(RangeVoting.class).cascadeOnUpdate(true);
+			config.common().objectClass(JuicioMayoritario.class).cascadeOnUpdate(true);
 			try
 			{
 				
@@ -294,5 +296,67 @@ public class JuicioMayoritarioDaoDB4O implements JuicioMayoritarioDao
 		}
 	}
 
+	/**
+	 * Retrieves all JuicioMayoritario entities
+	 * @return list<JuicioMayoritario> list of all JuicioMayoritario entities
+	 */
+	public List<JuicioMayoritario> retrieveAll() {
+		List<JuicioMayoritario> juicioMayoritario=new LinkedList<JuicioMayoritario>();
+		open();
+		try
+		{
+				Query query=DB.query();
+				query.constrain(JuicioMayoritario.class);
+				ObjectSet result = query.execute();
+			
+				while(result.hasNext())
+				{
+					juicioMayoritario.add((JuicioMayoritario)result.next());
+				}
+				System.out.println("[DB4O]All JuicioMayoritario was retrieved");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All ballots could not be retrieved");
+			juicioMayoritario.clear();
+			return juicioMayoritario;
+		}
+		finally
+		{
+			close();
+		}
+		
+		return juicioMayoritario;
+	}
 
+
+	/**
+	 * Retrieves a JuicioMayoritario by its id
+	 * @param id id of the JuicioMayoritario entity
+	 * @return JuicioMayoritario
+	 */
+	public JuicioMayoritario getById(String id) {
+		open();
+		try
+		{
+			JuicioMayoritario juicioMayoritario=new JuicioMayoritario();
+			juicioMayoritario.setId(id);
+			ObjectSet result=DB.queryByExample(juicioMayoritario);
+			if(result.hasNext())
+			{
+				return (JuicioMayoritario)result.next();
+			}
+			return null;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			close();
+		}
+	}
 }

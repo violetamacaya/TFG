@@ -99,9 +99,7 @@ public abstract class FactoryDao {
 	
 	public abstract VotoAcumulativoDao getVotoAcumulativoDao();
 	public abstract VotoAcumulativoDao getVotoAcumulativoDao(String DBName);
-	
-	public abstract MajoryDao getMajoryDao();
-	public abstract MajoryDao getMajoryDao(String DBName);
+
 	
 	
 	
@@ -127,7 +125,7 @@ public abstract class FactoryDao {
 	}
 	public abstract BordaDao getBordaTextDao();
 	public abstract KemenyDao getKemenyTextDao();
-	public abstract MajoryDao getMajoryTextDao();
+	public abstract RelativeMajorityDao getRelativeMajorityTextDao();
 	public abstract ApprovalVotingDao getApprovalVotingTextDao();
 	public abstract RangeVotingDao getRangeVotingTextDao();
 	public abstract BlackDao getBlackTextDao();

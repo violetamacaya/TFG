@@ -1,5 +1,7 @@
 package com.pfc.ballots.dao;
 
+import java.util.List;
+
 import com.pfc.ballots.entities.JuicioMayoritarioText;
 import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 
@@ -21,6 +23,8 @@ public interface JuicioMayoritarioDao {
 	
 	public void store(JuicioMayoritario juicioMayoritario);
 	public JuicioMayoritario getByBallotId(String idBallot);
+	public List<JuicioMayoritario> retrieveAll();
+	public JuicioMayoritario getById(String id);
 	public void update(JuicioMayoritario updated);
 	
 }

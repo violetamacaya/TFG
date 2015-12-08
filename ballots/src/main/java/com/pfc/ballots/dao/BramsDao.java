@@ -1,5 +1,7 @@
 package com.pfc.ballots.dao;
 
+import java.util.List;
+
 import com.pfc.ballots.entities.BramsText;
 import com.pfc.ballots.entities.ballotdata.Brams;
 
@@ -19,8 +21,11 @@ public interface BramsDao {
 	public void deleteByBallotId(String ballotId);
 	public void deleteById(String id);
 	public void deleteAll();
+	
 	public void store(Brams brams);
 	public Brams getByBallotId(String idBallot);
+	public Brams getById(String id);
+	public List<Brams> retrieveAll();
 	public void update(Brams updated);
 	
 }

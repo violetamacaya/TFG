@@ -2,10 +2,8 @@ package com.pfc.ballots.dao;
 
 import java.util.List;
 
-import com.pfc.ballots.entities.AboutText;
 import com.pfc.ballots.entities.BordaText;
 import com.pfc.ballots.entities.ballotdata.Borda;
-import com.pfc.ballots.pages.Methods.BordaMethod;
 
 public interface BordaDao {
 	public void store(Borda borda);

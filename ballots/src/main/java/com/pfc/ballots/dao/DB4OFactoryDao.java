@@ -172,11 +172,7 @@ public class DB4OFactoryDao extends FactoryDao{
 	{
 		return new KemenyDaoDB4O(null);
 	}
-	@Override
-	public MajoryDao getMajoryTextDao()
-	{
-		return new MajoryDaoDB4O(null);
-	}
+
 	@Override
 	public RangeVotingDao getRangeVotingTextDao()
 	{
@@ -258,7 +254,11 @@ public class DB4OFactoryDao extends FactoryDao{
 	{
 		return new DodgsonDaoDB4O(null);
 	}
-
+	@Override
+	public RelativeMajorityDao getRelativeMajorityTextDao() {
+		return new RelativeMajorityDaoDB4O(null);
+	}
+	
 	@Override
 	public ApprovalVotingDao getApprovalVotingDao() {
 		return new ApprovalVotingDaoDB4O(null);
@@ -432,16 +432,5 @@ public class DB4OFactoryDao extends FactoryDao{
 
 	}
 
-	@Override
-	public MajoryDao getMajoryDao() {
-		return new MajoryDaoDB4O(null);
-
-	}
-
-	@Override
-	public MajoryDao getMajoryDao(String DBName) {
-		return new MajoryDaoDB4O(DBName);
-
-	} 
 
 }

@@ -1,6 +1,9 @@
 package com.pfc.ballots.dao;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -16,6 +19,7 @@ import com.pfc.ballots.entities.ballotdata.Brams;
  * @version 1.0 DIC-2014
  *
  */
+@SuppressWarnings("rawtypes")
 public class BramsDaoDB4O implements BramsDao 
 {
 	String sep=System.getProperty("file.separator");
@@ -189,9 +193,6 @@ public class BramsDaoDB4O implements BramsDao
 		
 	}
 
-
-
-	
 	/**
 	 * Deletes all the Approval voting entities in the system
 	 */
@@ -232,6 +233,69 @@ public class BramsDaoDB4O implements BramsDao
 		{
 			e.printStackTrace();
 			System.out.println("[DB4O]ERROR:Ballot could not be stored");
+		}
+		finally
+		{
+			close();
+		}
+	}
+	/**
+	 * Retrieves all Brams entities
+	 * @return list<Brams> list of all Brams entities
+	 */
+	public List<Brams> retrieveAll() {
+		List<Brams> brams=new LinkedList<Brams>();
+		open();
+		try
+		{
+				Query query=DB.query();
+				query.constrain(Brams.class);
+				ObjectSet result = query.execute();
+			
+				while(result.hasNext())
+				{
+					brams.add((Brams)result.next());
+				}
+				System.out.println("[DB4O]All Brams was retrieved");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("[DB4O]ERROR:All ballots could not be retrieved");
+			brams.clear();
+			return brams;
+		}
+		finally
+		{
+			close();
+		}
+		
+		return brams;
+	}
+
+
+	/**
+	 * Retrieves a Brams by its id
+	 * @param id id of the Brams entity
+	 * @return Brams
+	 */
+	public Brams getById(String id) {
+		open();
+		try
+		{
+			Brams brams=new Brams();
+			brams.setId(id);
+			ObjectSet result=DB.queryByExample(brams);
+			if(result.hasNext())
+			{
+				return (Brams)result.next();
+			}
+			return null;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
 		}
 		finally
 		{

@@ -1,10 +1,5 @@
 package com.pfc.ballots.pages.ballot;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +7,6 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
@@ -45,7 +39,6 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.HareDao;
 import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
-import com.pfc.ballots.dao.MajoryDao;
 import com.pfc.ballots.dao.MejorPeorDao;
 import com.pfc.ballots.dao.NansonDao;
 import com.pfc.ballots.dao.RangeVotingDao;
@@ -141,7 +134,6 @@ public class CreateBallot {
 	DodgsonDao dodgsonDao;
 	HareDao hareDao;
 	JuicioMayoritarioDao juicioMayoritarioDao;
-	MajoryDao majoryDao;
 	MejorPeorDao mejorPeorDao;
 	NansonDao nansonDao;
 	SchulzeDao schulzeDao;

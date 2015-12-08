@@ -28,7 +28,6 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.HareDao;
 import com.pfc.ballots.dao.JuicioMayoritarioDao;
 import com.pfc.ballots.dao.KemenyDao;
-import com.pfc.ballots.dao.MajoryDao;
 import com.pfc.ballots.dao.MejorPeorDao;
 import com.pfc.ballots.dao.NansonDao;
 import com.pfc.ballots.dao.RangeVotingDao;
@@ -42,11 +41,7 @@ import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
-import com.pfc.ballots.entities.ballotdata.Kemeny;
-import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.pages.Index;
-import com.pfc.ballots.pages.SessionExpired;
-import com.pfc.ballots.pages.UnauthorizedAttempt;
 /**
  * 
  * ShowBallotAdmin class is the controller for the ShowBallotAdmin page that
@@ -113,8 +108,6 @@ public class ShowBallotAdmin {
 	@Persist
 	JuicioMayoritarioDao juicioMayoritarioDao;
 	@Persist
-	MajoryDao majoryDao;
-	@Persist
 	MejorPeorDao mejorpeorDao;
 	@Persist
 	NansonDao nansonDao;
@@ -154,7 +147,6 @@ public class ShowBallotAdmin {
 		dodgsonDao=DB4O.getDodgsonDao(datasession.getDBName());
 		hareDao=DB4O.getHareDao(datasession.getDBName());
 		juicioMayoritarioDao=DB4O.getJuicioMayoritarioDao(datasession.getDBName());
-		majoryDao=DB4O.getMajoryDao(datasession.getDBName());
 		mejorpeorDao=DB4O.getMejorPeorDao(datasession.getDBName());
 		nansonDao=DB4O.getNansonDao(datasession.getDBName());
 		schulzeDao=DB4O.getSchulzeDao(datasession.getDBName());
@@ -373,10 +365,6 @@ public class ShowBallotAdmin {
 				if(ballotSure.getMethod()==Method.NANSON)
 				{
 					nansonDao.deleteByBallotId(ballotSure.getId());
-				}
-				if(ballotSure.getMethod()==Method.MAJORY)
-				{
-					majoryDao.deleteByBallotId(ballotSure.getId());
 				}
 				if(ballotSure.getMethod()==Method.SCHULZE)
 				{
