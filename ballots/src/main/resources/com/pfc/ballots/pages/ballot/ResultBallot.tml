@@ -187,7 +187,7 @@
 				</t:loop>
 			</table>
 		</t:if>
-		
+
 		<t:if test="showJuicioMayoritario">
 
 			<table border="1px">
@@ -203,6 +203,8 @@
 				</t:loop>
 			</table>
 		</t:if>
+
+
 		<t:if test="showCondorcet">
 
 			<table border="1px">
@@ -218,7 +220,89 @@
 				</t:loop>
 			</table>
 		</t:if>
-		
+
+		<t:if test="showBlack">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:votes}</th>
+				</tr>
+				<t:loop t:source="BlackOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${blackVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+
+		<t:if test="showCopeland">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:votes}</th>
+				</tr>
+				<t:loop t:source="CopelandOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${copelandVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+
+		<t:if test="showSchulze">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:votes}</th>
+				</tr>
+				<t:loop t:source="SchulzeOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${schulzeVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+
+		<t:if test="showSmall">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:votes}</th>
+				</tr>
+				<t:loop t:source="SmallOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${smallVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+		<t:if test="showDodgson">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:votes}</th>
+				</tr>
+				<t:loop t:source="DodgsonOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${dodgsonVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+
+
+
+
 	</div>
 </t:border>
 </html>

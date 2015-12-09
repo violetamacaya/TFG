@@ -576,11 +576,11 @@
 						<table style="table-layout: fixed;">
 							<tr>
 								<td></td>
-								<td style="text-align: center;">Muy malo</td>
-								<td style="text-align: center;">Malo</td>
-								<td style="text-align: center;">Regular</td>
-								<td style="text-align: center;">Bueno</td>
-								<td style="text-align: center;">Muy bueno</td>
+								<td style="text-align: center;">${message:worst}</td>
+								<td style="text-align: center;">${message:bad}</td>
+								<td style="text-align: center;">${message:regular}</td>
+								<td style="text-align: center;">${message:good}</td>
+								<td style="text-align: center;">${message:best}</td>
 							</tr>
 
 							<tr>
@@ -1094,8 +1094,1359 @@
 
 				</t:zone>
 			</t:if>
+			<!--/////////////////////////////////// Black /////////////////////////////////////////// -->
 
 
+
+			<t:if test="showBlack">
+
+				<t:zone t:id="blackZone" t:update="show">
+
+					<t:if test="showErrorBlack">
+						<span class="error">${message:black-error}</span>
+					</t:if>
+					
+					${message:instructions-black}<br />
+
+					<t:form t:id="blackForm" t:zone="^">
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+
+								<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+									<td style="text-align: center;">${radioSizeBlack}</td>
+								</t:loop>
+							</tr>
+
+							<tr>
+								<td>${blackOption0}</td>
+								<t:radioGroup value="blackRadio0" id="radioGroupBlack0"
+									required="true">
+									<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+										<td><t:radio value="radioSizeBlack" type="radio" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+
+
+							<tr>
+								<td>${blackOption1}</td>
+								<t:radioGroup value="blackRadio1" id="radioGroupBlack1"
+									required="true">
+									<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+										<td><t:Radio value="radioSizeBlack" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+							<t:if test="showBlack3">
+								<tr>
+									<td>${blackOption2}</td>
+									<t:radioGroup value="blackRadio2" id="radioGroupBlack2"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack4">
+								<tr>
+									<td>${blackOption3}</td>
+									<t:radioGroup value="blackRadio3" id="radioGroupBlack2"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack5">
+								<tr>
+									<td>${blackOption4}</td>
+									<t:radioGroup value="blackRadio4" id="radioGroupBlack4"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack6">
+								<tr>
+									<td>${blackOption5}</td>
+									<t:radioGroup value="blackRadio5" id="radioGroupBlack5"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack7">
+								<tr>
+									<td>${blackOption6}</td>
+									<t:radioGroup value="blackRadio6" id="radioGroupBlack6"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack8">
+								<tr>
+									<td>${blackOption7}</td>
+									<t:radioGroup value="blackRadio7" id="radioGroupBlack7"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack9">
+								<tr>
+									<td>${blackOption8}</td>
+									<t:radioGroup value="blackRadio8" id="radioGroupBlack8"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack10">
+								<tr>
+									<td>${blackOption9}</td>
+									<t:radioGroup value="blackRadio9" id="radioGroupBlack9"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack11">
+								<tr>
+									<td>${blackOption10}</td>
+									<t:radioGroup value="blackRadio10" id="radioGroupBlack10"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack12">
+								<tr>
+									<td>${blackOption11}</td>
+									<t:radioGroup value="blackRadio11" id="radioGroupBlack11"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack13">
+								<tr>
+									<td>${blackOption12}</td>
+									<t:radioGroup value="blackRadio12" id="radioGroupBlack12"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack14">
+								<tr>
+									<td>${blackOption13}</td>
+									<t:radioGroup value="blackRadio13" id="radioGroupBlack13"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showBlack15">
+								<tr>
+									<td>${blackOption14}</td>
+									<t:radioGroup value="blackRadio14" id="radioGroupBlack14"
+										required="true">
+										<t:loop source="radiobuttonsizeBlack" value="radioSizeBlack">
+											<td><t:Radio value="radioSizeBlack" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+
+							<t:if test="ballot.publica">
+
+								<tr>
+
+									<td><br /> <t:kaptchaimage t:id="kaptchaBlack" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaBlack" visible="true" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</t:form>
+
+
+
+				</t:zone>
+			</t:if>
+
+			<!--/////////////////////////////////// Dodgson /////////////////////////////////////////// -->
+
+
+
+			<t:if test="showDodgson">
+
+				<t:zone t:id="dodgsonZone" t:update="show">
+
+					<t:if test="showErrorDodgson">
+						<span class="error">${message:dodgson-error}</span>
+					</t:if>
+					
+					${message:instructions-dodgson}<br />
+
+					<t:form t:id="dodgsonForm" t:zone="^">
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+
+								<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+									<td style="text-align: center;">${radioSizeDodgson}</td>
+								</t:loop>
+							</tr>
+
+							<tr>
+								<td>${dodgsonOption0}</td>
+								<t:radioGroup value="dodgsonRadio0" id="radioGroupDodgson0"
+									required="true">
+									<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<td><t:radio value="radioSizeDodgson" type="radio" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+
+
+							<tr>
+								<td>${dodgsonOption1}</td>
+								<t:radioGroup value="dodgsonRadio1" id="radioGroupDodgson1"
+									required="true">
+									<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<td><t:Radio value="radioSizeDodgson" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+							<t:if test="showDodgson3">
+								<tr>
+									<td>${dodgsonOption2}</td>
+									<t:radioGroup value="dodgsonRadio2" id="radioGroupDodgson2"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson4">
+								<tr>
+									<td>${dodgsonOption3}</td>
+									<t:radioGroup value="dodgsonRadio3" id="radioGroupDodgson2"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson5">
+								<tr>
+									<td>${dodgsonOption4}</td>
+									<t:radioGroup value="dodgsonRadio4" id="radioGroupDodgson4"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson6">
+								<tr>
+									<td>${dodgsonOption5}</td>
+									<t:radioGroup value="dodgsonRadio5" id="radioGroupDodgson5"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson7">
+								<tr>
+									<td>${dodgsonOption6}</td>
+									<t:radioGroup value="dodgsonRadio6" id="radioGroupDodgson6"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson8">
+								<tr>
+									<td>${dodgsonOption7}</td>
+									<t:radioGroup value="dodgsonRadio7" id="radioGroupDodgson7"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson9">
+								<tr>
+									<td>${dodgsonOption8}</td>
+									<t:radioGroup value="dodgsonRadio8" id="radioGroupDodgson8"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson10">
+								<tr>
+									<td>${dodgsonOption9}</td>
+									<t:radioGroup value="dodgsonRadio9" id="radioGroupDodgson9"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson11">
+								<tr>
+									<td>${dodgsonOption10}</td>
+									<t:radioGroup value="dodgsonRadio10" id="radioGroupDodgson10"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson12">
+								<tr>
+									<td>${dodgsonOption11}</td>
+									<t:radioGroup value="dodgsonRadio11" id="radioGroupDodgson11"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson13">
+								<tr>
+									<td>${dodgsonOption12}</td>
+									<t:radioGroup value="dodgsonRadio12" id="radioGroupDodgson12"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson14">
+								<tr>
+									<td>${dodgsonOption13}</td>
+									<t:radioGroup value="dodgsonRadio13" id="radioGroupDodgson13"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showDodgson15">
+								<tr>
+									<td>${dodgsonOption14}</td>
+									<t:radioGroup value="dodgsonRadio14" id="radioGroupDodgson14"
+										required="true">
+										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+											<td><t:Radio value="radioSizeDodgson" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+
+							<t:if test="ballot.publica">
+
+								<tr>
+
+									<td><br /> <t:kaptchaimage t:id="kaptchaDodgson" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaDodgson" visible="true" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</t:form>
+
+
+
+				</t:zone>
+			</t:if>
+
+			<!--/////////////////////////////////// Copeland /////////////////////////////////////////// -->
+
+
+
+			<t:if test="showCopeland">
+
+				<t:zone t:id="copelandZone" t:update="show">
+
+					<t:if test="showErrorCopeland">
+						<span class="error">${message:copeland-error}</span>
+					</t:if>
+					
+					${message:instructions-copeland}<br />
+
+					<t:form t:id="copelandForm" t:zone="^">
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+
+								<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+									<td style="text-align: center;">${radioSizeCopeland}</td>
+								</t:loop>
+							</tr>
+
+							<tr>
+								<td>${copelandOption0}</td>
+								<t:radioGroup value="copelandRadio0" id="radioGroupCopeland0"
+									required="true">
+									<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<td><t:radio value="radioSizeCopeland" type="radio" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+
+
+							<tr>
+								<td>${copelandOption1}</td>
+								<t:radioGroup value="copelandRadio1" id="radioGroupCopeland1"
+									required="true">
+									<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<td><t:Radio value="radioSizeCopeland" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+							<t:if test="showCopeland3">
+								<tr>
+									<td>${copelandOption2}</td>
+									<t:radioGroup value="copelandRadio2" id="radioGroupCopeland2"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland4">
+								<tr>
+									<td>${copelandOption3}</td>
+									<t:radioGroup value="copelandRadio3" id="radioGroupCopeland2"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland5">
+								<tr>
+									<td>${copelandOption4}</td>
+									<t:radioGroup value="copelandRadio4" id="radioGroupCopeland4"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland6">
+								<tr>
+									<td>${copelandOption5}</td>
+									<t:radioGroup value="copelandRadio5" id="radioGroupCopeland5"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland7">
+								<tr>
+									<td>${copelandOption6}</td>
+									<t:radioGroup value="copelandRadio6" id="radioGroupCopeland6"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland8">
+								<tr>
+									<td>${copelandOption7}</td>
+									<t:radioGroup value="copelandRadio7" id="radioGroupCopeland7"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland9">
+								<tr>
+									<td>${copelandOption8}</td>
+									<t:radioGroup value="copelandRadio8" id="radioGroupCopeland8"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland10">
+								<tr>
+									<td>${copelandOption9}</td>
+									<t:radioGroup value="copelandRadio9" id="radioGroupCopeland9"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland11">
+								<tr>
+									<td>${copelandOption10}</td>
+									<t:radioGroup value="copelandRadio10" id="radioGroupCopeland10"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland12">
+								<tr>
+									<td>${copelandOption11}</td>
+									<t:radioGroup value="copelandRadio11" id="radioGroupCopeland11"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland13">
+								<tr>
+									<td>${copelandOption12}</td>
+									<t:radioGroup value="copelandRadio12" id="radioGroupCopeland12"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland14">
+								<tr>
+									<td>${copelandOption13}</td>
+									<t:radioGroup value="copelandRadio13" id="radioGroupCopeland13"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showCopeland15">
+								<tr>
+									<td>${copelandOption14}</td>
+									<t:radioGroup value="copelandRadio14" id="radioGroupCopeland14"
+										required="true">
+										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+											<td><t:Radio value="radioSizeCopeland" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+
+							<t:if test="ballot.publica">
+
+								<tr>
+
+									<td><br /> <t:kaptchaimage t:id="kaptchaCopeland" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaCopeland" visible="true" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+			</t:if>
+
+
+			<!--/////////////////////////////////// Schulze /////////////////////////////////////////// -->
+
+
+
+			<t:if test="showSchulze">
+
+				<t:zone t:id="schulzeZone" t:update="show">
+
+					<t:if test="showErrorSchulze">
+						<span class="error">${message:schulze-error}</span>
+					</t:if>
+					
+					${message:instructions-schulze}<br />
+
+					<t:form t:id="schulzeForm" t:zone="^">
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+
+								<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+									<td style="text-align: center;">${radioSizeSchulze}</td>
+								</t:loop>
+							</tr>
+
+							<tr>
+								<td>${schulzeOption0}</td>
+								<t:radioGroup value="schulzeRadio0" id="radioGroupSchulze0"
+									required="true">
+									<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<td><t:radio value="radioSizeSchulze" type="radio" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+
+
+							<tr>
+								<td>${schulzeOption1}</td>
+								<t:radioGroup value="schulzeRadio1" id="radioGroupSchulze1"
+									required="true">
+									<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<td><t:Radio value="radioSizeSchulze" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+							<t:if test="showSchulze3">
+								<tr>
+									<td>${schulzeOption2}</td>
+									<t:radioGroup value="schulzeRadio2" id="radioGroupSchulze2"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze4">
+								<tr>
+									<td>${schulzeOption3}</td>
+									<t:radioGroup value="schulzeRadio3" id="radioGroupSchulze2"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze5">
+								<tr>
+									<td>${schulzeOption4}</td>
+									<t:radioGroup value="schulzeRadio4" id="radioGroupSchulze4"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze6">
+								<tr>
+									<td>${schulzeOption5}</td>
+									<t:radioGroup value="schulzeRadio5" id="radioGroupSchulze5"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze7">
+								<tr>
+									<td>${schulzeOption6}</td>
+									<t:radioGroup value="schulzeRadio6" id="radioGroupSchulze6"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze8">
+								<tr>
+									<td>${schulzeOption7}</td>
+									<t:radioGroup value="schulzeRadio7" id="radioGroupSchulze7"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze9">
+								<tr>
+									<td>${schulzeOption8}</td>
+									<t:radioGroup value="schulzeRadio8" id="radioGroupSchulze8"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze10">
+								<tr>
+									<td>${schulzeOption9}</td>
+									<t:radioGroup value="schulzeRadio9" id="radioGroupSchulze9"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze11">
+								<tr>
+									<td>${schulzeOption10}</td>
+									<t:radioGroup value="schulzeRadio10" id="radioGroupSchulze10"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze12">
+								<tr>
+									<td>${schulzeOption11}</td>
+									<t:radioGroup value="schulzeRadio11" id="radioGroupSchulze11"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze13">
+								<tr>
+									<td>${schulzeOption12}</td>
+									<t:radioGroup value="schulzeRadio12" id="radioGroupSchulze12"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze14">
+								<tr>
+									<td>${schulzeOption13}</td>
+									<t:radioGroup value="schulzeRadio13" id="radioGroupSchulze13"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSchulze15">
+								<tr>
+									<td>${schulzeOption14}</td>
+									<t:radioGroup value="schulzeRadio14" id="radioGroupSchulze14"
+										required="true">
+										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+											<td><t:Radio value="radioSizeSchulze" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+
+							<t:if test="ballot.publica">
+
+								<tr>
+
+									<td><br /> <t:kaptchaimage t:id="kaptchaSchulze" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaSchulze" visible="true" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+			</t:if>
+
+			<!--/////////////////////////////////// Small /////////////////////////////////////////// -->
+
+
+
+			<t:if test="showSmall">
+
+				<t:zone t:id="smallZone" t:update="show">
+
+					<t:if test="showErrorSmall">
+						<span class="error">${message:small-error}</span>
+					</t:if>
+					
+					${message:instructions-small}<br />
+
+					<t:form t:id="smallForm" t:zone="^">
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+
+								<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+									<td style="text-align: center;">${radioSizeSmall}</td>
+								</t:loop>
+							</tr>
+
+							<tr>
+								<td>${smallOption0}</td>
+								<t:radioGroup value="smallRadio0" id="radioGroupSmall0"
+									required="true">
+									<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+										<td><t:radio value="radioSizeSmall" type="radio" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+
+
+							<tr>
+								<td>${smallOption1}</td>
+								<t:radioGroup value="smallRadio1" id="radioGroupSmall1"
+									required="true">
+									<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+										<td><t:Radio value="radioSizeSmall" /></td>
+									</t:loop>
+								</t:radioGroup>
+							</tr>
+
+							<t:if test="showSmall3">
+								<tr>
+									<td>${smallOption2}</td>
+									<t:radioGroup value="smallRadio2" id="radioGroupSmall2"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall4">
+								<tr>
+									<td>${smallOption3}</td>
+									<t:radioGroup value="smallRadio3" id="radioGroupSmall2"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall5">
+								<tr>
+									<td>${smallOption4}</td>
+									<t:radioGroup value="smallRadio4" id="radioGroupSmall4"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall6">
+								<tr>
+									<td>${smallOption5}</td>
+									<t:radioGroup value="smallRadio5" id="radioGroupSmall5"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall7">
+								<tr>
+									<td>${smallOption6}</td>
+									<t:radioGroup value="smallRadio6" id="radioGroupSmall6"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall8">
+								<tr>
+									<td>${smallOption7}</td>
+									<t:radioGroup value="smallRadio7" id="radioGroupSmall7"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall9">
+								<tr>
+									<td>${smallOption8}</td>
+									<t:radioGroup value="smallRadio8" id="radioGroupSmall8"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall10">
+								<tr>
+									<td>${smallOption9}</td>
+									<t:radioGroup value="smallRadio9" id="radioGroupSmall9"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall11">
+								<tr>
+									<td>${smallOption10}</td>
+									<t:radioGroup value="smallRadio10" id="radioGroupSmall10"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall12">
+								<tr>
+									<td>${smallOption11}</td>
+									<t:radioGroup value="smallRadio11" id="radioGroupSmall11"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall13">
+								<tr>
+									<td>${smallOption12}</td>
+									<t:radioGroup value="smallRadio12" id="radioGroupSmall12"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall14">
+								<tr>
+									<td>${smallOption13}</td>
+									<t:radioGroup value="smallRadio13" id="radioGroupSmall13"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showSmall15">
+								<tr>
+									<td>${smallOption14}</td>
+									<t:radioGroup value="smallRadio14" id="radioGroupSmall14"
+										required="true">
+										<t:loop source="radiobuttonsizeSmall" value="radioSizeSmall">
+											<td><t:Radio value="radioSizeSmall" /></td>
+										</t:loop>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+
+							<t:if test="ballot.publica">
+
+								<tr>
+
+									<td><br /> <t:kaptchaimage t:id="kaptchaSmall" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaSmall" visible="true" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+			</t:if>
+
+			<!--/////////////////////////////////// MejorPeor /////////////////////////////////////////// -->
+
+
+
+			<t:if test="showMejorPeor">
+
+				<t:zone t:id="mejorPeorZone" t:update="show">
+
+					<t:if test="showErrorMejorPeor">
+						<span class="error">${message:mejorPeor-error}</span>
+					</t:if>
+					
+					${message:instructions-mejorPeor}<br />
+
+					<t:form t:id="mejorPeorForm" t:zone="^">
+						<table style="table-layout: fixed;">
+							<tr>
+								<td></td>
+								<td style="text-align: center;">${message:mejor}</td>
+								<td style="text-align: center;">${message:peor}</td>
+								<td style="text-align: center;">${message:no}</td>
+							</tr>
+
+							<tr>
+								<td>${mejorPeorOption0}</td>
+								<t:radioGroup value="mejorPeorRadio0"
+									id="radioGroupMejorPeor0" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+							<tr>
+								<td>${mejorPeorOption1}</td>
+								<t:radioGroup value="mejorPeorRadio1"
+									id="radioGroupMejorPeor1" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+
+							<tr>
+								<td>${mejorPeorOption2}</td>
+								<t:radioGroup value="mejorPeorRadio2"
+									id="radioGroupMejorPeor2" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+							<tr>
+								<td>${mejorPeorOption3}</td>
+								<t:radioGroup value="mejorPeorRadio3"
+									id="radioGroupMejorPeor2" required="true">
+										<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+							<tr>
+								<td>${mejorPeorOption4}</td>
+								<t:radioGroup value="mejorPeorRadio4"
+									id="radioGroupMejorPeor4" required="true">
+																	<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+
+								</t:radioGroup>
+							</tr>
+
+							<tr>
+								<td>${mejorPeorOption5}</td>
+								<t:radioGroup value="mejorPeorRadio5"
+									id="radioGroupMejorPeor5" required="true">
+																		<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+
+							<tr>
+								<td>${mejorPeorOption6}</td>
+								<t:radioGroup value="mejorPeorRadio6"
+									id="radioGroupMejorPeor6" required="true">
+																		<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+								</t:radioGroup>
+							</tr>
+							<t:if test="showMejorPeor8">
+								<tr>
+									<td>${mejorPeorOption7}</td>
+									<t:radioGroup value="mejorPeorRadio7"
+										id="radioGroupMejorPeor7" required="true">
+																			<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showMejorPeor9">
+								<tr>
+									<td>${mejorPeorOption8}</td>
+									<t:radioGroup value="mejorPeorRadio8"
+										id="radioGroupMejorPeor8" required="true">
+																			<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showMejorPeor10">
+								<tr>
+									<td>${mejorPeorOption9}</td>
+									<t:radioGroup value="mejorPeorRadio9"
+										id="radioGroupMejorPeor9" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showMejorPeor11">
+								<tr>
+									<td>${mejorPeorOption10}</td>
+									<t:radioGroup value="mejorPeorRadio10"
+										id="radioGroupMejorPeor10" required="true">
+																			<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showMejorPeor12">
+								<tr>
+									<td>${mejorPeorOption11}</td>
+									<t:radioGroup value="mejorPeorRadio11"
+										id="radioGroupMejorPeor11" required="true">
+																			<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showMejorPeor13">
+								<tr>
+									<td>${mejorPeorOption12}</td>
+									<t:radioGroup value="mejorPeorRadio12"
+										id="radioGroupMejorPeor12" required="true">
+																			<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showMejorPeor14">
+								<tr>
+									<td>${mejorPeorOption13}</td>
+									<t:radioGroup value="mejorPeorRadio13"
+										id="radioGroupMejorPeor13" required="true">
+																			<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+							<t:if test="showMejorPeor15">
+								<tr>
+									<td>${mejorPeorOption14}</td>
+									<t:radioGroup value="mejorPeorRadio14"
+										id="radioGroupMejorPeor14" required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:1"
+											type="radio" /></td>
+									<td style="text-align: center;"><t:Radio value="literal:0"
+											type="radio" /></td>
+									</t:radioGroup>
+								</tr>
+							</t:if>
+
+							<t:if test="ballot.publica">
+
+								<tr>
+
+									<td><br /> <t:kaptchaimage
+											t:id="kaptchaMejorPeor" /></td>
+								</tr>
+								<tr>
+									<td><t:kaptchafield style="width:200px;"
+											image="kaptchaMejorPeor" visible="true" type="text" /></td>
+								</tr>
+								<tr>
+									<td>${message:captcha}</td>
+								</tr>
+
+							</t:if>
+
+							<tr>
+								<td><input t:type="submit" class="boton"
+									value="${message:vote-but}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</t:form>
+
+
+
+				</t:zone>
+			</t:if>
+
+			<!-- FIN MÉTODOS -->
 			<!--/////////////////////////////////// Se ha votado /////////////////////////////////////////// -->
 			<p:else>
 				<h2>${message:vote-done}</h2>

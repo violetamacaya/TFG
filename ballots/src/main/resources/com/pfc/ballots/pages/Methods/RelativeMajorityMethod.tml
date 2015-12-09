@@ -25,7 +25,7 @@
 			<div class="descripcionMetodo">
 				<p id="descripcionMajory">
 				<hr />
-					<t:OutputRaw t:value="${majoryText}"/>
+					<t:OutputRaw t:value="${relativeMajorityText}"/>
 				</p>
 			</div>
 		</t:zone>
@@ -46,7 +46,7 @@
 					<table>
 
 						<tr>
-							<td><t:textArea t:id="majoryText" class="areaText" /></td>
+							<td><t:textArea t:id="relativeMajorityText" class="areaText" /></td>
 						</tr>
 						<tr>
 							<td><input t:type="submit" class="boton"

@@ -42,13 +42,18 @@ import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
+import com.pfc.ballots.entities.ballotdata.Black;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Brams;
 import com.pfc.ballots.entities.ballotdata.Condorcet;
+import com.pfc.ballots.entities.ballotdata.Copeland;
+import com.pfc.ballots.entities.ballotdata.Dodgson;
 import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
+import com.pfc.ballots.entities.ballotdata.Schulze;
+import com.pfc.ballots.entities.ballotdata.Small;
 import com.pfc.ballots.entities.ballotdata.VotoAcumulativo;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
@@ -292,6 +297,95 @@ public class ResultBallot {
 				ballotDao.updateBallot(ballot);
 			}
 		}	
+		
+		else if(ballot.getMethod()==Method.COPELAND)
+		{
+			copelandDao= DB4O.getCopelandDao(datasession.getDBName());
+			copeland=copelandDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				copeland.calcularCopeland();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && copeland!=null)
+			{
+				copeland.calcularCopeland();
+				ballot.setCounted(true);
+				copelandDao.update(copeland);
+				ballotDao.updateBallot(ballot);
+			}
+		}	
+		else if(ballot.getMethod()==Method.BLACK)
+		{
+			blackDao= DB4O.getBlackDao(datasession.getDBName());
+			black=blackDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				black.calcularBlack();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && black!=null)
+			{
+				black.calcularBlack();
+				ballot.setCounted(true);
+				blackDao.update(black);
+				ballotDao.updateBallot(ballot);
+			}
+		}	
+		
+		else if(ballot.getMethod()==Method.DODGSON)
+		{
+			dodgsonDao= DB4O.getDodgsonDao(datasession.getDBName());
+			dodgson=dodgsonDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				dodgson.calcularDodgson();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && dodgson!=null)
+			{
+				dodgson.calcularDodgson();
+				ballot.setCounted(true);
+				dodgsonDao.update(dodgson);
+				ballotDao.updateBallot(ballot);
+			}
+		}	
+		
+		else if(ballot.getMethod()==Method.SMALL)
+		{
+			smallDao= DB4O.getSmallDao(datasession.getDBName());
+			small=smallDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				small.calcularSmall();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && small!=null)
+			{
+				small.calcularSmall();
+				ballot.setCounted(true);
+				smallDao.update(small);
+				ballotDao.updateBallot(ballot);
+			}
+		}	
+		else if(ballot.getMethod()==Method.SCHULZE)
+		{
+			schulzeDao= DB4O.getSchulzeDao(datasession.getDBName());
+			schulze=schulzeDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				schulze.calcularSchulze();
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && schulze!=null)
+			{
+				schulze.calcularSchulze();
+				ballot.setCounted(true);
+				schulzeDao.update(schulze);
+				ballotDao.updateBallot(ballot);
+			}
+		}	
+		
 
 	}
 	/**
@@ -426,6 +520,77 @@ public class ResultBallot {
 			}
 
 			javaScriptSupport.addInitializerCall("charts_condorcet",array.toString());
+		}
+		
+		if(ballot.getMethod()==Method.BLACK)
+		{
+			List<String> options=getBlackOptions();
+			for(String option:options)
+			{
+				System.out.println(option);
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", black.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_black",array.toString());
+		}
+		if(ballot.getMethod()==Method.SCHULZE)
+		{
+			List<String> options=getSchulzeOptions();
+			for(String option:options)
+			{
+				System.out.println(option);
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", schulze.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_schulze",array.toString());
+		}
+		if(ballot.getMethod()==Method.SMALL)
+		{
+			List<String> options=getSmallOptions();
+			for(String option:options)
+			{
+				System.out.println(option);
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", small.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_small",array.toString());
+		}
+		if(ballot.getMethod()==Method.DODGSON)
+		{
+			List<String> options=getDodgsonOptions();
+			for(String option:options)
+			{
+				System.out.println(option);
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", dodgson.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_dodgson",array.toString());
+		}
+		if(ballot.getMethod()==Method.COPELAND)
+		{
+			List<String> options=getCopelandOptions();
+			for(String option:options)
+			{
+				System.out.println(option);
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", copeland.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_copeland",array.toString());
 		}
 	}
 
@@ -859,6 +1024,186 @@ public class ResultBallot {
 	{
 		return String.valueOf(condorcet.getVotes().size());
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// Schulze ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Schulze Data
+	 */
+	@Property
+	@Persist
+	Schulze schulze;
+
+	@Property
+	private String schulzeOpt;
+
+	public boolean getShowSchulze()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.SCHULZE)
+		{return true;}
+		return false;
+	}
+
+	public List<String> getSchulzeOptions()
+	{
+		List<String> opciones=schulze.getOptions();
+		return opciones;
+	}
+
+
+	public String getSchulzeVote()
+	{
+		return String.valueOf(schulze.getResultOption(option));
+	}
+	public String getSchulzeNum()
+	{
+		return String.valueOf(schulze.getVotes().size());
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// Small ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Small Data
+	 */
+	@Property
+	@Persist
+	Small small;
+
+	@Property
+	private String smallOpt;
+
+	public boolean getShowSmall()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.SMALL)
+		{return true;}
+		return false;
+	}
+
+	public List<String> getSmallOptions()
+	{
+		List<String> opciones=small.getOptions();
+		return opciones;
+	}
+
+
+	public String getSmallVote()
+	{
+		return String.valueOf(small.getResultOption(option));
+	}
+	public String getSmallNum()
+	{
+		return String.valueOf(small.getVotes().size());
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// Copeland ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Copeland Data
+	 */
+	@Property
+	@Persist
+	Copeland copeland;
+
+	@Property
+	private String copelandOpt;
+
+	public boolean getShowCopeland()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.SMALL)
+		{return true;}
+		return false;
+	}
+
+	public List<String> getCopelandOptions()
+	{
+		List<String> opciones=copeland.getOptions();
+		return opciones;
+	}
+
+
+	public String getCopelandVote()
+	{
+		return String.valueOf(copeland.getResultOption(option));
+	}
+	public String getCopelandNum()
+	{
+		return String.valueOf(copeland.getVotes().size());
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// Dodgson ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Dodgson Data
+	 */
+	@Property
+	@Persist
+	Dodgson dodgson;
+
+	@Property
+	private String dodgsonOpt;
+
+	public boolean getShowDodgson()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.SMALL)
+		{return true;}
+		return false;
+	}
+
+	public List<String> getDodgsonOptions()
+	{
+		List<String> opciones=dodgson.getOptions();
+		return opciones;
+	}
+
+
+	public String getDodgsonVote()
+	{
+		return String.valueOf(dodgson.getResultOption(option));
+	}
+	public String getDodgsonNum()
+	{
+		return String.valueOf(dodgson.getVotes().size());
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// Black ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Black Data
+	 */
+	@Property
+	@Persist
+	Black black;
+
+	@Property
+	private String blackOpt;
+
+	public boolean getShowBlack()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.SMALL)
+		{return true;}
+		return false;
+	}
+
+	public List<String> getBlackOptions()
+	{
+		List<String> opciones=black.getOptions();
+		return opciones;
+	}
+
+
+	public String getBlackVote()
+	{
+		return String.valueOf(black.getResultOption(option));
+	}
+	public String getBlackNum()
+	{
+		return String.valueOf(black.getVotes().size());
+	}
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

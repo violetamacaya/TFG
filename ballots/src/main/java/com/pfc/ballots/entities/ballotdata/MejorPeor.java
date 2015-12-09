@@ -21,7 +21,8 @@ public class MejorPeor {
 	private String id;
 	private String ballotId;
 	private List<String> options;
-	private List<String> votes;
+	private List<String> votesPos;
+	private List<String> votesNeg;
 	private List<String> winners;
 	private Map<String,Integer> results;
 
@@ -33,7 +34,8 @@ public class MejorPeor {
 	public MejorPeor(String nulltoinitialize)
 	{
 		setOptions(new LinkedList<String>());
-		setVotes(new LinkedList<String>());
+		setVotesPos(new LinkedList<String>());
+		setVotesNeg(new LinkedList<String>());
 		setWinners(new LinkedList<String>());
 
 
@@ -41,7 +43,8 @@ public class MejorPeor {
 	public MejorPeor(List<String> options)
 	{
 		this.setOptions(options);
-		setVotes(new LinkedList<String>());
+		setVotesPos(new LinkedList<String>());
+		setVotesNeg(new LinkedList<String>());
 		setWinners(new LinkedList<String>());
 	}
 
@@ -65,11 +68,17 @@ public class MejorPeor {
 	public void setOptions(List<String> options) {
 		this.options = options;
 	}
-	public List<String> getVotes() {
-		return votes;
+	public List<String> getVotesPos() {
+		return votesPos;
 	}
-	public void setVotes(List<String> votes) {
-		this.votes = votes;
+	public void setVotesPos(List<String> votesPos) {
+		this.votesPos = votesPos;
+	}
+	public List<String> getVotesNeg() {
+		return votesNeg;
+	}
+	public void setVotesNeg(List<String> votesNeg) {
+		this.votesNeg = votesNeg;
 	}
 	public Map<String,Integer> getResults() {
 		return results;
@@ -90,13 +99,25 @@ public class MejorPeor {
 	 * Add a vote to the list
 	 * @param option vote to add
 	 */
-	public void addVote(String option)
+	public void addVotePos(String option)
 	{
-		if(votes==null)
+		if(votesPos==null)
 		{
-			setVotes(new LinkedList<String>());
+			setVotesPos(new LinkedList<String>());
 		}
-		votes.add(option);
+		votesPos.add(option);
+	}
+	/**
+	 * Add a vote to the list
+	 * @param option vote to add
+	 */
+	public void addVoteNeg(String option)
+	{
+		if(votesNeg==null)
+		{
+			setVotesNeg(new LinkedList<String>());
+		}
+		votesNeg.add(option);
 	}
 	/**
 	 * Adds an option to the list
@@ -128,14 +149,14 @@ public class MejorPeor {
 	 */
 	public boolean calcularMejorPeor()
 	{
-		if(votes==null ||options==null)
+		if(votesPos==null  || votesNeg==null ||options==null)
 		{
 			return false;
 		}
 		else
 		{
 			this.winners=new LinkedList<String>();
-			this.results=CalcMejorPeor.CalculateMejorPeor(options, votes, winners);
+			this.results=CalcMejorPeor.CalculateMejorPeor(options, votesPos, votesNeg);
 			return true;
 		}
 	}

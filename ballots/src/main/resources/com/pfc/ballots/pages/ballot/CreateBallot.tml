@@ -1131,8 +1131,1213 @@
 
 			</t:if>
 		</t:zone>
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////BLACK ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="blackZone" id="blackZone" t:update="show">
+			<t:if test="showBlack">
+				<h4>${message:black-title}</h4>
+				<t:form t:id="blackForm" t:zone="^">
+					<t:if test="showErrorBlack">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedBlack">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="blackSel" /></td>
+							<td><t:select t:id="blackSel" value="blackNumOp"
+									t:model="blackModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="blackOp1" /></td>
+							<td><t:textfield t:id="blackOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="blackOp2" /></td>
+							<td><t:textfield t:id="blackOp2" /></td>
+						</tr>
+						<t:if test="showBlack3">
+							<tr>
+								<td><t:label for="blackOp3" /></td>
+								<td><t:textfield t:id="blackOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack4">
+							<tr>
+								<td><t:label for="blackOp4" /></td>
+								<td><t:textfield t:id="blackOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack5">
+							<tr>
+								<td><t:label for="blackOp5" /></td>
+								<td><t:textfield t:id="blackOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack6">
+							<tr>
+								<td><t:label for="blackOp6" /></td>
+								<td><t:textfield t:id="blackOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack7">
+							<tr>
+								<td><t:label for="blackOp7" /></td>
+								<td><t:textfield t:id="blackOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack8">
+							<tr>
+								<td><t:label for="blackOp8" /></td>
+								<td><t:textfield t:id="blackOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack9">
+							<tr>
+								<td><t:label for="blackOp9" /></td>
+								<td><t:textfield t:id="blackOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack10">
+							<tr>
+								<td><t:label for="blackOp10" /></td>
+								<td><t:textfield t:id="blackOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack11">
+							<tr>
+								<td><t:label for="blackOp11" /></td>
+								<td><t:textfield t:id="blackOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack12">
+							<tr>
+								<td><t:label for="blackOp12" /></td>
+								<td><t:textfield t:id="blackOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack13">
+							<tr>
+								<td><t:label for="blackOp13" /></td>
+								<td><t:textfield t:id="blackOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack14">
+							<tr>
+								<td><t:label for="blackOp14" /></td>
+								<td><t:textfield t:id="blackOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBlack15">
+							<tr>
+								<td><t:label for="blackOp15" /></td>
+								<td><t:textfield t:id="blackOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back" t:context="prop:['fromBlack','toType']"
+						t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
 
 
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////DODGSON ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="dodgsonZone" id="dodgsonZone" t:update="show">
+			<t:if test="showDodgson">
+				<h4>${message:dodgson-title}</h4>
+				<t:form t:id="dodgsonForm" t:zone="^">
+					<t:if test="showErrorDodgson">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedDodgson">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="dodgsonSel" /></td>
+							<td><t:select t:id="dodgsonSel" value="dodgsonNumOp"
+									t:model="dodgsonModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="dodgsonOp1" /></td>
+							<td><t:textfield t:id="dodgsonOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="dodgsonOp2" /></td>
+							<td><t:textfield t:id="dodgsonOp2" /></td>
+						</tr>
+						<t:if test="showDodgson3">
+							<tr>
+								<td><t:label for="dodgsonOp3" /></td>
+								<td><t:textfield t:id="dodgsonOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson4">
+							<tr>
+								<td><t:label for="dodgsonOp4" /></td>
+								<td><t:textfield t:id="dodgsonOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson5">
+							<tr>
+								<td><t:label for="dodgsonOp5" /></td>
+								<td><t:textfield t:id="dodgsonOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson6">
+							<tr>
+								<td><t:label for="dodgsonOp6" /></td>
+								<td><t:textfield t:id="dodgsonOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson7">
+							<tr>
+								<td><t:label for="dodgsonOp7" /></td>
+								<td><t:textfield t:id="dodgsonOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson8">
+							<tr>
+								<td><t:label for="dodgsonOp8" /></td>
+								<td><t:textfield t:id="dodgsonOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson9">
+							<tr>
+								<td><t:label for="dodgsonOp9" /></td>
+								<td><t:textfield t:id="dodgsonOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson10">
+							<tr>
+								<td><t:label for="dodgsonOp10" /></td>
+								<td><t:textfield t:id="dodgsonOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson11">
+							<tr>
+								<td><t:label for="dodgsonOp11" /></td>
+								<td><t:textfield t:id="dodgsonOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson12">
+							<tr>
+								<td><t:label for="dodgsonOp12" /></td>
+								<td><t:textfield t:id="dodgsonOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson13">
+							<tr>
+								<td><t:label for="dodgsonOp13" /></td>
+								<td><t:textfield t:id="dodgsonOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson14">
+							<tr>
+								<td><t:label for="dodgsonOp14" /></td>
+								<td><t:textfield t:id="dodgsonOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showDodgson15">
+							<tr>
+								<td><t:label for="dodgsonOp15" /></td>
+								<td><t:textfield t:id="dodgsonOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back"
+						t:context="prop:['fromDodgson','toType']" t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////COPELAND ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="copelandZone" id="copelandZone" t:update="show">
+			<t:if test="showCopeland">
+				<h4>${message:copeland-title}</h4>
+				<t:form t:id="copelandForm" t:zone="^">
+					<t:if test="showErrorCopeland">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedCopeland">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="copelandSel" /></td>
+							<td><t:select t:id="copelandSel" value="copelandNumOp"
+									t:model="copelandModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="copelandOp1" /></td>
+							<td><t:textfield t:id="copelandOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="copelandOp2" /></td>
+							<td><t:textfield t:id="copelandOp2" /></td>
+						</tr>
+						<t:if test="showCopeland3">
+							<tr>
+								<td><t:label for="copelandOp3" /></td>
+								<td><t:textfield t:id="copelandOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland4">
+							<tr>
+								<td><t:label for="copelandOp4" /></td>
+								<td><t:textfield t:id="copelandOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland5">
+							<tr>
+								<td><t:label for="copelandOp5" /></td>
+								<td><t:textfield t:id="copelandOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland6">
+							<tr>
+								<td><t:label for="copelandOp6" /></td>
+								<td><t:textfield t:id="copelandOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland7">
+							<tr>
+								<td><t:label for="copelandOp7" /></td>
+								<td><t:textfield t:id="copelandOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland8">
+							<tr>
+								<td><t:label for="copelandOp8" /></td>
+								<td><t:textfield t:id="copelandOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland9">
+							<tr>
+								<td><t:label for="copelandOp9" /></td>
+								<td><t:textfield t:id="copelandOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland10">
+							<tr>
+								<td><t:label for="copelandOp10" /></td>
+								<td><t:textfield t:id="copelandOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland11">
+							<tr>
+								<td><t:label for="copelandOp11" /></td>
+								<td><t:textfield t:id="copelandOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland12">
+							<tr>
+								<td><t:label for="copelandOp12" /></td>
+								<td><t:textfield t:id="copelandOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland13">
+							<tr>
+								<td><t:label for="copelandOp13" /></td>
+								<td><t:textfield t:id="copelandOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland14">
+							<tr>
+								<td><t:label for="copelandOp14" /></td>
+								<td><t:textfield t:id="copelandOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCopeland15">
+							<tr>
+								<td><t:label for="copelandOp15" /></td>
+								<td><t:textfield t:id="copelandOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back"
+						t:context="prop:['fromCopeland','toType']" t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////Schulze ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="schulzeZone" id="schulzeZone" t:update="show">
+			<t:if test="showSchulze">
+				<h4>${message:schulze-title}</h4>
+				<t:form t:id="schulzeForm" t:zone="^">
+					<t:if test="showErrorSchulze">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedSchulze">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="schulzeSel" /></td>
+							<td><t:select t:id="schulzeSel" value="schulzeNumOp"
+									t:model="schulzeModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="schulzeOp1" /></td>
+							<td><t:textfield t:id="schulzeOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="schulzeOp2" /></td>
+							<td><t:textfield t:id="schulzeOp2" /></td>
+						</tr>
+						<t:if test="showSchulze3">
+							<tr>
+								<td><t:label for="schulzeOp3" /></td>
+								<td><t:textfield t:id="schulzeOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze4">
+							<tr>
+								<td><t:label for="schulzeOp4" /></td>
+								<td><t:textfield t:id="schulzeOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze5">
+							<tr>
+								<td><t:label for="schulzeOp5" /></td>
+								<td><t:textfield t:id="schulzeOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze6">
+							<tr>
+								<td><t:label for="schulzeOp6" /></td>
+								<td><t:textfield t:id="schulzeOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze7">
+							<tr>
+								<td><t:label for="schulzeOp7" /></td>
+								<td><t:textfield t:id="schulzeOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze8">
+							<tr>
+								<td><t:label for="schulzeOp8" /></td>
+								<td><t:textfield t:id="schulzeOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze9">
+							<tr>
+								<td><t:label for="schulzeOp9" /></td>
+								<td><t:textfield t:id="schulzeOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze10">
+							<tr>
+								<td><t:label for="schulzeOp10" /></td>
+								<td><t:textfield t:id="schulzeOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze11">
+							<tr>
+								<td><t:label for="schulzeOp11" /></td>
+								<td><t:textfield t:id="schulzeOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze12">
+							<tr>
+								<td><t:label for="schulzeOp12" /></td>
+								<td><t:textfield t:id="schulzeOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze13">
+							<tr>
+								<td><t:label for="schulzeOp13" /></td>
+								<td><t:textfield t:id="schulzeOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze14">
+							<tr>
+								<td><t:label for="schulzeOp14" /></td>
+								<td><t:textfield t:id="schulzeOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSchulze15">
+							<tr>
+								<td><t:label for="schulzeOp15" /></td>
+								<td><t:textfield t:id="schulzeOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back"
+						t:context="prop:['fromSchulze','toType']" t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////Small ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="smallZone" id="smallZone" t:update="show">
+			<t:if test="showSmall">
+				<h4>${message:small-title}</h4>
+				<t:form t:id="smallForm" t:zone="^">
+					<t:if test="showErrorSmall">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedSmall">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="smallSel" /></td>
+							<td><t:select t:id="smallSel" value="smallNumOp"
+									t:model="smallModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="smallOp1" /></td>
+							<td><t:textfield t:id="smallOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="smallOp2" /></td>
+							<td><t:textfield t:id="smallOp2" /></td>
+						</tr>
+						<t:if test="showSmall3">
+							<tr>
+								<td><t:label for="smallOp3" /></td>
+								<td><t:textfield t:id="smallOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall4">
+							<tr>
+								<td><t:label for="smallOp4" /></td>
+								<td><t:textfield t:id="smallOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall5">
+							<tr>
+								<td><t:label for="smallOp5" /></td>
+								<td><t:textfield t:id="smallOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall6">
+							<tr>
+								<td><t:label for="smallOp6" /></td>
+								<td><t:textfield t:id="smallOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall7">
+							<tr>
+								<td><t:label for="smallOp7" /></td>
+								<td><t:textfield t:id="smallOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall8">
+							<tr>
+								<td><t:label for="smallOp8" /></td>
+								<td><t:textfield t:id="smallOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall9">
+							<tr>
+								<td><t:label for="smallOp9" /></td>
+								<td><t:textfield t:id="smallOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall10">
+							<tr>
+								<td><t:label for="smallOp10" /></td>
+								<td><t:textfield t:id="smallOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall11">
+							<tr>
+								<td><t:label for="smallOp11" /></td>
+								<td><t:textfield t:id="smallOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall12">
+							<tr>
+								<td><t:label for="smallOp12" /></td>
+								<td><t:textfield t:id="smallOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall13">
+							<tr>
+								<td><t:label for="smallOp13" /></td>
+								<td><t:textfield t:id="smallOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall14">
+							<tr>
+								<td><t:label for="smallOp14" /></td>
+								<td><t:textfield t:id="smallOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showSmall15">
+							<tr>
+								<td><t:label for="smallOp15" /></td>
+								<td><t:textfield t:id="smallOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back" t:context="prop:['fromSmall','toType']"
+						t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////MejorPeor ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="mejorPeorZone" id="mejorPeorZone" t:update="show">
+			<t:if test="showMejorPeor">
+				<h4>${message:mejorPeor-title}</h4>
+				<t:form t:id="mejorPeorForm" t:zone="^">
+					<t:if test="showErrorMejorPeor">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedMejorPeor">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="mejorPeorSel" /></td>
+							<td><t:select t:id="mejorPeorSel" value="mejorPeorNumOptions"
+									t:model="mejorPeorModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="mejorPeorOption1" /></td>
+							<td><t:textfield t:id="mejorPeorOption1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="mejorPeorOption2" /></td>
+							<td><t:textfield t:id="mejorPeorOption2" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="mejorPeorOption3" /></td>
+							<td><t:textfield t:id="mejorPeorOption3" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="mejorPeorOption4" /></td>
+							<td><t:textfield t:id="mejorPeorOption4" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="mejorPeorOption5" /></td>
+							<td><t:textfield t:id="mejorPeorOption5" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="mejorPeorOption6" /></td>
+							<td><t:textfield t:id="mejorPeorOption6" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="mejorPeorOption7" /></td>
+							<td><t:textfield t:id="mejorPeorOption7" /></td>
+						</tr>
+						<t:if test="showMejorPeor8">
+							<tr>
+								<td><t:label for="mejorPeorOption8" /></td>
+								<td><t:textfield t:id="mejorPeorOption8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showMejorPeor9">
+							<tr>
+								<td><t:label for="mejorPeorOption9" /></td>
+								<td><t:textfield t:id="mejorPeorOption9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showMejorPeor10">
+							<tr>
+								<td><t:label for="mejorPeorOption10" /></td>
+								<td><t:textfield t:id="mejorPeorOption10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showMejorPeor11">
+							<tr>
+								<td><t:label for="mejorPeorOption11" /></td>
+								<td><t:textfield t:id="mejorPeorOption11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showMejorPeor12">
+							<tr>
+								<td><t:label for="mejorPeorOption12" /></td>
+								<td><t:textfield t:id="mejorPeorOption12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showMejorPeor13">
+							<tr>
+								<td><t:label for="mejorPeorOption13" /></td>
+								<td><t:textfield t:id="mejorPeorOption13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showMejorPeor14">
+							<tr>
+								<td><t:label for="mejorPeorOption14" /></td>
+								<td><t:textfield t:id="mejorPeorOption14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showMejorPeor15">
+							<tr>
+								<td><t:label for="mejorPeorOption15" /></td>
+								<td><t:textfield t:id="mejorPeorOption15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back"
+						t:context="prop:['fromMejorPeor','toType']" t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		
+				<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////Bucklin ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="bucklinZone" id="bucklinZone" t:update="show">
+			<t:if test="showBucklin">
+				<h4>${message:bucklin-title}</h4>
+				<t:form t:id="bucklinForm" t:zone="^">
+					<t:if test="showErrorBucklin">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedBucklin">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="bucklinSel" /></td>
+							<td><t:select t:id="bucklinSel" value="bucklinNumOp"
+									t:model="bucklinModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="bucklinOp1" /></td>
+							<td><t:textfield t:id="bucklinOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="bucklinOp2" /></td>
+							<td><t:textfield t:id="bucklinOp2" /></td>
+						</tr>
+						<t:if test="showBucklin3">
+							<tr>
+								<td><t:label for="bucklinOp3" /></td>
+								<td><t:textfield t:id="bucklinOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin4">
+							<tr>
+								<td><t:label for="bucklinOp4" /></td>
+								<td><t:textfield t:id="bucklinOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin5">
+							<tr>
+								<td><t:label for="bucklinOp5" /></td>
+								<td><t:textfield t:id="bucklinOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin6">
+							<tr>
+								<td><t:label for="bucklinOp6" /></td>
+								<td><t:textfield t:id="bucklinOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin7">
+							<tr>
+								<td><t:label for="bucklinOp7" /></td>
+								<td><t:textfield t:id="bucklinOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin8">
+							<tr>
+								<td><t:label for="bucklinOp8" /></td>
+								<td><t:textfield t:id="bucklinOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin9">
+							<tr>
+								<td><t:label for="bucklinOp9" /></td>
+								<td><t:textfield t:id="bucklinOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin10">
+							<tr>
+								<td><t:label for="bucklinOp10" /></td>
+								<td><t:textfield t:id="bucklinOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin11">
+							<tr>
+								<td><t:label for="bucklinOp11" /></td>
+								<td><t:textfield t:id="bucklinOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin12">
+							<tr>
+								<td><t:label for="bucklinOp12" /></td>
+								<td><t:textfield t:id="bucklinOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin13">
+							<tr>
+								<td><t:label for="bucklinOp13" /></td>
+								<td><t:textfield t:id="bucklinOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin14">
+							<tr>
+								<td><t:label for="bucklinOp14" /></td>
+								<td><t:textfield t:id="bucklinOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showBucklin15">
+							<tr>
+								<td><t:label for="bucklinOp15" /></td>
+								<td><t:textfield t:id="bucklinOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back" t:context="prop:['fromBucklin','toType']"
+						t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		
+				<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////Nanson ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="nansonZone" id="nansonZone" t:update="show">
+			<t:if test="showNanson">
+				<h4>${message:nanson-title}</h4>
+				<t:form t:id="nansonForm" t:zone="^">
+					<t:if test="showErrorNanson">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedNanson">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="nansonSel" /></td>
+							<td><t:select t:id="nansonSel" value="nansonNumOp"
+									t:model="nansonModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="nansonOp1" /></td>
+							<td><t:textfield t:id="nansonOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="nansonOp2" /></td>
+							<td><t:textfield t:id="nansonOp2" /></td>
+						</tr>
+						<t:if test="showNanson3">
+							<tr>
+								<td><t:label for="nansonOp3" /></td>
+								<td><t:textfield t:id="nansonOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson4">
+							<tr>
+								<td><t:label for="nansonOp4" /></td>
+								<td><t:textfield t:id="nansonOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson5">
+							<tr>
+								<td><t:label for="nansonOp5" /></td>
+								<td><t:textfield t:id="nansonOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson6">
+							<tr>
+								<td><t:label for="nansonOp6" /></td>
+								<td><t:textfield t:id="nansonOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson7">
+							<tr>
+								<td><t:label for="nansonOp7" /></td>
+								<td><t:textfield t:id="nansonOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson8">
+							<tr>
+								<td><t:label for="nansonOp8" /></td>
+								<td><t:textfield t:id="nansonOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson9">
+							<tr>
+								<td><t:label for="nansonOp9" /></td>
+								<td><t:textfield t:id="nansonOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson10">
+							<tr>
+								<td><t:label for="nansonOp10" /></td>
+								<td><t:textfield t:id="nansonOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson11">
+							<tr>
+								<td><t:label for="nansonOp11" /></td>
+								<td><t:textfield t:id="nansonOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson12">
+							<tr>
+								<td><t:label for="nansonOp12" /></td>
+								<td><t:textfield t:id="nansonOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson13">
+							<tr>
+								<td><t:label for="nansonOp13" /></td>
+								<td><t:textfield t:id="nansonOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson14">
+							<tr>
+								<td><t:label for="nansonOp14" /></td>
+								<td><t:textfield t:id="nansonOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showNanson15">
+							<tr>
+								<td><t:label for="nansonOp15" /></td>
+								<td><t:textfield t:id="nansonOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back" t:context="prop:['fromNanson','toType']"
+						t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		
+				<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////Hare ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="hareZone" id="hareZone" t:update="show">
+			<t:if test="showHare">
+				<h4>${message:hare-title}</h4>
+				<t:form t:id="hareForm" t:zone="^">
+					<t:if test="showErrorHare">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedHare">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="hareSel" /></td>
+							<td><t:select t:id="hareSel" value="hareNumOp"
+									t:model="hareModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="hareOp1" /></td>
+							<td><t:textfield t:id="hareOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="hareOp2" /></td>
+							<td><t:textfield t:id="hareOp2" /></td>
+						</tr>
+						<t:if test="showHare3">
+							<tr>
+								<td><t:label for="hareOp3" /></td>
+								<td><t:textfield t:id="hareOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare4">
+							<tr>
+								<td><t:label for="hareOp4" /></td>
+								<td><t:textfield t:id="hareOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare5">
+							<tr>
+								<td><t:label for="hareOp5" /></td>
+								<td><t:textfield t:id="hareOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare6">
+							<tr>
+								<td><t:label for="hareOp6" /></td>
+								<td><t:textfield t:id="hareOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare7">
+							<tr>
+								<td><t:label for="hareOp7" /></td>
+								<td><t:textfield t:id="hareOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare8">
+							<tr>
+								<td><t:label for="hareOp8" /></td>
+								<td><t:textfield t:id="hareOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare9">
+							<tr>
+								<td><t:label for="hareOp9" /></td>
+								<td><t:textfield t:id="hareOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare10">
+							<tr>
+								<td><t:label for="hareOp10" /></td>
+								<td><t:textfield t:id="hareOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare11">
+							<tr>
+								<td><t:label for="hareOp11" /></td>
+								<td><t:textfield t:id="hareOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare12">
+							<tr>
+								<td><t:label for="hareOp12" /></td>
+								<td><t:textfield t:id="hareOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare13">
+							<tr>
+								<td><t:label for="hareOp13" /></td>
+								<td><t:textfield t:id="hareOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare14">
+							<tr>
+								<td><t:label for="hareOp14" /></td>
+								<td><t:textfield t:id="hareOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showHare15">
+							<tr>
+								<td><t:label for="hareOp15" /></td>
+								<td><t:textfield t:id="hareOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back" t:context="prop:['fromHare','toType']"
+						t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		
+				<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////Coombs ///////////////////////////////////////////////////////////////////////
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	-->
+
+		<t:zone t:id="coombsZone" id="coombsZone" t:update="show">
+			<t:if test="showCoombs">
+				<h4>${message:coombs-title}</h4>
+				<t:form t:id="coombsForm" t:zone="^">
+					<t:if test="showErrorCoombs">
+						<span class="error">${message:fill-fields}</span>
+						<br />
+					</t:if>
+					<t:if test="showRepeatedCoombs">
+						<span class="error">${message:repeated-fields}</span>
+						<br />
+					</t:if>
+					<table>
+						<tr>
+							<td><t:label for="coombsSel" /></td>
+							<td><t:select t:id="coombsSel" value="coombsNumOp"
+									t:model="coombsModel" t:zone="^" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="coombsOp1" /></td>
+							<td><t:textfield t:id="coombsOp1" /></td>
+						</tr>
+						<tr>
+							<td><t:label for="coombsOp2" /></td>
+							<td><t:textfield t:id="coombsOp2" /></td>
+						</tr>
+						<t:if test="showCoombs3">
+							<tr>
+								<td><t:label for="coombsOp3" /></td>
+								<td><t:textfield t:id="coombsOp3" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs4">
+							<tr>
+								<td><t:label for="coombsOp4" /></td>
+								<td><t:textfield t:id="coombsOp4" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs5">
+							<tr>
+								<td><t:label for="coombsOp5" /></td>
+								<td><t:textfield t:id="coombsOp5" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs6">
+							<tr>
+								<td><t:label for="coombsOp6" /></td>
+								<td><t:textfield t:id="coombsOp6" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs7">
+							<tr>
+								<td><t:label for="coombsOp7" /></td>
+								<td><t:textfield t:id="coombsOp7" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs8">
+							<tr>
+								<td><t:label for="coombsOp8" /></td>
+								<td><t:textfield t:id="coombsOp8" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs9">
+							<tr>
+								<td><t:label for="coombsOp9" /></td>
+								<td><t:textfield t:id="coombsOp9" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs10">
+							<tr>
+								<td><t:label for="coombsOp10" /></td>
+								<td><t:textfield t:id="coombsOp10" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs11">
+							<tr>
+								<td><t:label for="coombsOp11" /></td>
+								<td><t:textfield t:id="coombsOp11" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs12">
+							<tr>
+								<td><t:label for="coombsOp12" /></td>
+								<td><t:textfield t:id="coombsOp12" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs13">
+							<tr>
+								<td><t:label for="coombsOp13" /></td>
+								<td><t:textfield t:id="coombsOp13" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs14">
+							<tr>
+								<td><t:label for="coombsOp14" /></td>
+								<td><t:textfield t:id="coombsOp14" /></td>
+							</tr>
+						</t:if>
+						<t:if test="showCoombs15">
+							<tr>
+								<td><t:label for="coombsOp15" /></td>
+								<td><t:textfield t:id="coombsOp15" /></td>
+							</tr>
+						</t:if>
+					</table>
+					<t:eventlink t:event="back" t:context="prop:['fromCoombs','toType']"
+						t:zone="^">
+						<button class="boton">${message:back-but}</button>
+					</t:eventlink>
+					<input t:type="submit" class="boton" t:value="${message:create}" />
+
+
+				</t:form>
+				<br />
+
+			</t:if>
+		</t:zone>
+		
+		
 	</div>
 </t:border>
 </html>
