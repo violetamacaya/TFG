@@ -6,6 +6,13 @@
 
 
 	<t:border><div id="CreateCensusDiv">
+		<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:index}</a></li>
+			<li><a href="CensusList">${message:census}</a></li>
+			<li><a href="#">${message:actual}</a></li>
+		</ul>
+	</div>
 					<h1>${message:create-census}</h1><hr/>
 	
 		<!--//////////////////////////////////////////////////////////////////////////////////////////

@@ -39,6 +39,7 @@ encoding//src/main/resources/com/pfc/ballots/pages/Methods/DodgsonMethod.propert
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/HareMethod.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/JuicioMayoritarioMethod.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/KemenyMethod.properties=UTF-8
+encoding//src/main/resources/com/pfc/ballots/pages/Methods/MejorPeorMethod.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/NansonMethod.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/RangeVotingMethod.properties=UTF-8
 encoding//src/main/resources/com/pfc/ballots/pages/Methods/RelativeMajorityMethod.properties=UTF-8

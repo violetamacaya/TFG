@@ -5,7 +5,14 @@
 	</head>
    
 	<t:border><div id="userlistDiv">
-	
+		<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:Index-crumb}</a></li>
+			<li><a href="UserList">${message:users}</a></li>
+			<li><a href="#">${message:create-profile}</a></li>		
+
+		</ul>
+	</div>
 		<h1>${message:create-profile}</h1><hr/>
 		<infouser>
 					<t:if test="badSecurity">

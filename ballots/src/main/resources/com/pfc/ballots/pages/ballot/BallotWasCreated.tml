@@ -7,6 +7,14 @@
 	</head>
    
 	<t:border><div id="voteDiv">
+		<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:index}</a></li>
+			<li><a href="BallotList">${message:ballot}</a></li>
+			<li><a href="CreateBallot">${message:crear}</a></li>
+			<li><a href="#">${message:actual}</a></li>
+		</ul>
+	</div>
 				<p><h3>${message:created-Ballot}</h3></p>
 				<a t:type="pagelink" t:page="Index" href="#">${message:back}</a><br/><br/>				
 	

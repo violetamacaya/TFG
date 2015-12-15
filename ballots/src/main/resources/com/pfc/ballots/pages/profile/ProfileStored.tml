@@ -7,8 +7,14 @@
 	</head>
    
 	<t:border><div id="voteDiv">
+		<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:index}</a></li>
+			<li><a href="CreateProfile">${message:register}</a></li>
+			<li><a href="#">${message:actual}</a></li>
+		</ul>
+	</div>
+	
 				<p><h3>${message:profile-stored}</h3></p>
-	
-	
 	</div></t:border>
 </html>

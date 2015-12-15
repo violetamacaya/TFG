@@ -86,7 +86,12 @@ charts= Class.create( {
             {
             	data.addColumn('string', 'Option');
                 data.addColumn('number', 'Votos');
-            }    
+            }   
+            if(type=="MEJOR_PEOR")
+            {
+            	data.addColumn('string', 'Option');
+                data.addColumn('number', 'Votos');
+            }   
             
             var firstItem=true;
           
@@ -168,6 +173,10 @@ charts= Class.create( {
             {
             	chart= new google.visualization.PieChart(document.getElementById('chart_div'));
             }
+            if(type=="MEJOR_PEOR")
+            {
+            	chart= new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            }
             
             chart.draw(data, options);
           }
@@ -223,28 +232,33 @@ Tapestry.Initializer.charts_condorcet = function(spec) {
 	var array=JSON.parse(spec);
 	new charts("CONDORCET",array);
 }
-Tapestry.Initializer.charts_condorcet = function(spec) {
+Tapestry.Initializer.charts_black = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("BLACK",array);
 }
-Tapestry.Initializer.charts_condorcet = function(spec) {
+Tapestry.Initializer.charts_dodgson = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("DODGSON",array);
 }
-Tapestry.Initializer.charts_condorcet = function(spec) {
+Tapestry.Initializer.charts_copeland = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("COPELAND",array);
 }
-Tapestry.Initializer.charts_condorcet = function(spec) {
+Tapestry.Initializer.charts_schulze = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("SCHULZE",array);
 }
-Tapestry.Initializer.charts_condorcet = function(spec) {
+Tapestry.Initializer.charts_small = function(spec) {
 	
 	var array=JSON.parse(spec);
 	new charts("SMALL",array);
+}
+Tapestry.Initializer.charts_mejorPeor = function(spec) {
+	
+	var array=JSON.parse(spec);
+	new charts("MEJOR_PEOR",array);
 }

@@ -1,5 +1,7 @@
 package com.pfc.ballots.pages.Methods;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
@@ -11,6 +13,10 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.Request;
 
+import se.unbound.tapestry.breadcrumbs.BreadCrumb;
+import se.unbound.tapestry.breadcrumbs.BreadCrumbInfo;
+import se.unbound.tapestry.breadcrumbs.BreadCrumbList;
+
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.ApprovalVotingText;
 import com.pfc.ballots.dao.*;
@@ -20,6 +26,7 @@ import com.pfc.ballots.dao.*;
  * @version 1.0 DIC-2014
  *
  */
+@BreadCrumb(titleKey="Approvalvoting.title")
 public class ApprovalVotingMethod {
 
 	@Inject
@@ -53,6 +60,8 @@ public class ApprovalVotingMethod {
 	private Request request;
 	FactoryDao DB4O=FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);
 
+	@SessionState
+	private BreadCrumbList breadCrumbList;
 	
 	public ApprovalVotingMethod(){
 

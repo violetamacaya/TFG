@@ -4,7 +4,13 @@
 	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
 	</head>   
 	<t:border><div id="contactDiv">
-	
+		<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:Index-crumb}</a></li>
+			<li><a href="Contact">${message:Contact-crumb}</a></li>
+
+		</ul>
+	</div>
 	
 	<h1>${message:contact-with-us}</h1><hr/>
 	

@@ -9,6 +9,14 @@
 
 <t:border>
 	<div id="userlistdiv">
+	<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:Index-crumb}</a></li>
+			<li><t:eventlink t:event="breadCrumbs" t:context="literal:userList"><plain>${message:admin-crumb}</plain></t:eventlink></li>
+			<li><a href="#">${message:perfilfichero-crumb}</a></li>		
+
+		</ul>
+	</div>
 
 		<h1>${message:add-by-file}</h1>
 		<hr />

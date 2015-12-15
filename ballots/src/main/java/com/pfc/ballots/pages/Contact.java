@@ -9,11 +9,17 @@ import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.beaneditor.Width;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import se.unbound.tapestry.breadcrumbs.BreadCrumb;
+import se.unbound.tapestry.breadcrumbs.BreadCrumbReset;
+
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.util.Mail;
 
+
+@BreadCrumb(titleKey="contact.title")
+@BreadCrumbReset(ignorePages = {Index.class})
 public class Contact
 {
 	

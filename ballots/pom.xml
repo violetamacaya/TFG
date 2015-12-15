@@ -131,12 +131,13 @@
 			<artifactId>filters</artifactId>
 			<version>2.0.235</version>
 		</dependency>
-
-		<!--  <dependency>
-			<groupId>org.got5</groupId>
-			<artifactId>tapestry5-jquery</artifactId>
-			<version>3.4.2</version>
-		</dependency>-->
+		<dependency>
+			<groupId>se.unbound</groupId>
+			<artifactId>tapestry-breadcrumbs</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<!-- <dependency> <groupId>org.got5</groupId> <artifactId>tapestry5-jquery</artifactId> 
+			<version>3.4.2</version> </dependency> -->
 
 	</dependencies>
 	<build>

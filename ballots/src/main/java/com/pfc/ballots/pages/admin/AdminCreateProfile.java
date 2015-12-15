@@ -21,12 +21,12 @@ import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
 
 
+
 @Secure
 public class AdminCreateProfile {
 
 	@SessionState
 	private DataSession datasession;
-	
 	@Inject
     private ComponentResources componentResources;
 

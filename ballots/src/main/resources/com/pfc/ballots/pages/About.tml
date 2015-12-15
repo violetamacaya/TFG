@@ -8,7 +8,13 @@
 </head>
 <t:border>
 	<div id="contactDiv">
+	<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:Index-crumb}</a></li>
+			<li><a href="About">${message:About-crumb}</a></li>
 
+		</ul>
+	</div>
 		<t:if test="showDefault">
 			<h1>
 				<titlelist>${message:group}</titlelist>

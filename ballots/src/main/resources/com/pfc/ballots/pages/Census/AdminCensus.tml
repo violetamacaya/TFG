@@ -5,7 +5,13 @@
   </head>
 
 	<t:border><div id="censuslistdiv">
-		
+			<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:index}</a></li>
+			<li><a href="CensusList">${message:census}</a></li>
+			<li><a href="#">${message:actual}</a></li>
+		</ul>
+	</div>
 		<h1>${message:admin-census}</h1><hr/>
 		
 		<t:zone t:id="searchZone" id="searchZone" t:update="show">

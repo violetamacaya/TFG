@@ -11,7 +11,13 @@
 
 <t:border>
 	<div id="CreateballotDiv">
-
+		<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:index}</a></li>
+			<li><a href="BallotList">${message:ballot}</a></li>
+			<li><a href="#">${message:actual}</a></li>
+		</ul>
+	</div>
 		<h1>${message:create-ballot}</h1>
 		<hr />
 

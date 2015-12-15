@@ -3594,7 +3594,9 @@ public class CreateBallot {
 				{
 					//Genera votos aleatoriamente para la votacion docente
 					ballot.setIdCensus("none");
-					//mejorPeor.setVotesPos(GenerateDocentVotes.generateMejorPeor(mejorPeor.getOptions(), Integer.parseInt(census)));
+					List<List<String>> docentes = GenerateDocentVotes.generateMejorPeor(mejorPeor.getOptions(), Integer.parseInt(census));
+					mejorPeor.setVotesPos(docentes.get(0));
+					mejorPeor.setVotesNeg(docentes.get(1));
 					//HACER RECUENTO VOTOS AQUI PARA DOCENTES
 					mejorPeor.calcularMejorPeor();
 					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)

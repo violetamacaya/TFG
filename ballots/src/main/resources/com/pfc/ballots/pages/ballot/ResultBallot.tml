@@ -22,7 +22,13 @@
 
 <t:border>
 	<div id="resultBallotDiv">
-
+				<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:index}</a></li>
+			<li><a href="BallotList">${message:ballot}</a></li>
+			<li><a href="#">${message:actual}</a></li>
+		</ul>
+	</div>
 		<h1>${message:ballot-result}</h1>
 		<hr />
 
@@ -210,7 +216,7 @@
 			<table border="1px">
 				<tr>
 					<th>${message:option}</th>
-					<th>${message:votes}</th>
+					<th>${message:score}</th>
 				</tr>
 				<t:loop t:source="CondorcetOptions" t:value="option">
 					<tr>
@@ -226,7 +232,7 @@
 			<table border="1px">
 				<tr>
 					<th>${message:option}</th>
-					<th>${message:votes}</th>
+					<th>${message:score}</th>
 				</tr>
 				<t:loop t:source="BlackOptions" t:value="option">
 					<tr>
@@ -242,7 +248,7 @@
 			<table border="1px">
 				<tr>
 					<th>${message:option}</th>
-					<th>${message:votes}</th>
+					<th>${message:score}</th>
 				</tr>
 				<t:loop t:source="CopelandOptions" t:value="option">
 					<tr>
@@ -258,7 +264,7 @@
 			<table border="1px">
 				<tr>
 					<th>${message:option}</th>
-					<th>${message:votes}</th>
+					<th>${message:score}</th>
 				</tr>
 				<t:loop t:source="SchulzeOptions" t:value="option">
 					<tr>
@@ -274,7 +280,7 @@
 			<table border="1px">
 				<tr>
 					<th>${message:option}</th>
-					<th>${message:votes}</th>
+					<th>${message:score}</th>
 				</tr>
 				<t:loop t:source="SmallOptions" t:value="option">
 					<tr>
@@ -289,7 +295,7 @@
 			<table border="1px">
 				<tr>
 					<th>${message:option}</th>
-					<th>${message:votes}</th>
+					<th>${message:score}</th>
 				</tr>
 				<t:loop t:source="DodgsonOptions" t:value="option">
 					<tr>
@@ -299,7 +305,21 @@
 				</t:loop>
 			</table>
 		</t:if>
+		<t:if test="showMejorPeor">
 
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:score}</th>
+				</tr>
+				<t:loop t:source="MejorPeorOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${mejorPeorVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
 
 
 

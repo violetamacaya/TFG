@@ -239,17 +239,23 @@ public class GenerateDocentVotes {
 		return votes;
 	}
 	
-	public static List<String> generateMejorPeor(List<String> options, int numVotes) {
-		List<String> votes=new LinkedList<String>();
-
+	public static List<List<String>> generateMejorPeor(List<String> options, int numVotes) {
+		List<List<String>> votes=new LinkedList<List<String>>();
+		List<String> votosPos = new LinkedList<String>();
+		List<String> votosNeg = new LinkedList<String>();
+		
 		//Cada votante tiene 2 votos (mejor-peor)
 		for(int i=0; i<numVotes; i++){
-			int[] votospersona = new int[options.size()]; //Array que almacena los votos de una persona.
-				int posvoto = 0 + (int)(Math.random() * ((votospersona.length - 1) + 1));
-				votes.add(options.get(posvoto));
-			
+				int posvoto = 0 + (int)(Math.random() * (options.size()-1));
+				int negvoto = posvoto;
+				while (negvoto == posvoto){
+					negvoto = 0 + (int)(Math.random() * (options.size()-1));
+				}			
+				votosPos.add(options.get(posvoto));
+				votosNeg.add(options.get(negvoto));
 		}
-
+		votes.add(votosPos);
+		votes.add(votosNeg);
 		return votes;
 	}
 
@@ -258,44 +264,109 @@ public class GenerateDocentVotes {
 	{ 
 		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
 		List<List<String>>votes=new LinkedList<List<String>>();
-		List<String> vote = new LinkedList<String>();
 		
-		for(int i=1; i<=numVotes;i++)
+		for(int i=0; i<numVotes;i++)
 		{
+			List<String> vote = new LinkedList<String>();
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
-				Integer prioridad = 1 + (int)(Math.random() * options.size());	
+				Integer prioridad = (int)(Math.random() * options.size());	
 					vote.add(prioridad.toString());
-					votes.add(vote);
 			}
-			
+			votes.add(vote);
+
 		}
 
 		return votes;
 	}
-	public static List<List<String>> generateBlack(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	static public List<List<String>> generateBlack(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				Integer prioridad = (int)(Math.random() * options.size());	
+					vote.add(prioridad.toString());
+			}
+			votes.add(vote);
+
+		}
+
+		return votes;
 	}
-	public static List<List<String>> generateDodgson(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	static public List<List<String>> generateDodgson(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				Integer prioridad = (int)(Math.random() * options.size());	
+					vote.add(prioridad.toString());
+			}
+			votes.add(vote);
+
+		}
+
+		return votes;
 	}
-	public static List<List<String>> generateCopeland(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	static public List<List<String>> generateCopeland(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				Integer prioridad = (int)(Math.random() * options.size());	
+					vote.add(prioridad.toString());
+			}
+			votes.add(vote);
+
+		}
+
+		return votes;
 	}
-	public static List<List<String>> generateSchulze(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	static public List<List<String>> generateSchulze(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				Integer prioridad = (int)(Math.random() * options.size());	
+					vote.add(prioridad.toString());
+			}
+			votes.add(vote);
+
+		}
+
+		return votes;
 	}
-	public static List<List<String>> generateSmall(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	static public List<List<String>> generateSmall(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				Integer prioridad = (int)(Math.random() * options.size());	
+					vote.add(prioridad.toString());
+			}
+			votes.add(vote);
+
+		}
+
+		return votes;
 	}
 
 	public static List<List<String>> generateBucklin(List<String> options,

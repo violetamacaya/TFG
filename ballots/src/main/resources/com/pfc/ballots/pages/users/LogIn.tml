@@ -6,7 +6,13 @@
 	<t:border><div id="showprofileDiv">
 		<head></head>
 		<body>
-		
+				<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:Index-crumb}</a></li>
+			<li><a href="LogIn">${message:Login-crumb}</a></li>
+
+		</ul>
+	</div>
 			<h1>${message:login-page}</h1>
 			<infouser>
 			<t:zone t:id="logForm" id="logForm">

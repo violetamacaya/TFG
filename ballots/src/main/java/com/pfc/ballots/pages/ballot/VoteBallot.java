@@ -210,7 +210,7 @@ public class VoteBallot {
 			relMayVote=relMay.getOptions().get(0);
 		}
 		if(ballot.getMethod()==Method.KEMENY)
-		{
+		{	
 			kemenyDao=DB4O.getKemenyDao(datasession.getDBName());
 			kemeny=kemenyDao.getByBallotId(contextBallotId);
 			kemenyVote=new LinkedList<String>();
@@ -4514,33 +4514,7 @@ public class VoteBallot {
 	{
 		if(request.isXHR())
 		{
-			if(mejorPeor.getOptions().size()==2){
-				if((Integer.parseInt(mejorPeorRadio0) + Integer.parseInt(mejorPeorRadio1))== 3)
-				{showErrorMejorPeor=false;}
-				else {showErrorMejorPeor=true;}
-			}
-
-			else if(mejorPeor.getOptions().size()==3){
-				if((Integer.parseInt(mejorPeorRadio0) + Integer.parseInt(mejorPeorRadio1)+ Integer.parseInt(mejorPeorRadio2))== 3)
-				{showErrorMejorPeor=false;}
-				else {showErrorMejorPeor=true;}
-			}
-			else if(mejorPeor.getOptions().size()==4){
-				if((Integer.parseInt(mejorPeorRadio0) + Integer.parseInt(mejorPeorRadio1) + Integer.parseInt(mejorPeorRadio2)+ Integer.parseInt(mejorPeorRadio3))== 3)
-				{showErrorMejorPeor=false;}
-				else {showErrorMejorPeor=true;}
-			}
-			else if(mejorPeor.getOptions().size()==5){
-				if((Integer.parseInt(mejorPeorRadio0) + Integer.parseInt(mejorPeorRadio1) + Integer.parseInt(mejorPeorRadio2)+ Integer.parseInt(mejorPeorRadio3)+ Integer.parseInt(mejorPeorRadio4))== 3)
-				{showErrorMejorPeor=false;}
-				else {showErrorMejorPeor=true;}
-			}
-			else if(mejorPeor.getOptions().size()==6){
-				if((Integer.parseInt(mejorPeorRadio0) + Integer.parseInt(mejorPeorRadio1) + Integer.parseInt(mejorPeorRadio2)+ Integer.parseInt(mejorPeorRadio3)+ Integer.parseInt(mejorPeorRadio4)+ Integer.parseInt(mejorPeorRadio5))== 3)
-				{showErrorMejorPeor=false;}
-				else {showErrorMejorPeor=true;}
-			}		
-			else if(mejorPeor.getOptions().size()==7){
+			if(mejorPeor.getOptions().size()==7){
 				if((Integer.parseInt(mejorPeorRadio0) + Integer.parseInt(mejorPeorRadio1) + Integer.parseInt(mejorPeorRadio2)+ Integer.parseInt(mejorPeorRadio3)+ Integer.parseInt(mejorPeorRadio4)+ Integer.parseInt(mejorPeorRadio5)+ Integer.parseInt(mejorPeorRadio6))== 3)
 				{showErrorMejorPeor=false;}
 				else {showErrorMejorPeor=true;}

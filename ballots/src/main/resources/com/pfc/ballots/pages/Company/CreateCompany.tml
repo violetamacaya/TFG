@@ -1,102 +1,113 @@
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-     <head><title>${message:page-title}</title>
- <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
-	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/>
-	</head>
-   
-	<t:border><div id="companyDiv">
-	
-		<h1>${message:create-company}</h1><hr/>
-		<infouser>
-		   <t:if test="isBadChar">
-		   		<span class="error">${message:badChar}<br/></span>
-		   </t:if>
-		   <t:if test="badSecurity">
-	   				<span class="error">${message:bad-security}</span>
-	   		</t:if>
-	   		<t:if test="isnotPassOk" >
-					<span class="error">${message:pass-not-match}</span>
-			</t:if>
-			<t:if test="isnotDBNameAvalible" >
-				<span class="error">${message:non-available-db}</span>	
-			</t:if>
-			<t:if test="badAlias">
-			  	<span class="error">${message:bad-alias}</span>
-			  </t:if>		
-		   
-	       <t:beaneditform t:id="form" submitlabel="${message:create-but}" object="company" reorder="active,companyName,DBName,alias" add="password,repeat">
-		       <p:CompanyName>
-		       		<t:label for="CompanyName"/>
-		       		<t:textfield t:id="CompanyName" value="company.CompanyName"/>
-		       		<span class="error">
-			       		<t:if test="isnotCompanyNameAvalible">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
+	<div id="companyDiv">
+		<div class="t-zbreadcrumbs">
+			<ul class="t-zbreadcrumbs">
+				<li><a href="Index">${message:index}</a></li>
+				<li><a href="ListCompany">${message:company}</a></li>
+				<li><a href="#">${message:actual}</a></li>
+			</ul>
+		</div>
+
+		<h1>${message:create-company}</h1>
+		<hr />
+		<infouser> <t:if test="isBadChar">
+			<span class="error">${message:badChar}<br /></span>
+		</t:if> <t:if test="badSecurity">
+			<span class="error">${message:bad-security}</span>
+		</t:if> <t:if test="isnotPassOk">
+			<span class="error">${message:pass-not-match}</span>
+		</t:if> <t:if test="isnotDBNameAvalible">
+			<span class="error">${message:non-available-db}</span>
+		</t:if> <t:if test="badAlias">
+			<span class="error">${message:bad-alias}</span>
+		</t:if> <t:beaneditform t:id="form" submitlabel="${message:create-but}"
+			object="company" reorder="active,companyName,DBName,alias"
+			add="password,repeat">
+			<p:CompanyName>
+				<t:label for="CompanyName" />
+				<t:textfield t:id="CompanyName" value="company.CompanyName" />
+				<span class="error"> <t:if test="isnotCompanyNameAvalible">
 							${message:non-available-company}	
-						</t:if>
-						<t:if test="isBadName">
+						</t:if> <t:if test="isBadName">
 			   				${message:badName}
 			  			</t:if>
-			  			
-		  			</span>
-		       </p:CompanyName>
-		       <p:DBName>
-		       		<t:label for="DBName"/>
-		       		<t:textfield t:id="DBName" value="company.DBName" validate="required,minLength=6"/>
-		       		
-		       </p:DBName>
-		       <p:password>
-		       		<t:label for="password"/>
-		       		<t:passwordfield t:id="password" validate="required,minLength=8"/>
-		       		
-		       </p:password>
-		       
-		       <p:repeat>
-		       		<t:label for="repeat"/>
-		       		<t:passwordfield t:id="repeat" validate="required,minLength=6"/>
-		       </p:repeat>
-		       
-		       <p:firstName>
-		       		<t:label for="firstName"/>
-		       		<t:textfield t:id="firstName" value="company.firstName" validate="required"/>
-		       </p:firstName>
-		       
-		       <p:lastName>
-		       		<t:label for="lastName"/>
-		       		<t:textfield t:id="lastName" value="company.lastName" validate="required"/>
-		       </p:lastName>
-		       
-		       <p:address>
-		       		<t:label for="address"/>
-		       		<t:textfield t:id="address" value="company.address" validate="required"/>
-		       </p:address>
-		       
-		       <p:cp>
-		       		<t:label for="cp"/>
-		       		<t:textfield t:id="cp" value="company.cp" validate="required"/>
-		       </p:cp>
-		       <p:localidad>
-		       		<t:label for="localidad"/>
-		       		<t:textfield t:id="localidad" value="company.localidad" validate="required"/>
-		       </p:localidad>>
+
+				</span>
+			</p:CompanyName>
+			<p:DBName>
+				<t:label for="DBName" />
+				<t:textfield t:id="DBName" value="company.DBName"
+					validate="required,minLength=6" />
+
+			</p:DBName>
+			<p:password>
+				<t:label for="password" />
+				<t:passwordfield t:id="password" validate="required,minLength=8" />
+
+			</p:password>
+
+			<p:repeat>
+				<t:label for="repeat" />
+				<t:passwordfield t:id="repeat" validate="required,minLength=6" />
+			</p:repeat>
+
+			<p:firstName>
+				<t:label for="firstName" />
+				<t:textfield t:id="firstName" value="company.firstName"
+					validate="required" />
+			</p:firstName>
+
+			<p:lastName>
+				<t:label for="lastName" />
+				<t:textfield t:id="lastName" value="company.lastName"
+					validate="required" />
+			</p:lastName>
+
+			<p:address>
+				<t:label for="address" />
+				<t:textfield t:id="address" value="company.address"
+					validate="required" />
+			</p:address>
+
+			<p:cp>
+				<t:label for="cp" />
+				<t:textfield t:id="cp" value="company.cp" validate="required" />
+			</p:cp>
+			<p:localidad>
+				<t:label for="localidad" />
+				<t:textfield t:id="localidad" value="company.localidad"
+					validate="required" />
+			</p:localidad>>
 		       
 		       <p:provincia>
-		       		<t:label for="provincia"/>
-		       		<t:textfield t:id="provincia" value="company.provincia" validate="required"/>
-		       </p:provincia>
-		       
-		       <p:pais>
-		       		<t:label for="pais"/>
-		       		<t:textfield t:id="pais" value="company.pais" validate="required"/>
-		       </p:pais>
-		       
-		       <p:url>
-		       		<t:label for="url"/>
-		       		<t:textfield t:id="url" value="company.url"/>
-		       </p:url>		       
-	       </t:beaneditform>
-		</infouser>
-	
-	</div></t:border>
-	
-		
-			
+				<t:label for="provincia" />
+				<t:textfield t:id="provincia" value="company.provincia"
+					validate="required" />
+			</p:provincia>
+
+			<p:pais>
+				<t:label for="pais" />
+				<t:textfield t:id="pais" value="company.pais" validate="required" />
+			</p:pais>
+
+			<p:url>
+				<t:label for="url" />
+				<t:textfield t:id="url" value="company.url" />
+			</p:url>
+		</t:beaneditform> </infouser>
+
+	</div>
+</t:border>
+
+
+
 </html>

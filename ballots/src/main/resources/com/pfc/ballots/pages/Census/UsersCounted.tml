@@ -1,306 +1,357 @@
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<head><title>${message:page-title}</title>
-	 <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}"/>
-	<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon"/></head>
-	
-	<t:border>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
 
 
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    //////////////////////////////////////// USERS COUNTED ZONE ///////////////////////////////////////////////
 	   /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-		<t:zone t:id="usersCountedZone" id="usersCountedZone" t:update="show">
-			<t:if test="!showUsersCountedZone">
-				<h1>${censusName}<t:actionlink t:id="editbut" t:zone="^"><img src="${asset:context:/layout/images/edit.png}"/></t:actionlink></h1>
-				
-				<t:grid source="users" row="user" exclude="regdate,password,id,lastlog, sex, phone, address, carrera, centro">
-					<p:adminCell>
-						<t:if test="user.admin">
-							<img src="${asset:context:/layout/tickv.png}" />
+	<t:zone t:id="usersCountedZone" id="usersCountedZone" t:update="show">
+		<div class="t-zbreadcrumbs">
+			<ul class="t-zbreadcrumbs">
+				<li><a href="Index">${message:index}</a></li>
+				<li><a href="CensusList">${message:census}</a></li>
+				<li><a href="#">${message:actual}</a></li>
+			</ul>
+		</div>
+		<t:if test="!showUsersCountedZone">
+			<h1>
+				${censusName}
+				<t:actionlink t:id="editbut" t:zone="^">
+					<img src="${asset:context:/layout/images/edit.png}" />
+				</t:actionlink>
+			</h1>
+
+			<t:grid source="users" row="user"
+				exclude="regdate,password,id,lastlog, sex, phone, address, carrera, centro">
+				<p:adminCell>
+					<t:if test="user.admin">
+						<img src="${asset:context:/layout/tickv.png}" />
 						<p:else>
 							<img src="${asset:context:/layout/tickx.png}" />
 						</p:else>
-						</t:if>
-					</p:adminCell>
-					<p:makerCell>
-						<t:if test="user.maker">
-							<img src="${asset:context:/layout/tickv.png}" />
+					</t:if>
+				</p:adminCell>
+				<p:makerCell>
+					<t:if test="user.maker">
+						<img src="${asset:context:/layout/tickv.png}" />
 						<p:else>
 							<img src="${asset:context:/layout/tickx.png}" />
 						</p:else>
-						</t:if>
-					</p:makerCell>
-					<p:studentCell>
-						<t:if test="user.student">
-							<img src="${asset:context:/layout/tickv.png}" />
+					</t:if>
+				</p:makerCell>
+				<p:studentCell>
+					<t:if test="user.student">
+						<img src="${asset:context:/layout/tickv.png}" />
 						<p:else>
 							<img src="${asset:context:/layout/tickx.png}" />
 						</p:else>
-						</t:if>
-					</p:studentCell>
-					<p:ownerCell>
-						<t:if test="user.owner">
-							<img src="${asset:context:/layout/tickv.png}" />
+					</t:if>
+				</p:studentCell>
+				<p:ownerCell>
+					<t:if test="user.owner">
+						<img src="${asset:context:/layout/tickv.png}" />
 						<p:else>
 							<img src="${asset:context:/layout/tickx.png}" />
 						</p:else>
-						</t:if>
-					</p:ownerCell>
-				</t:grid>
-			</t:if>
-		</t:zone>
-		<t:zone t:id="upperBackZone" id="upperBackZone" t:update="show">
-			<t:if test="showUsersCountedZone">
-				<t:eventLink  t:event="back" zone="^"><button class="boton">${message:finish-but}</button></t:eventLink>
-			</t:if>
-		</t:zone>
-		
-		
+					</t:if>
+				</p:ownerCell>
+			</t:grid>
+		</t:if>
+	</t:zone>
+	<t:zone t:id="upperBackZone" id="upperBackZone" t:update="show">
+		<t:if test="showUsersCountedZone">
+			<t:eventLink t:event="back" zone="^">
+				<button class="boton">${message:finish-but}</button>
+			</t:eventLink>
+		</t:if>
+	</t:zone>
+
+
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    //////////////////////////////////////// EDIT CENSUS NAME /////////////////////////////////////////////////
 	   /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-		
-		<t:zone t:id="nameZone" id="nameZone" t:update="show">
-			<t:if test="showNameZone">
-				<t:form t:id="nameForm" zone="^">
-					<table>
-						<tr>
-							<td><t:label for="censusName"/></td>
-							<td>
-								<t:textfield t:id="censusName"/>
-								<t:if test="nameNotAvalible">
+
+	<t:zone t:id="nameZone" id="nameZone" t:update="show">
+		<t:if test="showNameZone">
+			<t:form t:id="nameForm" zone="^">
+				<table>
+					<tr>
+						<td><t:label for="censusName" /></td>
+						<td><t:textfield t:id="censusName" /> <t:if
+								test="nameNotAvalible">
 									${message:non-available}
-								</t:if>
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><input t:type="submit" class="boton" value="${message:update-but}"/>
-							<t:actionLink t:id="cancelNameBut" zone="^"><button class="boton" >${message:restore-but}</button></t:actionLink></td>
-						</tr>
-					</table>
-				</t:form>
+								</t:if></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input t:type="submit" class="boton"
+							value="${message:update-but}" /> <t:actionLink
+								t:id="cancelNameBut" zone="^">
+								<button class="boton">${message:restore-but}</button>
+							</t:actionLink></td>
+					</tr>
+				</table>
+			</t:form>
+		</t:if>
+	</t:zone>
+
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //////////////////////////////////////// BASIC SEARCH ////////////////////////////////////////////////////
+	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+	<t:zone t:id="searchTypeZone" id="searchTypeZone" t:update="show">
+		<t:if test="showSearchType">
+			<t:if test="showBasicSearch">
+				<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search}</t:eventlink>
+				<br />
+				<br />
+				<p:else>
+					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink>
+					<br />
+					<br />
+				</p:else>
 			</t:if>
-		</t:zone>
-		
+		</t:if>
+	</t:zone>
+
+
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    //////////////////////////////////////// BASIC SEARCH ////////////////////////////////////////////////////
 	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-	   
-	   <t:zone t:id="searchTypeZone" id="searchTypeZone" t:update="show">
-	   		<t:if test="showSearchType">
-	   			<t:if test="showBasicSearch">
-	   				<t:eventlink t:event="switchSearch" zone="^">${message:advanced-search}</t:eventlink><br/><br/>
-	   				<p:else>
-	   					<t:eventlink t:event="switchSearch" zone="^">${message:basic-search}</t:eventlink><br/><br/>
-	   				</p:else>
-	   			</t:if>
-	   		</t:if>
-	   </t:zone>
-	   
-	   
-	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
-	    //////////////////////////////////////// BASIC SEARCH ////////////////////////////////////////////////////
-	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-	   
-	   <t:zone t:id="basicSearchZone" id="basicSearchZone" t:update="show">
-	   		<t:if test="showBasicSearch">
-	   			<t:form t:id="basicSearchForm" zone="^">
-	   				<table>
-	   					<tr>
-	   						<td><t:label for="email"/></td>
-	   						<td><t:textfield t:id="email"/></td>
-	   					</tr>
-	   					<tr>
-	   						<td></td>
-	   						<td><p style="text-align:center;"><input class="boton" t:type="submit" value="${message:search-but}"/></p></td>
-	   					</tr>
-	   					
-	   				</table>
-	   			</t:form>
-	   		</t:if>
-	   </t:zone>
+
+	<t:zone t:id="basicSearchZone" id="basicSearchZone" t:update="show">
+		<t:if test="showBasicSearch">
+			<t:form t:id="basicSearchForm" zone="^">
+				<table>
+					<tr>
+						<td><t:label for="email" /></td>
+						<td><t:textfield t:id="email" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><p style="text-align: center;">
+								<input class="boton" t:type="submit"
+									value="${message:search-but}" />
+							</p></td>
+					</tr>
+
+				</table>
+			</t:form>
+		</t:if>
+	</t:zone>
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    ////////////////////////////////////// ADVANCED SEARCH ///////////////////////////////////////////////////
 	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-	   
-		<t:zone t:id="advancedSearchZone" id="advancedSearchZone" t:update="show">
-	   		<t:if test="showAdvancedSearch">
-	   			<t:form t:id="advancedSearchForm" zone="^">
-	   				<table>
-   						<tr>
-								<td><t:label for="admin"/></td>
-								<td><t:checkbox t:id="admin" value="profile.admin"/></td>
-						</tr>
-						<tr>
-								<td><t:label for="maker"/></td>
-								<td><t:checkbox t:id="maker" value="profile.maker"/></td>
-						</tr>
-						<tr>
-					 		<td><t:label for="firstName"/></td>
-					 		<td><t:textfield t:id="firstName"></t:textfield></td>
-					 	</tr>
-						<tr>
-			 					<td><t:label for="lastName"/></td>
-			 					<td><t:textfield t:id="lastName"></t:textfield></td>
-			 			</tr>
-				 		<tr>
-					 			<td><t:label for="city"/></td>
-					 			<td><t:textfield t:id="city" value="profile.city"/></td>
-				 		</tr>
-				 		<tr>
-					 			<td><t:label for="country"/></td>
-					 			<td><t:textfield t:id="country" value="profile.country"/></td>
-				 		</tr>					 	
-					 	<tr>
-					 		<td></td>
-							<td><p style="text-align:center;"><input t:type="submit" class="boton" value="${message:search-but}"/>
-								<t:actionlink t:id="reset" t:zone="^"><button>${message:reset-but}</button></t:actionlink>
+
+	<t:zone t:id="advancedSearchZone" id="advancedSearchZone"
+		t:update="show">
+		<t:if test="showAdvancedSearch">
+			<t:form t:id="advancedSearchForm" zone="^">
+				<table>
+					<tr>
+						<td><t:label for="admin" /></td>
+						<td><t:checkbox t:id="admin" value="profile.admin" /></td>
+					</tr>
+					<tr>
+						<td><t:label for="maker" /></td>
+						<td><t:checkbox t:id="maker" value="profile.maker" /></td>
+					</tr>
+					<tr>
+						<td><t:label for="firstName" /></td>
+						<td><t:textfield t:id="firstName"></t:textfield></td>
+					</tr>
+					<tr>
+						<td><t:label for="lastName" /></td>
+						<td><t:textfield t:id="lastName"></t:textfield></td>
+					</tr>
+					<tr>
+						<td><t:label for="city" /></td>
+						<td><t:textfield t:id="city" value="profile.city" /></td>
+					</tr>
+					<tr>
+						<td><t:label for="country" /></td>
+						<td><t:textfield t:id="country" value="profile.country" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><p style="text-align: center;">
+								<input t:type="submit" class="boton"
+									value="${message:search-but}" />
+								<t:actionlink t:id="reset" t:zone="^">
+									<button>${message:reset-but}</button>
+								</t:actionlink>
 							</p></td>
-									
-					 	</tr>	   				
-	   				</table>
-	   			</t:form>
-	   			
-	   		</t:if>
-	   </t:zone>
+
+					</tr>
+				</table>
+			</t:form>
+
+		</t:if>
+	</t:zone>
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    /////////////////////////////////////// SEARCH  LIST /////////////////////////////////////////////////////
 	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-		
-		<t:zone t:id="searchListZone" id="searchListZone" t:update="show">
-			<t:if test="showSearchType">
-				<t:form t:id="addForm" zone="^">
-					<table>
-						<tr id="showUsers"><td><t:actionlink t:id="showAll" t:zone="^">${message:showall-users}</t:actionlink></td></tr>
-						<tr><td>
-							<t:if test="showSearchList">
-								<t:grid source="searchList" row="user" add="add" reorder="add" exclude="regdate,password,id,lastlog,sex,address,carrera, centro, phone">
+
+	<t:zone t:id="searchListZone" id="searchListZone" t:update="show">
+		<t:if test="showSearchType">
+			<t:form t:id="addForm" zone="^">
+				<table>
+					<tr id="showUsers">
+						<td><t:actionlink t:id="showAll" t:zone="^">${message:showall-users}</t:actionlink></td>
+					</tr>
+					<tr>
+						<td><t:if test="showSearchList">
+								<t:grid source="searchList" row="user" add="add" reorder="add"
+									exclude="regdate,password,id,lastlog,sex,address,carrera, centro, phone">
 									<p:addCell>
-										<t:checkbox t:id="add"/>
+										<t:checkbox t:id="add" />
 									</p:addCell>
 									<p:adminCell>
 										<t:if test="user.admin">
 											<img src="${asset:context:/layout/tickv.png}" />
-										<p:else>
-											<img src="${asset:context:/layout/tickx.png}" />
-										</p:else>
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
 										</t:if>
 									</p:adminCell>
 									<p:makerCell>
 										<t:if test="user.maker">
 											<img src="${asset:context:/layout/tickv.png}" />
-										<p:else>
-											<img src="${asset:context:/layout/tickx.png}" />
-										</p:else>
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
 										</t:if>
 									</p:makerCell>
 									<p:studentCell>
 										<t:if test="user.student">
 											<img src="${asset:context:/layout/tickv.png}" />
-										<p:else>
-											<img src="${asset:context:/layout/tickx.png}" />
-										</p:else>
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
 										</t:if>
 									</p:studentCell>
 									<p:ownerCell>
 										<t:if test="user.owner">
 											<img src="${asset:context:/layout/tickv.png}" />
-										<p:else>
-											<img src="${asset:context:/layout/tickx.png}" />
-										</p:else>
+											<p:else>
+												<img src="${asset:context:/layout/tickx.png}" />
+											</p:else>
 										</t:if>
 									</p:ownerCell>
-								
+
 								</t:grid>
-							</t:if>
-						</td></tr>
-						<tr><td>
-							<t:if test="showSearchList">
-								<input t:type="submit" class="boton" value="${message:add-but}"/><t:actionlink t:id="addAll" t:zone="^"><button>${message:addall-but}</button></t:actionlink>
-							</t:if>
-						</td></tr>
-					</table>
-				</t:form>
-			</t:if>
-		</t:zone>
-		
-		
+							</t:if></td>
+					</tr>
+					<tr>
+						<td><t:if test="showSearchList">
+								<input t:type="submit" class="boton" value="${message:add-but}" />
+								<t:actionlink t:id="addAll" t:zone="^">
+									<button>${message:addall-but}</button>
+								</t:actionlink>
+							</t:if></td>
+					</tr>
+				</table>
+			</t:form>
+		</t:if>
+	</t:zone>
+
+
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    ////////////////////////////////// USERS COUNTED EDIT GRID ///////////////////////////////////////////////
 	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-		<t:zone t:id="usersCountedEditZone" id="usersCountedEditZone" t:update="show">
-			<t:if test="showCountedEdit">
-				<br/>
-				<br/>
-				<br/>
-				<t:form t:id="removeForm" t:zone="^">
-					<table>
-						<tr><td>
-							<t:grid source="editUsers" row="user" add="remove" reorder="remove" exclude="regdate,password,id,lastlog,sex,address,carrera, centro, phone">
+	<t:zone t:id="usersCountedEditZone" id="usersCountedEditZone"
+		t:update="show">
+		<t:if test="showCountedEdit">
+			<br />
+			<br />
+			<br />
+			<t:form t:id="removeForm" t:zone="^">
+				<table>
+					<tr>
+						<td><t:grid source="editUsers" row="user" add="remove"
+								reorder="remove"
+								exclude="regdate,password,id,lastlog,sex,address,carrera, centro, phone">
 								<p:removeCell>
-									<t:checkbox t:id="remove"/>	
+									<t:checkbox t:id="remove" />
 								</p:removeCell>
 								<p:adminCell>
-								<t:if test="user.admin">
-									<img src="${asset:context:/layout/tickv.png}" />
-								<p:else>
-									<img src="${asset:context:/layout/tickx.png}" />
-								</p:else>
-								</t:if>
-							</p:adminCell>
-							<p:makerCell>
-								<t:if test="user.maker">
-									<img src="${asset:context:/layout/tickv.png}" />
-								<p:else>
-									<img src="${asset:context:/layout/tickx.png}" />
-								</p:else>
-								</t:if>
-							</p:makerCell>
-							<p:studentCell>
-								<t:if test="user.student">
-									<img src="${asset:context:/layout/tickv.png}" />
-								<p:else>
-									<img src="${asset:context:/layout/tickx.png}" />
-								</p:else>
-								</t:if>
-							</p:studentCell>
-							<p:ownerCell>
-								<t:if test="user.owner">
-									<img src="${asset:context:/layout/tickv.png}" />
-								<p:else>
-									<img src="${asset:context:/layout/tickx.png}" />
-								</p:else>
-								</t:if>
-							</p:ownerCell>
-															
-							</t:grid>
-						</td></tr>
-						<tr><td>
-							<input t:type="submit" class="boton" value="${message:remove-but}"/><t:actionlink t:id="removeAll" t:zone="^"><button class="boton">${message:removeall-but}</button></t:actionlink>
-						</td></tr>
-					</table>
-				</t:form>
-			</t:if>
-		</t:zone>
+									<t:if test="user.admin">
+										<img src="${asset:context:/layout/tickv.png}" />
+										<p:else>
+											<img src="${asset:context:/layout/tickx.png}" />
+										</p:else>
+									</t:if>
+								</p:adminCell>
+								<p:makerCell>
+									<t:if test="user.maker">
+										<img src="${asset:context:/layout/tickv.png}" />
+										<p:else>
+											<img src="${asset:context:/layout/tickx.png}" />
+										</p:else>
+									</t:if>
+								</p:makerCell>
+								<p:studentCell>
+									<t:if test="user.student">
+										<img src="${asset:context:/layout/tickv.png}" />
+										<p:else>
+											<img src="${asset:context:/layout/tickx.png}" />
+										</p:else>
+									</t:if>
+								</p:studentCell>
+								<p:ownerCell>
+									<t:if test="user.owner">
+										<img src="${asset:context:/layout/tickv.png}" />
+										<p:else>
+											<img src="${asset:context:/layout/tickx.png}" />
+										</p:else>
+									</t:if>
+								</p:ownerCell>
+
+							</t:grid></td>
+					</tr>
+					<tr>
+						<td><input t:type="submit" class="boton"
+							value="${message:remove-but}" />
+						<t:actionlink t:id="removeAll" t:zone="^">
+								<button class="boton">${message:removeall-but}</button>
+							</t:actionlink></td>
+					</tr>
+				</table>
+			</t:form>
+		</t:if>
+	</t:zone>
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    /////////////////////////////////// SAVE OR CANCEL CENSUS  ///////////////////////////////////////////////
 	   //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-	   
-		<t:zone t:id="saveCancelZone" id="saveCancelZone" t:update="show">
-	   		<t:if test="showSave">
-	   			<t:actionlink t:id="savebut" t:zone="^"><button class="boton" >${message:save-but}</button></t:actionlink>
-	   		</t:if>
-	   		<t:if test="showCancel">
-	   			<t:actionlink  t:id="cancelbut" t:zone="^"><button class="boton">${message:restore-but}</button></t:actionlink>
-	   		</t:if>
-		</t:zone>
-		
-		<t:zone t:id="lowerBackZone" id="lowerBackZone" t:update="show">
-			<t:if test="showUsersCountedZone">
-				<t:eventLink t:event="back" zone="^"><button  class="boton">${message:finish-but}</button></t:eventLink>
-			</t:if>
-		</t:zone>
-		
-	</t:border>
+
+	<t:zone t:id="saveCancelZone" id="saveCancelZone" t:update="show">
+		<t:if test="showSave">
+			<t:actionlink t:id="savebut" t:zone="^">
+				<button class="boton">${message:save-but}</button>
+			</t:actionlink>
+		</t:if>
+		<t:if test="showCancel">
+			<t:actionlink t:id="cancelbut" t:zone="^">
+				<button class="boton">${message:restore-but}</button>
+			</t:actionlink>
+		</t:if>
+	</t:zone>
+
+	<t:zone t:id="lowerBackZone" id="lowerBackZone" t:update="show">
+		<t:if test="showUsersCountedZone">
+			<t:eventLink t:event="back" zone="^">
+				<button class="boton">${message:finish-but}</button>
+			</t:eventLink>
+		</t:if>
+	</t:zone>
+
+</t:border>
 </html>

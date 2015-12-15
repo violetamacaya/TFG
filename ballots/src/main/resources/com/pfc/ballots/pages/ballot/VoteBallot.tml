@@ -16,7 +16,13 @@
 
 <t:border>
 	<div id="voteDiv">
-
+		<div class="t-zbreadcrumbs">
+			<ul class="t-zbreadcrumbs">
+				<li><a href="Index">${message:index}</a></li>
+				<li><a href="BallotList">${message:ballot}</a></li>
+				<li><a href="#">${message:actual}</a></li>
+			</ul>
+		</div>
 		<t:if test="!voteCounted">
 			<h1>${ballot.name}</h1>
 			<hr />
@@ -1343,7 +1349,8 @@
 								<td>${dodgsonOption0}</td>
 								<t:radioGroup value="dodgsonRadio0" id="radioGroupDodgson0"
 									required="true">
-									<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+									<t:loop source="radiobuttonsizeDodgson"
+										value="radioSizeDodgson">
 										<td><t:radio value="radioSizeDodgson" type="radio" /></td>
 									</t:loop>
 								</t:radioGroup>
@@ -1355,7 +1362,8 @@
 								<td>${dodgsonOption1}</td>
 								<t:radioGroup value="dodgsonRadio1" id="radioGroupDodgson1"
 									required="true">
-									<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+									<t:loop source="radiobuttonsizeDodgson"
+										value="radioSizeDodgson">
 										<td><t:Radio value="radioSizeDodgson" /></td>
 									</t:loop>
 								</t:radioGroup>
@@ -1366,7 +1374,8 @@
 									<td>${dodgsonOption2}</td>
 									<t:radioGroup value="dodgsonRadio2" id="radioGroupDodgson2"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1377,7 +1386,8 @@
 									<td>${dodgsonOption3}</td>
 									<t:radioGroup value="dodgsonRadio3" id="radioGroupDodgson2"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1388,7 +1398,8 @@
 									<td>${dodgsonOption4}</td>
 									<t:radioGroup value="dodgsonRadio4" id="radioGroupDodgson4"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 
@@ -1400,7 +1411,8 @@
 									<td>${dodgsonOption5}</td>
 									<t:radioGroup value="dodgsonRadio5" id="radioGroupDodgson5"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1411,7 +1423,8 @@
 									<td>${dodgsonOption6}</td>
 									<t:radioGroup value="dodgsonRadio6" id="radioGroupDodgson6"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1422,7 +1435,8 @@
 									<td>${dodgsonOption7}</td>
 									<t:radioGroup value="dodgsonRadio7" id="radioGroupDodgson7"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1433,7 +1447,8 @@
 									<td>${dodgsonOption8}</td>
 									<t:radioGroup value="dodgsonRadio8" id="radioGroupDodgson8"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1444,7 +1459,8 @@
 									<td>${dodgsonOption9}</td>
 									<t:radioGroup value="dodgsonRadio9" id="radioGroupDodgson9"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1455,7 +1471,8 @@
 									<td>${dodgsonOption10}</td>
 									<t:radioGroup value="dodgsonRadio10" id="radioGroupDodgson10"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1466,7 +1483,8 @@
 									<td>${dodgsonOption11}</td>
 									<t:radioGroup value="dodgsonRadio11" id="radioGroupDodgson11"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1477,7 +1495,8 @@
 									<td>${dodgsonOption12}</td>
 									<t:radioGroup value="dodgsonRadio12" id="radioGroupDodgson12"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 
@@ -1489,7 +1508,8 @@
 									<td>${dodgsonOption13}</td>
 									<t:radioGroup value="dodgsonRadio13" id="radioGroupDodgson13"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1500,7 +1520,8 @@
 									<td>${dodgsonOption14}</td>
 									<t:radioGroup value="dodgsonRadio14" id="radioGroupDodgson14"
 										required="true">
-										<t:loop source="radiobuttonsizeDodgson" value="radioSizeDodgson">
+										<t:loop source="radiobuttonsizeDodgson"
+											value="radioSizeDodgson">
 											<td><t:Radio value="radioSizeDodgson" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1555,7 +1576,8 @@
 							<tr>
 								<td></td>
 
-								<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+								<t:loop source="radiobuttonsizeCopeland"
+									value="radioSizeCopeland">
 									<td style="text-align: center;">${radioSizeCopeland}</td>
 								</t:loop>
 							</tr>
@@ -1564,7 +1586,8 @@
 								<td>${copelandOption0}</td>
 								<t:radioGroup value="copelandRadio0" id="radioGroupCopeland0"
 									required="true">
-									<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+									<t:loop source="radiobuttonsizeCopeland"
+										value="radioSizeCopeland">
 										<td><t:radio value="radioSizeCopeland" type="radio" /></td>
 									</t:loop>
 								</t:radioGroup>
@@ -1576,7 +1599,8 @@
 								<td>${copelandOption1}</td>
 								<t:radioGroup value="copelandRadio1" id="radioGroupCopeland1"
 									required="true">
-									<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+									<t:loop source="radiobuttonsizeCopeland"
+										value="radioSizeCopeland">
 										<td><t:Radio value="radioSizeCopeland" /></td>
 									</t:loop>
 								</t:radioGroup>
@@ -1587,7 +1611,8 @@
 									<td>${copelandOption2}</td>
 									<t:radioGroup value="copelandRadio2" id="radioGroupCopeland2"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1598,7 +1623,8 @@
 									<td>${copelandOption3}</td>
 									<t:radioGroup value="copelandRadio3" id="radioGroupCopeland2"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1609,7 +1635,8 @@
 									<td>${copelandOption4}</td>
 									<t:radioGroup value="copelandRadio4" id="radioGroupCopeland4"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 
@@ -1621,7 +1648,8 @@
 									<td>${copelandOption5}</td>
 									<t:radioGroup value="copelandRadio5" id="radioGroupCopeland5"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1632,7 +1660,8 @@
 									<td>${copelandOption6}</td>
 									<t:radioGroup value="copelandRadio6" id="radioGroupCopeland6"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1643,7 +1672,8 @@
 									<td>${copelandOption7}</td>
 									<t:radioGroup value="copelandRadio7" id="radioGroupCopeland7"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1654,7 +1684,8 @@
 									<td>${copelandOption8}</td>
 									<t:radioGroup value="copelandRadio8" id="radioGroupCopeland8"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1665,7 +1696,8 @@
 									<td>${copelandOption9}</td>
 									<t:radioGroup value="copelandRadio9" id="radioGroupCopeland9"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1676,7 +1708,8 @@
 									<td>${copelandOption10}</td>
 									<t:radioGroup value="copelandRadio10" id="radioGroupCopeland10"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1687,7 +1720,8 @@
 									<td>${copelandOption11}</td>
 									<t:radioGroup value="copelandRadio11" id="radioGroupCopeland11"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1698,7 +1732,8 @@
 									<td>${copelandOption12}</td>
 									<t:radioGroup value="copelandRadio12" id="radioGroupCopeland12"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 
@@ -1710,7 +1745,8 @@
 									<td>${copelandOption13}</td>
 									<t:radioGroup value="copelandRadio13" id="radioGroupCopeland13"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1721,7 +1757,8 @@
 									<td>${copelandOption14}</td>
 									<t:radioGroup value="copelandRadio14" id="radioGroupCopeland14"
 										required="true">
-										<t:loop source="radiobuttonsizeCopeland" value="radioSizeCopeland">
+										<t:loop source="radiobuttonsizeCopeland"
+											value="radioSizeCopeland">
 											<td><t:Radio value="radioSizeCopeland" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1783,7 +1820,8 @@
 								<td>${schulzeOption0}</td>
 								<t:radioGroup value="schulzeRadio0" id="radioGroupSchulze0"
 									required="true">
-									<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+									<t:loop source="radiobuttonsizeSchulze"
+										value="radioSizeSchulze">
 										<td><t:radio value="radioSizeSchulze" type="radio" /></td>
 									</t:loop>
 								</t:radioGroup>
@@ -1795,7 +1833,8 @@
 								<td>${schulzeOption1}</td>
 								<t:radioGroup value="schulzeRadio1" id="radioGroupSchulze1"
 									required="true">
-									<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+									<t:loop source="radiobuttonsizeSchulze"
+										value="radioSizeSchulze">
 										<td><t:Radio value="radioSizeSchulze" /></td>
 									</t:loop>
 								</t:radioGroup>
@@ -1806,7 +1845,8 @@
 									<td>${schulzeOption2}</td>
 									<t:radioGroup value="schulzeRadio2" id="radioGroupSchulze2"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1817,7 +1857,8 @@
 									<td>${schulzeOption3}</td>
 									<t:radioGroup value="schulzeRadio3" id="radioGroupSchulze2"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1828,7 +1869,8 @@
 									<td>${schulzeOption4}</td>
 									<t:radioGroup value="schulzeRadio4" id="radioGroupSchulze4"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 
@@ -1840,7 +1882,8 @@
 									<td>${schulzeOption5}</td>
 									<t:radioGroup value="schulzeRadio5" id="radioGroupSchulze5"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1851,7 +1894,8 @@
 									<td>${schulzeOption6}</td>
 									<t:radioGroup value="schulzeRadio6" id="radioGroupSchulze6"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1862,7 +1906,8 @@
 									<td>${schulzeOption7}</td>
 									<t:radioGroup value="schulzeRadio7" id="radioGroupSchulze7"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1873,7 +1918,8 @@
 									<td>${schulzeOption8}</td>
 									<t:radioGroup value="schulzeRadio8" id="radioGroupSchulze8"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1884,7 +1930,8 @@
 									<td>${schulzeOption9}</td>
 									<t:radioGroup value="schulzeRadio9" id="radioGroupSchulze9"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1895,7 +1942,8 @@
 									<td>${schulzeOption10}</td>
 									<t:radioGroup value="schulzeRadio10" id="radioGroupSchulze10"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1906,7 +1954,8 @@
 									<td>${schulzeOption11}</td>
 									<t:radioGroup value="schulzeRadio11" id="radioGroupSchulze11"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1917,7 +1966,8 @@
 									<td>${schulzeOption12}</td>
 									<t:radioGroup value="schulzeRadio12" id="radioGroupSchulze12"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 
@@ -1929,7 +1979,8 @@
 									<td>${schulzeOption13}</td>
 									<t:radioGroup value="schulzeRadio13" id="radioGroupSchulze13"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -1940,7 +1991,8 @@
 									<td>${schulzeOption14}</td>
 									<t:radioGroup value="schulzeRadio14" id="radioGroupSchulze14"
 										required="true">
-										<t:loop source="radiobuttonsizeSchulze" value="radioSizeSchulze">
+										<t:loop source="radiobuttonsizeSchulze"
+											value="radioSizeSchulze">
 											<td><t:Radio value="radioSizeSchulze" /></td>
 										</t:loop>
 									</t:radioGroup>
@@ -2216,8 +2268,8 @@
 
 							<tr>
 								<td>${mejorPeorOption0}</td>
-								<t:radioGroup value="mejorPeorRadio0"
-									id="radioGroupMejorPeor0" required="true">
+								<t:radioGroup value="mejorPeorRadio0" id="radioGroupMejorPeor0"
+									required="true">
 									<td style="text-align: center;"><t:Radio value="literal:2"
 											type="radio" /></td>
 									<td style="text-align: center;"><t:Radio value="literal:1"
@@ -2228,8 +2280,8 @@
 							</tr>
 							<tr>
 								<td>${mejorPeorOption1}</td>
-								<t:radioGroup value="mejorPeorRadio1"
-									id="radioGroupMejorPeor1" required="true">
+								<t:radioGroup value="mejorPeorRadio1" id="radioGroupMejorPeor1"
+									required="true">
 									<td style="text-align: center;"><t:Radio value="literal:2"
 											type="radio" /></td>
 									<td style="text-align: center;"><t:Radio value="literal:1"
@@ -2241,8 +2293,8 @@
 
 							<tr>
 								<td>${mejorPeorOption2}</td>
-								<t:radioGroup value="mejorPeorRadio2"
-									id="radioGroupMejorPeor2" required="true">
+								<t:radioGroup value="mejorPeorRadio2" id="radioGroupMejorPeor2"
+									required="true">
 									<td style="text-align: center;"><t:Radio value="literal:2"
 											type="radio" /></td>
 									<td style="text-align: center;"><t:Radio value="literal:1"
@@ -2253,9 +2305,9 @@
 							</tr>
 							<tr>
 								<td>${mejorPeorOption3}</td>
-								<t:radioGroup value="mejorPeorRadio3"
-									id="radioGroupMejorPeor2" required="true">
-										<td style="text-align: center;"><t:Radio value="literal:2"
+								<t:radioGroup value="mejorPeorRadio3" id="radioGroupMejorPeor2"
+									required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
 											type="radio" /></td>
 									<td style="text-align: center;"><t:Radio value="literal:1"
 											type="radio" /></td>
@@ -2265,9 +2317,9 @@
 							</tr>
 							<tr>
 								<td>${mejorPeorOption4}</td>
-								<t:radioGroup value="mejorPeorRadio4"
-									id="radioGroupMejorPeor4" required="true">
-																	<td style="text-align: center;"><t:Radio value="literal:2"
+								<t:radioGroup value="mejorPeorRadio4" id="radioGroupMejorPeor4"
+									required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
 											type="radio" /></td>
 									<td style="text-align: center;"><t:Radio value="literal:1"
 											type="radio" /></td>
@@ -2279,9 +2331,9 @@
 
 							<tr>
 								<td>${mejorPeorOption5}</td>
-								<t:radioGroup value="mejorPeorRadio5"
-									id="radioGroupMejorPeor5" required="true">
-																		<td style="text-align: center;"><t:Radio value="literal:2"
+								<t:radioGroup value="mejorPeorRadio5" id="radioGroupMejorPeor5"
+									required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
 											type="radio" /></td>
 									<td style="text-align: center;"><t:Radio value="literal:1"
 											type="radio" /></td>
@@ -2292,9 +2344,9 @@
 
 							<tr>
 								<td>${mejorPeorOption6}</td>
-								<t:radioGroup value="mejorPeorRadio6"
-									id="radioGroupMejorPeor6" required="true">
-																		<td style="text-align: center;"><t:Radio value="literal:2"
+								<t:radioGroup value="mejorPeorRadio6" id="radioGroupMejorPeor6"
+									required="true">
+									<td style="text-align: center;"><t:Radio value="literal:2"
 											type="radio" /></td>
 									<td style="text-align: center;"><t:Radio value="literal:1"
 											type="radio" /></td>
@@ -2305,42 +2357,42 @@
 							<t:if test="showMejorPeor8">
 								<tr>
 									<td>${mejorPeorOption7}</td>
-									<t:radioGroup value="mejorPeorRadio7"
-										id="radioGroupMejorPeor7" required="true">
-																			<td style="text-align: center;"><t:Radio value="literal:2"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:1"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:0"
-											type="radio" /></td>
+									<t:radioGroup value="mejorPeorRadio7" id="radioGroupMejorPeor7"
+										required="true">
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:0" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
 							<t:if test="showMejorPeor9">
 								<tr>
 									<td>${mejorPeorOption8}</td>
-									<t:radioGroup value="mejorPeorRadio8"
-										id="radioGroupMejorPeor8" required="true">
-																			<td style="text-align: center;"><t:Radio value="literal:2"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:1"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:0"
-											type="radio" /></td>
+									<t:radioGroup value="mejorPeorRadio8" id="radioGroupMejorPeor8"
+										required="true">
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:0" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
 							<t:if test="showMejorPeor10">
 								<tr>
 									<td>${mejorPeorOption9}</td>
-									<t:radioGroup value="mejorPeorRadio9"
-										id="radioGroupMejorPeor9" required="true">
-									<td style="text-align: center;"><t:Radio value="literal:2"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:1"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:0"
-											type="radio" /></td>
+									<t:radioGroup value="mejorPeorRadio9" id="radioGroupMejorPeor9"
+										required="true">
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:0" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
@@ -2349,12 +2401,12 @@
 									<td>${mejorPeorOption10}</td>
 									<t:radioGroup value="mejorPeorRadio10"
 										id="radioGroupMejorPeor10" required="true">
-																			<td style="text-align: center;"><t:Radio value="literal:2"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:1"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:0"
-											type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:0" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
@@ -2363,12 +2415,12 @@
 									<td>${mejorPeorOption11}</td>
 									<t:radioGroup value="mejorPeorRadio11"
 										id="radioGroupMejorPeor11" required="true">
-																			<td style="text-align: center;"><t:Radio value="literal:2"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:1"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:0"
-											type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:0" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
@@ -2377,12 +2429,12 @@
 									<td>${mejorPeorOption12}</td>
 									<t:radioGroup value="mejorPeorRadio12"
 										id="radioGroupMejorPeor12" required="true">
-																			<td style="text-align: center;"><t:Radio value="literal:2"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:1"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:0"
-											type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:0" type="radio" /></td>
 
 									</t:radioGroup>
 								</tr>
@@ -2392,12 +2444,12 @@
 									<td>${mejorPeorOption13}</td>
 									<t:radioGroup value="mejorPeorRadio13"
 										id="radioGroupMejorPeor13" required="true">
-																			<td style="text-align: center;"><t:Radio value="literal:2"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:1"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:0"
-											type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:0" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
@@ -2406,12 +2458,12 @@
 									<td>${mejorPeorOption14}</td>
 									<t:radioGroup value="mejorPeorRadio14"
 										id="radioGroupMejorPeor14" required="true">
-									<td style="text-align: center;"><t:Radio value="literal:2"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:1"
-											type="radio" /></td>
-									<td style="text-align: center;"><t:Radio value="literal:0"
-											type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:2" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:1" type="radio" /></td>
+										<td style="text-align: center;"><t:Radio
+												value="literal:0" type="radio" /></td>
 									</t:radioGroup>
 								</tr>
 							</t:if>
@@ -2420,8 +2472,7 @@
 
 								<tr>
 
-									<td><br /> <t:kaptchaimage
-											t:id="kaptchaMejorPeor" /></td>
+									<td><br /> <t:kaptchaimage t:id="kaptchaMejorPeor" /></td>
 								</tr>
 								<tr>
 									<td><t:kaptchafield style="width:200px;"

@@ -17,6 +17,15 @@
 
 	<body>
 		<t:zone t:id="methodZone" id="methodZone" t:update="show">
+		<div class="t-zbreadcrumbs">
+				<ul class="t-zbreadcrumbs">
+					<li><a href="Index">${message:Index-crumb}</a></li>
+					<li><t:pagelink page="MethodsInfo">${message:Methods-crumb}</t:pagelink></li>
+
+					<li><a href="SmallMethod">${message:method-crumb}</a></li>
+
+				</ul>
+			</div>
 			<titlelist>
 			<h1>${message:method-name}</h1>
 			</titlelist>

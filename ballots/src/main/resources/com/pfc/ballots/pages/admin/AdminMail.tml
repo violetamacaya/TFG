@@ -5,7 +5,15 @@
 	</head>
    
 	<t:border><div id="adminmaildiv">
-	
+
+			<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:index-crumb}</a></li>
+			<li><a href="#">${message:admin}</a></li>
+			<li><a href="#">${message:page-title}</a></li>		
+
+		</ul>
+	</div>
 		<h1>${message:config}</h1><hr/>
 	
 		

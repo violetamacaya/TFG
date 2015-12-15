@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 
 import org.apache.tapestry5.ComponentResources;
-import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectContainer;
@@ -38,6 +37,7 @@ import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.pages.admin.AdminMail;
+import com.pfc.ballots.pages.admin.UserList;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.ManipulateFiles;
@@ -56,7 +56,6 @@ import com.pfc.ballots.util.UUID;
 				"context:js/jquery.ajax.upload.js",
 				"context:js/upload.js"
 		})
-
 public class ProfileByFile {
 	 	
 	String sep=System.getProperty("file.separator");
@@ -601,6 +600,16 @@ public void onActionFromDetails(String id){
 		Integer temp;
 		temp =persons.size();
 		return temp.toString();
+	}
+	
+	Object onBreadCrumbs(String section)
+	{									
+		Object page=null;
+		if(section.equals("userList"))//This handle the lateral menu
+		{
+			page=UserList.class;
+		}
+		return page;
 	}
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 

@@ -102,9 +102,9 @@ public class RelativeMajorityMethod {
 	Object onMenu(String section)
 	{
 		Object page=null;
-		if(section.equals("hare"))
+		if(section.equals("mejorpeor"))
 		{
-			page=HareMethod.class;
+			page=MejorPeorMethod.class;
 		}
 		else if(section.equals("kemeny"))
 		{

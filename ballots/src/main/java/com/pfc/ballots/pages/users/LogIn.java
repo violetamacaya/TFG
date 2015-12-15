@@ -12,6 +12,9 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
 
+import se.unbound.tapestry.breadcrumbs.BreadCrumb;
+import se.unbound.tapestry.breadcrumbs.BreadCrumbReset;
+
 import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.LogDao;
@@ -26,9 +29,6 @@ import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.util.Encryption;
-
-
-
 
 @Secure
 public class LogIn {

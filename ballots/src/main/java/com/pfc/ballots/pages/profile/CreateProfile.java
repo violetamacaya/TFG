@@ -11,6 +11,8 @@ import org.apache.tapestry5.annotations.Secure;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.Validate;
 
+import se.unbound.tapestry.breadcrumbs.BreadCrumb;
+
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.ProfileCensedInDao;
 import com.pfc.ballots.dao.UserDao;
@@ -32,6 +34,7 @@ import com.pfc.ballots.util.UUID;
  * @author Violeta Macaya Sánchez
  * @version 2.0 ENE-2015
  */
+@BreadCrumb(titleKey="createProfile.title")
 @Secure
 public class CreateProfile {
 

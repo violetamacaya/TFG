@@ -1,30 +1,20 @@
 package com.pfc.ballots.pages;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.*;
-import org.apache.tapestry5.corelib.components.*;
 import org.apache.tapestry5.ComponentResources;
-import org.apache.tapestry5.SymbolConstants;
-import org.apache.tapestry5.alerts.AlertManager;
 
 import com.pfc.ballots.dao.BallotDao;
-import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.FactoryDao;
-import com.pfc.ballots.dao.KemenyDao;
-import com.pfc.ballots.dao.RelativeMajorityDao;
 import com.pfc.ballots.dao.VoteDao;
-import com.pfc.ballots.data.BallotKind;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
-import com.pfc.ballots.entities.Vote;
-import com.pfc.ballots.entities.ballotdata.Kemeny;
-import com.pfc.ballots.entities.ballotdata.RelativeMajority;
+
 import com.pfc.ballots.pages.ballot.ResultBallot;
 import com.pfc.ballots.pages.ballot.VoteBallot;
 
@@ -33,6 +23,7 @@ import com.pfc.ballots.pages.ballot.VoteBallot;
  */
 public class Index
 {
+
 	  	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 //////////////////////////////////////////////////// GENERAL STUFF //////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

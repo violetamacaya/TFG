@@ -1,6 +1,7 @@
 
 package com.pfc.ballots.entities.ballotdata;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class MejorPeor {
 	private List<String> votesPos;
 	private List<String> votesNeg;
 	private List<String> winners;
-	private Map<String,Integer> results;
+	private HashMap<String,Integer> results;
 
 	///////////////////////////////////////////// Constructors//////////////////////////////
 	public MejorPeor()
@@ -80,10 +81,14 @@ public class MejorPeor {
 	public void setVotesNeg(List<String> votesNeg) {
 		this.votesNeg = votesNeg;
 	}
-	public Map<String,Integer> getResults() {
+	
+	public Map<String, Integer> getVotes(){
 		return results;
 	}
-	public void setResults(Map<String,Integer> results) {
+	public HashMap<String,Integer> getResults() {
+		return results;
+	}
+	public void setResults(HashMap<String,Integer> results) {
 		this.results = results;
 	}
 	public void setWinners(LinkedList<String> winners) {
@@ -140,7 +145,7 @@ public class MejorPeor {
 	{
 		if(results!=null)
 		{
-			return results.get(option.toLowerCase());
+			return results.get(option);
 		}
 		return -1;
 	}
@@ -156,7 +161,8 @@ public class MejorPeor {
 		else
 		{
 			this.winners=new LinkedList<String>();
-			this.results=CalcMejorPeor.CalculateMejorPeor(options, votesPos, votesNeg);
+			this.results=(HashMap<String, Integer>) CalcMejorPeor.CalculateMejorPeor(options, votesPos, votesNeg);
+
 			return true;
 		}
 	}

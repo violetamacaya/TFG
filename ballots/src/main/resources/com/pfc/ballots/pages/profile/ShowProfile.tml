@@ -5,7 +5,13 @@
    
 	<t:border>
 	
-	
+		<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:Index-crumb}</a></li>
+			<li><a href="#">${message:perfil-crumb}</a></li>		
+
+		</ul>
+	</div>
 	<infouser>
 	
 	<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////

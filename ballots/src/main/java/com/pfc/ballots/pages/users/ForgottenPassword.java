@@ -11,6 +11,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+
 import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
@@ -21,11 +22,11 @@ import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
-import com.pfc.ballots.pages.admin.AdminMail;
 import com.pfc.ballots.pages.profile.SuccessPassChange;
 import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.PasswordGenerator;
+
 
 public class ForgottenPassword {
 

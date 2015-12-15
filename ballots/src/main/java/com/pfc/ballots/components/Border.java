@@ -16,7 +16,6 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.PersistentLocale;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
-import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserLogedDao;
@@ -63,7 +62,7 @@ import com.pfc.ballots.pages.users.LogIn;
 public class Border {
 
 	/***************************************** Ajax menu stuff *******************************************************************/
-	
+
 	@Inject
 	private Request request;
 	
@@ -163,8 +162,7 @@ public class Border {
 	private String localeLabel;
 	
 	
-	@Inject
-	private JavaScriptSupport javaScriptSupport;
+
 	
 	//get locale label ------------------------------------------------------------------------------------------------------------
 	public String getLocaleLabel()

@@ -8,6 +8,15 @@
 	
 		<body>
 		<div id="methodDiv">
+		
+	<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:Index-crumb}</a></li>
+			<li><a href="MethodsInfo">${message:Methods-crumb}</a></li>
+
+		</ul>
+	</div>
+	
 		<h1>${message:page-title}</h1>
 		<hr />
 		${message:description}<br/>

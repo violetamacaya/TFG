@@ -1,21 +1,21 @@
 package com.pfc.ballots.pages;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.apache.tapestry5.ComponentResources;
-import org.apache.tapestry5.StreamResponse;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.Response;
+
+import se.unbound.tapestry.breadcrumbs.BreadCrumb;
+import se.unbound.tapestry.breadcrumbs.BreadCrumbReset;
 
 import com.pfc.ballots.dao.AboutTextDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.AboutText;
 
+@BreadCrumb(titleKey="about.title")
+@BreadCrumbReset(ignorePages = {Index.class})
 public class About
 {
 

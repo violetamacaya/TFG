@@ -120,6 +120,7 @@ public class Condorcet {
 		}
 		else
 		{
+			System.out.println("El valor de options y votes es: "+options +"  "+ votes);
 			results=CalcCondorcet.CalculateCondorcet(options, votes);
 			return true;
 		}

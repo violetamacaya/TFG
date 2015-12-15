@@ -1,120 +1,199 @@
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <head>
-	<link rel="stylesheet" href="${asset:context:/styles/styles.css}" type="text/css"/>
-	<link rel="shortcut icon" href="${context:favicon2.ico}" type="image/x-icon" />
+<link rel="stylesheet" href="${asset:context:/styles/styles.css}"
+	type="text/css" />
+<link rel="shortcut icon" href="${context:favicon2.ico}"
+	type="image/x-icon" />
 </head>
 <body>
-	<pagehead>
-			<img id="banner" src="${asset:context:/layout/images/bannerOld.png}"/>
-			<!-- <p align="right"> -->
-		
-		<div id="lenguages">
-			
-			<t:actionlink t:id="switchlocale"><img src="${asset:context:/layout/flag.gif}" /></t:actionlink>
-		</div>
-		<div id="letterSize">
-			<img src="${asset:context:/layout/lupamas.png}" id="increaseSize" />
-		</div>
-		
-		<div id="letterSizeLess">
-			<img src="${asset:context:/layout/lupamenos.png}" id="decreaseSize" />
-		</div>
-		
-		<ul id="mainMenu">
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:index" ><plain>${message:home}</plain></t:eventlink></li>
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:methods" ><plain>${message:methods}</plain></t:eventlink></li>
-			
-			<t:if test="!loged">
-				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:publics" ><plain>${message:publics}</plain></t:eventlink></li>
+	<pagehead> <img id="banner"
+		src="${asset:context:/layout/images/bannerOld.png}" /> <!-- <p align="right"> -->
+
+	<div id="lenguages">
+
+		<t:actionlink t:id="switchlocale">
+			<img src="${asset:context:/layout/flag.gif}" />
+		</t:actionlink>
+	</div>
+	<div id="letterSize">
+		<img src="${asset:context:/layout/lupamas.png}" id="increaseSize" />
+	</div>
+
+	<div id="letterSizeLess">
+		<img src="${asset:context:/layout/lupamenos.png}" id="decreaseSize" />
+	</div>
+
+	<ul id="mainMenu">
+		<li><t:eventlink t:event="menu" t:zone="userZone"
+				t:context="literal:index">
+				<plain>${message:home}</plain>
+			</t:eventlink></li>
+		<li><t:eventlink t:event="menu" t:zone="userZone"
+				t:context="literal:methods">
+				<plain>${message:methods}</plain>
+			</t:eventlink></li>
+
+		<t:if test="!loged">
+			<li><t:eventlink t:event="menu" t:zone="userZone"
+					t:context="literal:publics">
+					<plain>${message:publics}</plain>
+				</t:eventlink></li>
+		</t:if>
+
+		<t:if test="!loged">
+			<li><t:eventlink t:event="menu" t:zone="userZone"
+					t:context="literal:LogIn">
+					<plain>${message:login}</plain>
+				</t:eventlink></li>
+		</t:if>
+		<li><t:eventlink t:event="menu" t:zone="userZone"
+				t:context="literal:contact">
+				<plain>${message:contact}</plain>
+			</t:eventlink></li>
+
+		<li><t:eventlink t:event="menu" t:zone="userZone"
+				t:context="literal:about">
+				<plain>${message:about}</plain>
+			</t:eventlink></li>
+
+		<t:if test="loged">
+			<li><t:actionlink t:id="logout2">
+					<plain>${message:log-out}</plain>
+				</t:actionlink></li>
+		</t:if>
+	</ul>
+	</pagehead>
+
+	<br />
+	<br />
+	<br />
+	<t:zone t:id="lateral" id="lateral" visible="loged">
+		<ul class="leftcolumn" id="myMenu">
+			<h2 style="text-align: left;">${message:my-menu}</h2>
+			<br />
+			<li><t:eventlink t:event="menu" t:context="literal:my-profile">
+					<plain>${message:my-profile}</plain>
+				</t:eventlink></li>
+			<li><t:eventlink t:event="menu" t:context="literal:my-ballots">
+					<plain>${message:ballots-by-me}</plain>
+				</t:eventlink></li>
+
+			<t:if test="maker">
+				<li><t:eventlink t:event="menu" t:zone="censusZone"
+						t:context="literal:censusz">
+						<plain>${message:census}</plain>
+					</t:eventlink></li>
 			</t:if>
 
-			<t:if test="!loged">		
-				<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:LogIn" ><plain>${message:login}</plain></t:eventlink></li>
-			</t:if>
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:contact" ><plain>${message:contact}</plain></t:eventlink></li>	
-			
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:about" ><plain>${message:about}</plain></t:eventlink></li>
-			
-			<t:if test="loged">
-				<li><t:actionlink t:id="logout2"><plain>${message:log-out}</plain></t:actionlink></li>
-			</t:if>
-		</ul>
-	</pagehead>
-	
-	<br/><br/><br/>
-	<t:zone t:id="lateral" id="lateral" visible="loged">
-	<ul class="leftcolumn" id="myMenu">
-		<h2 style="text-align:left;">${message:my-menu}</h2><br/>
-		<li><t:eventlink t:event="menu" t:context="literal:my-profile"><plain>${message:my-profile}</plain></t:eventlink></li>
-		<li><t:eventlink t:event="menu" t:context="literal:my-ballots"><plain>${message:ballots-by-me}</plain></t:eventlink></li>
-		
-		<t:if test="maker">
-			<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:censusz"><plain>${message:census}</plain></t:eventlink></li>
-		</t:if>
-		
-		<t:zone t:id="censusZone" id="censusZone">
-			<t:if test="visibilityCensus">
-							
-				<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:new-census"><plain2>${message:new-census}</plain2></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-census"><plain2>${message:my-census}</plain2></t:eventlink></li>
-					
-			</t:if>
-		</t:zone>
-			
-		<t:if test="admin">
-			<div id="administration-menu"><h2 style="text-align:left;">${message:administration-menu}</h2></div>		
-		</t:if>		
-		
-		<t:if test="admin">
-				<li><t:eventlink t:event="menu" t:zone="censusZone" t:context="literal:show-admincensus"><plain>${message:census-admin}</plain></t:eventlink></li>
-		</t:if>
-		
-		<t:if test="admin">
-			<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:userz" ><plain>${message:users-admin}</plain></t:eventlink></li>
-		</t:if>
-		
-			<t:zone t:id="userZone" id="userZone">
-				<t:if test="visibilityUser">
-					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-list" ><plain2>${message:users-list}</plain2></t:eventlink></li>
-					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:new-user2" ><plain2>${message:new-user}</plain2></t:eventlink></li>
-					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:user-file" ><plain2>${message:upload}</plain2></t:eventlink></li>
-					<li><t:eventlink t:event="menu" t:zone="userZone" t:context="literal:log-list" ><plain2>Logs</plain2></t:eventlink></li>
+			<t:zone t:id="censusZone" id="censusZone">
+				<t:if test="visibilityCensus">
+
+					<li><t:eventlink t:event="menu" t:zone="censusZone"
+							t:context="literal:new-census">
+							<plain2>${message:new-census}</plain2>
+						</t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="censusZone"
+							t:context="literal:show-census">
+							<plain2>${message:my-census}</plain2>
+						</t:eventlink></li>
+
 				</t:if>
 			</t:zone>
-			
-		<t:if test="admin">
-			<li><t:eventlink t:event="menu" t:context="literal:ballotz" t:zone="ballotZone"><plain>${message:ballot-admin}</plain></t:eventlink></li>
-		</t:if>
-		
-			<t:zone t:id="ballotZone" id="ballotZone">
-			<t:if test="visibilityBallot">
 
-				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:show-adminBallot" ><plain2>${message:ballots}</plain2></t:eventlink></li>
-				<li><t:eventlink t:event="menu" t:zone="ballotZone" t:context="literal:create-ballot" ><plain2>${message:new-ballot}</plain2></t:eventlink></li>
+			<t:if test="admin">
+				<div id="administration-menu">
+					<h2 style="text-align: left;">${message:administration-menu}</h2>
+				</div>
 			</t:if>
+
+			<t:if test="admin">
+				<li><t:eventlink t:event="menu" t:zone="censusZone"
+						t:context="literal:show-admincensus">
+						<plain>${message:census-admin}</plain>
+					</t:eventlink></li>
+			</t:if>
+
+			<t:if test="admin">
+				<li><t:eventlink t:event="menu" t:zone="userZone"
+						t:context="literal:userz">
+						<plain>${message:users-admin}</plain>
+					</t:eventlink></li>
+			</t:if>
+
+			<t:zone t:id="userZone" id="userZone">
+				<t:if test="visibilityUser">
+					<li><t:eventlink t:event="menu" t:zone="userZone"
+							t:context="literal:user-list">
+							<plain2>${message:users-list}</plain2>
+						</t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="userZone"
+							t:context="literal:new-user2">
+							<plain2>${message:new-user}</plain2>
+						</t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="userZone"
+							t:context="literal:user-file">
+							<plain2>${message:upload}</plain2>
+						</t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="userZone"
+							t:context="literal:log-list">
+							<plain2>Logs</plain2>
+						</t:eventlink></li>
+				</t:if>
 			</t:zone>
-		
-		<t:if test="mainAdmin">	
-			<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:companyz" ><plain>${message:company-admin}</plain></t:eventlink></li>
-		</t:if>
-				<t:zone t:id="companyZone" id="companyZone">
-					<t:if test="visibilityCompany">
-						<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:list-company"><plain2>${message:company-list}</plain2></t:eventlink></li>
-						<li><t:eventlink t:event="menu" t:zone="companyZone" t:context="literal:new-company"><plain2>${message:create-company}</plain2></t:eventlink></li>
-					</t:if>
-				</t:zone>
-		<t:if test="admin">
-			<li><t:eventLink t:event="menu" t:context="literal:admin-mail"><plain>${message:configure}</plain></t:eventLink></li>
-		</t:if>
-		
-		
-	</ul>
+
+			<t:if test="admin">
+				<li><t:eventlink t:event="menu" t:context="literal:ballotz"
+						t:zone="ballotZone">
+						<plain>${message:ballot-admin}</plain>
+					</t:eventlink></li>
+			</t:if>
+
+			<t:zone t:id="ballotZone" id="ballotZone">
+				<t:if test="visibilityBallot">
+
+					<li><t:eventlink t:event="menu" t:zone="ballotZone"
+							t:context="literal:show-adminBallot">
+							<plain2>${message:ballots}</plain2>
+						</t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="ballotZone"
+							t:context="literal:create-ballot">
+							<plain2>${message:new-ballot}</plain2>
+						</t:eventlink></li>
+				</t:if>
+			</t:zone>
+
+			<t:if test="mainAdmin">
+				<li><t:eventlink t:event="menu" t:zone="companyZone"
+						t:context="literal:companyz">
+						<plain>${message:company-admin}</plain>
+					</t:eventlink></li>
+			</t:if>
+			<t:zone t:id="companyZone" id="companyZone">
+				<t:if test="visibilityCompany">
+					<li><t:eventlink t:event="menu" t:zone="companyZone"
+							t:context="literal:list-company">
+							<plain2>${message:company-list}</plain2>
+						</t:eventlink></li>
+					<li><t:eventlink t:event="menu" t:zone="companyZone"
+							t:context="literal:new-company">
+							<plain2>${message:create-company}</plain2>
+						</t:eventlink></li>
+				</t:if>
+			</t:zone>
+			<t:if test="admin">
+				<li><t:eventLink t:event="menu" t:context="literal:admin-mail">
+						<plain>${message:configure}</plain>
+					</t:eventLink></li>
+			</t:if>
+
+
+		</ul>
 	</t:zone>
 
-	<mainposition>
-		<t:body/>	
-	</mainposition>
+	<mainposition> <t:body /> </mainposition>
 
 </body>
 </html>

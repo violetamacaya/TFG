@@ -50,6 +50,7 @@ import com.pfc.ballots.entities.ballotdata.Copeland;
 import com.pfc.ballots.entities.ballotdata.Dodgson;
 import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
+import com.pfc.ballots.entities.ballotdata.MejorPeor;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.entities.ballotdata.Schulze;
@@ -385,6 +386,24 @@ public class ResultBallot {
 				ballotDao.updateBallot(ballot);
 			}
 		}	
+		else if(ballot.getMethod()==Method.MEJOR_PEOR)
+		{
+			mejorPeorDao= DB4O.getMejorPeorDao(datasession.getDBName());
+			mejorPeor=mejorPeorDao.getByBallotId(ballot.getId());
+			
+			if(!ballot.isEnded())
+			{
+				mejorPeor.calcularMejorPeor();
+				System.out.println("Resultados: "+mejorPeor.getResults());
+			}
+			if(ballot.isEnded()==true && ballot.isCounted()==false && mejorPeor!=null)
+			{
+				mejorPeor.calcularMejorPeor();
+				ballot.setCounted(true);
+				mejorPeorDao.update(mejorPeor);
+				ballotDao.updateBallot(ballot);
+			}
+		}	
 		
 
 	}
@@ -591,6 +610,20 @@ public class ResultBallot {
 			}
 
 			javaScriptSupport.addInitializerCall("charts_copeland",array.toString());
+		}
+		if(ballot.getMethod()==Method.MEJOR_PEOR)
+		{
+			List<String> options=getMejorPeorOptions();
+			for(String option:options)
+			{
+				System.out.println(option);
+				obj=new JSONObject();
+				obj.put("option", option);
+				obj.put("value", mejorPeor.getResultOption(option));
+				array.put(obj);
+			}
+
+			javaScriptSupport.addInitializerCall("charts_mejorPeor",array.toString());
 		}
 	}
 
@@ -1183,7 +1216,7 @@ public class ResultBallot {
 
 	public boolean getShowBlack()
 	{
-		if(ballot!=null && ballot.getMethod()==Method.SMALL)
+		if(ballot!=null && ballot.getMethod()==Method.BLACK)
 		{return true;}
 		return false;
 	}
@@ -1204,6 +1237,41 @@ public class ResultBallot {
 		return String.valueOf(black.getVotes().size());
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////// MEJOR_PEOR ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Mejor peor Data
+	 */
+	@Property
+	@Persist
+	MejorPeor mejorPeor;
+
+	@Property
+	private String mejorPeorOpt;
+
+	public boolean getShowMejorPeor()
+	{
+		if(ballot!=null && ballot.getMethod()==Method.MEJOR_PEOR)
+		{return true;}
+		return false;
+	}
+
+	public List<String> getMejorPeorOptions()
+	{
+		List<String> opciones=mejorPeor.getOptions();
+		return opciones;
+	}
+
+
+	public String getMejorPeorVote()
+	{
+		return String.valueOf(mejorPeor.getResultOption(option));
+	}
+	public String getMejorPeorNum()
+	{
+		return String.valueOf(mejorPeor.getVotesNeg().size());
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

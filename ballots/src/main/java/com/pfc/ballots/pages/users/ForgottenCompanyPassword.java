@@ -11,6 +11,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import se.unbound.tapestry.breadcrumbs.BreadCrumb;
+
 import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
@@ -26,6 +28,7 @@ import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.PasswordGenerator;
 
+@BreadCrumb(titleKey="forgot.title")
 public class ForgottenCompanyPassword {
 	
 	private FactoryDao DB4O =FactoryDao.getFactory(FactoryDao.DB4O_FACTORY);

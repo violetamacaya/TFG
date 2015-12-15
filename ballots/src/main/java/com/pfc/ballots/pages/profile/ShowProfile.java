@@ -19,6 +19,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import se.unbound.tapestry.breadcrumbs.BreadCrumb;
+
 import com.pfc.ballots.dao.CensusDao;
 import com.pfc.ballots.dao.CompanyDao;
 import com.pfc.ballots.dao.FactoryDao;
@@ -37,7 +39,7 @@ import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.util.Encryption;
 
 
-
+@BreadCrumb(titleKey="profile.title")
 @Secure
 public class ShowProfile {
 

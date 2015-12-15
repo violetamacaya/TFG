@@ -9,7 +9,15 @@
 
 <t:border>
 	<div id="userListDiv">
+	<div class="t-zbreadcrumbs">
+		<ul class="t-zbreadcrumbs">
+			<li><a href="Index">${message:Index-crumb}</a></li>
+			<li><a href="#">${message:users}</a></li>
+			<li><a href="#">${message:userlist}</a></li>		
 
+		</ul>
+	</div>
+	
 		<h1>${message:userlist}</h1>
 		<hr />
 		<t:zone t:id="nomailgrid" id="nomailgrid" t:update="show">
