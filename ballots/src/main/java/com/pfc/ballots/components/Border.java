@@ -19,12 +19,6 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserLogedDao;
-/*import com.pfc.ballots.dao.JuicioMayoritarioDao;
-import com.pfc.ballots.dao.MejorPeorDao;
-import com.pfc.ballots.dao.NansonDao;
-import com.pfc.ballots.dao.SchulzeDao;
-import com.pfc.ballots.dao.SmallDao;
-import com.pfc.ballots.dao.VotoAcumulativoDao;*/
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.pages.About;
 import com.pfc.ballots.pages.Contact;
