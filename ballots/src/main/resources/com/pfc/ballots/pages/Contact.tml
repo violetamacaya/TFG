@@ -24,7 +24,7 @@
 			
 			<p:else>
 				<t:form t:id="contact">
-					${message:our-email} ${emailAccount.email}<br/><br/>
+					${message:our-email} <a href="mailto:${emailAccount.email}"> ${emailAccount.email}</a><br/><br/>
 					<table>
 						<tr>
 							<td><t:Label t:for="remitente"/></td>
@@ -48,8 +48,9 @@
 							<td>${message:captcha}</td>
 						</tr>
 
-						<tr id="boton-enviar">
-							<td><input t:type="submit" value="${message:send}" class="boton"/></td>
+						<tr>
+							<td></td>
+							<td style="text-align:left; margin-lef: -5px;"><input t:type="submit" value="${message:send}" class="boton"/></td>
 						</tr>
 					
 					</table>

@@ -199,7 +199,7 @@
 			<table border="1px">
 				<tr>
 					<th>${message:option}</th>
-					<th>${message:votes}</th>
+					<th>${message:median}</th>
 				</tr>
 				<t:loop t:source="JuicioMayoritarioOptions" t:value="option">
 					<tr>
@@ -320,7 +320,67 @@
 				</t:loop>
 			</table>
 		</t:if>
+		<t:if test="showBucklin">
 
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:score}</th>
+				</tr>
+				<t:loop t:source="BucklinOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${bucklinVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+
+		<t:if test="showCoombs">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:score}</th>
+				</tr>
+				<t:loop t:source="CoombsOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${coombsVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+		<t:if test="showHare">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:score}</th>
+				</tr>
+				<t:loop t:source="HareOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${hareVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+		<t:if test="showNanson">
+
+			<table border="1px">
+				<tr>
+					<th>${message:option}</th>
+					<th>${message:score}</th>
+				</tr>
+				<t:loop t:source="NansonOptions" t:value="option">
+					<tr>
+						<td>${option}</td>
+						<td>${nansonVote}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
 
 
 	</div>

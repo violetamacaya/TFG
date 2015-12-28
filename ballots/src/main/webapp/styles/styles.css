@@ -4,11 +4,9 @@ pagehead {
 	height: 188px;
 	color: black;
 	margin-top: -8px;
-	margin-right: -8px;
-	margin-left: 2px;
 	margin-bottom: -55px;
-	padding: 2px;
-	width: 100%;
+	min-width: 1200px;
+	
 }
 
 TABLE.t-data-grid {
@@ -22,7 +20,10 @@ TABLE.t-data-grid THEAD TR TH {
 TABLE.t-data-grid TD {
 	text-align: center;
 }
-
+ 
+a{
+	color: rgb(32, 74, 135);
+}
 #banner {
 	display: block;
 	width: 900px;
@@ -57,10 +58,6 @@ label .contactrow {
 	padding-left: 20px;
 }
 
-#boton-enviar {
-	left: 100px;
-	position: absolute;
-}
 
 #footer {
 	clear: both;
@@ -89,7 +86,7 @@ boldstuff {
 #letterSize {
 	padding: 2px 20px 2px;
 	margin-right: 3px;
-	margin-top: 40px;
+	margin-top: 34px;
 	cursor: pointer;
 }
 
@@ -125,7 +122,7 @@ boldstuff {
 	display: inline;
 	padding: 2px 6px 2px;
 	margin-right: 3px;
-	margin-top: 23px;
+	margin-top: 20px;
 	float: right;
 }
 
@@ -172,7 +169,7 @@ boldstuff {
 	padding: 0px;
 	margin-left: -100px;
 	margin-right: auto;
-	margin-top: -28px;
+	margin-top: -37px;
 	min-width: 900px;
 	position: absolute;
 	left: 36%;
@@ -200,9 +197,7 @@ boldstuff {
 }
 
 #mainmenu li a:hover plain {
-	background-color: #6aa9bd;
-	color: #333333;
-	margin-top: -2px;
+	background-color: #0185B9;
 }
 
 #mainmenu li plain {
@@ -228,10 +223,11 @@ boldstuff {
 #mymenu h2{
 	width:145px;
 	font-size: 1em;
+	color: rgb(32, 74, 135);
 }
 #mymenu ul li {
 	font-family: sans-serif;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	color: white;
 	line-height: 32px;
 	list-style-type: none;
@@ -257,9 +253,8 @@ boldstuff {
 }
 
 #mymenu li a:hover plain {
-	background-color: #6aa8bd;
-	color: #333333;
-	margin-bottom: -3px;
+	background-color: #0185B9;
+	color: white;
 }
 
 #mymenu li a {
@@ -286,17 +281,15 @@ boldstuff {
 	text-decoration: none;
 	background: #6aa9bd;
 	font-family: Arial;
-	font-size: 1em;
+	font-size: 0.8em;
 	margin-left: 10px;
 	background-color: #0185b9;
 	width: 126px;
 }
 
 #mymenu li a:hover plain2 {
-	background-color: #387ef9;
-	color: #333333;
-	margin-top: -2px;
-	padding-bottom: 10px;
+	background-color: #204a87;
+	color: white;
 }
 /*Botones del datepicker*/
 .todaybutton {
@@ -310,13 +303,13 @@ boldstuff {
 /***************************************/
 mainposition {
 	display: block;
-	width: 84%;
 	position: absolute;
-	left: 145px;
+	left: 200px;
 	margin-top: 50px;
 	padding-top: 10px;
 	padding-bottom: 100px;
 	padding-left: 30px;
+	min-width: 900px;
 }
 
 /* THIS IS SET SOMEWHERE FOR BEANDISPLAY
@@ -347,6 +340,18 @@ infoBallot {
 
 infoUser {
 	display: block;
+	margin-top: 25px;
+	margin-bottom: 10px;
+	padding-bottom: 4px;
+	padding-right: 20px;
+	width: 500px;
+}
+
+infoUser>h1 {
+	color: rgb(32, 74, 135);
+}
+loginUser {
+	display: block;
 	background: white;
 	margin-top: 25px;
 	margin-left: -3px;
@@ -354,11 +359,11 @@ infoUser {
 	border: 1px solid;
 	padding-bottom: 4px;
 	padding-right: 20px;
-	width: 100%;
+	width: 350px;
 }
 
-infoUser>h1 {
-	color: #333333;
+loginUser>h1 {
+	color: rgb(32, 74, 135);
 }
 
 #userDataZone, #changePassZone, #areuSureZone, #updateProfileZone {
@@ -403,7 +408,7 @@ answers, participants {
 
 DIV.t-beaneditor {
 	display: block;
-	background: white;
+	background: #f5f5f5;
 	margin-top: 20px;
 	border: none;
 	padding: 2px;
@@ -416,6 +421,7 @@ DIV.t-beaneditor LABEL {
 	float: left;
 	text-align: right;
 	clear: left;
+	font-size: 0.9em;
 	padding-right: 3px;
 }
 
@@ -426,12 +432,21 @@ input.t-beaneditor-submit {
 
 table, input, select {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 0.8em;
+	font-size: 0.9em;
 }
 
+#ballotsGrid TABLE.t-data-grid TBODY TR TD{
+	height: 40px;
+}
+#usersCountedZone TABLE.t-data-grid TBODY TR TD{
+	height: 40px;
+}
+#usersCountedEditZone TABLE.t-data-grid TBODY TR TD{
+	height: 40px;
+}
 body {
 	display: block;
-	width: 117%;
+	width: 100%;
 	float: left;
 	background-color: #F5F5F5;
 	font-size: 12pt;
@@ -442,6 +457,7 @@ body {
 
 h1 {
 	margin-top: 15px;
+	padding-top: 15px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	font-size: 1.5em;
@@ -450,7 +466,7 @@ h1 {
 }
 
 h2 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 	font-size: 1.2em;
 	margin-top: 10px;
 	margin-bottom: -3px;
@@ -566,17 +582,17 @@ div.outtst div.t-zone {
 }
 
 #CreateCensusDiv>h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 	margin-left: 0px;
 }
 
 #CreateCensusDiv>h2 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 	margin-left: 0px;
 }
 
 #CreateCensusDiv>h3 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 	margin-left: 0px;
 }
 
@@ -585,12 +601,12 @@ div.outtst div.t-zone {
 }
 
 #CreateballotDiv>h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 	margin-left: 0px;
 }
 
 #CreateballotDiv>h4 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 	margin-left: 0px;
 }
 
@@ -631,11 +647,12 @@ div.outtst div.t-zone {
 }
 
 #showprofileDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
+	
 }
 
 #ballotlistDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 hr {
@@ -643,23 +660,23 @@ hr {
 }
 
 #censuslistDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #userlistDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #companyDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #adminmailDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #contactDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #contactDiv {
@@ -667,41 +684,43 @@ hr {
 }
 
 #indexDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #indexDiv h3 {
-	color: #333333;
+	color: rgb(32, 74, 135);
+	margin-bottom: 3px;
+	margin-top: 30px;
 
 }
 
 #addToBallotDiv h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #addToBallotDiv h2 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #addToBallotDiv h3 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #voteDiv h1 {
 	margin-left: 0px;
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #voteDiv h2 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 #voteDiv h3 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 div#showProfile h1 {
-	color: #333333;
+	color: rgb(32, 74, 135);
 }
 
 div#showProfile img {
@@ -711,59 +730,55 @@ div#showProfile img {
 }
 
 .boton, .t-beaneditor-submit {
-	border-radius: 8px;
-	border: solid #ffffff 1px;
 	display: inline-block;
 	cursor: pointer;
 	color: white;
-	font-weight: bold;
 	padding: 8px 10px;
 	text-decoration: none;
-	text-shadow: rgb(61, 118, 138) 0px 1px 0px;
-	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%)
-		rgb(115, 218, 255);
 	font-family: Arial;
-	font-size: 0.8em;
+	font-size: 1em;
+	background: #6AA8BD;
+	margin-top: 10px;
+	border:none;	
 }
 
 .boton:hover, .t-beaneditor-submit:hover {
 	background-color: #09c0e2;
-	color: black;
 	margin-top: -2px;
-	padding-bottom: 10px;
-	border: solid #333333 1px;
+	padding-bottom: 8px;
+	background: #0185B9;	
+	margin-top: 10px;
+	
 }
 
-.boton:active, .t-beaneditor-submit:active {
-	position: relative;
-}
 
 button {
-	border-radius: 8px;
-	border: solid #ffffff 1px;
+	border: none;
+	margin-top: 10px;
 	display: inline-block;
 	cursor: pointer;
 	color: white;
-	font-weight: bold;
 	padding: 8px 10px;
 	text-decoration: none;
-	background: linear-gradient(#729fcf 10%, rgb(22, 109, 122) 100%)
-		rgb(115, 218, 255);
+	background: #6AA8BD;
 	font-family: Arial;
-	font-size: 0.8em;
+	font-size: 1em;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	
 }
 
 button:hover {
-	background-color: #09c0e2;
-	color: black;
-	margin-top: -2px;
-	padding-bottom: 10px;
-	border: solid #333333 1px;
+	background: #0185B9;;
+	color: white;
+	border: none;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	
 }
 
-button:active {
-	position: relative;
-}
 
 .editar {
 	position: absolute;
@@ -780,9 +795,8 @@ button:active {
 }
 
 #searchZone, #gridZone, #areuSureZone {
-	margin-left: 20px;
 	margin-right: 20px;
-	width: 1050px;
+	width: 100%;
 }
 
 #ballotlistDiv {
@@ -799,10 +813,13 @@ button:active {
 }
 
 #adminAboutUs, #adminMailZone {
-	margin-left: 20px;
 	margin-bottom: 5px;
+	color: rgb(32, 74, 135);
 }
-
+#adminAboutUs>h3, #adminMailZone>h3 {
+	margin-bottom: 5px;
+	color: rgb(32, 74, 135);
+}
 .descripcionMetodo {
 	text-align: justify;
 	padding-right: 30px;
@@ -835,7 +852,7 @@ button:active {
 
 #methodsList a {
 	text-decoration: none;
-	color: black;
+	color: rgb(32, 74, 135);
 }
 
 #methodsList li {
@@ -853,7 +870,7 @@ DIV.t-zbreadcrumbs UL {
 }
 
 DIV.t-zbreadcrumbs {
-	margin-left: -182px;
+	margin-left: -200px;
     margin-top: -50px;
 }
 DIV.t-zbreadcrumbs UL LI {

@@ -36,11 +36,8 @@
 							<tr>
 								<td><t:label for="emailf1" /></td>
 								<td><t:textfield t:id="emailf1" t:value="email" /></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><input class="boton" t:type="submit"
-									value="${message:submit-but}" /></td>
+								<td><input style="margin-bottom: 10px; padding: 4px;"
+									class="boton" t:type="submit" value="${message:submit-but}" /></td>
 							</tr>
 						</table>
 
@@ -90,7 +87,6 @@
 					</p:else>
 				</t:if>
 			</t:if>
-			<hr />
 		</t:zone>
 
 		<t:zone t:id="gridZone" id="gridZone">
@@ -116,6 +112,14 @@ DIV.t-data-grid {
 	width: 100%;
 }
 </style>
+				<div style="float: right; margin-top: -50px;">
+					<t:if test="canMake">
+						<t:actionlink t:id="addBallot">
+							<img src="${asset:context:/layout/images/plus.png}" />
+						</t:actionlink>
+				${message:newBallot}
+				</t:if>
+				</div>
 				<t:grid t:id="ballotsGrid" source="ballots" row="ballot"
 					add="vote,result,kind,addusers,finish,delete,maker,census"
 					rowsPerPage="15" inplace="true" reorder="maker,name,method,census"
@@ -204,12 +208,7 @@ DIV.t-data-grid {
 					</p:empty>
 				</t:grid>
 
-				<t:if test="canMake">
-					<t:actionlink t:id="addBallot">
-						<img src="${asset:context:/layout/images/plus.png}" />
-					</t:actionlink>
-				${message:newBallot}
-			</t:if>
+
 			</t:if>
 
 		</t:zone>
@@ -219,9 +218,9 @@ DIV.t-data-grid {
 		<t:zone t:id="areuSureZone" id="areuSureZone" t:update="show">
 			<t:if test="showAreuSure">
 				<t:if test="optionDelete">
-					Esta usted seguro de que quiere <strong>eliminar</strong> la votación <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
+					${message:sure-delete}<strong>${ballotSure.name}</strong> ${message:sure-user} <strong>${userSure}</strong>?
 					<p:else>
-						Esta usted seguro de que quiere <strong>finalizar</strong> la votación <strong>${ballotSure.name}</strong> del usuario <strong>${userSure}</strong>
+					${message:sure-finish}<strong>${ballotSure.name}</strong> ${message:sure-user} <strong>${userSure}</strong>?
 					</p:else>
 				</t:if>
 				<br />

@@ -27,6 +27,7 @@
 				<t:actionlink t:id="editbut" t:zone="^">
 					<img src="${asset:context:/layout/images/edit.png}" />
 				</t:actionlink>
+				<hr />
 			</h1>
 
 			<t:grid source="users" row="user"
@@ -67,11 +68,7 @@
 		</t:if>
 	</t:zone>
 	<t:zone t:id="upperBackZone" id="upperBackZone" t:update="show">
-		<t:if test="showUsersCountedZone">
-			<t:eventLink t:event="back" zone="^">
-				<button class="boton">${message:finish-but}</button>
-			</t:eventLink>
-		</t:if>
+		
 	</t:zone>
 
 
@@ -81,6 +78,7 @@
 
 	<t:zone t:id="nameZone" id="nameZone" t:update="show">
 		<t:if test="showNameZone">
+			<h1>${censusName}</h1><hr />
 			<t:form t:id="nameForm" zone="^">
 				<table>
 					<tr>
@@ -335,12 +333,12 @@
 	<t:zone t:id="saveCancelZone" id="saveCancelZone" t:update="show">
 		<t:if test="showSave">
 			<t:actionlink t:id="savebut" t:zone="^">
-				<button class="boton">${message:save-but}</button>
+				<button style="margin-left:0px;" class="boton">${message:save-but}</button>
 			</t:actionlink>
 		</t:if>
 		<t:if test="showCancel">
 			<t:actionlink t:id="cancelbut" t:zone="^">
-				<button class="boton">${message:restore-but}</button>
+				<button style="margin-left:0px;" class="boton">${message:restore-but}</button>
 			</t:actionlink>
 		</t:if>
 	</t:zone>
@@ -348,7 +346,7 @@
 	<t:zone t:id="lowerBackZone" id="lowerBackZone" t:update="show">
 		<t:if test="showUsersCountedZone">
 			<t:eventLink t:event="back" zone="^">
-				<button class="boton">${message:finish-but}</button>
+				<button style="margin-left:0px;" class="boton">${message:finish-but}</button>
 			</t:eventLink>
 		</t:if>
 	</t:zone>

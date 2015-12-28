@@ -20,10 +20,7 @@
 					<tr>
 						<td><t:label for="email"/></td>
 						<td><t:textfield t:id="email"/></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input t:type="submit" class="boton" value="${message:search-but}"/></td><br/><br/>
+						<td><input style="margin-left: 5px; margin-top: -5px;" t:type="submit" class="boton" value="${message:search-but}"/></td><br/><br/>
 					</tr>
 				</table>
 			</t:form>		
@@ -31,8 +28,8 @@
 		
 		<t:zone t:id="censusGridZone" id="censusGridZone" t:update="show">
 			<table>
-				<tr><td><t:actionlink t:id="showAll" t:zone="^"><button>${message:showall-but}</button></t:actionlink></td></tr>
-				<tr><td> <br/><br/>
+				<!-- <tr><td><t:actionlink t:id="showAll" t:zone="^"><button>${message:showall-but}</button></t:actionlink></td></tr>
+				--><tr><td> <br/><br/>
 					<t:grid source="censuses" row="census" exclude="id,idowner" reorder="email" add="details,remove">
 						<p:detailscell>
 							<t:actionlink t:id="detailsbut" context="census.id"><img src="${asset:context:/layout/images/ojo.png}"/></t:actionlink>
@@ -47,7 +44,7 @@
 				</td></tr>
 			</table>
 		</t:zone>
-		
+		<button style="margin-left: 0px;"><a style="text-decoration:none; color:white;" href="CreateCensus">${message:new-census}</a></button>
 		
 	</div></t:border>
 </html>

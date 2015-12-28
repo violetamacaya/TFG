@@ -19,7 +19,7 @@
 
 		<h1>${message:create-company}</h1>
 		<hr />
-		<infouser> <t:if test="isBadChar">
+		<t:if test="isBadChar">
 			<span class="error">${message:badChar}<br /></span>
 		</t:if> <t:if test="badSecurity">
 			<span class="error">${message:bad-security}</span>
@@ -103,8 +103,7 @@
 				<t:label for="url" />
 				<t:textfield t:id="url" value="company.url" />
 			</p:url>
-		</t:beaneditform> </infouser>
-
+		</t:beaneditform> 
 	</div>
 </t:border>
 

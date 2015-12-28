@@ -19,7 +19,7 @@ public class Brams {
 	private String id;
 	private String ballotId;
 	private List<String> options;
-	private List<String> votes;
+	private List<List<String>> votes;
 	private List<String> winners;
 	private Map<String,Integer> results;
 	
@@ -31,7 +31,7 @@ public class Brams {
 	public Brams(String nulltoinitialize)
 	{
 		setOptions(new LinkedList<String>());
-		setVotes(new LinkedList<String>());
+		setVotes(new LinkedList<List<String>>());
 		setWinners(new LinkedList<String>());
 
 	
@@ -39,7 +39,7 @@ public class Brams {
 	public Brams(List<String> options)
 	{
 		this.setOptions(options);
-		setVotes(new LinkedList<String>());
+		setVotes(new LinkedList<List<String>>());
 		setWinners(new LinkedList<String>());
 	}
 	
@@ -63,10 +63,10 @@ public class Brams {
 	public void setOptions(List<String> options) {
 		this.options = options;
 	}
-	public List<String> getVotes() {
+	public List<List<String>> getVotes() {
 		return votes;
 	}
-	public void setVotes(List<String> votes) {
+	public void setVotes(List<List<String>> votes) {
 		this.votes = votes;
 	}
 	public Map<String,Integer> getResults() {
@@ -88,11 +88,11 @@ public class Brams {
 	 * Add a vote to the list
 	 * @param option vote to add
 	 */
-	public void addVote(String option)
+	public void addVote(List<String> option)
 	{
 		if(votes==null)
 		{
-			setVotes(new LinkedList<String>());
+			setVotes(new LinkedList<List<String>>());
 		}
 		votes.add(option);
 	}
@@ -117,7 +117,7 @@ public class Brams {
 	{
 		if(results!=null)
 		{
-			return results.get(option.toLowerCase());
+			return results.get(option);
 		}
 		return -1;
 	}
@@ -133,7 +133,7 @@ public class Brams {
 		else
 		{
 			this.winners=new LinkedList<String>();
-			this.results=CalcBrams.CalculateBrams(options, votes, winners);
+			this.results=CalcBrams.CalculateBrams(options, votes);
 			return true;
 		}
 	}

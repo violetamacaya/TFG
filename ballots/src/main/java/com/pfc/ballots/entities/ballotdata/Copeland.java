@@ -120,7 +120,9 @@ public class Copeland {
 		}
 		else
 		{
+			
 			results=CalcCopeland.CalculateCopeland(options, votes);
+			
 			return true;
 		}
 	}

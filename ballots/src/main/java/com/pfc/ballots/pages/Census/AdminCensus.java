@@ -171,7 +171,7 @@ public class AdminCensus {
 	/**
 	 * Report to show all censuses
 	 */
-	public void onActionFromShowAll()
+	/*public void onActionFromShowAll()
 	{
 		if(request.isXHR())
 		{
@@ -179,7 +179,7 @@ public class AdminCensus {
 			searched=false;
 			ajaxResponseRenderer.addRender("censusGridZone", censusGridZone);
 		}
-	}
+	}*/
 	
 	  ////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////// ON ACTIVATE //////////////////////////////////// 

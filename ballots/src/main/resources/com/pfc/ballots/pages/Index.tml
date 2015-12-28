@@ -69,16 +69,14 @@ TABLE.t-data-grid TR:hover td {
 		<t:if test="!showRegistred">
 			<h1>${message:ballots-web}</h1>
 			<hr />
-			<h3>${message:welcome}</h3>
-			<br />
-
-			<h3>
+			<p>${message:welcome}</p>
+			<p>
 				${message:line1}
 				<t:pagelink page="MethodsInfo">${message:line1-link}</t:pagelink>
 				${message:line1-next}<br /> ${message:line2}
 				<t:pagelink page="Contact">${message:line2-link}</t:pagelink>
 				${message:line2-next}
-			</h3>
+			</p>
 		
 			<p:else>
 				<div class="ballotsList">
@@ -89,6 +87,7 @@ TABLE.t-data-grid TR:hover td {
 
 					<t:if test="showNotStarted">
 						<h3>${message:not-started}</h3>
+						<hr />
 						
 						<t:grid t:id="ballotsGridNonActivedBallots" source="nonActiveBallots"
 							row="ballot" t:value="ballot"
@@ -107,7 +106,7 @@ TABLE.t-data-grid TR:hover td {
 
 					</t:if>
 					<t:if test="showActive">
-						<h3>${message:actives}</h3>
+						<h3>${message:actives}</h3> <hr />
 						<t:grid t:id="ballotsGridActives" source="activeBallots"
 							row="ballot" t:value="ballot"
 							reorder="name, kind, startDate, endDate, method" rowsPerPage="10"
@@ -133,7 +132,7 @@ TABLE.t-data-grid TR:hover td {
 					</t:if>
 					<t:if test="showEnded">
 
-						<h3>${message:ended}</h3>
+						<h3>${message:ended}</h3> <hr />
 						<t:grid t:id="ballotsGridEndedBallots" source="endedBallots"
 							row="ballot" t:value="ballot"
 							reorder="name, kind, startDate, endDate, method" rowsPerPage="10"
@@ -167,7 +166,7 @@ TABLE.t-data-grid TR:hover td {
 					</t:if>
 
 					<t:if test="showPublicActive">
-						<h3>${message:public-actives}</h3>
+						<h3>${message:public-actives}</h3> <hr />
 						<t:grid t:id="ballotsGrid" source="publicActiveBallots"
 							row="ballot" t:value="ballot"
 							reorder="name, kind, startDate, endDate, method" rowsPerPage="10"
@@ -193,7 +192,7 @@ TABLE.t-data-grid TR:hover td {
 					</t:if>
 					<t:if test="showPublicEnded">
 
-						<h3>${message:public-ended}</h3>
+						<h3>${message:public-ended}</h3> <hr />
 
 						<t:grid t:id="ballotsGridEnded" source="publicEndedBallots"
 							row="ballot" t:value="ballot"

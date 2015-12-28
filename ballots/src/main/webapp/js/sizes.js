@@ -10,7 +10,7 @@ jQuery( document ).ready(function( $ ) {
 			var bodySize = ($("body").css('font-size')); 
 			var k = parseInt(bodySize) * 72 / 96;
 			if(k>8){
-				var newSize = k-2 + "pt";
+				var newSize = k-1 + "pt";
 				$('body').css({'font-size':newSize});  
 				setCookie("elesolFSize", newSize, 1);
 			}
@@ -22,7 +22,7 @@ jQuery( document ).ready(function( $ ) {
 			var bodySize = ($("body").css('font-size')); 
 			var k = parseInt(bodySize) * 72 / 96;
 			if (k<16){
-				var newSize = k+2 + "pt";
+				var newSize = k+1 + "pt";
 				$('body').css({'font-size':newSize});  
 				setCookie("elesolFSize", newSize, 1);
 			}

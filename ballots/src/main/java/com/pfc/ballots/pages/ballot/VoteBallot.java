@@ -14,6 +14,7 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.internal.services.StringValueEncoder;
 import org.apache.tapestry5.ioc.Messages;
@@ -52,12 +53,16 @@ import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Black;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.entities.ballotdata.Brams;
+import com.pfc.ballots.entities.ballotdata.Bucklin;
 import com.pfc.ballots.entities.ballotdata.Condorcet;
+import com.pfc.ballots.entities.ballotdata.Coombs;
 import com.pfc.ballots.entities.ballotdata.Copeland;
 import com.pfc.ballots.entities.ballotdata.Dodgson;
+import com.pfc.ballots.entities.ballotdata.Hare;
 import com.pfc.ballots.entities.ballotdata.JuicioMayoritario;
 import com.pfc.ballots.entities.ballotdata.Kemeny;
 import com.pfc.ballots.entities.ballotdata.MejorPeor;
+import com.pfc.ballots.entities.ballotdata.Nanson;
 import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.RelativeMajority;
 import com.pfc.ballots.entities.ballotdata.Schulze;
@@ -193,7 +198,6 @@ public class VoteBallot {
 		vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
 
 		ballotImages= ballot.getImagenes();
-		System.out.println("ballotimages: "+ ballot.getDescription());
 
 		if(ballot.isPublica())
 		{
@@ -246,7 +250,10 @@ public class VoteBallot {
 		{
 			bramsDao=DB4O.getBramsDao(datasession.getDBName());
 			brams=bramsDao.getByBallotId(contextBallotId);
-			bramsVote=new LinkedList<String>();
+			bramsAux=new LinkedList<String>();
+			bramsVote = new LinkedList<String>();
+			bramsModel=NUMBERS1_10;
+			bramsSel0 = bramsSel1=bramsSel2=bramsSel3=bramsSel4=bramsSel5=bramsSel6=bramsSel7=bramsSel8=bramsSel9=bramsSel10=bramsSel11=bramsSel12=bramsSel13=bramsSel14="0";
 		}	
 		if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
 		{
@@ -257,6 +264,7 @@ public class VoteBallot {
 		{
 			juicioMayoritarioDao=DB4O.getJuicioMayoritarioDao(datasession.getDBName());
 			juicioMayoritario=juicioMayoritarioDao.getByBallotId(contextBallotId);
+			juicioMayoritarioVote = new LinkedList<String>();
 		}	
 		if(ballot.getMethod()==Method.CONDORCET)
 		{
@@ -292,7 +300,7 @@ public class VoteBallot {
 		{
 			copelandDao=DB4O.getCopelandDao(datasession.getDBName());
 			copeland=copelandDao.getByBallotId(contextBallotId);
-			radiobuttonsizeCopeland = new String[condorcet.getOptions().size()];
+			radiobuttonsizeCopeland = new String[copeland.getOptions().size()];
 			for (int i = 0; i<copeland.getOptions().size(); i++){
 				radiobuttonsizeCopeland[i] = String.valueOf(i);
 			}
@@ -323,6 +331,30 @@ public class VoteBallot {
 			mejorPeorDao=DB4O.getMejorPeorDao(datasession.getDBName());
 			mejorPeor=mejorPeorDao.getByBallotId(contextBallotId);
 		}	
+		if(ballot.getMethod()==Method.BUCKLIN)
+		{
+			bucklinDao=DB4O.getBucklinDao(datasession.getDBName());
+			bucklin=bucklinDao.getByBallotId(contextBallotId);
+			bucklinVote=new LinkedList<String>();
+		}
+		if(ballot.getMethod()==Method.NANSON)
+		{
+			nansonDao=DB4O.getNansonDao(datasession.getDBName());
+			nanson=nansonDao.getByBallotId(contextBallotId);
+			nansonVote=new LinkedList<String>();
+		}
+		if(ballot.getMethod()==Method.HARE)
+		{
+			hareDao=DB4O.getHareDao(datasession.getDBName());
+			hare=hareDao.getByBallotId(contextBallotId);
+			hareVote=new LinkedList<String>();
+		}
+		if(ballot.getMethod()==Method.COOMBS)
+		{
+			coombsDao=DB4O.getCoombsDao(datasession.getDBName());
+			coombs=coombsDao.getByBallotId(contextBallotId);
+			coombsVote=new LinkedList<String>();
+		}
 	}
 
 
@@ -876,40 +908,345 @@ public class VoteBallot {
 
 	@Persist
 	@Property
-	private List<String> bramsVote;
+	private List<String> bramsAux;
 
+	@Persist
 	@Property
-	private String bramsOption;
+	private List<String> bramsVote;
 
 	@Property
 	@Persist
 	private boolean showErrorBrams;
 
+	static final private String[] NUMBERS1_10 = new String[] { "1","2", "3", "4","5","6","7","8", "9", "10" };
 
-	public ValueEncoder<String> getStringEncoderBrams() { 
-		return new StringValueEncoder(); 
-	}
 
-	public List<String> getModelBrams() {
-		return brams.getOptions(); 
-	}
 	@Property
-	private final StringValueEncoder encoderBrams = new StringValueEncoder();
+	@Persist 
+	private String bramsValues;
+
+	@Property
+	@Persist 
+	private String [] bramsModel;
+
+	@Property
+	@Persist 
+	private String bramsSel0;
+
+	@Property
+	@Persist 
+	private String bramsSel1;
+
+	@Property
+	@Persist 
+	private String bramsSel2;
 
 	@Property
 	@Persist
-	private List<String> selectedCheckListBrams;
+	private String bramsSel3;
 
+	@Property
+	@Persist 
+	private String bramsSel4;
+
+	@Property
+	@Persist 
+	private String bramsSel5;
+
+	@Property
+	@Persist 
+	private String bramsSel6;
+
+	@Property
+	@Persist 
+	private String bramsSel7;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String bramsSel8;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String bramsSel9;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String bramsSel10;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String bramsSel11;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String bramsSel12;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String bramsSel13;
+
+	@Property
+	@Persist 
+	@Validate("required")
+	private String bramsSel14;
+
+
+	public boolean isShowBrams8()
+	{
+		if(brams.getOptions().size()>7)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowBrams9()
+	{
+		if(brams.getOptions().size()>8)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowBrams10()
+	{
+		if(brams.getOptions().size()>9)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowBrams11()
+	{
+		if(brams.getOptions().size()>10)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowBrams12()
+	{
+		if(brams.getOptions().size()>11)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowBrams13()
+	{
+		if(brams.getOptions().size()>12)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowBrams14()
+	{
+		if(brams.getOptions().size()>13)
+			return true;
+		else
+			return false;
+	}
+	public boolean isShowBrams15()
+	{
+		if(brams.getOptions().size()>=14)
+			return true;
+		else
+			return false;
+	}
+
+
+	public String getBramsOption0()
+	{
+		return brams.getOptions().get(0);
+	}
+	public String getBramsOption1()
+	{
+		return brams.getOptions().get(1);
+	}
+	public String getBramsOption2()
+	{
+		return brams.getOptions().get(2);
+	}
+	public String getBramsOption3()
+	{
+		return brams.getOptions().get(3);
+	}
+	public String getBramsOption4()
+	{
+		return brams.getOptions().get(4);
+	}
+	public String getBramsOption5()
+	{
+		return brams.getOptions().get(5);
+	}
+	public String getBramsOption6()
+	{
+		return brams.getOptions().get(6);
+	}
+	public String getBramsOption7()
+	{
+		return brams.getOptions().get(7);
+	}
+	public String getBramsOption8()
+	{
+		return brams.getOptions().get(8);
+	}
+	public String getBramsOption9()
+	{
+		return brams.getOptions().get(9);
+	}
+	public String getBramsOption10()
+	{
+		return brams.getOptions().get(10);
+	}
+	public String getBramsOption11()
+	{
+		return brams.getOptions().get(11);
+	}
+	public String getBramsOption12()
+	{
+		return brams.getOptions().get(12);
+	}
+	public String getBramsOption13()
+	{
+		return brams.getOptions().get(13);
+	}
+	public String getBramsOption14()
+	{
+		return brams.getOptions().get(14);
+	}
+
+	public void  onValueChangedFromBramsSel0(String str)
+	{
+		bramsSel0=str;
+	}
+	public void  onValueChangedFromBramsSel1(String str)
+	{
+		bramsSel1=str;
+	}
+	public void  onValueChangedFromBramsSel2(String str)
+	{
+		bramsSel2=str;
+	}
+	public void  onValueChangedFromBramsSel3(String str)
+	{
+		bramsSel3=str;
+	}
+	public void  onValueChangedFromBramsSel4(String str)
+	{
+		bramsSel4=str;
+	}
+	public void  onValueChangedFromBramsSel5(String str)
+	{
+		bramsSel5=str;
+	}
+	public void  onValueChangedFromBramsSel6(String str)
+	{
+		bramsSel6=str;
+	}
+	public void  onValueChangedFromBramsSel7(String str)
+	{
+		bramsSel7=str;
+	}
+	public void  onValueChangedFromBramsSel8(String str)
+	{
+		bramsSel8=str;
+	}
+	public void  onValueChangedFromBramsSel9(String str)
+	{
+		bramsSel9=str;
+	}
+	public void  onValueChangedFromBramsSel10(String str)
+	{
+		bramsSel10=str;
+	}
+	public void  onValueChangedFromBramsSel11(String str)
+	{
+		bramsSel11=str;
+	}
+	public void  onValueChangedFromBramsSel12(String str)
+	{
+		bramsSel12=str;
+	}
+	public void  onValueChangedFromBramsSel13(String str)
+	{
+		bramsSel13=str;
+	}
+	public void  onValueChangedFromBramsSel14(String str)
+	{
+		bramsSel14=str;
+	}
 
 	public Object onSuccessFromBramsForm()
 	{
 		if(request.isXHR())
 		{
-			if (selectedCheckListBrams.size() > (brams.getOptions().size() - 3)){
+			if (!bramsSel0.equals("0")){
+				bramsAux.add(bramsSel0);
+			}
+			if (!bramsSel1.equals("0")){
+				bramsAux.add(bramsSel1);
+			}
+			if (!bramsSel2.equals("0")){
+				bramsAux.add(bramsSel2);
+			}
+			if (!bramsSel3.equals("0")){
+				bramsAux.add(bramsSel3);
+			}
+			if (!bramsSel4.equals("0")){
+				bramsAux.add(bramsSel4);
+			}
+			if (!bramsSel5.equals("0")){
+				bramsAux.add(bramsSel5);
+			}
+			if (!bramsSel6.equals("0")){
+				bramsAux.add(bramsSel6);
+			}
+			if (isShowBrams8()){
+				if (!bramsSel7.equals("0")){
+					bramsAux.add(bramsSel7);
+				}
+			}
+			if (isShowBrams9()){
+				if (!bramsSel7.equals("0")){
+					bramsAux.add(bramsSel8);
+				}
+			}
+			if (isShowBrams10()){
+				if (!bramsSel7.equals("0")){
+					bramsAux.add(bramsSel9);
+				}
+			}
+			if (isShowBrams11()){
+				if (!bramsSel7.equals("0")){
+					bramsAux.add(bramsSel10);
+				}
+			}
+			if (isShowBrams12()){
+				if (!bramsSel7.equals("0")){
+					bramsAux.add(bramsSel11);
+				}
+			}
+			if (isShowBrams13()){
+				if (!bramsSel7.equals("0")){
+					bramsAux.add(bramsSel12);
+				}
+			}
+			if (isShowBrams14()){
+				if (!bramsSel7.equals("0")){
+					bramsAux.add(bramsSel13);
+				}
+			}
+			if (isShowBrams15()){
+				if (!bramsSel7.equals("0")){
+					bramsAux.add(bramsSel14);
+				}
+			}
+
+			if (bramsAux.size() > (brams.getOptions().size() - 3)){
 				showErrorBrams = true;
+				bramsAux = new LinkedList<String>();
 				ajaxResponseRenderer.addRender("bramsZone",bramsZone);
-
-
 			}
 			else {
 				if(ballot.isPublica())
@@ -917,12 +1254,48 @@ public class VoteBallot {
 					ballot=ballotDao.getById(contextBallotId);
 					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
 					{
-						for(String option:selectedCheckListBrams){
-							brams.addVote(option);
+						System.out.println("BramsSel0 "+bramsSel0);
+						bramsVote.add(bramsSel0);
+						bramsVote.add(bramsSel1);
+						bramsVote.add(bramsSel2);
+						bramsVote.add(bramsSel3);
+						bramsVote.add(bramsSel4);
+						bramsVote.add(bramsSel5);
+						bramsVote.add(bramsSel6);
+						if (isShowBrams8()){
+							bramsVote.add(bramsSel7);
 						}
+						if (isShowBrams9()){
+							bramsVote.add(bramsSel8);
+						}
+						if (isShowBrams10()){
+							bramsVote.add(bramsSel9);
+						}
+						if (isShowBrams11()){
+							bramsVote.add(bramsSel10);
+
+						}
+						if (isShowBrams12()){
+							bramsVote.add(bramsSel11);
+						}
+						if (isShowBrams13()){
+							bramsVote.add(bramsSel12);
+
+						}
+						if (isShowBrams14()){
+							bramsVote.add(bramsSel13);
+						}
+						if (isShowBrams15()){
+							bramsVote.add(bramsSel14);
+						}
+
+
+
+						brams.addVote(bramsVote);
 						bramsDao.update(brams);
 						addPublicVote();
 					}
+					System.out.println(bramsVote);
 				}
 				else
 				{
@@ -932,11 +1305,41 @@ public class VoteBallot {
 
 					if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
 					{
+						bramsVote.add(bramsSel0);
+						bramsVote.add(bramsSel1);
+						bramsVote.add(bramsSel2);
+						bramsVote.add(bramsSel3);
+						bramsVote.add(bramsSel4);
+						bramsVote.add(bramsSel5);
+						bramsVote.add(bramsSel6);
+						if (isShowBrams8()){
+							bramsVote.add(bramsSel7);
+						}
+						if (isShowBrams9()){
+							bramsVote.add(bramsSel8);
+						}
+						if (isShowBrams10()){
+							bramsVote.add(bramsSel9);
+						}
+						if (isShowBrams11()){
+							bramsVote.add(bramsSel10);
+
+						}
+						if (isShowBrams12()){
+							bramsVote.add(bramsSel11);
+						}
+						if (isShowBrams13()){
+							bramsVote.add(bramsSel12);
+
+						}
+						if (isShowBrams14()){
+							bramsVote.add(bramsSel13);
+						}
+						if (isShowBrams15()){
+							bramsVote.add(bramsSel14);
+						}
 						vote.setCounted(true);
 						voteDao.updateVote(vote);
-						for(String option:selectedCheckListBrams){
-							brams.addVote(option);
-						}
 						bramsDao.update(brams);
 					}
 				}
@@ -1546,6 +1949,9 @@ public class VoteBallot {
 	@Persist
 	private String juicioMayoritarioRadio15;	
 
+	@Persist
+	@Property
+	private List<String> juicioMayoritarioVote;
 
 	public boolean isShowJuicioMayoritario8()
 	{
@@ -1695,57 +2101,40 @@ public class VoteBallot {
 					ballot=ballotDao.getById(contextBallotId);
 					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
 					{
+						juicioMayoritarioVote.add(juicioMayoritarioRadio0);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio1);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio2);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio3);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio4);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio5);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio6);
 
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio0); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(0));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio1); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(1));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio2); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(2));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio3); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(3));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio4); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(4));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio5); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(5));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio6); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(6));
-						System.out.println("Radio 7 "+juicioMayoritarioRadio7);
 						if(!(juicioMayoritarioRadio7 == null)){
-							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio7); i++)
-								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(7));
+							juicioMayoritarioVote.add(juicioMayoritarioRadio7);
 						}
 						if(!(juicioMayoritarioRadio8 == null)){
-							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio8); i++)
-								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(8));
+							juicioMayoritarioVote.add(juicioMayoritarioRadio8);
 						}
 						if(!(juicioMayoritarioRadio9 == null)){
-							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio9); i++)
-								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(9));
-
+							juicioMayoritarioVote.add(juicioMayoritarioRadio9);
 						}
 						if(!(juicioMayoritarioRadio10 == null)){
-							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio10); i++)
-								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(10));
+							juicioMayoritarioVote.add(juicioMayoritarioRadio10);
 						}
-
 						if(!(juicioMayoritarioRadio11 == null)){
-							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio11); i++)
-								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(11));
+							juicioMayoritarioVote.add(juicioMayoritarioRadio11);
 						}
 						if(!(juicioMayoritarioRadio12 == null)){
-							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio12); i++)
-								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(12));
+							juicioMayoritarioVote.add(juicioMayoritarioRadio12);
 						}
 						if(!(juicioMayoritarioRadio13 == null)){
-							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio13); i++)
-								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(13));
+							juicioMayoritarioVote.add(juicioMayoritarioRadio13);
 						}
 						if(!(juicioMayoritarioRadio14 == null)){
-							for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio14); i++)
-								juicioMayoritario.addVote(juicioMayoritario.getOptions().get(14));
+							juicioMayoritarioVote.add(juicioMayoritarioRadio14);
 						}
 					}
+					juicioMayoritario.addVote(juicioMayoritarioVote);
 					juicioMayoritarioDao.update(juicioMayoritario);
 					addPublicVote();
 				}
@@ -1761,36 +2150,39 @@ public class VoteBallot {
 						vote.setCounted(true);
 						voteDao.updateVote(vote);
 
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio0); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(0));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio1); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(1));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio2); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(2));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio3); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(3));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio4); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(4));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio5); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(5));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio6); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(6));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio7); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(7));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio8); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(8));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio9); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(9));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio10); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(10));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio11); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(11));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio12); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(12));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio13); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(13));
-						for(int i=0; i<Integer.parseInt(juicioMayoritarioRadio14); i++)
-							juicioMayoritario.addVote(juicioMayoritario.getOptions().get(14));
+						juicioMayoritarioVote.add(juicioMayoritarioRadio0);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio1);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio2);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio3);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio4);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio5);
+						juicioMayoritarioVote.add(juicioMayoritarioRadio6);
+
+						if(!(juicioMayoritarioRadio7 == null)){
+							juicioMayoritarioVote.add(juicioMayoritarioRadio7);
+						}
+						if(!(juicioMayoritarioRadio8 == null)){
+							juicioMayoritarioVote.add(juicioMayoritarioRadio8);
+						}
+						if(!(juicioMayoritarioRadio9 == null)){
+							juicioMayoritarioVote.add(juicioMayoritarioRadio9);
+						}
+						if(!(juicioMayoritarioRadio10 == null)){
+							juicioMayoritarioVote.add(juicioMayoritarioRadio10);
+						}
+						if(!(juicioMayoritarioRadio11 == null)){
+							juicioMayoritarioVote.add(juicioMayoritarioRadio11);
+						}
+						if(!(juicioMayoritarioRadio12 == null)){
+							juicioMayoritarioVote.add(juicioMayoritarioRadio12);
+						}
+						if(!(juicioMayoritarioRadio13 == null)){
+							juicioMayoritarioVote.add(juicioMayoritarioRadio13);
+						}
+						if(!(juicioMayoritarioRadio14 == null)){
+							juicioMayoritarioVote.add(juicioMayoritarioRadio14);
+						}
+						juicioMayoritario.addVote(juicioMayoritarioVote);
 						juicioMayoritarioDao.update(juicioMayoritario);
 					}
 				}
@@ -2341,70 +2733,70 @@ public class VoteBallot {
 	}
 	public boolean isShowCopeland5()
 	{
-		if(copeland.getOptions().size()>=4)
+		if(copeland.getOptions().size()>4)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland6()
 	{
-		if(copeland.getOptions().size()>=5)
+		if(copeland.getOptions().size()>5)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland7()
 	{
-		if(copeland.getOptions().size()>=6)
+		if(copeland.getOptions().size()>6)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland8()
 	{
-		if(copeland.getOptions().size()>=7)
+		if(copeland.getOptions().size()>7)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland9()
 	{
-		if(copeland.getOptions().size()>=8)
+		if(copeland.getOptions().size()>8)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland10()
 	{
-		if(copeland.getOptions().size()>=9)
+		if(copeland.getOptions().size()>9)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland11()
 	{
-		if(copeland.getOptions().size()>=10)
+		if(copeland.getOptions().size()>10)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland12()
 	{
-		if(copeland.getOptions().size()>=11)
+		if(copeland.getOptions().size()>11)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland13()
 	{
-		if(copeland.getOptions().size()>=12)
+		if(copeland.getOptions().size()>12)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowCopeland14()
 	{
-		if(copeland.getOptions().size()>=13)
+		if(copeland.getOptions().size()>13)
 			return true;
 		else
 			return false;
@@ -2508,48 +2900,46 @@ public class VoteBallot {
 					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
 					{
 						copelandVote.add(copelandRadio0);
-						System.out.println("El valor en el radio  0 es de : "+Integer.parseInt(copelandRadio0));
 						copelandVote.add(copelandRadio1);
-						System.out.println("El valor en el radio  1 es de : "+Integer.parseInt(copelandRadio1));
 
-						if(copeland.getOptions().size()==3){
+						if(copeland.getOptions().size()>=3){
 							copelandVote.add(copelandRadio2);
-							System.out.println("El valor en el radio  2 es de : "+Integer.parseInt(copelandRadio2));
 						}
-						if(copeland.getOptions().size()==4 ){
+						if(copeland.getOptions().size()>=4 ){
 							copelandVote.add(copelandRadio3);
 						}
-						if(copeland.getOptions().size()==5){
+						if(copeland.getOptions().size()>=5){
 							copelandVote.add(copelandRadio4);
 						}
-						if(copeland.getOptions().size()==6){
+						if(copeland.getOptions().size()>=6){
 							copelandVote.add(copelandRadio5);
 						}
-						if(copeland.getOptions().size()==7){
+						if(copeland.getOptions().size()>=7){
 							copelandVote.add(copelandRadio6);
 						}
-						if(copeland.getOptions().size()==8 ){
+						if(copeland.getOptions().size()>=8 ){
 							copelandVote.add(copelandRadio7);
 						}
-						if(copeland.getOptions().size()==9){
+						if(copeland.getOptions().size()>=9){
 							copelandVote.add(copelandRadio8);
 						}
-						if(copeland.getOptions().size()==10){
+						if(copeland.getOptions().size()>=10){
 							copelandVote.add(copelandRadio9);
 						}
-						if(copeland.getOptions().size()==11){
+						if(copeland.getOptions().size()>=11){
 							copelandVote.add(copelandRadio10);
 						}
-						if(copeland.getOptions().size()==12){
+						if(copeland.getOptions().size()>=12){
 							copelandVote.add(copelandRadio11);
 						}
-						if(copeland.getOptions().size()==13){
+						if(copeland.getOptions().size()>=13){
 							copelandVote.add(copelandRadio12);
 						}
-						if(copeland.getOptions().size()==14){
+						if(copeland.getOptions().size()>=14){
 							copelandVote.add(copelandRadio13);
 						}						
-						if(copeland.getOptions().size()==15){
+						if(copeland.getOptions().size()>=15){
+							copelandVote.add(copelandRadio14);
 						}	
 						copeland.addVote(copelandVote);
 						copelandDao.update(copeland);
@@ -2566,53 +2956,48 @@ public class VoteBallot {
 					{
 						vote.setCounted(true);
 						voteDao.updateVote(vote);
+						copelandVote.add(copelandRadio0);
+						copelandVote.add(copelandRadio1);
 
-						if(Integer.parseInt(copelandRadio0) > 0){
-							copelandVote.add(copelandRadio0);
-						}
-						if(Integer.parseInt(copelandRadio1) > 0){
-							copelandVote.add(copelandRadio1);
-						}
-						if(Integer.parseInt(copelandRadio2) > 0){
+						if(copeland.getOptions().size()>=3){
 							copelandVote.add(copelandRadio2);
 						}
-						if(Integer.parseInt(copelandRadio3) > 0){
+						if(copeland.getOptions().size()>=4 ){
 							copelandVote.add(copelandRadio3);
 						}
-						if(Integer.parseInt(copelandRadio4) > 0){
+						if(copeland.getOptions().size()>=5){
 							copelandVote.add(copelandRadio4);
 						}
-						if(Integer.parseInt(copelandRadio5) > 0){
+						if(copeland.getOptions().size()>=6){
 							copelandVote.add(copelandRadio5);
 						}
-						if(Integer.parseInt(copelandRadio6) > 0){
+						if(copeland.getOptions().size()>=7){
 							copelandVote.add(copelandRadio6);
 						}
-						if(Integer.parseInt(copelandRadio7) > 0){
+						if(copeland.getOptions().size()>=8 ){
 							copelandVote.add(copelandRadio7);
 						}
-						if(Integer.parseInt(copelandRadio8) > 0){
+						if(copeland.getOptions().size()>=9){
 							copelandVote.add(copelandRadio8);
 						}
-						if(Integer.parseInt(copelandRadio9) > 0){
+						if(copeland.getOptions().size()>=10){
 							copelandVote.add(copelandRadio9);
 						}
-						if(Integer.parseInt(copelandRadio10) > 0){
+						if(copeland.getOptions().size()>=11){
 							copelandVote.add(copelandRadio10);
 						}
-						if(Integer.parseInt(copelandRadio11) > 0){
+						if(copeland.getOptions().size()>=12){
 							copelandVote.add(copelandRadio11);
 						}
-						if(Integer.parseInt(copelandRadio12) > 0){
+						if(copeland.getOptions().size()>=13){
 							copelandVote.add(copelandRadio12);
 						}
-						if(Integer.parseInt(copelandRadio13) > 0){
+						if(copeland.getOptions().size()>=14){
 							copelandVote.add(copelandRadio13);
 						}						
-						if(Integer.parseInt(copelandRadio14) > 0){
+						if(copeland.getOptions().size()>=15){
 							copelandVote.add(copelandRadio14);
-						}
-						System.out.println("copelandVote vale: " +copelandVote);
+						}	
 						copeland.addVote(copelandVote);
 						copelandDao.update(copeland);
 					}
@@ -2754,77 +3139,77 @@ public class VoteBallot {
 	}
 	public boolean isShowSchulze5()
 	{
-		if(schulze.getOptions().size()>=4)
+		if(schulze.getOptions().size()>4)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze6()
 	{
-		if(schulze.getOptions().size()>=5)
+		if(schulze.getOptions().size()>5)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze7()
 	{
-		if(schulze.getOptions().size()>=6)
+		if(schulze.getOptions().size()>6)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze8()
 	{
-		if(schulze.getOptions().size()>=7)
+		if(schulze.getOptions().size()>7)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze9()
 	{
-		if(schulze.getOptions().size()>=8)
+		if(schulze.getOptions().size()>8)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze10()
 	{
-		if(schulze.getOptions().size()>=9)
+		if(schulze.getOptions().size()>9)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze11()
 	{
-		if(schulze.getOptions().size()>=10)
+		if(schulze.getOptions().size()>10)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze12()
 	{
-		if(schulze.getOptions().size()>=11)
+		if(schulze.getOptions().size()>11)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze13()
 	{
-		if(schulze.getOptions().size()>=12)
+		if(schulze.getOptions().size()>12)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze14()
 	{
-		if(schulze.getOptions().size()>=13)
+		if(schulze.getOptions().size()>13)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSchulze15()
 	{
-		if(schulze.getOptions().size()>=14)
+		if(schulze.getOptions().size()>14)
 			return true;
 		else
 			return false;
@@ -2925,44 +3310,44 @@ public class VoteBallot {
 						schulzeVote.add(schulzeRadio1);
 						System.out.println("El valor en el radio  1 es de : "+Integer.parseInt(schulzeRadio1));
 
-						if(schulze.getOptions().size()==3){
+						if(schulze.getOptions().size()>=3){
 							schulzeVote.add(schulzeRadio2);
 							System.out.println("El valor en el radio  2 es de : "+Integer.parseInt(schulzeRadio2));
 						}
-						if(schulze.getOptions().size()==4 ){
+						if(schulze.getOptions().size()>=4 ){
 							schulzeVote.add(schulzeRadio3);
 						}
-						if(schulze.getOptions().size()==5){
+						if(schulze.getOptions().size()>=5){
 							schulzeVote.add(schulzeRadio4);
 						}
-						if(schulze.getOptions().size()==6){
+						if(schulze.getOptions().size()>=6){
 							schulzeVote.add(schulzeRadio5);
 						}
-						if(schulze.getOptions().size()==7){
+						if(schulze.getOptions().size()>=7){
 							schulzeVote.add(schulzeRadio6);
 						}
-						if(schulze.getOptions().size()==8 ){
+						if(schulze.getOptions().size()>=8 ){
 							schulzeVote.add(schulzeRadio7);
 						}
-						if(schulze.getOptions().size()==9){
+						if(schulze.getOptions().size()>=9){
 							schulzeVote.add(schulzeRadio8);
 						}
-						if(schulze.getOptions().size()==10){
+						if(schulze.getOptions().size()>=10){
 							schulzeVote.add(schulzeRadio9);
 						}
-						if(schulze.getOptions().size()==11){
+						if(schulze.getOptions().size()>=11){
 							schulzeVote.add(schulzeRadio10);
 						}
-						if(schulze.getOptions().size()==12){
+						if(schulze.getOptions().size()>=12){
 							schulzeVote.add(schulzeRadio11);
 						}
-						if(schulze.getOptions().size()==13){
+						if(schulze.getOptions().size()>=13){
 							schulzeVote.add(schulzeRadio12);
 						}
-						if(schulze.getOptions().size()==14){
+						if(schulze.getOptions().size()>=14){
 							schulzeVote.add(schulzeRadio13);
 						}						
-						if(schulze.getOptions().size()==15){
+						if(schulze.getOptions().size()>=15){
 						}	
 						schulze.addVote(schulzeVote);
 						schulzeDao.update(schulze);
@@ -3167,77 +3552,77 @@ public class VoteBallot {
 	}
 	public boolean isShowSmall5()
 	{
-		if(small.getOptions().size()>=4)
+		if(small.getOptions().size()>4)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall6()
 	{
-		if(small.getOptions().size()>=5)
+		if(small.getOptions().size()>5)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall7()
 	{
-		if(small.getOptions().size()>=6)
+		if(small.getOptions().size()>6)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall8()
 	{
-		if(small.getOptions().size()>=7)
+		if(small.getOptions().size()>7)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall9()
 	{
-		if(small.getOptions().size()>=8)
+		if(small.getOptions().size()>8)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall10()
 	{
-		if(small.getOptions().size()>=9)
+		if(small.getOptions().size()>9)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall11()
 	{
-		if(small.getOptions().size()>=10)
+		if(small.getOptions().size()>10)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall12()
 	{
-		if(small.getOptions().size()>=11)
+		if(small.getOptions().size()>11)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall13()
 	{
-		if(small.getOptions().size()>=12)
+		if(small.getOptions().size()>12)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall14()
 	{
-		if(small.getOptions().size()>=13)
+		if(small.getOptions().size()>13)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowSmall15()
 	{
-		if(small.getOptions().size()>=14)
+		if(small.getOptions().size()>14)
 			return true;
 		else
 			return false;
@@ -3338,44 +3723,44 @@ public class VoteBallot {
 						smallVote.add(smallRadio1);
 						System.out.println("El valor en el radio  1 es de : "+Integer.parseInt(smallRadio1));
 
-						if(small.getOptions().size()==3){
+						if(small.getOptions().size()>=3){
 							smallVote.add(smallRadio2);
 							System.out.println("El valor en el radio  2 es de : "+Integer.parseInt(smallRadio2));
 						}
-						if(small.getOptions().size()==4 ){
+						if(small.getOptions().size()>=4 ){
 							smallVote.add(smallRadio3);
 						}
-						if(small.getOptions().size()==5){
+						if(small.getOptions().size()>=5){
 							smallVote.add(smallRadio4);
 						}
-						if(small.getOptions().size()==6){
+						if(small.getOptions().size()>=6){
 							smallVote.add(smallRadio5);
 						}
-						if(small.getOptions().size()==7){
+						if(small.getOptions().size()>=7){
 							smallVote.add(smallRadio6);
 						}
-						if(small.getOptions().size()==8 ){
+						if(small.getOptions().size()>=8 ){
 							smallVote.add(smallRadio7);
 						}
-						if(small.getOptions().size()==9){
+						if(small.getOptions().size()>=9){
 							smallVote.add(smallRadio8);
 						}
-						if(small.getOptions().size()==10){
+						if(small.getOptions().size()>=10){
 							smallVote.add(smallRadio9);
 						}
-						if(small.getOptions().size()==11){
+						if(small.getOptions().size()>=11){
 							smallVote.add(smallRadio10);
 						}
-						if(small.getOptions().size()==12){
+						if(small.getOptions().size()>=12){
 							smallVote.add(smallRadio11);
 						}
-						if(small.getOptions().size()==13){
+						if(small.getOptions().size()>=13){
 							smallVote.add(smallRadio12);
 						}
-						if(small.getOptions().size()==14){
+						if(small.getOptions().size()>=14){
 							smallVote.add(smallRadio13);
 						}						
-						if(small.getOptions().size()==15){
+						if(small.getOptions().size()>=15){
 						}	
 						small.addVote(smallVote);
 						smallDao.update(small);
@@ -3438,7 +3823,6 @@ public class VoteBallot {
 						if(Integer.parseInt(smallRadio14) > 0){
 							smallVote.add(smallRadio14);
 						}
-						System.out.println("smallVote vale: " +smallVote);
 						small.addVote(smallVote);
 						smallDao.update(small);
 					}
@@ -3580,77 +3964,77 @@ public class VoteBallot {
 	}
 	public boolean isShowDodgson5()
 	{
-		if(dodgson.getOptions().size()>=4)
+		if(dodgson.getOptions().size()>4)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson6()
 	{
-		if(dodgson.getOptions().size()>=5)
+		if(dodgson.getOptions().size()>5)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson7()
 	{
-		if(dodgson.getOptions().size()>=6)
+		if(dodgson.getOptions().size()>6)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson8()
 	{
-		if(dodgson.getOptions().size()>=7)
+		if(dodgson.getOptions().size()>7)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson9()
 	{
-		if(dodgson.getOptions().size()>=8)
+		if(dodgson.getOptions().size()>8)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson10()
 	{
-		if(dodgson.getOptions().size()>=9)
+		if(dodgson.getOptions().size()>9)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson11()
 	{
-		if(dodgson.getOptions().size()>=10)
+		if(dodgson.getOptions().size()>10)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson12()
 	{
-		if(dodgson.getOptions().size()>=11)
+		if(dodgson.getOptions().size()>11)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson13()
 	{
-		if(dodgson.getOptions().size()>=12)
+		if(dodgson.getOptions().size()>12)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson14()
 	{
-		if(dodgson.getOptions().size()>=13)
+		if(dodgson.getOptions().size()>13)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowDodgson15()
 	{
-		if(dodgson.getOptions().size()>=14)
+		if(dodgson.getOptions().size()>14)
 			return true;
 		else
 			return false;
@@ -3755,40 +4139,40 @@ public class VoteBallot {
 							dodgsonVote.add(dodgsonRadio2);
 							System.out.println("El valor en el radio  2 es de : "+Integer.parseInt(dodgsonRadio2));
 						}
-						if(dodgson.getOptions().size()==4 ){
+						if(dodgson.getOptions().size()>=4 ){
 							dodgsonVote.add(dodgsonRadio3);
 						}
-						if(dodgson.getOptions().size()==5){
+						if(dodgson.getOptions().size()>=5){
 							dodgsonVote.add(dodgsonRadio4);
 						}
-						if(dodgson.getOptions().size()==6){
+						if(dodgson.getOptions().size()>=6){
 							dodgsonVote.add(dodgsonRadio5);
 						}
-						if(dodgson.getOptions().size()==7){
+						if(dodgson.getOptions().size()>=7){
 							dodgsonVote.add(dodgsonRadio6);
 						}
-						if(dodgson.getOptions().size()==8 ){
+						if(dodgson.getOptions().size()>=8 ){
 							dodgsonVote.add(dodgsonRadio7);
 						}
-						if(dodgson.getOptions().size()==9){
+						if(dodgson.getOptions().size()>=9){
 							dodgsonVote.add(dodgsonRadio8);
 						}
-						if(dodgson.getOptions().size()==10){
+						if(dodgson.getOptions().size()>=10){
 							dodgsonVote.add(dodgsonRadio9);
 						}
-						if(dodgson.getOptions().size()==11){
+						if(dodgson.getOptions().size()>=11){
 							dodgsonVote.add(dodgsonRadio10);
 						}
-						if(dodgson.getOptions().size()==12){
+						if(dodgson.getOptions().size()>=12){
 							dodgsonVote.add(dodgsonRadio11);
 						}
-						if(dodgson.getOptions().size()==13){
+						if(dodgson.getOptions().size()>=13){
 							dodgsonVote.add(dodgsonRadio12);
 						}
-						if(dodgson.getOptions().size()==14){
+						if(dodgson.getOptions().size()>=14){
 							dodgsonVote.add(dodgsonRadio13);
 						}						
-						if(dodgson.getOptions().size()==15){
+						if(dodgson.getOptions().size()>=15){
 						}	
 						dodgson.addVote(dodgsonVote);
 						dodgsonDao.update(dodgson);
@@ -4834,6 +5218,302 @@ public class VoteBallot {
 
 	}		
 
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////// BUCKLIN /////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@InjectComponent
+	private Zone bucklinZone;
+
+	@Property
+	@Persist
+	private Bucklin bucklin;
+
+	@Property
+	@Persist
+	private boolean showErrorBucklin;
+
+	@Persist
+	@Property
+	private List<String> bucklinVote;
+
+
+	public Object onSuccessFromBucklinForm()
+	{
+		if(request.isXHR())
+		{
+
+			if(bucklinVote.size()<bucklin.getOptions().size())
+			{
+				showErrorBucklin=true;
+				return this;
+			}
+			else{
+				showErrorBucklin=false;
+			}
+			if(ballot.isPublica())
+			{
+				ballot=ballotDao.getById(contextBallotId);
+				if(ballot!=null && !ballot.isEnded()&& !alreadyVote())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					bucklin.addVote(bucklinVote);
+					bucklinDao.update(bucklin);
+					addPublicVote();
+				}
+			}
+			else
+			{
+				vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+				ballot=ballotDao.getById(contextBallotId);
+
+				if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					vote.setCounted(true);
+					voteDao.updateVote(vote);
+					bucklin.addVote(bucklinVote);
+					bucklinDao.update(bucklin);
+				}
+			}
+		}
+
+		contextResultBallotId=contextBallotId;
+		return VoteCounted.class;
+	}
+	public boolean isShowBucklin()
+	{
+		if(ballot==null)
+		{
+			return false;
+		}
+		if(ballot.getMethod()==Method.BUCKLIN)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////// Nanson /////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@InjectComponent
+	private Zone nansonZone;
+
+	@Property
+	@Persist
+	private Nanson nanson;
+
+	@Property
+	@Persist
+	private boolean showErrorNanson;
+
+	@Persist
+	@Property
+	private List<String> nansonVote;
+
+
+	public Object onSuccessFromNansonForm()
+	{
+		if(request.isXHR())
+		{
+			showErrorNanson=false;
+			if(nansonVote.size()<nanson.getOptions().size())
+			{
+				showErrorNanson=true;
+				return this;
+			}
+			else{
+				showErrorNanson=false;
+			}
+			if(ballot.isPublica())
+			{
+				ballot=ballotDao.getById(contextBallotId);
+				if(ballot!=null && !ballot.isEnded()&& !alreadyVote())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					nanson.addVote(nansonVote);
+					nansonDao.update(nanson);
+					addPublicVote();
+				}
+			}
+			else
+			{
+				vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+				ballot=ballotDao.getById(contextBallotId);
+
+				if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					vote.setCounted(true);
+					voteDao.updateVote(vote);
+					nanson.addVote(nansonVote);
+					nansonDao.update(nanson);
+				}
+			}
+		}
+
+		contextResultBallotId=contextBallotId;
+		return VoteCounted.class;
+	}
+	public boolean isShowNanson()
+	{
+		if(ballot==null)
+		{
+			return false;
+		}
+		if(ballot.getMethod()==Method.NANSON)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////// Hare /////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@InjectComponent
+	private Zone hareZone;
+
+	@Property
+	@Persist
+	private Hare hare;
+
+	@Property
+	@Persist
+	private boolean showErrorHare;
+
+	@Persist
+	@Property
+	private List<String> hareVote;
+
+
+	public Object onSuccessFromHareForm()
+	{
+		if(request.isXHR())
+		{
+			showErrorHare=false;
+			if(hareVote.size()<hare.getOptions().size())
+			{
+				showErrorHare=true;
+				return this;
+			}
+			else{
+				showErrorHare=false;
+			}
+			if(ballot.isPublica())
+			{
+				ballot=ballotDao.getById(contextBallotId);
+				if(ballot!=null && !ballot.isEnded()&& !alreadyVote())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					hare.addVote(hareVote);
+					hareDao.update(hare);
+					addPublicVote();
+				}
+			}
+			else
+			{
+				vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+				ballot=ballotDao.getById(contextBallotId);
+
+				if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					vote.setCounted(true);
+					voteDao.updateVote(vote);
+					hare.addVote(hareVote);
+					hareDao.update(hare);
+				}
+			}
+		}
+
+		contextResultBallotId=contextBallotId;
+		return VoteCounted.class;
+	}
+	public boolean isShowHare()
+	{
+		if(ballot==null)
+		{
+			return false;
+		}
+		if(ballot.getMethod()==Method.HARE)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////// Coombs /////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@InjectComponent
+	private Zone coombsZone;
+
+	@Property
+	@Persist
+	private Coombs coombs;
+
+	@Property
+	@Persist
+	private boolean showErrorCoombs;
+
+	@Persist
+	@Property
+	private List<String> coombsVote;
+
+
+	public Object onSuccessFromCoombsForm()
+	{
+		if(request.isXHR())
+		{
+			showErrorCoombs=false;
+			if(coombsVote.size()<coombs.getOptions().size())
+			{
+				showErrorCoombs=true;
+				return this;
+			}
+			else{
+				showErrorCoombs=false;
+			}
+			if(ballot.isPublica())
+			{
+				ballot=ballotDao.getById(contextBallotId);
+				if(ballot!=null && !ballot.isEnded()&& !alreadyVote())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					coombs.addVote(coombsVote);
+					coombsDao.update(coombs);
+					addPublicVote();
+				}
+			}
+			else
+			{
+				vote=voteDao.getVoteByIds(contextBallotId, datasession.getId());
+				ballot=ballotDao.getById(contextBallotId);
+
+				if(ballot!=null && !ballot.isEnded() && !vote.isCounted())//comprueba si la votacion existe,si no ha terminado y si no ha votado el usuario
+				{
+					vote.setCounted(true);
+					voteDao.updateVote(vote);
+					coombs.addVote(coombsVote);
+					coombsDao.update(coombs);
+				}
+			}
+		}
+
+		contextResultBallotId=contextBallotId;
+		return VoteCounted.class;
+	}
+	public boolean isShowCoombs()
+	{
+		if(ballot==null)
+		{
+			return false;
+		}
+		if(ballot.getMethod()==Method.COOMBS)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	/////////////////////////////////////////////////// TOOLS //////////////////////////
 
 	private void addPublicVote()
@@ -4848,24 +5528,25 @@ public class VoteBallot {
 	}
 	private boolean alreadyVote()
 	{
-		if(publicVotes==null)
-			return false;
-		List<String> list=publicVotes.get(datasession.getIdSession());
-		if(list==null)
-		{
-			return false;
-		}
-		else
-		{
-			for(String current:list)
-			{
-				if(current.equals(contextBallotId))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
+		//		if(publicVotes==null)
+		//			return false;
+		//		List<String> list=publicVotes.get(datasession.getIdSession());
+		//		if(list==null)
+		//		{
+		//			return false;
+		//		}
+		//		else
+		//		{
+		//			for(String current:list)
+		//			{
+		//				if(current.equals(contextBallotId))
+		//				{
+		//					return true;
+		//				}
+		//			}
+		//			return false;
+		//		}
+		return false;
 	}
 
 	private boolean isNumeric(String cadena)

@@ -33,7 +33,7 @@
 			</span>
 			<t:form t:id="form" zone="formZone" t:mixins="ajaxupload">
 				<t:upload t:id="file" value="file" />
-				<t:submit class="boton" value="${message:upload}" />
+				<t:submit style="margin-left: 10px; font-size: 0.8em; height:22px; padding: 5px;" class="boton" value="${message:upload}" />
 			</t:form>
 		</t:zone>
 
@@ -319,9 +319,10 @@
 							<td><t:textfield t:id="centroField" t:value="profile.centro" /></td>
 						</tr>
 						<tr>
-							<td><label><input t:type="submit" t:id="save"
-									value="${message:save-but}" /></label></td>
-							<td><input t:type="submit" t:id="cancel"
+							<td></td>
+							<td><input class="boton" t:type="submit" t:id="save"
+									value="${message:save-but}" />
+							<input class="boton" style="margin-left: 5px;" t:type="submit" t:id="cancel"
 								value="${message:cancel-but}" t:mode="cancel" /></td>
 						</tr>
 					</table>

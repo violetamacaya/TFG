@@ -121,6 +121,7 @@ public class Bucklin {
 		}
 		else
 		{
+			System.out.println("los votos generados son: "+votes);
 			results=CalcBucklin.CalculateBucklin(options, votes);
 			return true;
 		}

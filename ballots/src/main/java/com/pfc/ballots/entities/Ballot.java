@@ -2,7 +2,6 @@ package com.pfc.ballots.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.tapestry5.beaneditor.NonVisual;
 

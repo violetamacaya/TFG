@@ -14,7 +14,7 @@
 		</ul>
 	</div>
 			<h1>${message:login-page}</h1>
-			<infouser>
+			<loginuser>
 			<t:zone t:id="logForm" id="logForm">
 			<t:form t:zone="^">
 			
@@ -40,11 +40,11 @@
 				</table>
 				<br/>
 				&nbsp;&nbsp;&nbsp;<t:pagelink page="profile/createprofile">${message:create-profile}</t:pagelink><br/>
-				&nbsp;&nbsp;&nbsp;<t:actionlink t:id="forgottenPass">&nbsp;${message:forgotten-pass}</t:actionlink>
+				&nbsp;&nbsp;&nbsp;<t:actionlink t:id="forgottenPass">${message:forgotten-pass}</t:actionlink>
 				
 			</t:form>
 			</t:zone>
-			</infouser>
+			</loginuser>
 		
 		</body>
 		

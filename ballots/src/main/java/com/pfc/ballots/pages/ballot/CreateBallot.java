@@ -2628,7 +2628,7 @@ public class CreateBallot {
 				{
 					//Genera votos aleatoriamente para la votacion docente
 					ballot.setIdCensus("none");
-					List<String> votosdocentes;
+					List<List<String>> votosdocentes;
 					System.out.println("Llamada a generar votos docentes con: "+Integer.parseInt(census)+" votos");
 
 					votosdocentes = GenerateDocentVotes.generateBrams(brams.getOptions(), Integer.parseInt(census));
@@ -3694,6 +3694,84 @@ public class CreateBallot {
 				showType=true;
 				showJuicioMayoritario=false;
 				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("juicioMayoritarioZone",juicioMayoritarioZone);
+			}
+			if(from.equals("fromBlack"))
+			{
+				showType=true;
+				showBlack=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("blackZone",blackZone);
+			}
+			if(from.equals("fromBrams"))
+			{
+				showType=true;
+				showBrams=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bramsZone",bramsZone);
+			}
+			if(from.equals("fromBucklin"))
+			{
+				showType=true;
+				showBucklin=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bucklinZone",bucklinZone);
+			}
+			if(from.equals("fromCondorcet"))
+			{
+				showType=true;
+				showCondorcet=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("condorcetZone",condorcetZone);
+			}	
+			if(from.equals("fromCoombs"))
+			{
+				showType=true;
+				showCoombs=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("coombsZone",coombsZone);
+			}	
+			if(from.equals("fromCopeland"))
+			{
+				showType=true;
+				showCopeland=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("copelandZone",copelandZone);
+			}	
+			if(from.equals("fromDodgson"))
+			{
+				showType=true;
+				showDodgson=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("dodgsonZone",dodgsonZone);
+			}
+			if(from.equals("fromHare"))
+			{
+				showType=true;
+				showHare=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("hareZone",hareZone);
+			}
+			if(from.equals("fromMejorPeor"))
+			{
+				showType=true;
+				showMejorPeor=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("mejorPeorZone",mejorPeorZone);
+			}
+			if(from.equals("fromNanson"))
+			{
+				showType=true;
+				showNanson=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("nansonZone",nansonZone);
+			}
+			if(from.equals("fromSchulze"))
+			{
+				showType=true;
+				showSchulze=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("schulzeZone",schulzeZone);
+			}	
+			if(from.equals("fromSmall"))
+			{
+				showType=true;
+				showSmall=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("smallZone",smallZone);
+			}	
+			if(from.equals("fromVotoAcumulativo"))
+			{
+				showType=true;
+				showVotoAcumulativo=false;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("votoAcumulativoZone",votoAcumulativoZone);
 			}	
 		}
 	}
@@ -6169,7 +6247,6 @@ public class CreateBallot {
 					ballot.setIdCensus("none");
 					bucklin.setVotes(GenerateDocentVotes.generateBucklin(bucklin.getOptions(), Integer.parseInt(census)));
 					//HACER RECUENTO VOTOS AQUI PARA DOCENTES
-					bucklin.calcularBucklin();
 					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
 					this.sendMail(datasession.getId(), ballot);
 					ballot.setEnded(true);

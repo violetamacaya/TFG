@@ -31,82 +31,82 @@
 				
 				<table>
 					<tr>
-						<td>${message:email}:</td>
+						<td style="	font-weight: bold;">${message:email}:</td>
 						<td>${profile.email }</td>
 					</tr>
 					<tr>
-						<td>${message:admin}:</td>
+						<td style="	font-weight: bold;">${message:admin}:</td>
 						<td><t:if test="profile.admin">${message:yes}<p:else>No</p:else></t:if></td>
 					</tr>
 					<tr>
-						<td>${message:maker}:</td>
+						<td style="	font-weight: bold;">${message:maker}:</td>
 						<td><t:if test="profile.maker">${message:yes}<p:else>No</p:else></t:if></td>
 					</tr>
 					<tr>
-					<td>${message:teacher}:</td>
+					<td style="	font-weight: bold;">${message:teacher}:</td>
 						<td><t:if test="profile.teacher">${message:yes}<p:else>No</p:else></t:if></td>
 					</tr>
 					<t:if test="companyUser">
 						<tr>
-							<td>${message:company}:</td>
+							<td style="	font-weight: bold;">${message:company}:</td>
 							<td>${company.companyname }</td>
 						</tr>
 					</t:if>
 
 					<tr>
-						<td>${message:firstname}:</td>
+						<td style="	font-weight: bold;">${message:firstname}:</td>
 						<td>${profile.firstname }</td>
 					</tr>
 					<tr>
-						<td>${message:lastname}:</td>
+						<td style="	font-weight: bold;">${message:lastname}:</td>
 						<td>${profile.lastname }</td>
 					</tr>
 					<tr>
-						<td>${message:sex}:</td>
+						<td style="	font-weight: bold;">${message:sex}:</td>
 						<td>${sex}</td>
 					</tr>
 					<tr>
-						<td>${message:city}:</td>
+						<td style="	font-weight: bold;">${message:city}:</td>
 						<td>${profile.city }</td>
 					</tr>
 					<tr>
-						<td>${message:country}:</td>
+						<td style="	font-weight: bold;">${message:country}:</td>
 						<td>${profile.country }</td>
 					</tr>
 					
 					<tr>
-						<td>${message:dni-label}:</td>
+						<td style="	font-weight: bold;">${message:dni-label}:</td>
 						<td>${profile.DNI}</td>
 					</tr>
 					<tr>
-						<td>${message:phone-label}:</td>
+						<td style="	font-weight: bold;">${message:phone-label}:</td>
 						<td>${profile.phone}</td>
 					</tr>
 					<tr>
-						<td>${message:fechaNac-label}:</td>
+						<td style="	font-weight: bold;">${message:fechaNac-label}:</td>
 						<td>${fechaNac}</td>
 					</tr>
 					<tr>
-						<td>${message:address-label}:</td>
+						<td style="	font-weight: bold;">${message:address-label}:</td>
 						<td>${profile.address}</td>
 					</tr>
 					<tr>
-						<td>${message:carrera-label}:</td>
+						<td style="	font-weight: bold;">${message:carrera-label}:</td>
 						<td>${profile.carrera}</td>
 					</tr>
 					<tr>
-						<td>${message:centro-label}:</td>
+						<td style="	font-weight: bold;">${message:centro-label}:</td>
 						<td>${profile.centro}</td>
 					</tr>
 					
 					<tr id="cambioPass">
-						<td>${message:change-pass}</td>
+						<td style="	font-weight: bold;">${message:change-pass}</td>
 						<td><t:actionlink t:id="changePass" zone="^"><img src="${asset:context:/layout/images/edit.png}" class="editar"  /></t:actionlink></td>
 					</tr>
 					
 					<t:if test="mainOwner">
 						<tr id="cambioPass">
-							<td>${message:change-owner}</td>
+							<td style="font-weight: bold;">${message:change-owner}</td>
 							<td><t:pageLink page="admin/changePrincipalOwner"><img src="${asset:context:/layout/images/edit.png}" class="editar" /></t:pageLink></td>
 						</tr>
 					</t:if>

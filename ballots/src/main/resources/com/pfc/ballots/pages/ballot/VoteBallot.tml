@@ -192,12 +192,100 @@
 					<t:form t:id="bramsForm" t:zone="^">
 						<table>
 							<tr>
-								<td><t:checklist t:id="selectedCheckListBrams"
-										encoder="encoderBrams" model="modelBrams" /></td>
+								<td>${BramsOption0}</td>
+								<td><t:select t:id="bramsSel0" value="bramsValues"
+										t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
 							</tr>
-							<br />
-							<t:if test="ballot.publica">
+							<tr>
+								<td>${BramsOption1}</td>
+								<td><t:select t:id="bramsSel1" value="bramsValues"
+										t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+							</tr>
+							<tr>
+								<td>${BramsOption2}</td>
+								<td><t:select t:id="bramsSel2" value="bramsValues"
+										t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+							</tr>
+							<tr>
+								<td>${BramsOption3}</td>
+								<td><t:select t:id="bramsSel3" value="bramsValues"
+										t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+							</tr>
+							<tr>
+								<td>${BramsOption4}</td>
+								<td><t:select t:id="bramsSel4" value="bramsValues"
+										t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+							</tr>
+							<tr>
+								<td>${BramsOption5}</td>
+								<td><t:select t:id="bramsSel5" value="bramsValues"
+										t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+							</tr>
+							<tr>
+								<td>${BramsOption6}</td>
+								<td><t:select t:id="bramsSel6" value="bramsValues"
+										t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+							</tr>
+							<t:if test="showBrams8">
+								<tr>
+									<td>${BramsOption7}</td>
+									<td><t:select t:id="bramsSel7" value="bramsValues"
+											t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+								</tr>
+							</t:if>
+							<t:if test="showBrams9">
+								<tr>
+									<td>${BramsOption8}</td>
+									<td><t:select t:id="bramsSel8" value="bramsValues"
+											t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+								</tr>
+							</t:if>
+							<t:if test="showBrams10">
+								<tr>
+									<td>${BramsOption9}</td>
+									<td><t:select t:id="bramsSel9" value="bramsValues"
+											t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+								</tr>
+							</t:if>
+							<t:if test="showBrams11">
+								<tr>
+									<td>${BramsOption10}</td>
+									<td><t:select t:id="bramsSel10" value="bramsValues"
+											t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+								</tr>
+							</t:if>
+							<t:if test="showBrams12">
+								<tr>
+									<td>${BramsOption11}</td>
+									<td><t:select t:id="bramsSel11" value="bramsValues"
+											t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+								</tr>
+							</t:if>
+							<t:if test="showBrams13">
+								<tr>
+									<td>${BramsOption12}</td>
+									<td><t:select t:id="bramsSel12" value="bramsValues"
+											t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+								</tr>
+							</t:if>
+							<t:if test="showBrams14">
+								<tr>
+									<td>${BramsOption13}</td>
+									<td><t:select t:id="bramsSel13" value="bramsValues"
+											t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+								</tr>
+							</t:if>
+							<t:if test="showBrams15">
+								<tr>
+									<td>${BramsOption14}</td>
+									<td><t:select t:id="bramsSel14" value="bramsValues"
+											t:model="bramsModel" t:zone="^" t:blankLabel="0" /></td>
+								</tr>
+							</t:if>
 
+							<br /><tr><td><br /></td></tr>
+							<t:if test="ballot.publica">
+								<br />
 								<tr>
 									<td><t:kaptchaimage t:id="kaptchaBrams" /></td>
 								</tr>
@@ -2495,6 +2583,146 @@
 
 
 				</t:zone>
+			</t:if>
+
+			<!-- ///////////////////////////////////////// Bucklin  /////////////////////////////////////////////// -->
+			<t:if test="showBucklin">
+				<t:zone t:id="bucklinZone" t:update="show">
+				${message:instructions-palette}
+					<t:if test="showErrorBucklin">
+						<span class="error">${message:bucklin-error}</span>
+					</t:if>
+
+					<t:form t:id="bucklinForm" t:zone="^">
+						<input t:type="Palette" t:id="paletteBucklin" t:reorder="true"
+							t:model="bucklin.options" t:selected="BucklinVote"
+							t:encoder="stringValueEncoder" />
+						<t:if test="ballot.publica">
+							<table>
+								<tr>
+									<td></td>
+									<td><t:kaptchaimage t:id="kaptchaBucklin" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><t:kaptchafield visible="true" style="width:200px;"
+											image="kaptchaBucklin" type="text" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>${message:captcha}</td>
+								</tr>
+							</table>
+						</t:if>
+						<input t:type="submit" class="boton" value="${message:vote-but}" />
+					</t:form>
+				</t:zone>
+
+			</t:if>
+
+			<!-- ///////////////////////////////////////// Coombs  /////////////////////////////////////////////// -->
+			<t:if test="showCoombs">
+				<t:zone t:id="coombsZone" t:update="show">
+				${message:instructions-palette}
+				
+					<t:if test="showErrorCoombs">
+						<span class="error">${message:coombs-error}</span>
+					</t:if>
+
+					<t:form t:id="coombsForm" t:zone="^">
+						<input t:type="Palette" t:id="paletteCoombs" t:reorder="true"
+							t:model="coombs.options" t:selected="CoombsVote"
+							t:encoder="stringValueEncoder" />
+						<t:if test="ballot.publica">
+							<table>
+								<tr>
+									<td></td>
+									<td><t:kaptchaimage t:id="kaptchaCoombs" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><t:kaptchafield visible="true" style="width:200px;"
+											image="kaptchaCoombs" type="text" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>${message:captcha}</td>
+								</tr>
+							</table>
+						</t:if>
+						<input t:type="submit" class="boton" value="${message:vote-but}" />
+					</t:form>
+				</t:zone>
+
+			</t:if>
+
+			<!-- ///////////////////////////////////////// Hare  /////////////////////////////////////////////// -->
+			<t:if test="showHare">
+				<t:zone t:id="hareZone" t:update="show">
+				${message:instructions-palette}
+					<t:if test="showErrorHare">
+						<span class="error">${message:hare-error}</span>
+					</t:if>
+
+					<t:form t:id="hareForm" t:zone="^">
+						<input t:type="Palette" t:id="paletteHare" t:reorder="true"
+							t:model="hare.options" t:selected="HareVote"
+							t:encoder="stringValueEncoder" />
+						<t:if test="ballot.publica">
+							<table>
+								<tr>
+									<td></td>
+									<td><t:kaptchaimage t:id="kaptchaHare" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><t:kaptchafield visible="true" style="width:200px;"
+											image="kaptchaHare" type="text" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>${message:captcha}</td>
+								</tr>
+							</table>
+						</t:if>
+						<input t:type="submit" class="boton" value="${message:vote-but}" />
+					</t:form>
+				</t:zone>
+
+			</t:if>
+			<!-- ///////////////////////////////////////// Nanson  /////////////////////////////////////////////// -->
+			<t:if test="showNanson">
+				<t:zone t:id="nansonZone" t:update="show">
+				${message:instructions-palette}
+					<t:if test="showErrorNanson">
+						<span class="error">${message:nanson-error}</span>
+					</t:if>
+
+					<t:form t:id="nansonForm" t:zone="^">
+						<input t:type="Palette" t:id="paletteNanson" t:reorder="true"
+							t:model="nanson.options" t:selected="NansonVote"
+							t:encoder="stringValueEncoder" />
+						<t:if test="ballot.publica">
+							<table>
+								<tr>
+									<td></td>
+									<td><t:kaptchaimage t:id="kaptchaNanson" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><t:kaptchafield visible="true" style="width:200px;"
+											image="kaptchaNanson" type="text" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>${message:captcha}</td>
+								</tr>
+							</table>
+						</t:if>
+						<input t:type="submit" class="boton" value="${message:vote-but}" />
+					</t:form>
+				</t:zone>
+
 			</t:if>
 
 			<!-- FIN MÉTODOS -->

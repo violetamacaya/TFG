@@ -27,17 +27,16 @@
 						<tr>
 							<td><t:label for="censusName"/></td>
 							<td><t:textfield t:id="censusName" validate="required,minLength=5"/></td>
-																				  
+							<td><p style="text-align:center;"><input class="boton" style="padding: 4px; margin-bottom: 10px;" t:type="submit" value="${message:next-but}"/></p></td> 
+							</tr>
+							<tr>												  
 							<td>
 								<t:if test="nameNotAvalible">
 									<span class="error">${message:non available}</span>
 								</t:if>
 							</td>
 						</tr>
-						<tr>
-							<td></td>
-							<td><p style="text-align:center;"><input class="boton" t:type="submit" value="${message:next-but}"/></p></td> 
-						</tr>
+
 					</table>
 				</t:form>
 		</t:zone>

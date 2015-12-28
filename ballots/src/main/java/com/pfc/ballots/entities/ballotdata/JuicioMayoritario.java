@@ -21,9 +21,9 @@ public class JuicioMayoritario {
 	private String id;
 	private String ballotId;
 	private List<String> options;
-	private List<String> votes;
+	private List<List<String>> votes;
 	private List<String> winners;
-	private Map<String,Integer> results;
+	private Map<String,Float> results;
 
 	///////////////////////////////////////////// Constructors//////////////////////////////
 	public JuicioMayoritario()
@@ -33,7 +33,7 @@ public class JuicioMayoritario {
 	public JuicioMayoritario(String nulltoinitialize)
 	{
 		setOptions(new LinkedList<String>());
-		setVotes(new LinkedList<String>());
+		setVotes(new LinkedList<List<String>>());
 		setWinners(new LinkedList<String>());
 
 
@@ -41,7 +41,7 @@ public class JuicioMayoritario {
 	public JuicioMayoritario(List<String> options)
 	{
 		this.setOptions(options);
-		setVotes(new LinkedList<String>());
+		setVotes(new LinkedList<List<String>>());
 		setWinners(new LinkedList<String>());
 	}
 
@@ -65,16 +65,16 @@ public class JuicioMayoritario {
 	public void setOptions(List<String> options) {
 		this.options = options;
 	}
-	public List<String> getVotes() {
+	public List<List<String>> getVotes() {
 		return votes;
 	}
-	public void setVotes(List<String> votes) {
+	public void setVotes(List<List<String>> votes) {
 		this.votes = votes;
 	}
-	public Map<String,Integer> getResults() {
+	public Map<String,Float> getResults() {
 		return results;
 	}
-	public void setResults(Map<String,Integer> results) {
+	public void setResults(Map<String,Float> results) {
 		this.results = results;
 	}
 	public void setWinners(LinkedList<String> winners) {
@@ -87,16 +87,17 @@ public class JuicioMayoritario {
 
 	///////////////////////////////////////////////////////// tools ///////////////////////////////////////
 	/**
-	 * Add a vote to the list
-	 * @param option vote to add
+	 * Adds a vote to the list
+	 * @param List<String> vote
 	 */
-	public void addVote(String option)
+	public void addVote(List<String> vote)
 	{
 		if(votes==null)
 		{
-			setVotes(new LinkedList<String>());
+			votes=new LinkedList<List<String>>();
 		}
-		votes.add(option);
+		if(vote!=null)
+			{votes.add(vote);}
 	}
 	/**
 	 * Adds an option to the list
@@ -115,13 +116,13 @@ public class JuicioMayoritario {
 	 * @param option to retrieve its result
 	 * @return
 	 */
-	public int getResultOption(String option)
+	public Float getResultOption(String option)
 	{
 		if(results!=null)
 		{
-			return results.get(option.toLowerCase());
+			return results.get(option);
 		}
-		return -1;
+		return (float) -1;
 	}
 	/**
 	 * Calculate the result of the ballot(the calc method is in a external jar)
@@ -134,8 +135,7 @@ public class JuicioMayoritario {
 		}
 		else
 		{
-			this.winners=new LinkedList<String>();
-			this.results=CalcJuicioMayoritario.CalculateJuicioMayoritario(options, votes, winners);
+			this.results=CalcJuicioMayoritario.CalculateJuicioMayoritario(options, votes);
 			return true;
 		}
 	}

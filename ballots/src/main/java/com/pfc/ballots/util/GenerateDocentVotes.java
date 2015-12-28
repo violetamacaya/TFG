@@ -1,5 +1,6 @@
 package com.pfc.ballots.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -136,7 +137,7 @@ public class GenerateDocentVotes {
 		for(int x=0;x<numVotes;x++)
 		{
 			List<String>vote=new LinkedList<String>();
-			for(String option:options)
+			for(@SuppressWarnings("unused") String option:options)
 			{
 				Random random=new Random();
 				int valor=random.nextInt(max-min+1)+min;
@@ -185,25 +186,30 @@ public class GenerateDocentVotes {
 	 * @param numVotes number of votes to generate
 	 * @return List<String> a list of random votes
 	 */
-	static public List<String> generateBrams(List<String> options, int numVotes) {
-		List<String> votes=new LinkedList<String>();
+	static public List<List<String>> generateBrams(List<String> options, int numVotes) {
+		List<List<String>> votes=new LinkedList<List<String>>();
 
-		//Cada votante podrá dejar de votar 3 opciones (o más si quiere). 
+		//Cada votante podrá dejar de votar 3 opciones (o más si quiere). En las que vote les asignará una puntuación entre 1 y 10, las que no, tendrán 0. 
 		for(int i=0; i<numVotes; i++){
-			int[] votospersona = new int[options.size()]; //Array que almacena los votos de una persona.
+			List<String> votospersona = new LinkedList<String>(); //Array que almacena los votos de una persona.
 			int numuservotes = 1 + (int)(Math.random() * ((options.size() - 4) + 1));
-			System.out.println("numuservotes: "+numuservotes);
+
+			for (int k = 0; k<options.size(); k++){
+				votospersona.add("0"); //Inicialmente, todo el array a 0, para solo cambiar en los que haya votado la persona.
+			}
 			for (int j = 0; j<numuservotes; j++){
 
-				int posvoto = 0 + (int)(Math.random() * ((votospersona.length - 1) + 1));
-				if(votospersona[posvoto] == 0){
-					votospersona[posvoto] = 1;
-					votes.add(options.get(posvoto));
+				int posvoto = 0 + (int)(Math.random() * ((votospersona.size() - 1) + 1));
+				if(Integer.parseInt(votospersona.get(posvoto)) == 0){
+					int valorvoto= (int)Math.random()*(10-1)+1;
+					System.out.println("El valor aleatorio generado es: "+valorvoto);
+					votospersona.add(posvoto, String.valueOf(valorvoto));
 				}
 				else {
 					j--;
 				}
 			}	
+			votes.add(votospersona);
 		}
 
 		return votes;
@@ -223,54 +229,54 @@ public class GenerateDocentVotes {
 
 		return votes;
 	}
-	static public List<String> generateJuicioMayoritario(List<String> options, int numVotes) {
-		List<String> votes=new LinkedList<String>();
+	static public List<List<String>> generateJuicioMayoritario(List<String> options, int numVotes) {
+		List<List<String>> votes=new LinkedList<List<String>>();
 
 		//Cada votante tiene que votar todas las opciones entre 1-5 
 		for(int i=0; i<numVotes; i++){
+			List<String> voto = new LinkedList<String>();
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
-				int numVotos = 1 + (int)(Math.random() * 5);
-				for(int k = 0; k<numVotos; k++){
-					votes.add(options.get(j));
-				}
+				Integer numVotos = 1 + (int)(Math.random() * 5);
+					voto.add(numVotos.toString());
 			}	
+			votes.add(voto);
 		}
-
+		System.out.println("los votos generados son: "+votes);
 		return votes;
 	}
-	
+
 	public static List<List<String>> generateMejorPeor(List<String> options, int numVotes) {
 		List<List<String>> votes=new LinkedList<List<String>>();
 		List<String> votosPos = new LinkedList<String>();
 		List<String> votosNeg = new LinkedList<String>();
-		
+
 		//Cada votante tiene 2 votos (mejor-peor)
 		for(int i=0; i<numVotes; i++){
-				int posvoto = 0 + (int)(Math.random() * (options.size()-1));
-				int negvoto = posvoto;
-				while (negvoto == posvoto){
-					negvoto = 0 + (int)(Math.random() * (options.size()-1));
-				}			
-				votosPos.add(options.get(posvoto));
-				votosNeg.add(options.get(negvoto));
+			int posvoto = 0 + (int)(Math.random() * (options.size()-1));
+			int negvoto = posvoto;
+			while (negvoto == posvoto){
+				negvoto = 0 + (int)(Math.random() * (options.size()-1));
+			}			
+			votosPos.add(options.get(posvoto));
+			votosNeg.add(options.get(negvoto));
 		}
 		votes.add(votosPos);
 		votes.add(votosNeg);
 		return votes;
 	}
 
-	
+
 	static public List<List<String>> generateCondorcet(List<String> options,int numVotes)
 	{ 
 		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
 		List<List<String>>votes=new LinkedList<List<String>>();
-		
+
 		for(int i=0; i<numVotes;i++)
 		{
 			List<String> vote = new LinkedList<String>();
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
 				Integer prioridad = (int)(Math.random() * options.size());	
-					vote.add(prioridad.toString());
+				vote.add(prioridad.toString());
 			}
 			votes.add(vote);
 
@@ -282,13 +288,13 @@ public class GenerateDocentVotes {
 	{ 
 		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
 		List<List<String>>votes=new LinkedList<List<String>>();
-		
+
 		for(int i=0; i<numVotes;i++)
 		{
 			List<String> vote = new LinkedList<String>();
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
 				Integer prioridad = (int)(Math.random() * options.size());	
-					vote.add(prioridad.toString());
+				vote.add(prioridad.toString());
 			}
 			votes.add(vote);
 
@@ -300,13 +306,13 @@ public class GenerateDocentVotes {
 	{ 
 		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
 		List<List<String>>votes=new LinkedList<List<String>>();
-		
+
 		for(int i=0; i<numVotes;i++)
 		{
 			List<String> vote = new LinkedList<String>();
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
 				Integer prioridad = (int)(Math.random() * options.size());	
-					vote.add(prioridad.toString());
+				vote.add(prioridad.toString());
 			}
 			votes.add(vote);
 
@@ -318,13 +324,13 @@ public class GenerateDocentVotes {
 	{ 
 		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
 		List<List<String>>votes=new LinkedList<List<String>>();
-		
+
 		for(int i=0; i<numVotes;i++)
 		{
 			List<String> vote = new LinkedList<String>();
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
 				Integer prioridad = (int)(Math.random() * options.size());	
-					vote.add(prioridad.toString());
+				vote.add(prioridad.toString());
 			}
 			votes.add(vote);
 
@@ -336,13 +342,13 @@ public class GenerateDocentVotes {
 	{ 
 		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
 		List<List<String>>votes=new LinkedList<List<String>>();
-		
+
 		for(int i=0; i<numVotes;i++)
 		{
 			List<String> vote = new LinkedList<String>();
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
 				Integer prioridad = (int)(Math.random() * options.size());	
-					vote.add(prioridad.toString());
+				vote.add(prioridad.toString());
 			}
 			votes.add(vote);
 
@@ -354,13 +360,13 @@ public class GenerateDocentVotes {
 	{ 
 		//Cada votante le asigna una preferencia entre 0 y numOpciones (pudiendo repetirse) a cada opción.
 		List<List<String>>votes=new LinkedList<List<String>>();
-		
+
 		for(int i=0; i<numVotes;i++)
 		{
 			List<String> vote = new LinkedList<String>();
 			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
 				Integer prioridad = (int)(Math.random() * options.size());	
-					vote.add(prioridad.toString());
+				vote.add(prioridad.toString());
 			}
 			votes.add(vote);
 
@@ -369,24 +375,144 @@ public class GenerateDocentVotes {
 		return votes;
 	}
 
-	public static List<List<String>> generateBucklin(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	static public List<List<String>> generateBucklin(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		boolean opcionAsignada = false;
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			ArrayList numerosAsignados = new ArrayList();
+
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				opcionAsignada=false;
+				while(!opcionAsignada){
+					Integer prioridad = (int)(Math.random() * (options.size())+1);
+
+					if (numerosAsignados.isEmpty()){
+						numerosAsignados.add(prioridad);
+						vote.add(options.get(prioridad-1));
+						opcionAsignada = true;
+						//Añadimos el número aleatorio a una lista para poder comprobar cuáles han salido ya
+					}
+					else{
+						if (!numerosAsignados.contains(prioridad)){
+							numerosAsignados.add(prioridad);
+							vote.add(options.get(prioridad -1));
+							opcionAsignada = true;
+						}
+					}
+				}
+			}
+			votes.add(vote);
+		}
+		return votes;
 	}
-	public static List<List<String>> generateNanson(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	static public List<List<String>> generateCoombs(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		boolean opcionAsignada = false;
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			ArrayList numerosAsignados = new ArrayList();
+
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				opcionAsignada=false;
+				while(!opcionAsignada){
+					Integer prioridad = (int)(Math.random() * (options.size())+1);
+
+					if (numerosAsignados.isEmpty()){
+						numerosAsignados.add(prioridad);
+						vote.add(options.get(prioridad-1));
+						opcionAsignada = true;
+						//Añadimos el número aleatorio a una lista para poder comprobar cuáles han salido ya
+					}
+					else{
+						if (!numerosAsignados.contains(prioridad)){
+							numerosAsignados.add(prioridad);
+							vote.add(options.get(prioridad -1));
+							opcionAsignada = true;
+						}
+					}
+				}
+			}
+			votes.add(vote);
+		}
+		return votes;
 	}
-	public static List<List<String>> generateHare(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	static public List<List<String>> generateHare(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		boolean opcionAsignada = false;
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			ArrayList numerosAsignados = new ArrayList();
+
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				opcionAsignada=false;
+				while(!opcionAsignada){
+					Integer prioridad = (int)(Math.random() * (options.size())+1);
+
+					if (numerosAsignados.isEmpty()){
+						numerosAsignados.add(prioridad);
+						vote.add(options.get(prioridad-1));
+						opcionAsignada = true;
+						//Añadimos el número aleatorio a una lista para poder comprobar cuáles han salido ya
+					}
+					else{
+						if (!numerosAsignados.contains(prioridad)){
+							numerosAsignados.add(prioridad);
+							vote.add(options.get(prioridad -1));
+							opcionAsignada = true;
+						}
+					}
+				}
+			}
+			votes.add(vote);
+		}
+		return votes;
 	}
-	public static List<List<String>> generateCoombs(List<String> options,
-			int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	static public List<List<String>> generateNanson(List<String> options,int numVotes)
+	{ 
+		//Cada votante le asigna una preferencia entre 0 y numOpciones a cada opción.
+		List<List<String>>votes=new LinkedList<List<String>>();
+		boolean opcionAsignada = false;
+		for(int i=0; i<numVotes;i++)
+		{
+			List<String> vote = new LinkedList<String>();
+			ArrayList numerosAsignados = new ArrayList();
+
+			for (int j = 0; j<options.size(); j++){ //Para cada una de las opciones, hara el random
+				opcionAsignada=false;
+				while(!opcionAsignada){
+					Integer prioridad = (int)(Math.random() * (options.size())+1);
+
+					if (numerosAsignados.isEmpty()){
+						numerosAsignados.add(prioridad);
+						vote.add(options.get(prioridad-1));
+						opcionAsignada = true;
+						//Añadimos el número aleatorio a una lista para poder comprobar cuáles han salido ya
+					}
+					else{
+						if (!numerosAsignados.contains(prioridad)){
+							numerosAsignados.add(prioridad);
+							vote.add(options.get(prioridad -1));
+							opcionAsignada = true;
+						}
+					}
+				}
+			}
+			votes.add(vote);
+		}
+		return votes;
 	}
 }
