@@ -25,6 +25,8 @@ import com.pfc.ballots.pages.UnauthorizedAttempt;
  * 
  * @author Mario Temprano Martin
  * @version 1.0 JUN-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 OCT-2015
  */
 public class UpdateCompany {
 

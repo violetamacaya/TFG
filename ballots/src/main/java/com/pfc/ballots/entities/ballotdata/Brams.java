@@ -63,6 +63,9 @@ public class Brams {
 	public void setOptions(List<String> options) {
 		this.options = options;
 	}
+	public String getOption(int index){
+		return options.get(index);
+	}
 	public List<List<String>> getVotes() {
 		return votes;
 	}

@@ -47,7 +47,7 @@
 					<table>
 						<tr>
 							<td><t:label for="ballotName">${message:name}*</t:label></td>
-							<td><t:textfield t:id="ballotName" value="newBallot.name" /></td>
+							<td><t:textfield t:id="ballotName" value="ballotName" /></td>
 						</tr>
 						<tr>
 							<td><t:label for="description">${message:description}*</t:label>
@@ -614,11 +614,6 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="bramsSel" /></td>
-							<td><t:select t:id="bramsSel" value="bramsNumOp"
-									t:model="bramsModel" t:zone="^" /></td>
-						</tr>
 						<tr>
 							<td><t:label for="bramsOp1" /></td>
 							<td><t:textfield t:id="bramsOp1" /></td>

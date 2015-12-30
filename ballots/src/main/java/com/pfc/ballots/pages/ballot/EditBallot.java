@@ -53,8 +53,6 @@ import com.pfc.ballots.data.Method;
 import com.pfc.ballots.encoder.CensusEncoder;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
-import com.pfc.ballots.entities.EmailAccount;
-import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.Vote;
 import com.pfc.ballots.entities.ballotdata.ApprovalVoting;
 import com.pfc.ballots.entities.ballotdata.Black;
@@ -79,7 +77,6 @@ import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 import com.pfc.ballots.pages.UnauthorizedAttempt;
 import com.pfc.ballots.util.GenerateDocentVotes;
-import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.UUID;
 
 /**
@@ -126,9 +123,6 @@ public class EditBallot {
 		@SessionAttribute
 		private String ballotIdSesion;
 
-		static final private String[] NUMBERS2_7 = new String[] { "2", "3", "4","5","6","7" };
-		static final private String[] NUMBERS7_15 = new String[] {"7","8","9","10","11","12","13","14","15" };
-		static final private String[] NUMBERS2_15 = new String[] { "2", "3", "4","5","6","7","8","9","10","11","12","13","14","15" };
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////// DAO //////////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,11 +154,7 @@ public class EditBallot {
 		VotoAcumulativoDao votoAcumulativoDao;
 		UserDao userDao;
 		EmailAccountDao emailAccountDao;
-
-		private String name;
-
-
-		
+	
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,54 +162,231 @@ public class EditBallot {
 		 * Initialize values
 		 */
 		
-		public void setup(String ballotId)
+		@SuppressWarnings("deprecation")
+		public void setup(String id)
 		{
-			this.ballotId=ballotIdSesion;
 			ballotDao = DB4O.getBallotDao();
-			oldBallot = ballotDao.getById(ballotId);
-
+			oldBallot = ballotDao.getById(id);
+			this.ballotId=id;
+			this.ballotName = oldBallot.getName();
 			this.description=oldBallot.getDescription();
-			this.name=oldBallot.getName();
 			this.endDate=oldBallot.getEndDate();
-			
 			this.startDate=oldBallot.getStartDate();
+			cal_old=new GregorianCalendar();
+
+			this.cal_old.setTime(oldBallot.getStartDate());
+			
 			this.method=oldBallot.getMethod();
+			if(oldBallot.isPrivat()){
+				this.ballotKind = BallotKind.PRIVADA;
+			}
+			else if(oldBallot.isPublica()){
+				this.ballotKind = BallotKind.PUBLICA;
+			}
+			else if(oldBallot.isTeaching()){
+				this.ballotKind = BallotKind.DOCENTE;
+			}
+			else
+				this.ballotKind = BallotKind.SENSIBLE;
+
+			int hora =startDate.getHours();
+			String horaString;
+			if(hora < 10)
+				horaString = "0"+Integer.valueOf(hora).toString();
+			else
+				horaString = Integer.valueOf(hora).toString();
+			
+			int minutos =startDate.getMinutes();
+			String minutosString;
+			if(minutos < 10)
+				minutosString = "0"+Integer.valueOf(minutos).toString();
+			else
+				minutosString = Integer.valueOf(minutos).toString();
+			
+			int segundos =startDate.getSeconds();
+			String segundosString;
+			if(segundos < 10)
+				segundosString = "0"+Integer.valueOf(segundos).toString();
+			else
+				segundosString = Integer.valueOf(segundos).toString();
+			
+			this.startHour=horaString +":"+ minutosString +":"+ segundosString;
+			
+
+			hora =endDate.getHours();
+			if(hora < 10)
+				horaString = "0"+Integer.valueOf(hora).toString();
+			else
+				horaString = Integer.valueOf(hora).toString();
+			
+			minutos =endDate.getMinutes();
+			if(minutos < 10)
+				minutosString = "0"+Integer.valueOf(minutos).toString();
+			else
+				minutosString = Integer.valueOf(minutos).toString();
+			
+			segundos =endDate.getSeconds();
+			if(segundos < 10)
+				segundosString = "0"+Integer.valueOf(segundos).toString();
+			else
+				segundosString = Integer.valueOf(segundos).toString();
+			
+			this.endHour=horaString +":"+ minutosString +":"+ segundosString;
+			
+			this.method=oldBallot.getMethod();
+			
+			
+			//Según el método que sea, ponerle el valor a numopciones y a cada una de las opciones.
+			if(method==Method.MAYORIA_RELATIVA)
+			{
+				showType=false;
+				showMayRel=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("mayRelZone",mayRelZone);
+			}
+			else if(method==Method.KEMENY)
+			{
+				showType=false;
+				showKemeny=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("kemenyZone",kemenyZone);
+			}
+			else if(method==Method.BORDA)
+			{
+				showType=false;
+				showBorda=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bordaZone", bordaZone);
+			}
+			else if(method==Method.RANGE_VOTING)
+			{
+				showType=false;
+				showRange=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("rangeZone",rangeZone);
+			}
+			else if(method==Method.APPROVAL_VOTING)
+			{
+				showType=false;
+				showApproval=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("approvalZone",approvalZone);
+			}
+			else if(method==Method.BRAMS)
+			{	
+				bramsDao=DB4O.getBramsDao(datasession.getDBName());
+				brams=bramsDao.getByBallotId(ballotId);
+				int numOptBrams = brams.getOptions().size();
+				
+				if(numOptBrams >=7){
+					bramsOp1 = brams.getOption(0);
+					bramsOp2 = brams.getOption(1);
+					bramsOp3 = brams.getOption(2);
+					bramsOp4 = brams.getOption(3);
+					bramsOp5 = brams.getOption(4);
+					bramsOp6 = brams.getOption(5);
+					bramsOp7 = brams.getOption(6);					
+				}
+				if(numOptBrams >=8)
+					bramsOp8 = brams.getOption(7);
+				if(numOptBrams >=9)
+					bramsOp8 = brams.getOption(8);
+				if(numOptBrams >=10)
+					bramsOp8 = brams.getOption(9);
+				if(numOptBrams >=11)
+					bramsOp8 = brams.getOption(10);
+				if(numOptBrams >=12)
+					bramsOp8 = brams.getOption(11);
+				if(numOptBrams >=13)
+					bramsOp8 = brams.getOption(12);
+				if(numOptBrams >=14)
+					bramsOp8 = brams.getOption(13);
+				if(numOptBrams >=15)
+					bramsOp8 = brams.getOption(14);
+			}
+			else if(method==Method.VOTO_ACUMULATIVO)
+			{
+				showType=false;
+				showVotoAcumulativo=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("votoAcumulativoZone",votoAcumulativoZone);
+			}
+			else if(method==Method.JUICIO_MAYORITARIO)
+			{
+				showType=false;
+				showJuicioMayoritario=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("juicioMayoritarioZone",juicioMayoritarioZone);
+			}
+			else if(method==Method.CONDORCET)
+			{
+				showType=false;
+				showCondorcet=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("condorcetZone",condorcetZone);
+			}
+			else if(method==Method.BLACK)
+			{
+				showType=false;
+				showBlack=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("blackZone",blackZone);
+			}
+			else if(method==Method.DODGSON)
+			{
+				showType=false;
+				showDodgson=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("dodgsonZone",dodgsonZone);
+			}
+			else if(method==Method.COPELAND)
+			{
+				showType=false;
+				showCopeland=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("copelandZone",copelandZone);
+			}
+			else if(method==Method.SCHULZE)
+			{
+				showType=false;
+				showSchulze=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("schulzeZone",schulzeZone);
+			}
+			else if(method==Method.SMALL)
+			{
+				showType=false;
+				showSmall=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("smallZone",smallZone);
+			}
+			else if(method==Method.MEJOR_PEOR)
+			{
+				showType=false;
+				showMejorPeor=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("mejorPeorZone",mejorPeorZone);
+			}
+			else if(method==Method.BUCKLIN)
+			{
+				showType=false;
+				showBucklin=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("bucklinZone",bucklinZone);
+			}
+			else if(method==Method.NANSON)
+			{
+				showType=false;
+				showNanson=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("nansonZone",nansonZone);
+			}
+			else if(method==Method.HARE)
+			{
+				showType=false;
+				showHare=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("hareZone",hareZone);
+			}
+			else if(method==Method.COOMBS)
+			{
+				showType=false;
+				showCoombs=true;
+				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("coombsZone", coombsZone);
+			}
 
 		}
 		public void setupRender()
 		{
-
 			oldBallot=ballotDao.getById(ballotId);
 			newBallot= new Ballot();
 			newBallot.setDescription(oldBallot.getDescription());
 			newBallot.setName(oldBallot.getName());
-			newBallot.setStartDate(startDate);
-			newBallot.setEndDate(endDate);
-			
-			mayRelModel=NUMBERS2_15;
-			approvalModel=NUMBERS2_15;
-			bordaModel=NUMBERS2_7;
-			rangeModel=NUMBERS2_7;
-			bramsModel=NUMBERS7_15;
-			votoAcumulativoModel=NUMBERS2_15;
-			juicioMayoritarioModel=NUMBERS7_15;
-			condorcetModel=NUMBERS2_15;
-			blackModel=NUMBERS2_15;
-			copelandModel=NUMBERS2_15;
-			schulzeModel=NUMBERS2_15;
-			smallModel=NUMBERS2_15;
-			dodgsonModel=NUMBERS2_15;
-			mejorPeorModel=NUMBERS7_15;
-			bucklinModel=NUMBERS2_15;
-			nansonModel=NUMBERS2_15;
-			hareModel=NUMBERS2_15;
-			coombsModel=NUMBERS2_15;
-
-
-			numOpt=2;
-			bordaOpt1=2;
-			bordaOpt2=2;
-			rangeOpt=2;
+			newBallot.setStartDate(oldBallot.getStartDate());
+			newBallot.setEndDate(oldBallot.getEndDate());
 
 			initializeBooleans();
 
@@ -308,6 +475,7 @@ public class EditBallot {
 			showRangeBadChar=false;
 			showRangeRepeated=false;
 			showRangeBadNum=false;
+			
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -345,7 +513,6 @@ public class EditBallot {
 		@Persist
 		private boolean showType;
 
-		static final private String[] CENSUS_DOCENT = new String[] {"10","20","30","40"};
 		static final private String[] NO_CENSUS = new String[] {};
 		@Property
 		private String dateInFormatStr = "dd/MM/yyyy";
@@ -436,6 +603,8 @@ public class EditBallot {
 		private Calendar cal_final;
 		@Persist
 		private Calendar cal_actual;
+		@Persist
+		private Calendar cal_old;
 
 		/**
 		 * Checks if the data of the ballot are correct
@@ -452,6 +621,7 @@ public class EditBallot {
 
 			if(method==null|| ballotKind==null)
 			{
+				System.out.println("Entro por aquí: "+method +" "+ballotKind);
 				showErrorType=true;
 			}
 			else if(ballotKind==BallotKind.PRIVADA || ballotKind==BallotKind.PUBLICA)
@@ -464,7 +634,6 @@ public class EditBallot {
 				}
 				if(startDate==null)
 				{
-					System.out.println("START DATE NULL");
 					Date date=new Date();
 					cal_inicio.setTime(date);
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Set your date format
@@ -477,7 +646,6 @@ public class EditBallot {
 					{
 						e.printStackTrace();
 					}
-					System.out.println(startDate);
 
 					if(startHour==null)
 					{
@@ -504,14 +672,12 @@ public class EditBallot {
 				}
 				else
 				{
-					System.out.println(startDate);
 					cal_inicio.setTime(startDate);
 
 
 					if(startHour!=null)
 					{
 						cal_inicio.setTime(startDate);
-						System.out.println("START HOUR");
 						String [] temp= startHour.split(":");
 
 						cal_inicio.set(Calendar.HOUR_OF_DAY, Integer.parseInt(temp[0]));
@@ -528,12 +694,6 @@ public class EditBallot {
 						cal_inicio.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
 						cal_inicio.set(Calendar.MINUTE, Integer.parseInt(min));
 						cal_inicio.set(Calendar.SECOND, Integer.parseInt(sec));
-
-
-
-						System.out.println(hour+"hour");
-						System.out.println(min+"min");
-						System.out.println(sec+"sec");
 
 					}
 				}
@@ -564,6 +724,11 @@ public class EditBallot {
 								cal_inicio.getTime().getMonth() == cal_actual.getTime().getMonth() &&
 								cal_inicio.getTime().getDay() == cal_actual.getTime().getDay())					
 						{
+							showBadDate=false;
+						}
+						if(cal_inicio.getTime().getYear() == cal_old.getTime().getYear() && 
+								cal_inicio.getTime().getMonth() == cal_old.getTime().getMonth() &&
+								cal_inicio.getTime().getDay() == cal_old.getTime().getDay())	{
 							showBadDate=false;
 						}
 					}
@@ -621,13 +786,16 @@ public class EditBallot {
 				if(ballotName==null|| description==null)
 				{
 					showErrorGeneral=true;
-
 				}
 				else
 				{
 					if(ballotDao.isNameInUse(ballotName))
 					{
 						showBadName=true;
+						if(ballotName.equals(oldBallot.getName())){
+							//Se permitirá que tenga el mismo nombre que la anterior.
+							showBadName=false;
+						}
 					}
 					else
 					{
@@ -653,6 +821,7 @@ public class EditBallot {
 					{
 						ajaxResponseRenderer.addRender("typeZone", typeZone);
 					}
+					
 					else if(method==Method.MAYORIA_RELATIVA)
 					{
 						showType=false;
@@ -1125,7 +1294,6 @@ public class EditBallot {
 						relativeMajority.setVotes(GenerateDocentVotes.generateRelativeMajority(relativeMajority.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -1136,7 +1304,6 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -1146,7 +1313,6 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
 						}
 
 					}
@@ -1298,8 +1464,7 @@ public class EditBallot {
 					kemeny.setVotes(GenerateDocentVotes.generateKemeny(kemeny.getOptionPairs(), Integer.parseInt(census)));
 					ballot.setEnded(true);
 					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-					this.sendMail(datasession.getId(),ballot);
-					ballot.setEnded(true);
+
 					ballot.setCounted(true);
 					voteDao.store(vote);
 
@@ -1309,7 +1474,7 @@ public class EditBallot {
 				else//Votacion Normal
 				{
 					boolean creatorInCensus=false;
-					this.sendMail(censusNormal, ballot);
+					
 					for(String idUser:censusNormal.getUsersCounted())
 					{
 						if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -1693,7 +1858,7 @@ public class EditBallot {
 						borda.setVotes(GenerateDocentVotes.generateBorda(borda.getBordaOptions(), Integer.parseInt(census)));
 						ballot.setEnded(true);
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(),ballot);
+	
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -1704,7 +1869,7 @@ public class EditBallot {
 					else//Votacion Normal
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal, ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -1975,7 +2140,7 @@ public class EditBallot {
 					range.setVotes(GenerateDocentVotes.generateRangeVoting(range.getOptions(), Integer.parseInt(census),range.getMinValue(), range.getMaxValue()));
 					ballot.setEnded(true);
 					Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-					this.sendMail(datasession.getId(),ballot);
+
 					ballot.setEnded(true);
 					ballot.setCounted(true);
 					voteDao.store(vote);
@@ -1986,7 +2151,7 @@ public class EditBallot {
 				else//Votacion Normal
 				{
 					boolean creatorInCensus=false;
-					this.sendMail(censusNormal, ballot);
+					
 					for(String idUser:censusNormal.getUsersCounted())
 					{
 						if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -2331,7 +2496,7 @@ public class EditBallot {
 						approvalVoting.setVotes(GenerateDocentVotes.generateApprovalVoting(approvalVoting.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -2342,7 +2507,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -2352,7 +2517,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -2374,7 +2539,8 @@ public class EditBallot {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////// BRAMS ZONE /////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+		@Persist
+		Brams brams;
 		@InjectComponent
 		private Zone bramsZone;
 		@Property
@@ -2386,12 +2552,9 @@ public class EditBallot {
 		@Property
 		@Persist
 		private boolean showRepeatedBrams;
-		@Persist
-		private Brams brams;
 
 		@Property
 		@Persist 
-		@Validate("required")
 		private String bramsNumOp;
 		@Persist
 		private int numOptBrams;
@@ -2453,17 +2616,6 @@ public class EditBallot {
 		public void setOptionBrams(String optionBrams) {
 			this.optionBrams = optionBrams;
 		}
-
-		/**
-		 * Controls the number of options for the brams voting
-		 * @param str
-		 */
-		public void  onValueChangedFromBramsSel(String str)
-		{
-			numOptBrams=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("bramsZone", bramsZone);
-		}
-
 		public boolean isShowBrams8()
 		{
 			if(numOptBrams>=8)
@@ -2521,11 +2673,9 @@ public class EditBallot {
 			showRepeatedBrams=false;
 			if(bramsOp1==null || bramsOp2==null || bramsOp3==null || bramsOp4==null || bramsOp5==null || bramsOp6==null || bramsOp7==null)
 			{
-
 				showErrorBrams=true;
 			}
 
-			System.out.println("NUMOP->"+numOptBrams);
 			switch(numOptBrams)
 			{
 			case 15:
@@ -2602,7 +2752,7 @@ public class EditBallot {
 
 					}
 				}
-				brams=new Brams(listOptions);
+				brams.setOptions(listOptions);
 			}
 		}
 
@@ -2621,7 +2771,7 @@ public class EditBallot {
 				else //No hay errores
 				{
 					ballot=setBallotData();
-					brams.setId(UUID.generate());
+					brams.setId(brams.getBallotId());
 					ballot.setIdBallotData(brams.getId());
 					brams.setBallotId(ballot.getId());
 
@@ -2638,7 +2788,7 @@ public class EditBallot {
 						votosdocentes = GenerateDocentVotes.generateBrams(brams.getOptions(), Integer.parseInt(census));
 						brams.setVotes(votosdocentes);
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);
-						//this.sendMail(datasession.getId(), ballot);
+						//
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -2649,7 +2799,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -2659,13 +2809,13 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
-
-					bramsDao.store(brams);
-					ballotDao.store(ballot);
+					brams.setVotes(brams.getVotes());
+					bramsDao.update(brams);
+					ballotDao.updateBallot(ballot);
 					ballotIdSesion = ballot.getId();
 					if(ballotKind==BallotKind.DOCENTE)
 						return BallotWasCreated.class;
@@ -2994,7 +3144,7 @@ public class EditBallot {
 						votoAcumulativo.setVotes(GenerateDocentVotes.generateVotoAcumulativo(votoAcumulativo.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -3005,7 +3155,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -3015,7 +3165,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -3296,7 +3446,7 @@ public class EditBallot {
 						juicioMayoritario.setVotes(GenerateDocentVotes.generateJuicioMayoritario(juicioMayoritario.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -3307,7 +3457,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -3317,7 +3467,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -3600,7 +3750,7 @@ public class EditBallot {
 						mejorPeor.setVotesNeg(docentes.get(1));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -3611,7 +3761,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -3621,7 +3771,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -4096,7 +4246,7 @@ public class EditBallot {
 						condorcet.setVotes(GenerateDocentVotes.generateCondorcet(condorcet.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -4107,7 +4257,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -4117,7 +4267,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -4453,7 +4603,7 @@ public class EditBallot {
 						black.setVotes(GenerateDocentVotes.generateBlack(black.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -4464,7 +4614,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -4474,7 +4624,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -4810,7 +4960,7 @@ public class EditBallot {
 						dodgson.setVotes(GenerateDocentVotes.generateDodgson(dodgson.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -4821,7 +4971,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -4831,7 +4981,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -5169,7 +5319,7 @@ public class EditBallot {
 						copeland.setVotes(GenerateDocentVotes.generateCopeland(copeland.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -5180,7 +5330,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -5190,7 +5340,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -5527,7 +5677,7 @@ public class EditBallot {
 						schulze.setVotes(GenerateDocentVotes.generateSchulze(schulze.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -5538,7 +5688,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -5548,7 +5698,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -5884,7 +6034,7 @@ public class EditBallot {
 						small.setVotes(GenerateDocentVotes.generateSmall(small.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -5895,7 +6045,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -5905,7 +6055,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -6242,7 +6392,7 @@ public class EditBallot {
 						bucklin.setVotes(GenerateDocentVotes.generateBucklin(bucklin.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -6253,7 +6403,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -6263,7 +6413,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -6600,7 +6750,7 @@ public class EditBallot {
 						nanson.setVotes(GenerateDocentVotes.generateNanson(nanson.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -6611,7 +6761,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -6621,7 +6771,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -6958,7 +7108,7 @@ public class EditBallot {
 						hare.setVotes(GenerateDocentVotes.generateHare(hare.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -6969,7 +7119,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -6979,7 +7129,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							// voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							//this.sendMail(datasession.getId(), ballot);
+							//
 						}
 
 					}
@@ -7316,7 +7466,7 @@ public class EditBallot {
 						coombs.setVotes(GenerateDocentVotes.generateCoombs(coombs.getOptions(), Integer.parseInt(census)));
 
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);//Almacena vote para docente(solo el creador)
-						this.sendMail(datasession.getId(), ballot);
+						
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -7327,7 +7477,7 @@ public class EditBallot {
 					else
 					{
 						boolean creatorInCensus=false;
-						this.sendMail(censusNormal,ballot);
+						
 						for(String idUser:censusNormal.getUsersCounted())
 						{
 							if(idUser.equals(datasession.getId())){creatorInCensus=true;}
@@ -7337,7 +7487,7 @@ public class EditBallot {
 						if(!creatorInCensus)
 						{
 							voteDao.store(new Vote(ballot.getId(),datasession.getId()));
-							this.sendMail(datasession.getId(), ballot);
+
 						}
 
 					}
@@ -7361,9 +7511,9 @@ public class EditBallot {
 		{
 
 			Ballot newBallot=new Ballot();
-			newBallot.setId(UUID.generate());
+			newBallot.setId(oldBallot.getId());
 			newBallot.setName(ballotName);
-			newBallot.setEditable(editable);
+			newBallot.setEditable(oldBallot.isEditable());
 			newBallot.setDescription(description);
 			newBallot.setIdOwner(datasession.getId());
 			if(ballotKind==BallotKind.PRIVADA)
@@ -7383,232 +7533,6 @@ public class EditBallot {
 			newBallot.setStartDate(cal_inicio.getTime());
 			newBallot.setEndDate(cal_final.getTime());
 			return newBallot;
-		}
-
-		/**
-		 * Report the users that are able to vote in the created ballot
-		 * @param censo
-		 * @param ballotMail
-		 */
-		private void sendMail(Census censo,Ballot ballotMail)
-		{
-			userDao=DB4O.getUsuarioDao(datasession.getDBName());
-			emailAccountDao=DB4O.getEmailAccountDao();
-			List<Profile> usersToMail=userDao.getProfileById(censo.getUsersCounted());
-			EmailAccount account=emailAccountDao.getAccount();
-
-			String metodo=null;
-			String subject;
-			String txt;
-
-
-			if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
-			{
-				metodo="Mayoria Relativa";
-			}
-			else if(ballot.getMethod()==Method.KEMENY)
-			{
-				metodo="Kemeny";
-			}
-			else if(ballot.getMethod()==Method.BORDA)
-			{
-				metodo="Borda";
-			}
-			else if(ballot.getMethod()==Method.RANGE_VOTING)
-			{
-				metodo="Range Voting";
-			}
-			else if(ballot.getMethod()==Method.APPROVAL_VOTING)
-			{
-				metodo="Approval Voting";
-			}
-			else if(ballot.getMethod()==Method.BRAMS)
-			{
-				metodo="Brams";
-			}
-			else if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
-			{
-				metodo="Voto Acumulativo";
-			}
-			else if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
-			{
-				metodo="Juicio Mayoritario";
-			}
-			else if(ballot.getMethod()==Method.CONDORCET)
-			{
-				metodo="Condorcet";
-			}
-			else if(ballot.getMethod()==Method.BLACK)
-			{
-				metodo="Black";
-			}
-			else if(ballot.getMethod()==Method.BUCKLIN)
-			{
-				metodo="Bucklin";
-			}
-			else if(ballot.getMethod()==Method.DODGSON)
-			{
-				metodo="Dodgson";
-			}
-			else if(ballot.getMethod()==Method.NANSON)
-			{
-				metodo="Nanson";
-			}
-			else if(ballot.getMethod()==Method.HARE)
-			{
-				metodo="Hare";
-			}
-			else if(ballot.getMethod()==Method.COOMBS)
-			{
-				metodo="Coombs";
-			}
-			else if(ballot.getMethod()==Method.COPELAND)
-			{
-				metodo="Copeland";
-			}
-			else if(ballot.getMethod()==Method.SCHULZE)
-			{
-				metodo="Schulze";
-			}
-			else if(ballot.getMethod()==Method.SMALL)
-			{
-				metodo="Small";
-			}
-			else if(ballot.getMethod()==Method.MEJOR_PEOR)
-			{
-				metodo="Mejor-peor";
-			}
-			if(ballotMail.isTeaching())
-			{
-				subject="Votacion docente "+metodo+": "+ballotMail.getName();
-				txt="La votacion docente "+ballotMail.getName()+" ha sido realizada con el metodo "+metodo+"<br/><br/>Su descripcion es:<br/>"+ballotMail.getDescription();
-			}
-			else
-			{
-				subject="Ya puedes Votar en: "+ballotMail.getName();
-				txt="Ya tiene acceso a la votacion ("+metodo+"): "+ballotMail.getName()+"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
-			}
-
-			for(Profile emailDestino:usersToMail)
-			{
-				Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino.getEmail(), subject, txt);
-			}
-		}
-		/**
-		 * Report a users that are able to vote in the created ballot
-		 * @param censo
-		 * @param ballotMail
-		 */
-		private void sendMail (String idUser,Ballot ballotMail)
-		{
-			userDao=DB4O.getUsuarioDao(datasession.getDBName());
-			emailAccountDao=DB4O.getEmailAccountDao();
-			String emailDestino=userDao.getEmailById(idUser);
-			EmailAccount account=emailAccountDao.getAccount();
-
-			SimpleDateFormat dateFormat;
-
-			String metodo=null;
-			String subject;
-			String txt;
-
-			if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
-			{
-				metodo="Mayoria Relativa";
-			}
-			else if(ballot.getMethod()==Method.KEMENY)
-			{
-				metodo="Kemeny";
-			}
-			else if(ballot.getMethod()==Method.BORDA)
-			{
-				metodo="Borda";
-			}
-			else if(ballot.getMethod()==Method.RANGE_VOTING)
-			{
-				metodo="Range Voting";
-			}
-			else if(ballot.getMethod()==Method.APPROVAL_VOTING)
-			{
-				metodo="Approval Voting";
-			}
-			else if(ballot.getMethod()==Method.BRAMS)
-			{
-				metodo="Brams";
-			}
-			else if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
-			{
-				metodo="Voto Acumulativo";
-			}
-			else if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
-			{
-				metodo="Juicio Mayoritario";
-			}
-			else if(ballot.getMethod()==Method.CONDORCET)
-			{
-				metodo="Condorcet";
-			}
-			else if(ballot.getMethod()==Method.BLACK)
-			{
-				metodo="Black";
-			}
-			else if(ballot.getMethod()==Method.BUCKLIN)
-			{
-				metodo="Bucklin";
-			}
-			else if(ballot.getMethod()==Method.DODGSON)
-			{
-				metodo="Dodgson";
-			}
-			else if(ballot.getMethod()==Method.NANSON)
-			{
-				metodo="Nanson";
-			}
-			else if(ballot.getMethod()==Method.HARE)
-			{
-				metodo="Hare";
-			}
-			else if(ballot.getMethod()==Method.COOMBS)
-			{
-				metodo="Coombs";
-			}
-			else if(ballot.getMethod()==Method.COPELAND)
-			{
-				metodo="Copeland";
-			}
-			else if(ballot.getMethod()==Method.SCHULZE)
-			{
-				metodo="Schulze";
-			}
-			else if(ballot.getMethod()==Method.SMALL)
-			{
-				metodo="Small";
-			}
-			else if(ballot.getMethod()==Method.MEJOR_PEOR)
-			{
-				metodo="Mejor-peor";
-			}
-
-			if(ballotMail.isTeaching())
-			{
-				subject="Votacion docente "+metodo+": "+ballotMail.getName();
-				txt="La votacion docente "+ballotMail.getName()+" ha sido realizada con el metodo "+metodo+"<br/><br/>Su descripcion es:<br/>"+ballotMail.getDescription();
-			}
-			else
-			{			
-				dateFormat =new SimpleDateFormat("dd/MM/yyyy");
-				String fecha = dateFormat.format(ballot.getStartDate());
-				dateFormat=new SimpleDateFormat("HH:mm");
-				String hora= dateFormat.format(ballot.getStartDate());
-
-				subject="Nueva votación: "+ballotMail.getName();
-				txt="Ha sido invitado a participación a la votación ("+metodo+"): "+ballotMail.getName()+ "que dara comienzo el "+fecha+" a las "+hora+
-						"<br/><br/>La descripcion de la votacion es:<br/>"+ballotMail.getDescription();
-
-			}
-
-
-			Mail.sendMail(account.getEmail(), account.getPassword(), emailDestino, subject, txt);
 		}
 
 		private boolean isNumeric(String cadena)
