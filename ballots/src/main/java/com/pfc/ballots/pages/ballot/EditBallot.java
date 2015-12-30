@@ -1,5 +1,6 @@
 package com.pfc.ballots.pages.ballot;
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -239,9 +240,43 @@ public class EditBallot {
 			//Según el método que sea, ponerle el valor a numopciones y a cada una de las opciones.
 			if(method==Method.MAYORIA_RELATIVA)
 			{
-				showType=false;
-				showMayRel=true;
-				ajaxResponseRenderer.addRender("typeZone", typeZone).addRender("mayRelZone",mayRelZone);
+				relativeMajorityDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
+				relativeMajority=relativeMajorityDao.getByBallotId(ballotId);
+				int mayRelNumOp = relativeMajority.getOptions().size();
+				
+				mayRelOp1 = relativeMajority.getOption(0);
+				mayRelOp2 = relativeMajority.getOption(1);	
+				if(mayRelNumOp >=3){
+					mayRelOp3 = relativeMajority.getOption(2);					
+				}				
+				if(mayRelNumOp >=4){
+					mayRelOp4 = relativeMajority.getOption(3);					
+				}				
+				if(mayRelNumOp >=5){
+					mayRelOp5 = relativeMajority.getOption(5);					
+				}				
+				if(mayRelNumOp >=6){
+					mayRelOp6 = relativeMajority.getOption(5);					
+				}
+				if(mayRelNumOp >=7){
+					mayRelOp7 = relativeMajority.getOption(6);					
+				}
+				if(mayRelNumOp >=8)
+					mayRelOp8 = relativeMajority.getOption(7);
+				if(mayRelNumOp >=9)
+					mayRelOp9 = relativeMajority.getOption(8);
+				if(mayRelNumOp >=10)
+					mayRelOp10 = relativeMajority.getOption(9);
+				if(mayRelNumOp >=11)
+					mayRelOp11 = relativeMajority.getOption(10);
+				if(mayRelNumOp >=12)
+					mayRelOp12 = relativeMajority.getOption(11);
+				if(mayRelNumOp >=13)
+					mayRelOp13 = relativeMajority.getOption(12);
+				if(mayRelNumOp >=14)
+					mayRelOp14 = relativeMajority.getOption(13);
+				if(mayRelNumOp >=15)
+					mayRelOp15 = relativeMajority.getOption(14);
 			}
 			else if(method==Method.KEMENY)
 			{
@@ -285,19 +320,19 @@ public class EditBallot {
 				if(numOptBrams >=8)
 					bramsOp8 = brams.getOption(7);
 				if(numOptBrams >=9)
-					bramsOp8 = brams.getOption(8);
+					bramsOp9 = brams.getOption(8);
 				if(numOptBrams >=10)
-					bramsOp8 = brams.getOption(9);
+					bramsOp10 = brams.getOption(9);
 				if(numOptBrams >=11)
-					bramsOp8 = brams.getOption(10);
+					bramsOp11 = brams.getOption(10);
 				if(numOptBrams >=12)
-					bramsOp8 = brams.getOption(11);
+					bramsOp12 = brams.getOption(11);
 				if(numOptBrams >=13)
-					bramsOp8 = brams.getOption(12);
+					bramsOp13 = brams.getOption(12);
 				if(numOptBrams >=14)
-					bramsOp8 = brams.getOption(13);
+					bramsOp14 = brams.getOption(13);
 				if(numOptBrams >=15)
-					bramsOp8 = brams.getOption(14);
+					bramsOp15 = brams.getOption(14);
 			}
 			else if(method==Method.VOTO_ACUMULATIVO)
 			{
@@ -621,7 +656,6 @@ public class EditBallot {
 
 			if(method==null|| ballotKind==null)
 			{
-				System.out.println("Entro por aquí: "+method +" "+ballotKind);
 				showErrorType=true;
 			}
 			else if(ballotKind==BallotKind.PRIVADA || ballotKind==BallotKind.PUBLICA)
@@ -630,7 +664,6 @@ public class EditBallot {
 				if(censusNormal==null && ballotKind==BallotKind.PRIVADA)
 				{
 					showErrorType=true;
-					System.out.println("NULL");
 				}
 				if(startDate==null)
 				{
@@ -1058,17 +1091,6 @@ public class EditBallot {
 			this.option = option;
 		}
 
-		/**
-		 * Controls the number of options for the relative majority
-		 * @param str
-		 */
-		public void  onValueChangedFromMayRelSel(String str)
-		{
-			numOpt=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("mayRelZone", mayRelZone);
-		}
-
-
 		public boolean isShowMay3()
 		{
 			if(numOpt>=3)
@@ -1160,7 +1182,6 @@ public class EditBallot {
 				showErrorMayRel=true;
 			}
 
-			System.out.println("NUMOP->"+numOpt);
 			switch(numOpt)
 			{
 			case 15:
@@ -1261,7 +1282,7 @@ public class EditBallot {
 
 					}
 				}
-				relativeMajority=new RelativeMajority(listOptions);
+				relativeMajority.setOptions(listOptions);
 			}
 		}
 
@@ -1280,9 +1301,28 @@ public class EditBallot {
 				else //No hay errores
 				{			
 					ballot=setBallotData();
-					relativeMajority.setId(UUID.generate());
+					relativeMajority.setId(relativeMajority.getId());
 					ballot.setIdBallotData(relativeMajority.getId());
+					System.out.println("El id que tiene ballot en idballotdata es: "+ballot.getIdBallotData()+" y el que tiene relative majority: "+
+							relativeMajority.getId());
 					relativeMajority.setBallotId(ballot.getId());
+					
+					
+					for (Field field : relativeMajority.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(relativeMajority);
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					    System.out.printf("Field name: %s, Field value: %s%n", name, value);
+					}
 
 					voteDao=DB4O.getVoteDao(datasession.getDBName());
 					relativeMajorityDao=DB4O.getRelativeMajorityDao(datasession.getDBName());
@@ -2014,11 +2054,7 @@ public class EditBallot {
 			else
 				return false;
 		}
-		public void  onValueChangedFromRangeSel(String str)
-		{
-			rangeOpt=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("rangeZone", rangeZone);
-		}
+
 
 		public void onValidateFromRangeForm()
 		{
@@ -2259,17 +2295,6 @@ public class EditBallot {
 		public void setOptionApproval(String optionApproval) {
 			this.optionApproval = optionApproval;
 		}
-
-		/**
-		 * Controls the number of options for the approval voting
-		 * @param str
-		 */
-		public void  onValueChangedFromApprovalSel(String str)
-		{
-			numOptApproval=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("approvalZone", approvalZone);
-		}
-
 
 		public boolean isShowApproval3()
 		{
@@ -2669,6 +2694,7 @@ public class EditBallot {
 		 */
 		public void onValidateFromBramsForm()
 		{
+			System.out.println("Brams vale: "+brams);
 			showErrorBrams=false;
 			showRepeatedBrams=false;
 			if(bramsOp1==null || bramsOp2==null || bramsOp3==null || bramsOp4==null || bramsOp5==null || bramsOp6==null || bramsOp7==null)
@@ -2771,7 +2797,7 @@ public class EditBallot {
 				else //No hay errores
 				{
 					ballot=setBallotData();
-					brams.setId(brams.getBallotId());
+					brams.setId(brams.getId());
 					ballot.setIdBallotData(brams.getId());
 					brams.setBallotId(ballot.getId());
 
@@ -2783,12 +2809,9 @@ public class EditBallot {
 						//Genera votos aleatoriamente para la votacion docente
 						ballot.setIdCensus("none");
 						List<List<String>> votosdocentes;
-						System.out.println("Llamada a generar votos docentes con: "+Integer.parseInt(census)+" votos");
-
 						votosdocentes = GenerateDocentVotes.generateBrams(brams.getOptions(), Integer.parseInt(census));
 						brams.setVotes(votosdocentes);
 						Vote vote=new Vote(ballot.getId(),datasession.getId(),true);
-						//
 						ballot.setEnded(true);
 						ballot.setCounted(true);
 						voteDao.store(vote);
@@ -2814,6 +2837,7 @@ public class EditBallot {
 
 					}
 					brams.setVotes(brams.getVotes());
+					System.out.println(brams.getId());
 					bramsDao.update(brams);
 					ballotDao.updateBallot(ballot);
 					ballotIdSesion = ballot.getId();
@@ -2906,16 +2930,6 @@ public class EditBallot {
 		}
 		public void setOptionVotoAcumulativo(String optionVotoAcumulativo) {
 			this.optionVotoAcumulativo = optionVotoAcumulativo;
-		}
-
-		/**
-		 * Controls the number of options for the votoAcumulativo voting
-		 * @param str
-		 */
-		public void  onValueChangedFromVotoAcumulativoSel(String str)
-		{
-			numOptVotoAcumulativo=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("votoAcumulativoZone", votoAcumulativoZone);
 		}
 
 
@@ -3265,16 +3279,6 @@ public class EditBallot {
 			this.optionJuicioMayoritario = optionJuicioMayoritario;
 		}
 
-		/**
-		 * Controls the number of options for the juicioMayoritario voting
-		 * @param str
-		 */
-		public void  onValueChangedFromJuicioMayoritarioSel(String str)
-		{
-			numOptJuicioMayoritario=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("juicioMayoritarioZone", juicioMayoritarioZone);
-		}
-
 		public boolean isShowJuicioMayoritario8()
 		{
 			if(numOptJuicioMayoritario>=8)
@@ -3565,16 +3569,6 @@ public class EditBallot {
 		}
 		public void setOptionMejorPeor(String optionMejorPeor) {
 			this.optionMejorPeor = optionMejorPeor;
-		}
-
-		/**
-		 * Controls the number of options for the mejorPeor voting
-		 * @param str
-		 */
-		public void  onValueChangedFromMejorPeorSel(String str)
-		{
-			numOptMejorPeor=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("mejorPeorZone", mejorPeorZone);
 		}
 
 		public boolean isShowMejorPeor8()
@@ -4010,17 +4004,6 @@ public class EditBallot {
 			this.optionCondorcet = optionCondorcet;
 		}
 
-		/**
-		 * Controls the number of options for the condorcet voting
-		 * @param str
-		 */
-		public void  onValueChangedFromCondorcetSel(String str)
-		{
-			numOptCondorcet=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("condorcetZone", condorcetZone);
-		}
-
-
 		public boolean isShowCondorcet3()
 		{
 			if(numOptCondorcet>=3)
@@ -4367,17 +4350,6 @@ public class EditBallot {
 			this.optionBlack = optionBlack;
 		}
 
-		/**
-		 * Controls the number of options for the black voting
-		 * @param str
-		 */
-		public void  onValueChangedFromBlackSel(String str)
-		{
-			numOptBlack=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("blackZone", blackZone);
-		}
-
-
 		public boolean isShowBlack3()
 		{
 			if(numOptBlack>=3)
@@ -4723,17 +4695,6 @@ public class EditBallot {
 		public void setOptionDodgson(String optionDodgson) {
 			this.optionDodgson = optionDodgson;
 		}
-
-		/**
-		 * Controls the number of options for the dodgson voting
-		 * @param str
-		 */
-		public void  onValueChangedFromDodgsonSel(String str)
-		{
-			numOptDodgson=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("dodgsonZone", dodgsonZone);
-		}
-
 
 		public boolean isShowDodgson3()
 		{
@@ -5083,17 +5044,6 @@ public class EditBallot {
 			this.optionCopeland = optionCopeland;
 		}
 
-		/**
-		 * Controls the number of options for the copeland voting
-		 * @param str
-		 */
-		public void  onValueChangedFromCopelandSel(String str)
-		{
-			numOptCopeland=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("copelandZone", copelandZone);
-		}
-
-
 		public boolean isShowCopeland3()
 		{
 			if(numOptCopeland>=3)
@@ -5441,17 +5391,6 @@ public class EditBallot {
 			this.optionSchulze = optionSchulze;
 		}
 
-		/**
-		 * Controls the number of options for the schulze voting
-		 * @param str
-		 */
-		public void  onValueChangedFromSchulzeSel(String str)
-		{
-			numOptSchulze=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("schulzeZone", schulzeZone);
-		}
-
-
 		public boolean isShowSchulze3()
 		{
 			if(numOptSchulze>=3)
@@ -5797,17 +5736,6 @@ public class EditBallot {
 		public void setOptionSmall(String optionSmall) {
 			this.optionSmall = optionSmall;
 		}
-
-		/**
-		 * Controls the number of options for the small voting
-		 * @param str
-		 */
-		public void  onValueChangedFromSmallSel(String str)
-		{
-			numOptSmall=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("smallZone", smallZone);
-		}
-
 
 		public boolean isShowSmall3()
 		{
@@ -6156,17 +6084,6 @@ public class EditBallot {
 			this.optionBucklin = optionBucklin;
 		}
 
-		/**
-		 * Controls the number of options for the bucklin voting
-		 * @param str
-		 */
-		public void  onValueChangedFromBucklinSel(String str)
-		{
-			numOptBucklin=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("bucklinZone", bucklinZone);
-		}
-
-
 		public boolean isShowBucklin3()
 		{
 			if(numOptBucklin>=3)
@@ -6513,17 +6430,6 @@ public class EditBallot {
 		public void setOptionNanson(String optionNanson) {
 			this.optionNanson = optionNanson;
 		}
-
-		/**
-		 * Controls the number of options for the nanson voting
-		 * @param str
-		 */
-		public void  onValueChangedFromNansonSel(String str)
-		{
-			numOptNanson=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("nansonZone", nansonZone);
-		}
-
 
 		public boolean isShowNanson3()
 		{
@@ -6872,17 +6778,6 @@ public class EditBallot {
 			this.optionHare = optionHare;
 		}
 
-		/**
-		 * Controls the number of options for the hare voting
-		 * @param str
-		 */
-		public void  onValueChangedFromHareSel(String str)
-		{
-			numOptHare=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("hareZone", hareZone);
-		}
-
-
 		public boolean isShowHare3()
 		{
 			if(numOptHare>=3)
@@ -7230,17 +7125,6 @@ public class EditBallot {
 			this.optionCoombs = optionCoombs;
 		}
 
-		/**
-		 * Controls the number of options for the coombs voting
-		 * @param str
-		 */
-		public void  onValueChangedFromCoombsSel(String str)
-		{
-			numOptCoombs=Integer.parseInt(str);
-			ajaxResponseRenderer.addRender("coombsZone", coombsZone);
-		}
-
-
 		public boolean isShowCoombs3()
 		{
 			if(numOptCoombs>=3)
@@ -7532,6 +7416,23 @@ public class EditBallot {
 			newBallot.setMethod(method);
 			newBallot.setStartDate(cal_inicio.getTime());
 			newBallot.setEndDate(cal_final.getTime());
+			
+			
+			for (Field field : newBallot.getClass().getDeclaredFields()) {
+			    field.setAccessible(true);
+			    String name = field.getName();
+			    Object value = null;
+				try {
+					value = field.get(newBallot);
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			    System.out.printf("Field name: %s, Field value: %s%n", name, value);
+			}
 			return newBallot;
 		}
 

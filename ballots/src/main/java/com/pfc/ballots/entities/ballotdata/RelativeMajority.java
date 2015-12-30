@@ -61,6 +61,9 @@ public class RelativeMajority {
 	public List<String> getOptions() {
 		return options;
 	}
+	public String getOption(int index){
+		return options.get(index);
+	}
 	public void setOptions(List<String> options) {
 		this.options = options;
 	}

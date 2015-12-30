@@ -100,11 +100,7 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="mayRelSel" /></td>
-							<td><t:select t:id="mayRelSel" value="mayRelNumOp"
-									t:model="mayRelModel" t:zone="^" /></td>
-						</tr>
+
 						<tr>
 							<td><t:label for="mayRelOp1" /></td>
 							<td><t:textfield t:id="mayRelOp1" /></td>
@@ -408,11 +404,7 @@
 						</t:if>
 					</span>
 					<table>
-						<tr>
-							<td><t:label for="rangeSel" /></td>
-							<td><t:select t:id="rangeSel" value="rangeNumOpt"
-									t:model="rangeModel" t:zone="^" /></td>
-						</tr>
+
 						<tr>
 							<td><t:label for="minRange" /></td>
 							<td><t:textfield t:id="minRange" /></td>
@@ -492,11 +484,6 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="approvalSel" /></td>
-							<td><t:select t:id="approvalSel" value="approvalNumOp"
-									t:model="approvalModel" t:zone="^" /></td>
-						</tr>
 						<tr>
 							<td><t:label for="approvalOp1" /></td>
 							<td><t:textfield t:id="approvalOp1" /></td>
@@ -726,12 +713,6 @@
 					</t:if>
 					<table>
 						<tr>
-							<td><t:label for="votoAcumulativoSel" /></td>
-							<td><t:select t:id="votoAcumulativoSel"
-									value="votoAcumulativoNumOp" t:model="votoAcumulativoModel"
-									t:zone="^" /></td>
-						</tr>
-						<tr>
 							<td><t:label for="votoAcumulativoOp1" /></td>
 							<td><t:textfield t:id="votoAcumulativoOp1" /></td>
 						</tr>
@@ -848,12 +829,7 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="juicioMayoritarioSel" /></td>
-							<td><t:select t:id="juicioMayoritarioSel"
-									value="juicioMayoritarioNumOptions"
-									t:model="juicioMayoritarioModel" t:zone="^" /></td>
-						</tr>
+
 						<tr>
 							<td><t:label for="juicioMayoritarioOption1" /></td>
 							<td><t:textfield t:id="juicioMayoritarioOption1" /></td>
@@ -962,11 +938,7 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="condorcetSel" /></td>
-							<td><t:select t:id="condorcetSel" value="condorcetNumOp"
-									t:model="condorcetModel" t:zone="^" /></td>
-						</tr>
+
 						<tr>
 							<td><t:label for="condorcetOp1" /></td>
 							<td><t:textfield t:id="condorcetOp1" /></td>
@@ -1084,11 +1056,6 @@
 					</t:if>
 					<table>
 						<tr>
-							<td><t:label for="blackSel" /></td>
-							<td><t:select t:id="blackSel" value="blackNumOp"
-									t:model="blackModel" t:zone="^" /></td>
-						</tr>
-						<tr>
 							<td><t:label for="blackOp1" /></td>
 							<td><t:textfield t:id="blackOp1" /></td>
 						</tr>
@@ -1204,11 +1171,7 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="dodgsonSel" /></td>
-							<td><t:select t:id="dodgsonSel" value="dodgsonNumOp"
-									t:model="dodgsonModel" t:zone="^" /></td>
-						</tr>
+
 						<tr>
 							<td><t:label for="dodgsonOp1" /></td>
 							<td><t:textfield t:id="dodgsonOp1" /></td>
@@ -1325,11 +1288,7 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="copelandSel" /></td>
-							<td><t:select t:id="copelandSel" value="copelandNumOp"
-									t:model="copelandModel" t:zone="^" /></td>
-						</tr>
+
 						<tr>
 							<td><t:label for="copelandOp1" /></td>
 							<td><t:textfield t:id="copelandOp1" /></td>
@@ -1446,12 +1405,7 @@
 						<span class="error">${message:repeated-fields}</span>
 						<br />
 					</t:if>
-					<table>
-						<tr>
-							<td><t:label for="schulzeSel" /></td>
-							<td><t:select t:id="schulzeSel" value="schulzeNumOp"
-									t:model="schulzeModel" t:zone="^" /></td>
-						</tr>
+					<table>solo
 						<tr>
 							<td><t:label for="schulzeOp1" /></td>
 							<td><t:textfield t:id="schulzeOp1" /></td>
@@ -1569,11 +1523,6 @@
 					</t:if>
 					<table>
 						<tr>
-							<td><t:label for="smallSel" /></td>
-							<td><t:select t:id="smallSel" value="smallNumOp"
-									t:model="smallModel" t:zone="^" /></td>
-						</tr>
-						<tr>
 							<td><t:label for="smallOp1" /></td>
 							<td><t:textfield t:id="smallOp1" /></td>
 						</tr>
@@ -1690,11 +1639,6 @@
 					</t:if>
 					<table>
 						<tr>
-							<td><t:label for="mejorPeorSel" /></td>
-							<td><t:select t:id="mejorPeorSel"
-									value="mejorPeorNumOptions" t:model="mejorPeorModel" t:zone="^" /></td>
-						</tr>
-						<tr>
 							<td><t:label for="mejorPeorOption1" /></td>
 							<td><t:textfield t:id="mejorPeorOption1" /></td>
 						</tr>
@@ -1801,11 +1745,6 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="bucklinSel" /></td>
-							<td><t:select t:id="bucklinSel" value="bucklinNumOp"
-									t:model="bucklinModel" t:zone="^" /></td>
-						</tr>
 						<tr>
 							<td><t:label for="bucklinOp1" /></td>
 							<td><t:textfield t:id="bucklinOp1" /></td>
@@ -1924,11 +1863,6 @@
 					</t:if>
 					<table>
 						<tr>
-							<td><t:label for="nansonSel" /></td>
-							<td><t:select t:id="nansonSel" value="nansonNumOp"
-									t:model="nansonModel" t:zone="^" /></td>
-						</tr>
-						<tr>
 							<td><t:label for="nansonOp1" /></td>
 							<td><t:textfield t:id="nansonOp1" /></td>
 						</tr>
@@ -2046,11 +1980,6 @@
 					</t:if>
 					<table>
 						<tr>
-							<td><t:label for="hareSel" /></td>
-							<td><t:select t:id="hareSel" value="hareNumOp"
-									t:model="hareModel" t:zone="^" /></td>
-						</tr>
-						<tr>
 							<td><t:label for="hareOp1" /></td>
 							<td><t:textfield t:id="hareOp1" /></td>
 						</tr>
@@ -2167,11 +2096,6 @@
 						<br />
 					</t:if>
 					<table>
-						<tr>
-							<td><t:label for="coombsSel" /></td>
-							<td><t:select t:id="coombsSel" value="coombsNumOp"
-									t:model="coombsModel" t:zone="^" /></td>
-						</tr>
 						<tr>
 							<td><t:label for="coombsOp1" /></td>
 							<td><t:textfield t:id="coombsOp1" /></td>
