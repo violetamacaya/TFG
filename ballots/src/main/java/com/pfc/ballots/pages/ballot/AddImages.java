@@ -83,7 +83,10 @@ public class AddImages {
 		ballotDao=DB4O.getBallotDao(datasession.getDBName());
 		ballot=ballotDao.getById(ballotIdSesion);
 		errorExtension = false;
-		ajaxResponseRenderer.addRender("formZone", formZone);
+		if(ballot.getImagenes() != null){
+			ballotImages= ballot.getImagenes();
+		}
+		ajaxResponseRenderer.addRender("formZone", formZone).addRender("imageZone", imageZone);
 	}
 
 	public Object onSuccessFromForm(){
@@ -108,11 +111,10 @@ public class AddImages {
 
 	public Object onActionFromFinish()
 	{
-		System.out.println("Ballot images en addImages" + ballotImages);
-
 		ballot.setImagenes(ballotImages);		
 		ballotDao.updateBallot(ballot);
 		componentResources.discardPersistentFieldChanges();
+		ballotImages = null;
 		return BallotWasCreated.class;
 	}
 

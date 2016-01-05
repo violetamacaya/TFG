@@ -4131,13 +4131,10 @@ public class VoteBallot {
 					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
 					{
 						dodgsonVote.add(dodgsonRadio0);
-						System.out.println("El valor en el radio  0 es de : "+Integer.parseInt(dodgsonRadio0));
 						dodgsonVote.add(dodgsonRadio1);
-						System.out.println("El valor en el radio  1 es de : "+Integer.parseInt(dodgsonRadio1));
 
-						if(dodgson.getOptions().size()==3){
+						if(dodgson.getOptions().size()>=3){
 							dodgsonVote.add(dodgsonRadio2);
-							System.out.println("El valor en el radio  2 es de : "+Integer.parseInt(dodgsonRadio2));
 						}
 						if(dodgson.getOptions().size()>=4 ){
 							dodgsonVote.add(dodgsonRadio3);

@@ -270,11 +270,6 @@
 					<t:zone t:id="bordaForm1Zone" id="bordaForm1Zone">
 						<table>
 							<tr>
-								<td><t:label for="bordaSel1" /></td>
-								<td><t:select t:id="bordaSel1" value="bordaNumOpt1"
-										t:model="bordaModel" t:zone="^" /></td>
-							</tr>
-							<tr>
 								<td><t:label for="bcat1" /></td>
 								<td><t:textfield t:id="bcat1" /></td>
 							</tr>
@@ -321,11 +316,6 @@
 
 					<t:zone t:id="bordaForm2Zone" id="bordaForm2Zone">
 						<table>
-							<tr>
-								<td><t:label for="bordaSel2" /></td>
-								<td><t:select t:id="bordaSel2" value="bordaNumOpt2"
-										t:model="bordaModel" t:zone="^" /></td>
-							</tr>
 							<tr>
 								<td><t:label for="bcat2" /></td>
 								<td><t:textfield t:id="bcat2" /></td>
@@ -405,18 +395,6 @@
 					</span>
 					<table>
 
-						<tr>
-							<td><t:label for="minRange" /></td>
-							<td><t:textfield t:id="minRange" /></td>
-
-						</tr>
-						<tr>
-							<td><t:label for="maxRange" /></td>
-							<td><t:textfield t:id="maxRange" /></td>
-							<td><t:if test="showRangeMax">
-									<span t:class="error">${message:max-range}</span>
-								</t:if></td>
-						</tr>
 						<tr>
 							<td><t:label for="rangeOpt1" /></td>
 							<td><t:textfield t:id="rangeOpt1" /></td>
