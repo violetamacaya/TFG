@@ -339,7 +339,9 @@ public class SchulzeDaoDB4O implements SchulzeDao
 		}
 		return null;
 	}
-
+	/**
+	 * Deletes Schulze text
+	 */
 	public void deleteSchulzeText()
 	{
 		open();
@@ -365,7 +367,7 @@ public class SchulzeDaoDB4O implements SchulzeDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the Schulze text
 	 * @param about
 	 */
 	public void updateSchulzeText(SchulzeText text)

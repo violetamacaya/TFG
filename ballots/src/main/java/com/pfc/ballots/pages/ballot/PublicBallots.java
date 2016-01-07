@@ -19,6 +19,12 @@ import com.pfc.ballots.data.Method;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
+/**
+ * 
+ * Public ballots class is the controller for the page that
+ * allow to see public ballots
+ * 
+ */
 
 public class PublicBallots {
 	  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

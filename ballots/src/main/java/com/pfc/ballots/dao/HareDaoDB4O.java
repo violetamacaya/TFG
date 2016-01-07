@@ -365,7 +365,7 @@ public class HareDaoDB4O implements HareDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the hare text
 	 * @param about
 	 */
 	public void updateHareText(HareText text)

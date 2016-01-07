@@ -365,7 +365,7 @@ public class BlackDaoDB4O implements BlackDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the black text
 	 * @param about
 	 */
 	public void updateBlackText(BlackText text)

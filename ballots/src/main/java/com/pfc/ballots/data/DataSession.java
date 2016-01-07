@@ -12,7 +12,6 @@ import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.UserLogedDao;
 import com.pfc.ballots.entities.Company;
-import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.util.Mail;
 import com.pfc.ballots.util.UUID;

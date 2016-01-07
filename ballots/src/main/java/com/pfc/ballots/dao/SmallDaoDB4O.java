@@ -339,7 +339,9 @@ public class SmallDaoDB4O implements SmallDao
 		}
 		return null;
 	}
-
+	/**
+	 * Delete small text
+	 */
 	public void deleteSmallText()
 	{
 		open();
@@ -365,7 +367,7 @@ public class SmallDaoDB4O implements SmallDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the small text
 	 * @param about
 	 */
 	public void updateSmallText(SmallText text)

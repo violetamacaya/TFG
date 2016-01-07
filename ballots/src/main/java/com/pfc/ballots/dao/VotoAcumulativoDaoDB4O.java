@@ -6,9 +6,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
-import com.pfc.ballots.entities.RangeVotingText;
 import com.pfc.ballots.entities.VotoAcumulativoText;
-import com.pfc.ballots.entities.ballotdata.RangeVoting;
 import com.pfc.ballots.entities.ballotdata.VotoAcumulativo;
 /**
  * 
@@ -18,6 +16,7 @@ import com.pfc.ballots.entities.ballotdata.VotoAcumulativo;
  * @version 1.0 DIC-2014
  *
  */
+@SuppressWarnings("rawtypes")
 public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao 
 {
 	String sep=System.getProperty("file.separator");
@@ -46,7 +45,7 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 	private void open()
 	{
 		config=Db4oEmbedded.newConfiguration();
-		config.common().objectClass(RangeVoting.class).cascadeOnUpdate(true);
+		config.common().objectClass(VotoAcumulativo.class).cascadeOnUpdate(true);
 		try
 		{
 
@@ -68,6 +67,10 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		DB.close();
 		System.out.println("[DB4O]Database was closed");
 	}
+	/**
+	 * Retrieves the VotoAcumulativo text
+	 * @param about
+	 */
 	public VotoAcumulativoText getVotoAcumulativoText() {
 
 		open();
@@ -91,7 +94,10 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		}
 		return null;
 	}
-
+	/**
+	 * Deletes the VotoAcumulativo text
+	 * @param about
+	 */
 	public void deleteVotoAcumulativoText()
 	{
 		open();
@@ -142,83 +148,8 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		{
 			close();
 		}
-
 	}
-	public RangeVotingText getRangeVotingText() {
-
-		open();
-		try
-		{
-			Query query=DB.query();
-			query.constrain(RangeVotingText.class);
-			ObjectSet result=query.execute();
-			if(result.hasNext())
-			{
-				return (RangeVotingText)result.next();
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			close();
-		}
-		return null;
-	}
-
-	public void deleteRangeVotingText()
-	{
-		open();
-		try
-		{
-			Query query=DB.query();
-			query.constrain(RangeVotingText.class);
-			ObjectSet result=query.execute();
-			if(result.hasNext())
-			{
-				DB.delete(result.next());
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			close();
-		}
-
-	}
-
-	/**
-	 * Updates the VotoAcumulativo text
-	 * @param about
-	 */
-	public void updateRangeVotingText(RangeVotingText text)
-	{
-		open();
-		try
-		{
-			Query query=DB.query();
-			query.constrain(RangeVotingText.class);
-			ObjectSet result=query.execute();
-			while(result.hasNext())
-			{
-				DB.delete(result.next());
-			}
-			DB.store(text);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			close();
-		}
-	}
+	
 	public void deleteByBallotId(String ballotId) {
 		open();
 		try
@@ -298,6 +229,10 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		}
 
 	}
+	/**
+	 * Stores a ballot entities
+	 * @param about
+	 */
 	public void store(VotoAcumulativo votoAcumulativo) {
 		open();
 		try
@@ -315,6 +250,11 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 			close();
 		}
 	}
+	
+	/**
+	 * Retrieves a ballot by Id
+	 * @param about
+	 */
 	public VotoAcumulativo getByBallotId(String idBallot)
 	{
 		open();
@@ -340,7 +280,10 @@ public class VotoAcumulativoDaoDB4O implements VotoAcumulativoDao
 		}
 
 	}
-
+	/**
+	 * Update a ballot by Id
+	 * @param about
+	 */
 	public void update(VotoAcumulativo updated)
 	{
 		open();

@@ -1,0 +1,45 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-control" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<head>
+<title>${message:page-title}</title>
+<link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
+<link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
+</head>
+
+<t:border>
+	<div id="CreateballotDiv">
+		<div class="t-zbreadcrumbs">
+			<ul class="t-zbreadcrumbs">
+				<li><a href="Index">${message:index}</a></li>
+				<li><a href="BallotList">${message:ballot}</a></li>
+				<li><a href="#">${message:actual}</a></li>
+			</ul>
+		</div>
+		<h1>${message:page-title}</h1>
+		<hr />
+		<t:grid source="changes" t:value="editLog" row="editLog"
+			rowsPerPage="10" reorder="email,editDate,newData" inplace="true"
+			exclude="ballotId, id">
+			<p:editDateCell>${editDate}</p:editDateCell>
+			<p:newDataCell>
+				<t:OutputRaw value="${newData}"></t:OutputRaw>
+			</p:newDataCell>
+		</t:grid>
+		<style>
+TABLE.t-data-grid TBODY TR TD {
+	text-align: left;
+	background-color: #f5f5f5;
+	min-height: 30px;
+	margin-bottom: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 7px;
+	padding-right: 10px;
+}
+</style>
+	</div>
+</t:border>
+</html>

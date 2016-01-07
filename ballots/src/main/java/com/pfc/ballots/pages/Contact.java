@@ -18,8 +18,9 @@ import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.util.Mail;
 
 
-@BreadCrumb(titleKey="contact.title")
-@BreadCrumbReset(ignorePages = {Index.class})
+/**
+ * Contact page of application ballots.
+ */
 public class Contact
 {
 	

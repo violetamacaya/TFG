@@ -20,8 +20,9 @@ import com.pfc.ballots.entities.BordaText;
 import com.pfc.ballots.entities.ballotdata.Borda;
 import com.pfc.ballots.dao.*;
 
-/**
- * @author violeta
+/**Gives information about the method
+ * @author Violeta Macaya Sánchez
+ * @version 1.0 DIC-2014
  *
  */
 public class BordaMethod {

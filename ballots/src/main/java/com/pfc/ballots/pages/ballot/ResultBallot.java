@@ -63,6 +63,14 @@ import com.pfc.ballots.entities.ballotdata.VotoAcumulativo;
 import com.pfc.ballots.pages.Index;
 import com.pfc.ballots.pages.SessionExpired;
 
+/**
+ * 
+ *ResultBallot class is the controller for the page that
+ * allow to see the results of an existing ballot
+ * 
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 DIC-2015
+ */
 
 @Import(library = "context:js/charts.js")
 public class ResultBallot {

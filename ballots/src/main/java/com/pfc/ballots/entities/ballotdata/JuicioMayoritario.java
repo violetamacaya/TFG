@@ -8,7 +8,7 @@ import java.util.Map;
 import com.Calculo.CalcJuicioMayoritario;
 
 /**
- * Brams entity that contains the information of specific information
+ * JuicioMayoritario entity that contains the information of specific information
  * for a JuicioMayoritario ballot
  * 
  * @author Violeta Macaya Sánchez

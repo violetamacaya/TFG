@@ -432,5 +432,10 @@ public class DB4OFactoryDao extends FactoryDao{
 
 	}
 
+	@Override
+	public EditLogDao getEditLogDao(String DBName) {
+		return new EditLogDaoDB4O(DBName);
+	}
+
 
 }

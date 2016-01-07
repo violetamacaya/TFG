@@ -365,7 +365,7 @@ public class MejorPeorDaoDB4O implements MejorPeorDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the mejor peor text
 	 * @param about
 	 */
 	public void updateMejorPeorText(MejorPeorText text)

@@ -1,5 +1,6 @@
 package com.pfc.ballots.pages.ballot;
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +34,7 @@ import com.pfc.ballots.dao.CondorcetDao;
 import com.pfc.ballots.dao.CoombsDao;
 import com.pfc.ballots.dao.CopelandDao;
 import com.pfc.ballots.dao.DodgsonDao;
+import com.pfc.ballots.dao.EditLogDao;
 import com.pfc.ballots.dao.EmailAccountDao;
 import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.dao.HareDao;
@@ -53,6 +55,7 @@ import com.pfc.ballots.data.Method;
 import com.pfc.ballots.encoder.CensusEncoder;
 import com.pfc.ballots.entities.Ballot;
 import com.pfc.ballots.entities.Census;
+import com.pfc.ballots.entities.EditLog;
 import com.pfc.ballots.entities.EmailAccount;
 import com.pfc.ballots.entities.Profile;
 import com.pfc.ballots.entities.Vote;
@@ -150,6 +153,7 @@ public class CreateBallot {
 	VotoAcumulativoDao votoAcumulativoDao;
 	UserDao userDao;
 	EmailAccountDao emailAccountDao;
+	EditLogDao editLogDao;
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////// INITIALIZE ///////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1145,7 +1149,60 @@ public class CreateBallot {
 
 				relativeMajorityDao.store(relativeMajority);
 				ballotDao.store(ballot);
+				
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : relativeMajority.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(relativeMajority);
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" )
+						{
+							data+=name +": " +value +";";
+						}
+				 }
+				 
+				 editLog.setNewData(data);
 
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -1319,6 +1376,60 @@ public class CreateBallot {
 
 			kemenyDao.store(kemeny);
 			ballotDao.store(ballot);
+			
+			editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+			 EditLog editLog = new EditLog();
+			 editLog.setEditDate(new Date());
+			 editLog.setEmail(datasession.getEmail());
+			 editLog.setBallotId(ballot.getId());
+			 editLog.setId(UUID.generate());
+			 
+			 String data = "";
+			 for (Field field : ballot.getClass().getDeclaredFields()) {
+				    field.setAccessible(true);
+				    String name = field.getName();
+				    Object value = null;
+					try {
+						value = field.get(ballot);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(name != "id" && name != "idOwner" && name != "idCensus" 
+							&& name != "idBallotData" && name != "method" 
+							&& name != "teaching" && name != "privat" 
+							&& name != "publica" && name != "ended" 
+							&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+							data+=name +": " +value +";";
+					}
+			 }
+			 for (Field field : kemeny.getClass().getDeclaredFields()) {
+				    field.setAccessible(true);
+				    String name = field.getName();
+				    Object value = null;
+					try {
+						value = field.get(kemeny);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(name != "id" && name != "ballotId" && name != "votes" 
+							&& name != "winners" && name != "results" && name != "permutations" 
+							&& name != "winner" && name != "optionPairs" ){
+				    data+=name +": " +value +";";
+					}
+
+			 }
+			 
+			 editLog.setNewData(data);
+
+			 editLogDao.store(editLog);
 			ballotIdSesion = ballot.getId();
 			if(ballotKind==BallotKind.DOCENTE)
 				return BallotWasCreated.class;
@@ -1715,6 +1826,60 @@ public class CreateBallot {
 
 				bordaDao.store(borda);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : borda.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(borda);
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" && name != "permutations" 
+								&& name != "winner" && name != "bordaOptions" ){
+					    data+=name +": " +value +";";
+						}
+
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -1998,6 +2163,60 @@ public class CreateBallot {
 
 			rangeDao.store(range);
 			ballotDao.store(ballot);
+			
+			 EditLog editLog = new EditLog();
+			 editLog.setEditDate(new Date());
+			 editLog.setEmail(datasession.getEmail());
+			 editLog.setBallotId(ballot.getId());
+			 editLog.setId(UUID.generate());
+
+
+			 
+			 String data = "";
+			 for (Field field : ballot.getClass().getDeclaredFields()) {
+				    field.setAccessible(true);
+				    String name = field.getName();
+				    Object value = null;
+					try {
+						value = field.get(ballot);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(name != "id" && name != "idOwner" && name != "idCensus" 
+							&& name != "idBallotData" && name != "method" 
+							&& name != "teaching" && name != "privat" 
+							&& name != "publica" && name != "ended" 
+							&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+							data+=name +": " +value +";";
+					}
+			 }
+			 for (Field field : range.getClass().getDeclaredFields()) {
+				    field.setAccessible(true);
+				    String name = field.getName();
+				    Object value = null;
+					try {
+						value = field.get(range);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(name != "id" && name != "ballotId" && name != "votes" 
+							&& name != "winners" && name != "results" && name != "maxValue" 
+							&& name != "winner" && name != "minValue" ){
+				    data+=name +": " +value +";";
+					}
+			 }
+			editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+			 editLog.setNewData(data);
+			 editLogDao.store(editLog);
 			ballotIdSesion = ballot.getId();
 			if(ballotKind==BallotKind.DOCENTE)
 				return BallotWasCreated.class;
@@ -2355,6 +2574,57 @@ public class CreateBallot {
 
 				approvalVotingDao.store(approvalVoting);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : approvalVoting.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(approvalVoting);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -2663,6 +2933,57 @@ public class CreateBallot {
 
 				bramsDao.store(brams);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : brams.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(brams);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -3020,6 +3341,57 @@ public class CreateBallot {
 
 				votoAcumulativoDao.store(votoAcumulativo);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : votoAcumulativo.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(votoAcumulativo);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -3323,6 +3695,57 @@ public class CreateBallot {
 
 				juicioMayoritarioDao.store(juicioMayoritario);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : juicioMayoritario.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(juicioMayoritario);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -3628,6 +4051,57 @@ public class CreateBallot {
 
 				mejorPeorDao.store(mejorPeor);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : mejorPeor.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(mejorPeor);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -4125,6 +4599,57 @@ public class CreateBallot {
 
 				condorcetDao.store(condorcet);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : condorcet.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(condorcet);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -4483,6 +5008,57 @@ public class CreateBallot {
 
 				blackDao.store(black);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : black.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(black);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -4841,6 +5417,57 @@ public class CreateBallot {
 
 				dodgsonDao.store(dodgson);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : dodgson.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(dodgson);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -5201,6 +5828,57 @@ public class CreateBallot {
 
 				copelandDao.store(copeland);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : copeland.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(copeland);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -5560,6 +6238,57 @@ public class CreateBallot {
 
 				schulzeDao.store(schulze);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : schulze.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(schulze);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -5918,6 +6647,57 @@ public class CreateBallot {
 
 				smallDao.store(small);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : small.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(small);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -6276,6 +7056,57 @@ public class CreateBallot {
 
 				bucklinDao.store(bucklin);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : bucklin.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(bucklin);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -6635,6 +7466,57 @@ public class CreateBallot {
 
 				nansonDao.store(nanson);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : nanson.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(nanson);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -6994,6 +7876,57 @@ public class CreateBallot {
 
 				hareDao.store(hare);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : hare.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(hare);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;
@@ -7353,6 +8286,57 @@ public class CreateBallot {
 
 				coombsDao.store(coombs);
 				ballotDao.store(ballot);
+				 EditLog editLog = new EditLog();
+				 editLog.setEditDate(new Date());
+				 editLog.setEmail(datasession.getEmail());
+				 editLog.setBallotId(ballot.getId());
+				 editLog.setId(UUID.generate());
+
+
+				 
+				 String data = "";
+				 for (Field field : ballot.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(ballot);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "idOwner" && name != "idCensus" 
+								&& name != "idBallotData" && name != "method" 
+								&& name != "teaching" && name != "privat" 
+								&& name != "publica" && name != "ended" 
+								&& name != "notStarted" && name != "active" && name != "counted" && name != "editable"){
+								data+=name +": " +value +";";
+						}
+				 }
+				 for (Field field : coombs.getClass().getDeclaredFields()) {
+					    field.setAccessible(true);
+					    String name = field.getName();
+					    Object value = null;
+						try {
+							value = field.get(coombs);
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							
+							e.printStackTrace();
+						}
+						if(name != "id" && name != "ballotId" && name != "votes" 
+								&& name != "winners" && name != "results" 
+								&& name != "winner" ){
+					    data+=name +": " +value +";";
+						}
+				 }
+				editLogDao = DB4O.getEditLogDao(datasession.getDBName());
+
+				 editLog.setNewData(data);
+				 editLogDao.store(editLog);
+				 
 				ballotIdSesion = ballot.getId();
 				if(ballotKind==BallotKind.DOCENTE)
 					return BallotWasCreated.class;

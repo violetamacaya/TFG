@@ -37,8 +37,8 @@ public class RangeVotingDaoDB4O implements RangeVotingDao{
 	
 	//********************************************* Store *********************************************//
 	/**
-	 * Stores a Borda entity
-	 * @param borda, Borda entity to store
+	 * Stores a range voting entity
+	 * @param range voting, range voting entity to store
 	 */
 	public void store(RangeVoting rangeVoting) {
 		open();
@@ -203,12 +203,12 @@ public class RangeVotingDaoDB4O implements RangeVotingDao{
 				{
 					DB.delete(result.next());
 				}
-				System.out.println("[DB4O]All Borda was deleted");
+				System.out.println("[DB4O]All range voting was deleted");
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			System.out.println("[DB4O]ERROR:All Borda could not be deleted");
+			System.out.println("[DB4O]ERROR:All range voting could not be deleted");
 		
 		}
 		finally
@@ -222,7 +222,7 @@ public class RangeVotingDaoDB4O implements RangeVotingDao{
 
 
 	/**
-	 * retrieves all Borda entities
+	 * retrieves all range voting entities
 	 */
 	public List<RangeVoting> retrieveAll() {
 		List<RangeVoting> rangeVoting=new LinkedList<RangeVoting>();
@@ -237,7 +237,7 @@ public class RangeVotingDaoDB4O implements RangeVotingDao{
 				{
 					rangeVoting.add((RangeVoting)result.next());
 				}
-				System.out.println("[DB4O]All Borda was retrieved");
+				System.out.println("[DB4O]All range voting was retrieved");
 		}
 		catch(Exception e)
 		{
@@ -343,6 +343,9 @@ public class RangeVotingDaoDB4O implements RangeVotingDao{
 		return null;
 	}
 
+	/**
+	 * Deletes range voting text
+	 */
 	public void deleteRangeVotingText()
 	{
 		open();
@@ -368,7 +371,7 @@ public class RangeVotingDaoDB4O implements RangeVotingDao{
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the range voting text
 	 * @param about
 	 */
 	public void updateRangeVotingText(RangeVotingText text)

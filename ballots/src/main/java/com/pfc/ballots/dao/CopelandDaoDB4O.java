@@ -365,7 +365,7 @@ public class CopelandDaoDB4O implements CopelandDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the copeland text
 	 * @param about
 	 */
 	public void updateCopelandText(CopelandText text)

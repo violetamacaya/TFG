@@ -8,7 +8,7 @@ import java.util.Map;
 import com.Calculo.CalcBlack;
 
 /**
- * Brams entity that contains the information of specific information
+ * Black entity that contains the information of specific information
  * for a Black ballot
  * 
  * @author Violeta Macaya Sánchez

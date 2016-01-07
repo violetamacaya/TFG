@@ -25,6 +25,8 @@ public abstract class FactoryDao {
 	
 	public abstract LogDao getLogDao();//in DB4O has its own DB
 	
+	public abstract EditLogDao getEditLogDao(String DBName);
+	
 	public abstract ProfileCensedInDao getProfileCensedInDao();
 	public abstract ProfileCensedInDao getProfileCensedInDao(String DBName);
 	

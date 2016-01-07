@@ -365,7 +365,7 @@ public class NansonDaoDB4O implements NansonDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the nanson text
 	 * @param about
 	 */
 	public void updateNansonText(NansonText text)

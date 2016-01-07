@@ -14,8 +14,9 @@ import com.pfc.ballots.dao.FactoryDao;
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.AboutText;
 
-@BreadCrumb(titleKey="about.title")
-@BreadCrumbReset(ignorePages = {Index.class})
+/**
+ * About page of application ballots.
+ */
 public class About
 {
 

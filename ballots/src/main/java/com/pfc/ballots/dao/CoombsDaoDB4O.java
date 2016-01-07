@@ -365,7 +365,7 @@ public class CoombsDaoDB4O implements CoombsDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the coombs text
 	 * @param about
 	 */
 	public void updateCoombsText(CoombsText text)

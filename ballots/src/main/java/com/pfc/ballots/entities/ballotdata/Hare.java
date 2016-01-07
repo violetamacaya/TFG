@@ -8,7 +8,7 @@ import java.util.Map;
 import com.Calculo.CalcHare;
 
 /**
- * Brams entity that contains the information of specific information
+ * Hare entity that contains the information of specific information
  * for a Hare ballot
  * 
  * @author Violeta Macaya Sánchez

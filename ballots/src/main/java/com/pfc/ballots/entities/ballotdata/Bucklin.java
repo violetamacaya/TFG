@@ -9,7 +9,7 @@ import com.Calculo.CalcBucklin;
 
 
 /**
- * Brams entity that contains the information of specific information
+ * Bucklin entity that contains the information of specific information
  * for a Bucklin ballot
  * 
  * @author Violeta Macaya Sánchez

@@ -8,7 +8,7 @@ import java.util.Map;
 import com.Calculo.CalcCoombs;
 
 /**
- * Brams entity that contains the information of specific information
+ * Coombs entity that contains the information of specific information
  * for a Coombs ballot
  * 
  * @author Violeta Macaya Sánchez

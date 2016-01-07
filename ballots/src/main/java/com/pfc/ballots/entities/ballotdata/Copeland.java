@@ -8,7 +8,7 @@ import java.util.Map;
 import com.Calculo.CalcCopeland;
 
 /**
- * Brams entity that contains the information of specific information
+ * Copeland entity that contains the information of specific information
  * for a Copeland ballot
  * 
  * @author Violeta Macaya Sánchez

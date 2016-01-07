@@ -365,7 +365,7 @@ public class BucklinDaoDB4O implements BucklinDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the bucklin text
 	 * @param about
 	 */
 	public void updateBucklinText(BucklinText text)

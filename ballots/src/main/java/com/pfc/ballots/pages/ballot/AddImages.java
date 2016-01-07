@@ -28,6 +28,15 @@ import com.pfc.ballots.util.ImageHandle;
 				"context:js/jquery.ajax.upload.js",
 				"context:js/upload.js"
 		})
+/**
+ * 
+ * Is the controller for the page that
+ * allow to add images to an existing ballot
+ * 
+ * @author Violeta Macaya Sánchez
+ * @version 1.0 NOV-2015
+ */
+
 public class AddImages {
 
 	@SessionState

@@ -30,7 +30,6 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 	EmbeddedConfiguration config = null;
 	ObjectContainer DB=null;
 	
-	//SOLO PUEDE EXISITIR UNA ENTIDAD DE DATOS (RELATIVEMAJORITY) POR CADA VOTACION
 	
 	public RelativeMajorityDaoDB4O(String DBName)
 	{
@@ -54,7 +53,7 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		try
 		{
 			DB.store(relativeMajority);
-			//System.out.println("[DB4O]Vote stored");
+			System.out.println("[DB4O]Vote stored");
 		}
 		catch(Exception e)
 		{
@@ -86,7 +85,7 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 				{
 					relMays.add((RelativeMajority)result.next());
 				}
-				//System.out.println("[DB4O]All RelMay was retrieved");
+				System.out.println("[DB4O]All RelMay was retrieved");
 		}
 		catch(Exception e)
 		{
@@ -329,7 +328,9 @@ public class RelativeMajorityDaoDB4O implements RelativeMajorityDao{
 		}
 		return null;
 	}
-
+	/**
+	 * Delete relative majority text
+	 */
 	public void deleteRelativeMajorityText()
 	{
 		open();

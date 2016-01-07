@@ -8,7 +8,7 @@ import java.util.Map;
 import com.Calculo.CalcCondorcet;
 
 /**
- * Brams entity that contains the information of specific information
+ * Condorcet entity that contains the information of specific information
  * for a Condorcet ballot
  * 
  * @author Violeta Macaya Sánchez

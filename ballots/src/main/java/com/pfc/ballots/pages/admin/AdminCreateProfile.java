@@ -21,7 +21,16 @@ import com.pfc.ballots.util.Encryption;
 import com.pfc.ballots.util.UUID;
 
 
-
+/**
+ * 
+ * Is the controller for the AdminCreateProfile page that
+ * allows the administration to create new users
+ * 
+ * @author Mario Temprano Martin
+ * @version 1.0 JUN-2014
+ * @author Violeta Macaya Sánchez
+ * @version 2.0 OCT-2014
+ */
 @Secure
 public class AdminCreateProfile {
 

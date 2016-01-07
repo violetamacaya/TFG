@@ -365,7 +365,7 @@ public class DodgsonDaoDB4O implements DodgsonDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the dodgson text
 	 * @param about
 	 */
 	public void updateDodgsonText(DodgsonText text)

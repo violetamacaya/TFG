@@ -365,7 +365,7 @@ public class KemenyDaoDB4O implements KemenyDao
 	}
 	
 	/**
-	 * Updates the BORDA text
+	 * Updates the Kemeny text
 	 * @param about
 	 */
 	public void updateKemenyText(KemenyText text)

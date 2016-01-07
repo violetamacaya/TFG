@@ -16,7 +16,7 @@ import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.CondorcetText;
 import com.pfc.ballots.dao.*;
 
-/**
+/**Gives information about the method
  * @author Violeta Macaya Sánchez
  * @version 1.0 DIC-2014
  *

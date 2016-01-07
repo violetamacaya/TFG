@@ -1,6 +1,5 @@
 package com.pfc.ballots.pages.Methods;
 
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -14,14 +13,13 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.Request;
 
 import se.unbound.tapestry.breadcrumbs.BreadCrumb;
-import se.unbound.tapestry.breadcrumbs.BreadCrumbInfo;
 import se.unbound.tapestry.breadcrumbs.BreadCrumbList;
 
 import com.pfc.ballots.data.DataSession;
 import com.pfc.ballots.entities.ApprovalVotingText;
 import com.pfc.ballots.dao.*;
 
-/**
+/**Gives information about the method
  * @author Violeta Macaya Sánchez
  * @version 1.0 DIC-2014
  *

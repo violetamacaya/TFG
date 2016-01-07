@@ -19,7 +19,9 @@ import com.pfc.ballots.pages.Methods.RelativeMajorityMethod;
 import com.pfc.ballots.pages.Methods.SchulzeMethod;
 import com.pfc.ballots.pages.Methods.SmallMethod;
 import com.pfc.ballots.pages.Methods.VotoAcumulativoMethod;
-
+/**
+ * Method index page.
+ */
 public class MethodsInfo {
 
 	Object onMenu(String section)

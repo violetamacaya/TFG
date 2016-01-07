@@ -8,7 +8,7 @@ import java.util.Map;
 import com.Calculo.CalcDodgson;
 
 /**
- * Brams entity that contains the information of specific information
+ * Dodgson entity that contains the information of specific information
  * for a Dodgson ballot
  * 
  * @author Violeta Macaya Sánchez
