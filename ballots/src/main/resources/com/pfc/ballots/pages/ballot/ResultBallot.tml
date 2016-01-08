@@ -22,13 +22,13 @@
 
 <t:border>
 	<div id="resultBallotDiv">
-				<div class="t-zbreadcrumbs">
-		<ul class="t-zbreadcrumbs">
-			<li><a href="Index">${message:index}</a></li>
-			<li><a href="BallotList">${message:ballot}</a></li>
-			<li><a href="#">${message:actual}</a></li>
-		</ul>
-	</div>
+		<div class="t-zbreadcrumbs">
+			<ul class="t-zbreadcrumbs">
+				<li><a href="Index">${message:index}</a></li>
+				<li><a href="BallotList">${message:ballot}</a></li>
+				<li><a href="#">${message:actual}</a></li>
+			</ul>
+		</div>
 		<h1>${message:ballot-result}</h1>
 		<hr />
 
@@ -38,351 +38,356 @@
 			<small>${ballot.description}</small>
 		</h2>
 
-		<div id="chart_div"></div>
+		<t:if test="existVotes">
+			<div id="chart_div"></div>
 
 
-		<t:if test="showRelMay">
-			<table border="1px">
-				<tr>
-					<td>${message:numVotes}</td>
-					<td>${relMayNum}</td>
-				</tr>
-			</table>
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:votes}</th>
-				</tr>
-				<t:loop t:source="relMayOptions" t:value="option">
+			<t:if test="showRelMay">
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${relMayVote}</td>
+						<td>${message:numVotes}</td>
+						<td>${relMayNum}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-
-
-		<t:if test="showKemeny">
-			<table border="1px">
-				<tr>
-					<td>${message:numVotes}</td>
-					<td>${kemNum}</td>
-				</tr>
-			</table>
-			<table border="1px">
-				<tr>
-					<th>${message:permutation}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="kemenypermutations" t:value="permutation">
+				</table>
+				<table border="1px">
 					<tr>
-						<td>${permutation}</td>
-						<td>${kemenyVote}</td>
+						<th>${message:option}</th>
+						<th>${message:votes}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
+					<t:loop t:source="relMayOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${relMayVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
 
-		<t:if test="showBorda">
-			<table border="1px">
-				<tr>
-					<td>${message:numVotes}</td>
-					<td>${bordaNum}</td>
-				</tr>
-			</table>
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="bordaOptions" t:value="bordaOpt">
+
+			<t:if test="showKemeny">
+				<table border="1px">
 					<tr>
-						<td>${bordaOpt}</td>
-						<td>${bordaVote}</td>
+						<td>${message:numVotes}</td>
+						<td>${kemNum}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-		<t:if test="showRange">
-			<table border="1px">
-				<tr>
-					<td>${message:numVotes}</td>
-					<td>${rangeNum}</td>
-				</tr>
-				<tr>
-					<td>${message:maxValue}</td>
-					<td>${maxValue}</td>
-				</tr>
-				<tr>
-					<td>${message:minValue}</td>
-					<td>${minValue}</td>
-				</tr>
-			</table>
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="range.options" t:value="rangeOpt">
+				</table>
+				<table border="1px">
 					<tr>
-						<td>${rangeOpt}</td>
-						<td>${rangeVote}</td>
+						<th>${message:permutation}</th>
+						<th>${message:score}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-		<t:if test="showBrams">
-			<table border="1px">
-				<tr>
-					<td>${message:numVotes}</td>
-					<td>${BramsNum}</td>
-				</tr>
-			</table>
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:votes}</th>
-				</tr>
-				<t:loop t:source="BramsOptions" t:value="option">
+					<t:loop t:source="kemenypermutations" t:value="permutation">
+						<tr>
+							<td>${permutation}</td>
+							<td>${kemenyVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+
+			<t:if test="showBorda">
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${BramsVote}</td>
+						<td>${message:numVotes}</td>
+						<td>${bordaNum}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-		<t:if test="showApprovalVoting">
-			<table border="1px">
-				<tr>
-					<td>${message:numVotes}</td>
-					<td>${ApprovalVotingNum}</td>
-				</tr>
-			</table>
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:votes}</th>
-				</tr>
-				<t:loop t:source="ApprovalVotingOptions" t:value="option">
+				</table>
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${ApprovalVotingVote}</td>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-
-		<t:if test="showVotoAcumulativo">
-			<table border="1px">
-				<tr>
-					<td>${message:numVotes}</td>
-					<td>${VotoAcumulativoNum}</td>
-				</tr>
-			</table>
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:votes}</th>
-				</tr>
-				<t:loop t:source="VotoAcumulativoOptions" t:value="option">
+					<t:loop t:source="bordaOptions" t:value="bordaOpt">
+						<tr>
+							<td>${bordaOpt}</td>
+							<td>${bordaVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+			<t:if test="showRange">
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${VotoAcumulativoVote}</td>
+						<td>${message:numVotes}</td>
+						<td>${rangeNum}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-
-		<t:if test="showJuicioMayoritario">
-
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:median}</th>
-				</tr>
-				<t:loop t:source="JuicioMayoritarioOptions" t:value="option">
 					<tr>
-						<td>${option}</td>
-						<td>${JuicioMayoritarioVote}</td>
+						<td>${message:maxValue}</td>
+						<td>${maxValue}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-
-
-		<t:if test="showCondorcet">
-
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="CondorcetOptions" t:value="option">
 					<tr>
-						<td>${option}</td>
-						<td>${condorcetVote}</td>
+						<td>${message:minValue}</td>
+						<td>${minValue}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-
-		<t:if test="showBlack">
-
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="BlackOptions" t:value="option">
+				</table>
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${blackVote}</td>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-
-		<t:if test="showCopeland">
-
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="CopelandOptions" t:value="option">
+					<t:loop t:source="range.options" t:value="rangeOpt">
+						<tr>
+							<td>${rangeOpt}</td>
+							<td>${rangeVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+			<t:if test="showBrams">
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${copelandVote}</td>
+						<td>${message:numVotes}</td>
+						<td>${BramsNum}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-
-		<t:if test="showSchulze">
-
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="SchulzeOptions" t:value="option">
+				</table>
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${schulzeVote}</td>
+						<th>${message:option}</th>
+						<th>${message:votes}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-
-		<t:if test="showSmall">
-
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="SmallOptions" t:value="option">
+					<t:loop t:source="BramsOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${BramsVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+			<t:if test="showApprovalVoting">
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${smallVote}</td>
+						<td>${message:numVotes}</td>
+						<td>${ApprovalVotingNum}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-		<t:if test="showDodgson">
-
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="DodgsonOptions" t:value="option">
+				</table>
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${dodgsonVote}</td>
+						<th>${message:option}</th>
+						<th>${message:votes}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-		<t:if test="showMejorPeor">
+					<t:loop t:source="ApprovalVotingOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${ApprovalVotingVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
 
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="MejorPeorOptions" t:value="option">
+			<t:if test="showVotoAcumulativo">
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${mejorPeorVote}</td>
+						<td>${message:numVotes}</td>
+						<td>${VotoAcumulativoNum}</td>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-		<t:if test="showBucklin">
-
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="BucklinOptions" t:value="option">
+				</table>
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${bucklinVote}</td>
+						<th>${message:option}</th>
+						<th>${message:votes}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
+					<t:loop t:source="VotoAcumulativoOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${VotoAcumulativoVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
 
-		<t:if test="showCoombs">
+			<t:if test="showJuicioMayoritario">
 
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="CoombsOptions" t:value="option">
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${coombsVote}</td>
+						<th>${message:option}</th>
+						<th>${message:median}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-		<t:if test="showHare">
+					<t:loop t:source="JuicioMayoritarioOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${JuicioMayoritarioVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
 
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="HareOptions" t:value="option">
+
+			<t:if test="showCondorcet">
+
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${hareVote}</td>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
 					</tr>
-				</t:loop>
-			</table>
-		</t:if>
-		<t:if test="showNanson">
+					<t:loop t:source="CondorcetOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${condorcetVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
 
-			<table border="1px">
-				<tr>
-					<th>${message:option}</th>
-					<th>${message:score}</th>
-				</tr>
-				<t:loop t:source="NansonOptions" t:value="option">
+			<t:if test="showBlack">
+
+				<table border="1px">
 					<tr>
-						<td>${option}</td>
-						<td>${nansonVote}</td>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
 					</tr>
-				</t:loop>
-			</table>
+					<t:loop t:source="BlackOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${blackVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+
+			<t:if test="showCopeland">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="CopelandOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${copelandVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+
+			<t:if test="showSchulze">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="SchulzeOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${schulzeVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+
+			<t:if test="showSmall">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="SmallOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${smallVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+			<t:if test="showDodgson">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="DodgsonOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${dodgsonVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+			<t:if test="showMejorPeor">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="MejorPeorOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${mejorPeorVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+			<t:if test="showBucklin">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="BucklinOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${bucklinVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+
+			<t:if test="showCoombs">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="CoombsOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${coombsVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+			<t:if test="showHare">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="HareOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${hareVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+			<t:if test="showNanson">
+
+				<table border="1px">
+					<tr>
+						<th>${message:option}</th>
+						<th>${message:score}</th>
+					</tr>
+					<t:loop t:source="NansonOptions" t:value="option">
+						<tr>
+							<td>${option}</td>
+							<td>${nansonVote}</td>
+						</tr>
+					</t:loop>
+				</table>
+			</t:if>
+
+
+			<p:else>
+			${message:no-votes}
+			</p:else>
 		</t:if>
-
-
 	</div>
 </t:border>
 </html>

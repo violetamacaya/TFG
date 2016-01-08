@@ -6,7 +6,54 @@
 <link rel="icon" type="image/x-icon" href="${context:favicon2.ico}" />
 <link rel="icon" href="${context:favicon2.ico}" type="image/x-icon" />
 </head>
+<style>
+TABLE.t-data-grid {
+	width: 100%;
+}
 
+TABLE.t-data-grid {
+	border: 0px;
+}
+
+TABLE.t-data-grid TBODY TR TD {
+	border: 0px;
+	text-align: center;
+	background-color: white;
+	min-height: 30px;
+	margin-bottom: 10px;
+	padding-left: 15px;
+	padding-top: 10px;
+	padding-bottom: 7px;
+}
+
+TABLE.t-data-grid TR {
+	border-bottom: 1px #C2D7E0 solid !important;
+	box-shadow: 0px 2px 0px #4b8ba4;
+}
+
+TABLE.t-data-grid TBODY TR TD a {
+	text-decoration: none;
+	color: black;
+}
+
+TABLE.t-data-grid THEAD TH {
+	color: #204A9F !important;
+	text-decoration: none !important;
+	background: #F5F5F5 !important;
+	text-align: center !important;
+	border: 0px !important;
+	border-bottom: 1px solid silver !important;
+	padding-bottom: 10px !important;
+}
+
+TABLE.t-data-grid TR TH a {
+	color: #204A9F !important;
+}
+
+TABLE.t-data-grid TR:hover td {
+	background-color: rgba(45, 0, 255, 0.1);
+}
+</style>
 <t:border>
 
 	<div id="indexDiv">
@@ -20,64 +67,64 @@
 		<t:if test="!showCurrent">
 					${message:no-ballots}
 				</t:if>
-		<t:if test="showPublicActive">
-			<h3>${message:actives}</h3>
-			<hr />
-			<div class="indexHead">
-				<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
-				<span>${message:endDate}</span> <span>${message:method}</span>
-			</div>
-			<t:loop t:source="publicActiveBallots" t:value="ballot">
-				<div t:type="actionlink" t:id="votePublicBallot"
-					t:context="ballot.id" class="indexRow">
-					<span> ${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-					<t:if test="ballot.teaching">
-						<span>Docente&nbsp;&nbsp;&nbsp;</span>
-						<p:else>
-							<t:if test="ballot.publica">
-								<span>Publica&nbsp;&nbsp;&nbsp;</span>
-								<p:else>
-									<span>Normal&nbsp;&nbsp;&nbsp;</span>
-								</p:else>
-							</t:if>
-						</p:else>
+<t:if test="showPublicActive">
+						<h3>${message:public-actives}</h3> <hr />
+						<t:grid t:id="ballotsGrid" source="publicActiveBallots"
+							row="ballot" t:value="ballot"
+							reorder="name, kind, startDate, endDate, method, vote, result" rowsPerPage="10"
+							inplace="true" add="kind, result, vote"
+							exclude="ended, editable,teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
+							<p:nameCell>
+								<t:eventLink t:event="votePublicBallot" context="ballot.id"> ${ballot.name}</t:eventLink>
+							</p:nameCell>
+							<p:kindCell>
+								<t:eventLink t:event="votePublicBallot" context="ballot.id"> ${message:public}</t:eventLink>
+							</p:kindCell>
+							<p:startDateCell>
+								<t:eventLink t:event="votePublicBallot" context="ballot.id"> ${startDate}</t:eventLink>
+							</p:startDateCell>
+							<p:endDateCell>
+								<t:eventLink t:event="votePublicBallot" context="ballot.id"> ${endDate}</t:eventLink>
+							</p:endDateCell>
+							<p:methodCell>
+								<t:eventLink t:event="votePublicBallot" context="ballot.id"> ${metodo}</t:eventLink>
+							</p:methodCell>
+							<p:resultCell>
+								<t:eventLink t:event="resultPublicBallot" context="ballot.id"> <button>${message:show-result}</button></t:eventLink>
+							</p:resultCell>
+							<p:voteCell>
+								<t:eventLink t:event="votePublicBallot" context="ballot.id"> <button>${message:vote}</button></t:eventLink>
+							</p:voteCell>
+						</t:grid>
+
 					</t:if>
-					<span>${startDate}</span> <span>${endDate}</span> <span>${metodo}&nbsp;&nbsp;&nbsp;</span>
-					<br />
-				</div>
-			</t:loop>
+					<t:if test="showPublicEnded">
 
-		</t:if>
-		<t:if test="showPublicEnded">
+						<h3>${message:public-ended}</h3> <hr />
 
-			<h3>${message:ended}</h3>
-			<hr />
-			<div class="indexHead">
-				<span>${message:title}</span> <span>${message:kind}</span> <span>${message:startDate}</span>
-				<span>${message:endDate}</span> <span>${message:method}</span>
-			</div>
-			<t:loop t:source="publicEndedBallots" t:value="ballot">
-				<div t:type="actionlink" t:id="resultPublicBallot"
-					context="ballot.id" class="indexRow">
-					<span>${ballot.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-
-					<t:if test="ballot.teaching">
-						<span>Docente&nbsp;&nbsp;&nbsp;</span>
-						<p:else>
-							<t:if test="ballot.publica">
-								<span>Publica&nbsp;&nbsp;&nbsp;</span>
-								<p:else>
-									<span>Normal&nbsp;&nbsp;&nbsp;</span>
-								</p:else>
-							</t:if>
-						</p:else>
+						<t:grid t:id="ballotsGridEnded" source="publicEndedBallots"
+							row="ballot" t:value="ballot"
+							reorder="name, kind, startDate, endDate, method" rowsPerPage="10"
+							inplace="true" add="kind"
+							exclude="ended, editable,teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
+							<p:nameCell>
+								<t:eventLink t:event="resultPublicBallot" context="ballot.id"> ${ballot.name}</t:eventLink>
+							</p:nameCell>
+							<p:kindCell>
+								<t:eventLink t:event="resultPublicBallot" context="ballot.id"> ${message:public}</t:eventLink>
+							</p:kindCell>
+							<p:startDateCell>
+								<t:eventLink t:event="resultPublicBallot" context="ballot.id"> ${startDate}</t:eventLink>
+							</p:startDateCell>
+							<p:endDateCell>
+								<t:eventLink t:event="resultPublicBallot" context="ballot.id"> ${endDate}</t:eventLink>
+							</p:endDateCell>
+							<p:methodCell>
+								<t:eventLink t:event="resultPublicBallot" context="ballot.id"> ${metodo}</t:eventLink>
+							</p:methodCell>
+						</t:grid>
 					</t:if>
-					<span>${startDate}</span> <span>${endDate}</span> <span>${metodo}&nbsp;&nbsp;&nbsp;</span><br />
-				</div>
-			</t:loop>
-		</t:if>
-
 	</div>
 </t:border>
 </html>

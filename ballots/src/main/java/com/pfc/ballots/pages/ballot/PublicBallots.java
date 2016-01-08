@@ -90,8 +90,7 @@ public class PublicBallots {
 	private List<Ballot> publicCurrentBallots;
 	@Property
 	private Ballot ballot;
-	
-	
+
 	
 	public String getMetodo()
 	{
@@ -211,7 +210,7 @@ public class PublicBallots {
 	
    @SessionAttribute
 	private String contextBallotId;
-	public Object onActionFromVotePublicBallot(String id)
+	public Object onVotePublicBallot(String id)
 	{
 		contextBallotId=id;
 		return VoteBallot.class;
@@ -219,12 +218,12 @@ public class PublicBallots {
 	
 	@SessionAttribute
 	private String contextResultBallotId;
-	public Object onActionFromResultPublicBallot(String id)
+
+	public Object onResultPublicBallot(String id)
 	{
 		contextResultBallotId=id;
 		return ResultBallot.class;
 	}
-	
 
 	  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////// ON ACTIVATE //////////////////////////////////////////////////////// 

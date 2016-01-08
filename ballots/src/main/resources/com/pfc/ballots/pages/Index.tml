@@ -109,8 +109,8 @@ TABLE.t-data-grid TR:hover td {
 						<h3>${message:actives}</h3> <hr />
 						<t:grid t:id="ballotsGridActives" source="activeBallots"
 							row="ballot" t:value="ballot"
-							reorder="name, kind, startDate, endDate, method" rowsPerPage="10"
-							inplace="true" add="kind"
+							reorder="name, kind, startDate, endDate, method, result" rowsPerPage="10"
+							inplace="true" add="kind, result"
 							exclude="ended, editable,teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
 							<p:nameCell>
 								<t:eventLink t:event="voteBallot" context="ballot.id"> ${ballot.name}</t:eventLink>
@@ -127,6 +127,9 @@ TABLE.t-data-grid TR:hover td {
 							<p:methodCell>
 								<t:eventLink t:event="voteBallot" context="ballot.id"> ${metodo}</t:eventLink>
 							</p:methodCell>
+														<p:resultCell>
+								<t:eventLink t:event="resultBallot" context="ballot.id"> <button>${message:show-result}</button></t:eventLink>
+							</p:resultCell>
 						</t:grid>
 
 					</t:if>
@@ -169,8 +172,8 @@ TABLE.t-data-grid TR:hover td {
 						<h3>${message:public-actives}</h3> <hr />
 						<t:grid t:id="ballotsGrid" source="publicActiveBallots"
 							row="ballot" t:value="ballot"
-							reorder="name, kind, startDate, endDate, method" rowsPerPage="10"
-							inplace="true" add="kind"
+							reorder="name, kind, startDate, endDate, method, vote, result" rowsPerPage="10"
+							inplace="true" add="kind, result, vote"
 							exclude="ended, editable,teaching,publica,id,notstarted,active,counted,description,idOwner,idballotdata,idCensus">
 							<p:nameCell>
 								<t:eventLink t:event="votePublicBallot" context="ballot.id"> ${ballot.name}</t:eventLink>
@@ -187,6 +190,12 @@ TABLE.t-data-grid TR:hover td {
 							<p:methodCell>
 								<t:eventLink t:event="votePublicBallot" context="ballot.id"> ${metodo}</t:eventLink>
 							</p:methodCell>
+														<p:voteCell>
+								<t:eventLink t:event="votePublicBallot" context="ballot.id"> <button>${message:vote}</button></t:eventLink>
+							</p:voteCell>
+														<p:resultCell>
+								<t:eventLink t:event="resultPublicBallot" context="ballot.id"> <button>${message:show-result}</button></t:eventLink>
+							</p:resultCell>
 						</t:grid>
 
 					</t:if>

@@ -13,7 +13,6 @@
 	</div>
 	
 	<h1>${message:contact-with-us}</h1><hr/>
-	
 		<t:if test="showEmailProblem">
 			<h1>${message:mail-problem}</h1>
 			${message:in-this-moments}<br/>
@@ -24,7 +23,7 @@
 			
 			<p:else>
 				<t:form t:id="contact">
-					${message:our-email} <a href="mailto:${emailAccount.email}"> ${emailAccount.email}</a><br/><br/>
+					${message:our-email} <a href="mailto:inpo@usal.es"> inpo@usal.es</a><br/><br/>
 					<table>
 						<tr>
 							<td><t:Label t:for="remitente"/></td>
@@ -58,8 +57,14 @@
 		
 			</p:else>
 		</t:if>
-
-	
+		
+		<t:if test="Sent">
+			${message:sent}
+		</t:if>
+		<t:if test="SendingError">
+					${message:errorSending}
+		</t:if>
+		
 	
 
 	</div></t:border>

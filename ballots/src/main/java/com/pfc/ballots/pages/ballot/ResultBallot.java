@@ -762,7 +762,184 @@ public class ResultBallot {
 			javaScriptSupport.addInitializerCall("charts_coombs",array.toString());
 		}
 	}
+	public boolean getExistVotes()
+	{
+		
+		if(ballot.getMethod()==Method.MAYORIA_RELATIVA)
+		{
+			if(relMay.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.KEMENY)
+		{
+			if(kemeny.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.BORDA)
+		{
+			if(borda.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.RANGE_VOTING)
+		{
+			if(range.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.APPROVAL_VOTING)
+		{
+			if(approvalVoting.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.BRAMS)
+		{
+			if(brams.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
 
+		if(ballot.getMethod()==Method.VOTO_ACUMULATIVO)
+		{
+			if(votoAcumulativo.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.JUICIO_MAYORITARIO)
+		{
+			if(juicioMayoritario.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.CONDORCET)
+		{
+			if(condorcet.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+
+		if(ballot.getMethod()==Method.BLACK)
+		{
+			if(black.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.SCHULZE)
+		{
+			if(schulze.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.SMALL)
+		{
+			if(small.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.DODGSON)
+		{
+			if(dodgson.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.COPELAND)
+		{
+			if(copeland.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.MEJOR_PEOR)
+		{
+			if(mejorPeor.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.BUCKLIN)
+		{
+			if(bucklin.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.HARE)
+		{
+			if(hare.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.NANSON)
+		{
+			if(nanson.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(ballot.getMethod()==Method.COOMBS)
+		{
+			if(coombs.getVotes().size() >0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
+	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////// MAYORIA RELATIVA //////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

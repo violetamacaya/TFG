@@ -27,7 +27,7 @@ import com.pfc.ballots.util.UUID;
  */
 public class DataSession {
 	
-	public static final long SESSION_TIME = 45;
+	public static final long SESSION_TIME = 500;
 	
 	private String DBName;
 	private String company;
