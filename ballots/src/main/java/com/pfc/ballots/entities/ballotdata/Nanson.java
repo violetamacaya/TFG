@@ -57,6 +57,7 @@ public class Nanson {
 		this.options = options;
 	}
 	public List<List<String>> getVotes() {
+		System.out.println("votos: "+votes);
 		return votes;
 	}
 	public void setVotes(List<List<String>> votes) {

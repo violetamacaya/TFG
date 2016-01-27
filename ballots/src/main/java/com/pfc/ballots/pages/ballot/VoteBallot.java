@@ -1465,70 +1465,70 @@ public class VoteBallot {
 	}
 	public boolean isShowVotoAcumulativo5()
 	{
-		if(votoAcumulativo.getOptions().size()>=4)
+		if(votoAcumulativo.getOptions().size()>4)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo6()
 	{
-		if(votoAcumulativo.getOptions().size()>=5)
+		if(votoAcumulativo.getOptions().size()>5)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo7()
 	{
-		if(votoAcumulativo.getOptions().size()>=6)
+		if(votoAcumulativo.getOptions().size()>6)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo8()
 	{
-		if(votoAcumulativo.getOptions().size()>=7)
+		if(votoAcumulativo.getOptions().size()>7)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo9()
 	{
-		if(votoAcumulativo.getOptions().size()>=8)
+		if(votoAcumulativo.getOptions().size()>8)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo10()
 	{
-		if(votoAcumulativo.getOptions().size()>=9)
+		if(votoAcumulativo.getOptions().size()>9)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo11()
 	{
-		if(votoAcumulativo.getOptions().size()>=10)
+		if(votoAcumulativo.getOptions().size()>10)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo12()
 	{
-		if(votoAcumulativo.getOptions().size()>=11)
+		if(votoAcumulativo.getOptions().size()>11)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo13()
 	{
-		if(votoAcumulativo.getOptions().size()>=12)
+		if(votoAcumulativo.getOptions().size()>12)
 			return true;
 		else
 			return false;
 	}
 	public boolean isShowVotoAcumulativo14()
 	{
-		if(votoAcumulativo.getOptions().size()>=13)
+		if(votoAcumulativo.getOptions().size()>13)
 			return true;
 		else
 			return false;
@@ -3306,13 +3306,10 @@ public class VoteBallot {
 					if(ballot!=null && !ballot.isEnded() && !alreadyVote())
 					{
 						schulzeVote.add(schulzeRadio0);
-						System.out.println("El valor en el radio  0 es de : "+Integer.parseInt(schulzeRadio0));
 						schulzeVote.add(schulzeRadio1);
-						System.out.println("El valor en el radio  1 es de : "+Integer.parseInt(schulzeRadio1));
 
 						if(schulze.getOptions().size()>=3){
 							schulzeVote.add(schulzeRadio2);
-							System.out.println("El valor en el radio  2 es de : "+Integer.parseInt(schulzeRadio2));
 						}
 						if(schulze.getOptions().size()>=4 ){
 							schulzeVote.add(schulzeRadio3);
@@ -3348,6 +3345,7 @@ public class VoteBallot {
 							schulzeVote.add(schulzeRadio13);
 						}						
 						if(schulze.getOptions().size()>=15){
+							schulzeVote.add(schulzeRadio14);
 						}	
 						schulze.addVote(schulzeVote);
 						schulzeDao.update(schulze);
@@ -3365,52 +3363,48 @@ public class VoteBallot {
 						vote.setCounted(true);
 						voteDao.updateVote(vote);
 
-						if(Integer.parseInt(schulzeRadio0) > 0){
-							schulzeVote.add(schulzeRadio0);
-						}
-						if(Integer.parseInt(schulzeRadio1) > 0){
-							schulzeVote.add(schulzeRadio1);
-						}
-						if(Integer.parseInt(schulzeRadio2) > 0){
+						schulzeVote.add(schulzeRadio0);
+						schulzeVote.add(schulzeRadio1);
+
+						if(schulze.getOptions().size()>=3){
 							schulzeVote.add(schulzeRadio2);
 						}
-						if(Integer.parseInt(schulzeRadio3) > 0){
+						if(schulze.getOptions().size()>=4 ){
 							schulzeVote.add(schulzeRadio3);
 						}
-						if(Integer.parseInt(schulzeRadio4) > 0){
+						if(schulze.getOptions().size()>=5){
 							schulzeVote.add(schulzeRadio4);
 						}
-						if(Integer.parseInt(schulzeRadio5) > 0){
+						if(schulze.getOptions().size()>=6){
 							schulzeVote.add(schulzeRadio5);
 						}
-						if(Integer.parseInt(schulzeRadio6) > 0){
+						if(schulze.getOptions().size()>=7){
 							schulzeVote.add(schulzeRadio6);
 						}
-						if(Integer.parseInt(schulzeRadio7) > 0){
+						if(schulze.getOptions().size()>=8 ){
 							schulzeVote.add(schulzeRadio7);
 						}
-						if(Integer.parseInt(schulzeRadio8) > 0){
+						if(schulze.getOptions().size()>=9){
 							schulzeVote.add(schulzeRadio8);
 						}
-						if(Integer.parseInt(schulzeRadio9) > 0){
+						if(schulze.getOptions().size()>=10){
 							schulzeVote.add(schulzeRadio9);
 						}
-						if(Integer.parseInt(schulzeRadio10) > 0){
+						if(schulze.getOptions().size()>=11){
 							schulzeVote.add(schulzeRadio10);
 						}
-						if(Integer.parseInt(schulzeRadio11) > 0){
+						if(schulze.getOptions().size()>=12){
 							schulzeVote.add(schulzeRadio11);
 						}
-						if(Integer.parseInt(schulzeRadio12) > 0){
+						if(schulze.getOptions().size()>=13){
 							schulzeVote.add(schulzeRadio12);
 						}
-						if(Integer.parseInt(schulzeRadio13) > 0){
+						if(schulze.getOptions().size()>=14){
 							schulzeVote.add(schulzeRadio13);
 						}						
-						if(Integer.parseInt(schulzeRadio14) > 0){
+						if(schulze.getOptions().size()>=15){
 							schulzeVote.add(schulzeRadio14);
-						}
-						System.out.println("schulzeVote vale: " +schulzeVote);
+						}	
 						schulze.addVote(schulzeVote);
 						schulzeDao.update(schulze);
 					}
@@ -3761,6 +3755,7 @@ public class VoteBallot {
 							smallVote.add(smallRadio13);
 						}						
 						if(small.getOptions().size()>=15){
+							smallVote.add(smallRadio14);
 						}	
 						small.addVote(smallVote);
 						smallDao.update(small);
@@ -3778,51 +3773,51 @@ public class VoteBallot {
 						vote.setCounted(true);
 						voteDao.updateVote(vote);
 
-						if(Integer.parseInt(smallRadio0) > 0){
-							smallVote.add(smallRadio0);
-						}
-						if(Integer.parseInt(smallRadio1) > 0){
-							smallVote.add(smallRadio1);
-						}
-						if(Integer.parseInt(smallRadio2) > 0){
+						smallVote.add(smallRadio0);
+						System.out.println("El valor en el radio  0 es de : "+Integer.parseInt(smallRadio0));
+						smallVote.add(smallRadio1);
+						System.out.println("El valor en el radio  1 es de : "+Integer.parseInt(smallRadio1));
+
+						if(small.getOptions().size()>=3){
 							smallVote.add(smallRadio2);
+							System.out.println("El valor en el radio  2 es de : "+Integer.parseInt(smallRadio2));
 						}
-						if(Integer.parseInt(smallRadio3) > 0){
+						if(small.getOptions().size()>=4 ){
 							smallVote.add(smallRadio3);
 						}
-						if(Integer.parseInt(smallRadio4) > 0){
+						if(small.getOptions().size()>=5){
 							smallVote.add(smallRadio4);
 						}
-						if(Integer.parseInt(smallRadio5) > 0){
+						if(small.getOptions().size()>=6){
 							smallVote.add(smallRadio5);
 						}
-						if(Integer.parseInt(smallRadio6) > 0){
+						if(small.getOptions().size()>=7){
 							smallVote.add(smallRadio6);
 						}
-						if(Integer.parseInt(smallRadio7) > 0){
+						if(small.getOptions().size()>=8 ){
 							smallVote.add(smallRadio7);
 						}
-						if(Integer.parseInt(smallRadio8) > 0){
+						if(small.getOptions().size()>=9){
 							smallVote.add(smallRadio8);
 						}
-						if(Integer.parseInt(smallRadio9) > 0){
+						if(small.getOptions().size()>=10){
 							smallVote.add(smallRadio9);
 						}
-						if(Integer.parseInt(smallRadio10) > 0){
+						if(small.getOptions().size()>=11){
 							smallVote.add(smallRadio10);
 						}
-						if(Integer.parseInt(smallRadio11) > 0){
+						if(small.getOptions().size()>=12){
 							smallVote.add(smallRadio11);
 						}
-						if(Integer.parseInt(smallRadio12) > 0){
+						if(small.getOptions().size()>=13){
 							smallVote.add(smallRadio12);
 						}
-						if(Integer.parseInt(smallRadio13) > 0){
+						if(small.getOptions().size()>=14){
 							smallVote.add(smallRadio13);
 						}						
-						if(Integer.parseInt(smallRadio14) > 0){
+						if(small.getOptions().size()>=15){
 							smallVote.add(smallRadio14);
-						}
+						}	
 						small.addVote(smallVote);
 						smallDao.update(small);
 					}

@@ -39,7 +39,6 @@
 				<li><t:eventlink t:event="menu"  t:context="literal:nanson"><plain>${message:nanson}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu"  t:context="literal:rangeVoting"><plain>${message:rangeVoting}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu"  t:context="literal:schulze"><plain>${message:schulze}</plain></t:eventlink></li>
-				<li><t:eventlink t:event="menu"  t:context="literal:approvalVoting"><plain>${message:approvalVoting}</plain></t:eventlink></li>
 				<li><t:eventlink t:event="menu"  t:context="literal:small"><plain>${message:small}</plain></t:eventlink></li>				
 				<li><t:eventlink t:event="menu"  t:context="literal:votoAcumulativo"><plain>${message:votoAcumulativo}</plain></t:eventlink></li>
 		</ul>

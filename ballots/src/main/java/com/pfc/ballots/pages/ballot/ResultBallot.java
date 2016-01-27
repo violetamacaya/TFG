@@ -369,11 +369,11 @@ public class ResultBallot {
 			smallDao= DB4O.getSmallDao(datasession.getDBName());
 			small=smallDao.getByBallotId(ballot.getId());
 
-			if(!ballot.isEnded())
+			if(!ballot.isEnded() && small.getVotes().size()>0)
 			{
 				small.calcularSmall();
 			}
-			if(ballot.isEnded()==true && ballot.isCounted()==false && small!=null)
+			if(ballot.isEnded()==true && ballot.isCounted()==false && small!=null && small.getVotes().size()>0)
 			{
 				small.calcularSmall();
 				ballot.setCounted(true);
@@ -469,18 +469,18 @@ public class ResultBallot {
 		}	
 		else if(ballot.getMethod()==Method.NANSON)
 		{
-			coombsDao= DB4O.getCoombsDao(datasession.getDBName());
-			coombs=coombsDao.getByBallotId(ballot.getId());
+			nansonDao= DB4O.getNansonDao(datasession.getDBName());
+			nanson=nansonDao.getByBallotId(ballot.getId());
 
 			if(!ballot.isEnded())
 			{
-				coombs.calcularCoombs();
+				nanson.calcularNanson();
 			}
-			if(ballot.isEnded()==true && ballot.isCounted()==false && coombs!=null)
+			if(ballot.isEnded()==true && ballot.isCounted()==false && nanson!=null)
 			{
-				coombs.calcularCoombs();
+				nanson.calcularNanson();
 				ballot.setCounted(true);
-				coombsDao.update(coombs);
+				nansonDao.update(nanson);
 				ballotDao.updateBallot(ballot);
 			}
 		}	
@@ -1709,7 +1709,7 @@ public class ResultBallot {
 
 	public boolean getShowBucklin()
 	{
-		if(ballot!=null && ballot.getMethod()==Method.COOMBS)
+		if(ballot!=null && ballot.getMethod()==Method.BUCKLIN)
 		{return true;}
 		return false;
 	}

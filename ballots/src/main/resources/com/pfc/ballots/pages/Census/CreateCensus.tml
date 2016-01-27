@@ -237,7 +237,7 @@
 							</td></tr>
 							<tr><td>
 								<input t:type="submit" class="boton" value="${message:remove-but}"/>
-								<t:actionLink class="boton" t:id="removeAll" zone="^"><button>${message:removeall-but}</button></t:actionLink>
+								<t:actionLink t:id="removeAll" zone="^"><button>${message:removeall-but}</button></t:actionLink>
 							</td></tr>
 						</table>
 					</t:form>
@@ -247,7 +247,7 @@
 				
 						<t:actionLink t:id="backbut" zone="^"><button>${message:back-but}</button></t:actionLink>
 						<t:if test="showCensusList">
-							<t:actionLink class="boton" t:id="endbut" zone="^"><button>${message:savecensus-but}</button></t:actionLink>
+							<t:actionLink t:id="endbut" zone="^"><button>${message:savecensus-but}</button></t:actionLink>
 						</t:if>
 			</t:zone>
 

@@ -50,12 +50,12 @@ charts= Class.create( {
 			if(type=="ACUMULATIVO")
 			{
 				data.addColumn('string', 'Option');
-				data.addColumn('number', 'Mediana');
+				data.addColumn('number', 'Votos');
 			}       
 			if(type=="MAYORITARIO")
 			{
 				data.addColumn('string', 'Option');
-				data.addColumn('number', 'Votos');
+				data.addColumn('number', 'Mediana');
 			}    
 			if(type=="CONDORCET")
 			{
